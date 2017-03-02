@@ -1,0 +1,95 @@
+{
+    "createAt": 1482248703000,
+    "id": 1,
+    "userName": "睡个毛起来嗨",
+    "wechatOpenId": "123456789012345",
+    "wechatUnionId": "123456789012345",
+    "iconUrl": "http://www.baidu.com",
+    "gender": "F",
+    "district": "天津市河北区xxx街道",
+    "vipcards": [{
+            "activated": false,
+            "expiredAt": 1514277899000,
+            "vipCardEntity": {
+                "id": 1,
+                "vipType": "considerate",
+                "validityPeriod": 12,
+                "price": 100,
+                "imageUrl": "http://www.baidu.com",
+                "shortName": "VIP6666",
+                "outpatientCount": 30,
+                "canConsult": true
+            }
+        },
+        {
+            "activated": true,
+            "expiredAt": 1483173942000,
+            "vipCardEntity": {
+                "id": 2,
+                "vipType": "considerate",
+                "validityPeriod": 12,
+                "price": 100,
+                "imageUrl": "http://www.baidu.com",
+                "shortName": "VIP66",
+                "outpatientCount": 30,
+                "canConsult": true
+            }
+        },
+        {
+            "activated": false,
+            "expiredAt": 1485946278000,
+            "vipCardEntity": {
+                "id": 1,
+                "vipType": "considerate",
+                "validityPeriod": 12,
+                "price": 100,
+                "imageUrl": "http://www.baidu.com",
+                "shortName": "VIP6666",
+                "outpatientCount": 30,
+                "canConsult": true
+            }
+        }
+    ],
+    "vipEntity": {
+        "id": 1,
+        "realName": "马悦",
+        "iconUrl": "http://www.baidu.com",
+        "mobile": "54321",
+        "idNo": "567890",
+        "gender": "M",
+        "contactAddress": "地址",
+        "vipCard": {
+            "activated": true,
+            "expiredAt": 1483173942000,
+            "vipCardEntity": {
+                "id": 2,
+                "vipType": "considerate",
+                "validityPeriod": 12,
+                "price": 100,
+                "imageUrl": "http://www.baidu.com",
+                "shortName": "VIP66",
+                "outpatientCount": 30,
+                "canConsult": true
+            }
+        },
+        "adviser": {
+            "id": 1,
+            "adminNo": "adminNo444",
+            "name": "测试",
+            "mobile": "5566778899",
+            "iconUrl": "http://www.baidu.com",
+            "job": "测试职位",
+            "role": "Adviser"
+        },
+        "nationality": "汉",
+        "nativePlace": "北京市朝阳区",
+        "job": "医生",
+        "medicalHistory": "青霉素",
+        "familyMedicalHistory": "遗传病",
+        "fertility": "一个小孩",
+        "allergic": "花粉过敏",
+        "sleepSituation": "很好",
+        "drinkingSituation": "酗酒",
+        "smokingSituation": "十年烟龄"
+    }
+}

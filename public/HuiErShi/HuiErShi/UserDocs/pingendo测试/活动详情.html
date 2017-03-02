@@ -1,0 +1,247 @@
+﻿<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>活动详情</title>
+    <!-- 通用Bootstrap样式库 -->
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
+    <!-- 个人维护样式库 -->
+    <link href="../../Styles/common.css" rel="stylesheet">
+    <script type="text/javascript" src="../../Scripts/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap-3.3.4.js"></script>
+    <script src="../../Scripts/CommonScript.js"></script> 
+</head>
+<body>
+    <!-- 顶部导航条 -->
+    <div class="navbar navbar-default navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="btn  comtitle">惠尔仕健康伙伴</a>
+                <span></span>
+
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+                <!--一级菜单-->
+                <ul class="nav navbar-nav" id="mainMenu">
+                    <li class="active">
+                        <a href="#" data-secondmenu="#userManage_Second">用户管理</a>
+                    </li>
+                    <li>
+                        <a href="#" data-secondmenu="#userData_Second">用户数据</a>
+                    </li>
+                    <li>
+                        <a href="#" data-secondmenu="#memberReport_Second">会员报告</a>
+                    </li>
+                    <li>
+                        <a href="#" data-secondmenu="#systemManage_Second">系统管理</a>
+                    </li>
+                </ul>
+                <!--二级菜单-->
+                <ul class=" secondMenu" id="userManage_Second">
+                    <li><a href="">需求记录</a></li>
+                    <li><a href="">预约列表</a></li>
+                    <li><a href="">用户列表</a></li>
+                    <li><a href="">会员列表</a></li>
+                    <li><a href="">活动记录</a></li>
+                </ul>
+                <ul class="secondMenu" id="userData_Second">
+                    <li><a href="">项目列表</a></li>
+                    <li><a href="">项目数据</a></li>
+                </ul>
+                <ul class="secondMenu" id="memberReport_Second">
+                    <li><a href="">处方列表</a></li>
+                    <li><a href="">会员报告列表</a></li>
+                    <li><a href="">咨询列表</a></li>
+                    <li><a href="">验单列表</a></li>
+                </ul>
+                <ul class="secondMenu" id="systemManage_Second">
+                    <li><a href="">预约项目</a></li>
+                    <li><a href="">移动端设置</a></li>
+                    <li><a href="">支付列表</a></li>
+                    <li><a href="">饮食设置</a></li>
+                    <li><a href="">卡券列表</a></li>
+                    <li><a href="">管理员设置</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="">
+                        <a href="#">通知<span class="badge">2</span></a>
+                    </li>
+                    <li>
+                        <a href="#">退出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 面包屑导航  -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- 页面导航 -->
+                <!-- TODO 页面导航修改样式 -->
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">客户管理</a>
+                    </li>
+                    <li>
+                        <a href="#">活动列表</a>
+                    </li>
+                    <li class="active">活动详情</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--页面主体-->
+    <div class="container">
+        <div class="row">
+            <!--表单元素-->
+            <form action="">
+                <!--活动图片上传-->
+                <div class="col-md-2 col-sm-2">
+                    <img src="../../images/userphoto.jpg" class="img-responsive" alt="用户上传头像">
+                    <input type="file" id="fileUserPhoto">
+                </div>
+
+                <div class="col-md-10 col-sm-10">
+                    <div class="form-horizontal">
+                        <!--输入项-->
+                        <div class="form-group">
+                            <div class="col-sm-2 col-md-2">
+                                <label for="txtActivityUser" class="control-label">主办方：</label>
+                            </div>
+                            <div class="col-sm-5 col-md-5">
+                                <input type="text" class="form-control" id="txtActivityUser" placeholder="主办方单位名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label for="txtActivityName" class="control-label">活动名称：</label>
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="txtActivityName" placeholder="请输入活动名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label for="txtActivityStartTime" class="control-label">活动时间：</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="txtActivityStartTime" placeholder="请选择时间">
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="txtUserName" class="control-label">持续：</label>
+                            </div>
+                            <div class="col-sm-2 col-md-1">
+                                <input type="text" class="form-control" id="txtActivitySpendTime" placeholder="0">
+
+
+                            </div>
+                            <div class="col-sm-1" style="text-align:left;padding:10px 0 0 0;">小时</div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label for="txtActivityCost" class="control-label">报名费：</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="txtActivityCost" placeholder="0">
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="txtActivityPersonNum" class="control-label">活动人数：</label>
+                            </div>
+                            <div class="col-sm-2 col-md-1 ">
+                                <input type="text" class="form-control" id="txtActivityPersonNum" placeholder="0">
+                            </div>
+                            <div class="col-sm-1" style="text-align:left;padding:10px 0 0 0;">
+                                人
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label for="txtActivityPlace" class="control-label">活动地点：</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="txtActivityPlace" placeholder="活动详细地址">
+                            </div>
+                            <div class="col-sm-2">
+                                <label for="rdoActivitySignIn" class="control-label">自助签到：</label>
+
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="rdoActivitySignIn" id="txtUserSex"
+                                               value="option1" checked>开
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="rdoActivitySignIn" id="txtUserSex2"
+                                               value="option2">关
+                                    </label>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label for="txtActivityLocation" class="control-label">地点坐标：</label>
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="txtActivityLocation" placeholder="活动的坐标">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label for="txtActivityNotice" class="control-label">通知公告：</label>
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" id="txtActivityNotice" placeholder="例：慢性病管理健康常识知多点！欢迎参加！">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label for="txtActivityDetail" class="control-label">活动详情：</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" name="" id="txtActivityDetail" rows="5" placeholder="请输入活动详细内容"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label for="rdoActivityState" class="control-label"></label>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="rdoActivityState" id="rdoActivityState1"
+                                               value="option1" checked>待发布 (用户不可见)&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="rdoActivityState" id="rdoActivityState2"
+                                               value="option2">发布 (用户可见)&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="rdoActivityState" id="rdoActivityState3"
+                                               value="option2">发布 (可见不可报名)&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--提交按钮-->
+                        <div class="col-md-3 col-md-offset-3 col-sm-6 col-sm-offset-3">
+                            <input type="submit" class="btn btn-block btn-primary" id="btnActivitySubmit" value="保存活动信息">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BA7F1527-160F-4AB2-9F1A-12A48680D0BD}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HuiErShi</RootNamespace>
+    <AssemblyName>HuiErShi</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="images\2.png" />
+    <Content Include="images\3.png" />
+    <Content Include="images\5.png" />
+    <Content Include="images\7.png" />
+    <Content Include="images\user1.png" />
+    <Content Include="JSON\UserList.json" />
+    <Content Include="JSON\UserList.ashx" />
+    <Content Include="JSON\UserInfo.ashx" />
+    <Content Include="JSON\ActivityList.ashx" />
+    <Content Include="JSON\ProjectList.ashx" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="images\userphoto.jpg" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\bootstrap-3.3.4.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap-paginator.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bounce_动画脚本.js" />
+    <Content Include="Scripts\CommonScript.js" />
+    <Content Include="Scripts\datalist.js" />
+    <Content Include="Scripts\extendPagination.js" />
+    <Content Include="Scripts\html5shiv.js" />
+    <Content Include="Scripts\jquery-1.10.1.js" />
+    <Content Include="Scripts\jquery-1.11.1.min.js" />
+    <Content Include="Scripts\jquery-1.2.6-vsdoc-cn.js" />
+    <Content Include="Scripts\jquery-1.8.3.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery.datetimepicker.full.min.js" />
+    <Content Include="Scripts\jquery.form.js" />
+    <Content Include="Scripts\jquery.pagination.js" />
+    <Content Include="Scripts\jquery_and_jqueryui.js" />
+    <Content Include="Scripts\multiselect.min.js" />
+    <Content Include="Scripts\page.js" />
+    <Content Include="Scripts\prettify.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\select2.full.min.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\w5cValidator.js" />
+    <Content Include="Styles\bootstrap-3.2.0.css" />
+    <Content Include="Styles\bootstrap-3.3.4.css" />
+    <Content Include="Styles\common.css" />
+    <Content Include="Styles\font-awesome.min.css" />
+    <Content Include="Styles\jquery.datetimepicker.css" />
+    <Content Include="Styles\login.css" />
+    <Content Include="UserDocs\Login.html" />
+    <Content Include="UserDocs\pingendo测试\test1.html" />
+    <Content Include="UserDocs\pingendo测试\userinfo.html" />
+    <Content Include="UserDocs\pingendo测试\userinfo1.html" />
+    <Content Include="UserDocs\pingendo测试\会员详情.html" />
+    <Content Include="UserDocs\pingendo测试\活动详情.html" />
+    <Content Include="UserDocs\pingendo测试\编辑饮食.html" />
+    <Content Include="UserDocs\SlideHtml.html" />
+    <Content Include="UserDocs\SystemManage\AdminSetting.html" />
+    <Content Include="UserDocs\SystemManage\CardsList.html" />
+    <Content Include="UserDocs\SystemManage\FoodsManageList.html" />
+    <Content Include="UserDocs\SystemManage\IssueDetails.html" />
+    <Content Include="UserDocs\SystemManage\PayList.html" />
+    <Content Include="UserDocs\SystemManage\ReservationItem.html" />
+    <Content Include="UserDocs\SystemManage\HelpNotes.html" />
+    <Content Include="UserDocs\pingendo测试\管理员设置.html" />
+    <Content Include="UserDocs\SystemManage\FoodsEdit.html" />
+    <Content Include="UserDocs\pingendo测试\FoodsEdit.html" />
+    <Content Include="UserDocs\UserData\DietAnalysis.html" />
+    <Content Include="UserDocs\UserData\FeedRecord.html" />
+    <Content Include="UserDocs\UserData\FoodRecord.html" />
+    <Content Include="UserDocs\UserData\ProjectData.html" />
+    <Content Include="UserDocs\UserData\ProjectInfo.html" />
+    <Content Include="UserDocs\UserData\ProjectList.html" />
+    <Content Include="UserDocs\UserData\RecordList.html" />
+    <Content Include="UserDocs\UserData\UseDrugRecaod.html" />
+    <Content Include="UserDocs\UserData\ViewManage.html" />
+    <Content Include="UserDocs\UserManage\ActivityAdd.html" />
+    <Content Include="UserDocs\UserManage\ActivityList.html" />
+    <Content Include="UserDocs\UserManage\DemandList.html" />
+    <Content Include="UserDocs\UserManage\MemberList.html" />
+    <Content Include="UserDocs\UserManage\MemberOrder.html" />
+    <Content Include="UserDocs\UserManage\UserInfo.html" />
+    <Content Include="UserDocs\UserManage\UserInfoEdit.html" />
+    <Content Include="UserDocs\UserManage\UserList.html" />
+    <Content Include="UserDocs\VipReport\AdvisoryList.html" />
+    <Content Include="UserDocs\VipReport\CheckLists.html" />
+    <Content Include="UserDocs\VipReport\MemberReportList.html" />
+    <Content Include="UserDocs\VipReport\PrescriptionList.html" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="JSON\ActivityList.ashx.cs">
+      <DependentUpon>ActivityList.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="JSON\ProjectList.ashx.cs">
+      <DependentUpon>ProjectList.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="JSON\UserInfo.ashx.cs">
+      <DependentUpon>UserInfo.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="JSON\UserList.ashx.cs">
+      <DependentUpon>UserList.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57020</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:57020/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

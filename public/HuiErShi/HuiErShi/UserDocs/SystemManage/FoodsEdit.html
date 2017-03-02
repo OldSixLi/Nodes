@@ -1,0 +1,325 @@
+﻿<!--编辑饮食页面-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>编辑食物</title>
+        <script src="../../Scripts/jquery-1.11.1.min.js"></script>
+        <script src="../../Scripts/CommonScript.js"></script>
+        <!-- 通用Bootstrap样式库 -->
+        <link href="../../Styles/bootstrap-3.2.0.css" rel="stylesheet">
+        <!-- 个人维护样式库 -->
+        <link href="../../Styles/common.css" rel="stylesheet">
+       
+    </head>
+    <body> 
+        <!-- 面包屑导航 -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- 页面导航 -->
+                    <!-- TODO 页面导航修改样式 -->
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">系统管理</a>
+                        </li>
+                        <li class="active">编辑食物</li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--内容区域-->
+        <div class="container-fluid">
+            <div class="row">
+                <!--表单-->
+                <form  role="form">
+                    <!--图片上传-->
+                    <div class="col-md-12">
+                        <div class="col-md-2  col-md-offset-5 col-sm-4  col-sm-offset-4">
+                            <img src="../../images/userphoto.jpg" class="img-responsive">
+                            <input id="fileUserPhoto" type="file">
+                        </div>
+                    </div>
+                    <!--分割线-->
+                    <div class="col-md-12 col-sm-12">
+                        <hr>
+                    </div>
+                    <!--左侧表单-->
+                    <div class="col-md-offset-1 col-md-5 col-sm-6 col-sm-offset-0 form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserName" class="control-label">食物类型：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <select class="form-control">
+                                    <option value="volvo">谷薯类</option>
+                                    <option value="saab">蔬菜水果类</option>
+                                    <option value="mercedes">鸡鱼肉蛋类</option>
+                                    <option value="audi">坚果油脂类</option>
+                                    <option value="audi">其他类</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserPhone" class="control-label">二级类型：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <select class="form-control">
+                                    <option value="volvo">谷薯类</option>
+                                    <option value="saab">蔬菜水果类</option>
+                                    <option value="mercedes">鸡鱼肉蛋类</option>
+                                    <option value="audi">坚果油脂类</option>
+                                    <option value="audi">其他类</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserBelong" class="control-label">标准重量（g）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="number" class="form-control" id="txtUserNum" placeholder="标准重量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserNum" class="control-label">水分（g）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="number" class="form-control" id="txtUserNum" placeholder="水分">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserNation" class="control-label">能量（kcal）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserNation" placeholder="能量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserNativePlace" class="control-label">蛋白质（g）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserNativePlace" placeholder="蛋白质">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserJob" class="control-label">脂肪（g）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserJob" placeholder="脂肪">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserFoodHabits" class="control-label">碳水化合物（g）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserFoodHabits" placeholder="碳水化合物">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserSportHabits" class="control-label">膳食纤维：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserSportHabits" placeholder="膳食纤维">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserPressure" class="control-label">灰分（g）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserPressure" placeholder="灰分">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserPressure" class="control-label">维生素A(μgRE)：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserPressure" placeholder="维生素A含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserPressure" class="control-label">胡萝卜素（μg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserPressure" placeholder="胡萝卜素含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserPressure" class="control-label">硫胺素（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserPressure" placeholder="硫胺素含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserPressure" class="control-label">核黄素（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserPressure" placeholder="核黄素含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserPressure" class="control-label">食物描述：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <textarea class="form-control" name="" id="txtActivityDetail" rows="5" placeholder="请输入食物描述"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 右侧表单 -->
+                    <div class="  col-md-5 col-sm-6 form-horizontal">
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserName" class="control-label">食物名称：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="number" class="form-control" id="txtUserNum" placeholder="食物名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserPhone" class="control-label">烟酸（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="number" class="form-control" id="txtUserNum" placeholder="烟酸含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserBelong" class="control-label">维生素C（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="number" class="form-control" id="txtUserNum" placeholder="维生素C含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserNum" class="control-label">维生素E（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="number" class="form-control" id="txtUserNum" placeholder="维生素E含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserNation" class="control-label">α-TE（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserNation" placeholder="α-TE含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserNativePlace" class="control-label">钙（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserNativePlace" placeholder="钙含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserJob" class="control-label">磷（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserJob" placeholder="磷含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserPressure" class="control-label">钠（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserPressure" placeholder="钠含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserFoodHabits" class="control-label">镁（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserFoodHabits" placeholder="镁含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserSportHabits" class="control-label">铁（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserSportHabits" placeholder="铁含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserPressure" class="control-label">锌（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserPressure" placeholder="锌含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserPressure" class="control-label">硒（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserPressure" placeholder="硒含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserPressure" class="control-label">铜（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtUserPressure" placeholder="铜含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtUserPressure" class="control-label">锰（mg）：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <input type="text" class="form-control" id="txtMg" placeholder="锰含量">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-6 col-md-4">
+                                <label for="txtFoodNotice" class="control-label">食物说明：</label>
+                            </div>
+                            <div class="col-sm-6 col-md-7">
+                                <textarea class="form-control" name="txtFoodNotice" id="txtFoodNotice" rows="5" placeholder="食物说明"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!--提交按钮-->
+                    <div class="col-md-12 col-sm-12">
+                        <hr />
+                        <div class="col-sm-3 col-md-2 col-md-offset-4 col-sm-offset-3">
+                            <input type="submit" name="name" value="保存" class="btn btn-primary btn-block" />
+                        </div>
+                        <div class="col-sm-3 col-md-2">
+                            <input type="button" name="name" value="取消" class="btn btn-default btn-block" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+                                            
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,198 @@
+﻿<!--视图管理-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>视图管理</title>
+    <script src="../../Scripts/jquery-1.11.1.min.js"></script>
+    <script src="../../Scripts/jquery.pagination.js"></script>
+    <script src="../../Scripts/prettify.min.js"></script>
+    <script src="../../Scripts/multiselect.min.js"></script>
+    <script src="../../Scripts/CommonScript.js"></script>
+
+    <!-- 通用Bootstrap样式库 -->
+    <link href="../../Styles/bootstrap-3.2.0.css" rel="stylesheet">
+    <!-- 个人维护样式库 -->
+    <link href="../../Styles/common.css" rel="stylesheet">
+    <style type="text/css">        .datalist option {
+             height: 30px;
+             font-size: 15px;
+        }
+        .datalist select {
+            border: none;border-radius: 0;width: 105%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航条 -->
+    <div class="navbar navbar-default navbar-inverse navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="btn  comtitle">惠尔仕健康伙伴</a>
+                <span></span>
+
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+                <!--一级菜单-->
+                <ul class="nav navbar-nav" id="mainMenu">
+                    <li class="active">
+                        <a href="#" data-secondmenu="#userManage_Second">用户管理</a>
+                    </li>
+                    <li>
+                        <a href="#" data-secondmenu="#userData_Second">用户数据</a>
+                    </li>
+                    <li>
+                        <a href="#" data-secondmenu="#memberReport_Second">会员报告</a>
+                    </li>
+                    <li>
+                        <a href="#" data-secondmenu="#systemManage_Second">系统管理</a>
+                    </li>
+                </ul>
+                <!--二级菜单-->
+                <ul class=" secondMenu" id="userManage_Second">
+                    <li><a href="">需求记录</a></li>
+                    <li><a href="">预约列表</a></li>
+                    <li><a href="">用户列表</a></li>
+                    <li><a href="">会员列表</a></li>
+                    <li><a href="">活动记录</a></li>
+                </ul>
+                <ul class="secondMenu" id="userData_Second">
+                    <li><a href="">项目列表</a></li>
+                    <li><a href="">项目数据</a></li>
+                </ul>
+                <ul class="secondMenu" id="memberReport_Second">
+                    <li><a href="">处方列表</a></li>
+                    <li><a href="">会员报告列表</a></li>
+                    <li><a href="">咨询列表</a></li>
+                    <li><a href="">验单列表</a></li>
+                </ul>
+                <ul class="secondMenu" id="systemManage_Second">
+                    <li><a href="">预约项目</a></li>
+                    <li><a href="">移动端设置</a></li>
+                    <li><a href="">支付列表</a></li>
+                    <li><a href="">饮食设置</a></li>
+                    <li><a href="">卡券列表</a></li>
+                    <li><a href="">管理员设置</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="">
+                        <a href="#">通知<span class="badge">2</span></a>
+                    </li>
+                    <li>
+                        <a href="#">退出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 面包屑导航  -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- 页面导航 -->
+                <!-- TODO 页面导航修改样式 -->
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">用户数据</a>
+                    </li>
+                    <li>
+                        <a href="#">项目列表</a>
+                    </li>
+                    <li class="active">视图管理</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--新视图--><!--TODO  后期重新布局-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 pull-right">
+                <a class="btn btn-primary " style="float: right;"><i class=" glyphicon glyphicon-plus"></i>&nbsp;创建新数据视图</a>
+            </div>
+            <div class="div_search pull-right">
+                <label class="control-label">新视图名：</label>
+                <input type="text" id="txtKeyWord" placeholder="新视图名">&nbsp;
+            </div>
+        </div>
+        <!--分割线-->
+        <hr style="margin-top: 0" />
+    </div>
+    <!--当前视图-->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 pull-right">
+                <a class="btn btn-primary " style="float: right;"><i class=" glyphicon glyphicon-plus"></i>&nbsp;创建新数据视图</a>
+            </div>
+            <div class="col-md-10 " style="padding-right: 2px">
+                <div class="div_search" style="width: 290px;float: left">
+                    <label class="control-label">当前视图：</label>
+                    <select>
+                        <option value="value">尿常规报告单</option>
+                    </select>&nbsp;&nbsp;
+                </div>
+                <div class="pull-right">
+                    <input type="text" id="txtKeyWord" class=" pull-right form-control" style="max-width:400px;width: 400px" placeholder="新视图名">
+                    <label class="control-label pull-right" style="margin-top: 5px;">标签：</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" >
+        <div class="row datalist">
+            <div class="col-md-5 col-sm-5 col-xs-5">
+                <div class="panel panel-default" style="overflow: hidden">
+                    <div class="panel-heading" style="text-align: right" ><b>可选数据项目</b></div>
+                    <div style="padding: 5px">
+                        <input type="text" name="name" class="form-control" value="" placeholder="请输入书名称或缩写或拼音名" />
+                    </div>
+
+                    <select name="from" id="multiselect" class="form-control" size="8" multiple="multiple" >
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option>
+                        <option value="1">尿素　　　USER　　　niaosuan</option> 
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2  col-xs-2">
+                
+                 
+                <button type="button" id="multiselect_rightSelected" class="btn btn-block btn-primary"><span>加入视图</span><i class="glyphicon glyphicon-chevron-right"></i></button>
+                <button type="button" id="multiselect_leftSelected" class="btn btn-block "><span>移出视图</span><i class="glyphicon glyphicon-chevron-left"></i></button> 
+            </div>
+
+            <div class="col-md-5 col-sm-5 col-xs-5">
+                <div class="panel panel-default" style="overflow: hidden">
+                    <div class="panel-heading" style="text-align: right"><b>可选数据项目</b></div>
+
+                    <select name="to" id="multiselect_to" class="form-control" size="8" multiple="multiple"></select>
+                </div>
+                </div>
+        </div>
+    </div> 
+    <script type="text/javascript">
+$(document).ready(function($) {
+    $('#multiselect').multiselect();
+}); 
+    </script>
+</body>
+</html>

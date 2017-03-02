@@ -1,0 +1,323 @@
+<!--会员详情页面-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>会员详情</title>
+    <!-- 通用Bootstrap样式库 -->
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
+    <!-- 个人维护样式库 -->
+    <link href="../../Styles/common.css" rel="stylesheet">
+</head>
+
+<body ng-app="myApp" ng-controller="customersCtrl">
+    <!-- 面包屑导航 -->
+    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+        <li><a href="javascript:void(0)">客户管理</a></li>
+        <li><a href="javascript:void(0)">会员列表</a></li>
+        <li class="active">{{data.userName}}</li>
+    </ol>
+    <!--会员详情-->
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p>
+                                <label class="control-label">姓名：</label>
+                                <span id="realName">{{data.vipEntity.realName}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">手机：</label>
+                                <span id="mobile">{{data.vipEntity.mobile}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">编号：</label>
+                                <span>{{data.id}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">地址：</label>
+                                <span id="contactAddress"> {{data.district}}</span>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>
+                                <label class="control-label">职业：</label>
+                                <span id="job">{{data.vipEntity.job}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">所属：</label>
+                                <span id="">{{}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">身份证：</label>
+                                <span id="idNo">{{data.vipEntity.idNo}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">编号：</label>
+                                <span id="">{{data.vipEntity.id}}</span>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>
+                                <label class="control-label">性别：</label>
+                                <span id="gender">{{data.gender=="M"?"女":"男"}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">年龄：</label>
+                                <span>{{data.vipEntity.age}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">籍贯：</label>
+                                <span id="nativePlace">{{data.vipEntity.nationality}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">民族：</label>
+                                <span id="nationality">{{data.vipEntity.nativePlace}}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="div_border"></div>
+                    <div class="row">
+                        <div class="col-md-4 ">
+                            <p>
+                                <label class="control-label">家族史：</label>
+                                <span id="familyMedicalHistory">{{data.vipEntity.familyMedicalHistory}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">既往史：</label>
+                                <span id="medicalHistory">{{data.vipEntity.medicalHistory}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">月经生育史：</label>
+                                <span id="fertility">{{data.vipEntity.fertility}}</span>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>
+                                <label class="control-label">睡眠情况：</label>
+                                <span id="sleepSituation">{{data.vipEntity.sleepSituation}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">饮酒情况：</label>
+                                <span id="drinkingSituation">{{data.vipEntity.drinkingSituation}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">吸烟情况：</label>
+                                <span id="smokingSituation">{{data.vipEntity.smokingSituation}}</span>
+                            </p>
+                        </div>
+                        <div class="col-md-4">
+                            <p>
+                                <label class="control-label">过敏史：</label>
+                                <span id="allergic">{{data.vipEntity.allergic}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">饮食习惯：</label>
+                                <span>{{data.vipEntity.eating}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">运动习惯：</label>
+                                <span>{{data.vipEntity.sports}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">压力状况：</label>
+                                <span>{{datavipEntity.pressure}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-md-12">
+                    <img id="userPhoto" src="{{data.iconUrl}}" class="img-responsive img-thumbnail">
+                    <a id="linkEdit" href="UserInfoEdit.html?vipid={{data.id}}" class="btn btn-block btn-primary" style="margin-top:10px;">编辑会员资料&nbsp;<i class="glyphicon glyphicon-pencil hidden-xs"></i></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="div_border"></div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <p>
+                                <label class="control-label">会籍顾问：</label>
+                                <a id="advisername"> <a href="">{{data.vipEntity.adviser.name}}</a></a>
+                            </p>
+                            <p>
+                                <label class="control-label">健康数据：</label>
+                                <a href=""><span>{{}}</span></a>项
+                            </p>
+                            <p>
+                                <label class="control-label">用药记录：</label>
+                                <a href=""><span>{{}}</span></a>条
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <p>
+                                <label class="control-label">会员类型：</label>
+                                <span>{{ data.vipEntity.vipCard.vipCardEntity.vipType=="considerate"?"体验型":"关爱型"}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">验单：</label>
+                                <a href=""><span>{{}}</span></a>份
+                            </p>
+                            <p>
+                                <label class="control-label">预约日期：</label>
+                                <a href=""><span>2016-10-10</span></a>
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <p>
+                                <label class="control-label">有效日期：</label>
+                                <span>{{data.vipEntity.vipCard.expiredAt|date:"yyyy/MM/dd"}}</span>
+                            </p>
+                            <p>
+                                <label class="control-label">报名活动：</label>
+                                <a href=""><span>8/10</span></a>次
+                            </p>
+                            <p>
+                                <label class="control-label">专家团队：</label>
+                                <a href=""><span>立即设置</a></span>
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+                            <p>
+                                <label class="control-label">饮食记录：</label>
+                                <a href=""><span>{{}}</span></a>条
+                            </p>
+                            <p>
+                                <label class="control-label">运动记录：</label>
+                                <a href=""><span>{{}}</span></a>条
+                            </p>
+                            <p>
+                                <label class="control-label">需求记录：</label>
+                                <a href=""><span>{{}}</span></a>条
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--会员表格-->
+    <div class="table_data">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class=" fixed-table-container">
+                        <table class="table table-hover  ">
+                            <!-- 表头 -->
+                            <thead>
+                                <tr>
+                                    <th>
+                                        诊断日期
+                                    </th>
+                                    <th>
+                                        报告编号
+                                    </th>
+                                    <th>
+                                        交流
+                                    </th>
+                                    <th>
+                                        报告顾问
+                                    </th>
+                                </tr>
+                            </thead>
+                            <!--数据部分 -->
+                            <!--TODO  此部分不知道从哪获取接口，后期补充完成-->
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>16356254585</td>
+                                    <td>年卡</td>
+                                    <td>李惠利</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>16356254585</td>
+                                    <td>年卡</td>
+                                    <td>李惠利</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>16356254585</td>
+                                    <td>年卡</td>
+                                    <td>李惠利</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--脚本-->
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <!--自定义脚本部分-->
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('customersCtrl', function($scope, $http) {
+            //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../vip?
+            var url = "../../JSON/vipjson.json?vipid=1";
+            $http.get(url).success(function(data) {
+                if (data != null && data != "" && data != "null" && data.id) {
+                    $scope.data = data;
+                } else {
+                    alert("不存在此用户");
+                }
+            }).error(function(data, header, config, status) {
+                //处理响应失败
+                alert("不存在此用户");
+                window.location.href = "MemberList.html";
+
+            });
+
+
+        });
+        // $(function () {
+        //     //TODO   许多项赋值无法确定
+        //     //编写脚本
+        //     var request = new UrlSearch(), userId;
+        //     userId = request.id ? request.id : null;
+        //     $.getJSON("../../JSON/UserInfo.ashx?id=" + userId, function (data) {
+        //         if (data != null) {
+        //             $("#linkEdit").attr("href", "UserInfoEdit.html?id=" + userId);
+        //             applyData(data);
+        //         } else {
+        //             alert("不存在此用户");
+        //         }
+        //     });
+        // });
+        // function applyData(data) {
+        //     /// <summary>将请求的数据添加到页面中</summary>
+        //     /// <param name="data" type="Object">返回的数据</param>
+        //     $("#userPhoto").attr("src", data.iconUrl);//用户头像
+        //     $("#realName,#userName").html(data.realName);
+        //     $("#mobile").html(data.mobile);
+        //     $("#contactAddress").html(data.contactAddress);
+        //     $("#job").html(data.job);
+        //     $("#idNo").html(data.idNo);
+        //     var gender = data.gender == "M" ? "男" : "女";
+        //     $("#gender").html(gender);
+        //     $("#nativePlace").html(data.nativePlace);
+        //     $("#nationality").html(data.nationality);
+        //     $("#familyMedicalHistory").html(data.familyMedicalHistory);
+        //     $("#medicalHistory").html(data.medicalHistory);
+        //     $("#fertility").html(data.fertility);
+        //     $("#sleepSituation").html(data.sleepSituation);
+        //     $("#drinkingSituation").html(data.drinkingSituation);
+        //     $("#smokingSituation").html(data.smokingSituation);
+        //     $("#allergic").html(data.allergic);
+        //     $("#advisername").html(data.adviser.name);
+        // }
+    </script>
+</body>
+
+</html>

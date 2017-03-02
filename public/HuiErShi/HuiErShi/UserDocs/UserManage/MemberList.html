@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<!-- 已编辑 -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>会员列表</title>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+    <!-- 个人维护样式库 -->
+    <link href="../../Styles/common.css" rel="stylesheet">
+</head>
+
+<body ng-app="myApp">
+    <!--检索项-->
+    <div ng-controller="customersCtrl" class="container-fluid">
+        <!-- 面包屑导航 -->
+        <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+            <li><a href="javascript:void(0)">客户管理</a></li>
+            <li class="active">会员列表</li>
+        </ol>
+        <div class="text-right col-xs-12" id="search_block">
+            <form class="form-inline" role="form">
+                <div class="form-group text-left">
+                    <label class="lbl_search">会员有效期：</label>
+
+                    <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+                    <label class="">至</label>
+                    <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+                </div>
+                <div class="form-group text-left">
+                    <label class="">&nbsp;&nbsp;&nbsp;&nbsp;类型： </label>
+                    <select class=" form-control " name="sltType" id="sltType">
+                            <option value="">所有</option>
+                            <option value="considerate">体验型</option>
+                            <option value="caring">关爱型</option>
+                        </select>
+                </div>
+                <div class="form-group text-left">
+                    <label class="">&nbsp;&nbsp;&nbsp;&nbsp;关键字： </label>
+                    <input id="txtUserName" name="keyword" class=" form-control " placeholder="用户昵称或姓名或手机" type="text">&nbsp;&nbsp;
+                </div>
+                <!-- 搜索按钮 -->
+                <a ng-click="search()" class="btn btn-primary" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+            </form>
+        </div>
+        <!-- 数据显示 -->
+        <div class="ng-scope tab-content container-fluid">
+            <div class=" fixed-table-container">
+                <table class="table table-hover  ">
+                    <!-- 表头 -->
+                    <thead>
+                        <tr>
+
+                            <th>
+                                序号
+                            </th>
+                            <th>
+                                姓名
+                            </th>
+                            <th data-order='gender' class="order" ng-click="title='gender';desc=!desc;sort('gender')">
+                                性别
+                            </th>
+                            <th data-order='nativePlace' class="order" ng-click="title='nativePlace';desc=!desc;sort('nativePlace')">
+                                所属
+                            </th>
+                            <th data-order='type' class="order" ng-click="title='type';desc=!desc;sort('type')">
+                                会员类型
+                            </th>
+                            <th data-order='name' class="order" ng-click="title='adviser.name';desc=!desc;sort('name')">
+                                会籍顾问
+                            </th>
+                            <th data-order='date' class="order" ng-click="title='date';desc=!desc;sort('date')">
+                                会员有效期
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="databody">
+                        <tr ng-show="dataLengths" ng-repeat="x in names.content">
+                            <td>{{ $index+names.page*20-19}}</td>
+                            <td><img src="{{x.iconUrl}}" alt="" /> <a href="UserInfo.html?id={{x.id }}">{{x.realName}}</a> </td>
+                            <td>{{ x.gender=="M"?"男":"女" }}</td>
+                            <td>{{ x.nativePlace }}</td>
+                            <td>{{ x.type }}</td>
+                            <td>{{ x.adviser.name }}</td>
+                            <td>{{x.date=x.vipCard.expiredAt*1000 | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                        </tr>
+                        <tr ng-show="!dataLengths">
+                            <td colspan="100" class="text-center ">暂无结果</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div ng-show="dataLengths">
+            <div class="form-group pull-right topage_block">
+                <!-- 跳转至 -->
+                <label>{{totalRecord}}条/{{totalPage}}页</label>
+                <label>跳至</label>
+                <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
+                <label>页</label>
+                <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+            </div>
+            <!-- 分页控件 -->
+            <div class="pull-right">
+                <ul class="pagination" id="alreadyPage"></ul>
+            </div>
+        </div>
+        <!-- 当前页隐藏域 -->
+        <input id="currentPage" name="currentPage" value="1" type="hidden">
+    </div>
+    <!--脚本-->
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script>
+        $(function() {
+            $(".start_end_time").datetimepicker();
+             
+            tool.changeSelect($("#sltType"), false);
+        });
+        var params = "vipType=&minExpiredAt=&maxExpiredAt=&keyWord="; //全局变量
+        var app = angular.module('myApp', []);
+        app.controller('customersCtrl', function($scope, $http) {
+            //分页方法声明
+            var pageing = function(pageindex, params) {
+                //请求地址
+                //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../vip?
+                var url = "../../JSON/member.json?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+                $http.get(url).success(function(data) {
+                    if (data != null && data != "" && data != "null") {
+                        //判断当前是否存在记录
+                        $scope.dataLengths = data.content.length > 0;
+                        if (data.content != null && data.content.length > 0) {
+                            //赋值操作
+                            $scope.names = data;
+                            $scope.totalPage = data.totalPages;
+                            $scope.totalRecord = data.totalElements;
+                            //调用生成分页方法
+                            initPageDiv($("#alreadyPage"), //在哪里生成页码
+                                pageindex, //当前页
+                                data.totalPages, //总页数
+                                5, //每次显示多少页
+                                $("#currentPage"), //隐藏域的值：当前页数
+                                function() {
+                                    pageing($("#currentPage").val(), params);
+                                });
+                        } else {
+                            alert("未获取到数据，请重试");
+                        }
+                    }
+                });
+            }
+            //分页方法
+            pageing(1, params);
+            //查询按钮
+            $scope.search = function() {
+
+                //起始时间时间戳
+                var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+                //结束时间时间戳
+                var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+                //用户名称
+                var username = $("#txtUserName").val();
+                //会员类型
+                var vipType = $("#sltType").val();
+                //校验只有一个搜索条件
+                if (!(minExpiredAt || maxExpiredAt || username || vipType)) {
+                    alert("请至少输入一个搜索条件");
+                    return false;
+                }
+                //起止日期校验
+                if (minExpiredAt > maxExpiredAt) {
+                    alert("活动日期中结束时间不得早于起始时间");
+                    return false;
+                }
+
+                // vipType=&minExpiredAt=&maxExpiredAt=&keyWord=
+                params = "vipType=" + vipType + "&minExpiredAt=" + minExpiredAt + "&maxExpiredAt=" + maxExpiredAt + "&keyWord=" + username;
+                pageing(1, params);
+            }
+
+            $scope.sort = function(ziduan) {
+                var classname = '';
+                if ($scope.desc) {
+                    classname = 'glyphicon glyphicon-arrow-down';
+                } else {
+                    classname = 'glyphicon glyphicon-arrow-up';
+                }
+                $("[data-order]").find('span').addClass('glyphicon glyphicon-sort');
+                $("[data-order='" + ziduan + "']").find('span').removeClass().addClass(classname);
+            }
+            //跳转至某页方法
+            $scope.skip = function() {
+                if ($scope.toPageValue <= 1) {
+                    $scope.toPageValue = 1;
+                } else if ($scope.toPageValue > $scope.totalPage) {
+                    $scope.toPageValue = $scope.totalPage;
+                }
+                pageing($scope.toPageValue, params);
+            }
+        });
+        $(function() {
+
+        });
+    </script>
+</body>
+
+</html>

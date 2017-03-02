@@ -1,0 +1,384 @@
+<html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户列表</title>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+    <style>
+      .navbar {
+                        /*去除原顶部条底部bottom*/
+                        margin-bottom:0;
+                    }
+                    .breadcrumb {
+                        /*去除原生面包屑导航的背景色*/
+                        background-color:#fff;
+                    }
+                    a {
+                        color:#777;
+                    }
+                    .navbar-nav{
+                      margin-left:70px;
+                    }
+                    .comtitle {
+                        color:#fff;
+                    margin-top: 8px;
+                     background-color:rgba(255, 255, 255, 0.458823529411765);
+                    }
+                    .comtitle:hover{
+                        color:#fff;
+                        background-color: #775858;
+                    }
+        
+            
+                    .lbl_search {
+                        float: left;
+                        line-height: 30px;
+                    }
+            
+                    .table_data {
+                        margin-top: 15px;
+                    }
+            
+                    .table {
+                        text-align: center;
+                    }
+            
+                    .table {
+                        margin-bottom: 0;
+                                 }
+            
+                    thead th {
+                        background: none repeat scroll 0 0 #f7f7f8;
+                        border-color: #ddd;
+                        color: #5f6468;
+                        border-bottom: 1px solid #e6e7e8;
+                        height: 50px;
+                        vertical-align: middle;
+                        text-align: center;
+                        font-size:15px;
+                    }
+             
+            
+                    td img {
+                        width: 27px;
+                        height: 27px;
+                        margin-right: 3px;
+                    }
+            
+                    .fixed-table-container {
+                        border: 1px solid #dddddd;
+                        -ms-border-radius: 4px;
+                        border-radius: 4px;
+                        clear: both;
+                        position: relative;
+                    }
+            
+                    .fixed-table-header {
+                        -ms-border-radius: 5px 5px 0 0;
+                        border-radius: 5px 5px 0 0;
+                        overflow: hidden;
+                    }
+            
+                    .fixed-table-body {
+                        overflow: auto;
+                    }
+            
+                    .badge {
+                        background-color: #CE0202;
+                    }
+    </style>
+  </head><body>
+    <div class="navbar navbar-default navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="btn  comtitle">惠尔仕健康伙伴</a>
+          <span></span>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active">
+              <a href="#">用户管理</a>
+            </li>
+            <li>
+              <a href="#">用户数据</a>
+            </li>
+            <li>
+              <a href="#">会员报告</a>
+            </li>
+            <li>
+              <a href="#">系统管理</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="">
+              <a href="#">通知<span class="badge">2</span></a>
+            </li>
+            <li>
+              <a href="#">退出</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- 页面导航 -->
+            <!-- TODO 页面导航修改样式 -->
+            <ul class="breadcrumb">
+              <li>
+                <a href="#">客户管理</a>
+              </li>
+              <li class="active">用户列表</li>
+            </ul>
+            <!-- 检索项 -->
+            <div class="col-lg-5 col-md-5 col-sm-5">
+              <!-- 时间检索 -->
+              <div class="form-horizontal" role="form">
+                <label class="lbl_search">创建时间：</label>
+                <div class="col-sm-4" style="padding-right: 0;">
+                  <input id="txtStartTime" class="form-control start_end_time" placeholder="开始时间">
+                </div>
+                <div class="col-sm-1">
+                  <label class="lbl_search">至</label>
+                </div>
+                <div class="col-sm-4" style="padding-left: 0;">
+                  <input id="txtEndTime" class="form-control  start_end_time" placeholder="截止时间">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+              <!-- 用户名称检索 -->
+              <div class="form-horizontal" role="form">
+                <label class="lbl_search">名称：</label>
+                <div class="col-sm-9" style="padding-left: 0;">
+                  <input id="txtUserName" class="form-control" runat="server" placeholder="用户昵称" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <a class="btn btn-primary "><i class=" glyphicon glyphicon-search icon-refresh"></i>&nbsp;搜索</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 数据显示 -->
+    <div class="table_data section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class=" fixed-table-container">
+              <table class="table table-hover  ">
+                <!-- 表头 -->
+                <thead>
+                  <tr>
+                    <!-- 排序字段，需要排序的字段添加data-type属性并标明值 -->
+                    <th class="thead_order" data-type="num">序号
+                      <span></span>
+                    </th>
+                    <th class="thead_username" data-type="str">昵称
+                      <span></span>
+                    </th>
+                    <th class="thead_sex" data-type="str">性别
+                      <span></span>
+                    </th>
+                    <th class="thead_place" data-type="str">地区
+                      <span></span>
+                    </th>
+                    <th class="thead_regist" data-type="time">注册时间
+                      <span></span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <a><img src="../../images/userphoto.jpg">张三</a>
+                    </td>
+                    <td>男</td>
+                    <td>天津 / 滨海新区</td>
+                    <td>2016/7/29 22:12:06</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <a><img src="../../images/userphoto.jpg">张三</a>
+                    </td>
+                    <td>男</td>
+                    <td>天津 / 滨海新区</td>
+                    <td>2016/7/29 22:12:06</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <a><img src="../../images/userphoto.jpg">张三</a>
+                    </td>
+                    <td>男</td>
+                    <td>天津 / 滨海新区</td>
+                    <td>2016/7/29 22:12:06</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <a><img src="../../images/userphoto.jpg">张三</a>
+                    </td>
+                    <td>男</td>
+                    <td>天津 / 滨海新区</td>
+                    <td>2016/7/29 22:12:06</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <a><img src="../../images/userphoto.jpg">张三</a>
+                    </td>
+                    <td>男</td>
+                    <td>天津 / 滨海新区</td>
+                    <td>2016/7/29 22:12:06</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <a><img src="../../images/userphoto.jpg">张三</a>
+                    </td>
+                    <td>男</td>
+                    <td>天津 / 滨海新区</td>
+                    <td>2016/7/29 22:12:06</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <a><img src="../../images/userphoto.jpg">张三</a>
+                    </td>
+                    <td>男</td>
+                    <td>天津 / 滨海新区</td>
+                    <td>2016/7/29 22:12:06</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <a><img src="../../images/userphoto.jpg">张三</a>
+                    </td>
+                    <td>男</td>
+                    <td>天津 / 滨海新区</td>
+                    <td>2016/7/29 22:12:06</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <a><img src="../../images/userphoto.jpg">张三</a>
+                    </td>
+                    <td>男</td>
+                    <td>天津 / 滨海新区</td>
+                    <td>2016/7/29 22:12:06</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <a><img src="../../images/userphoto.jpg">张三</a>
+                    </td>
+                    <td>男</td>
+                    <td>天津 / 滨海新区</td>
+                    <td>2016/7/29 22:12:06</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 脚本 -->
+    <script type="text/javascript" src="../../Scripts/jquery-1.8.2.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script>
+      $(function () {
+                        // 初始化时间控件
+                        $(".start_end_time").datetimepicker();
+                    });
+    </script>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="pull-right " style="margin-top:20px">&nbsp; &nbsp;
+              <!-- 总记录数 -->
+              <span class="totalrecord">112条/</span>
+              <!-- 总页数 -->
+              <span class="taotalpage">12页</span>&nbsp; &nbsp;
+              <span>跳至</span>
+              <input type="text" class="form-control" style="width:40px;display:inline">页</div>
+            <ul class="pagination pull-right">
+              <li>
+                <a href="#">&lt;</a>
+              </li>
+              <li class="active">
+                <a href="#">1</a>
+              </li>
+              <li>
+                <a href="#">2</a>
+              </li>
+              <li>
+                <a href="#">3</a>
+              </li>
+              <li>
+                <a href="#">4</a>
+              </li>
+              <li>
+                <a href="#">5</a>
+              </li>
+              <li>
+                <a href="#">&gt;</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h1 class="text-center">系统角色</h1>
+                    
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <img src="../../images/userphoto.jpg" class="center-block img-circle img-responsive">
+                    <h3 class="text-center">John Doe</h3>
+                    <p class="text-center">Developer</p>
+                  </div>
+                  <div class="col-md-4">
+                    <img src="../../images/userphoto.jpg" class="center-block img-circle img-responsive">
+                    <h3 class="text-center">John Doe</h3>
+                    <p class="text-center">Developer</p>
+                  </div>
+                  <div class="col-md-4">
+                    <img src="../../images/userphoto.jpg" class="center-block img-circle img-responsive">
+                    <h3 class="text-center">John Doe</h3>
+                    <p class="text-center">Developer</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+</body></html>

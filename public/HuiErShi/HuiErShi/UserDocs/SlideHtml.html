@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>主页</title>
+	<link rel="stylesheet" href="../Styles/bootstrap.css">
+	<link rel="stylesheet" href="../Styles/select2.min.css">
+	<link href="../Styles/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="../Styles/pageindex.css">
+</head>
+
+
+<body class="index" scroll="no" lang="en">
+	<!-- LOGO -->
+	<div class="logo" id="logo" style="-webkit-user-select: none;"></div>
+	<!-- 侧边栏菜单 -->
+	<div class="menu" style="-webkit-user-select: none;">
+		<dl><dt class="icon_100000">用户管理<span class="contract">－</span></dt>
+			<dd data-link="UserManage/UserList.html">需求记录</dd>
+			<dd data-link="UserManage/MemberOrder.html">预约列表</dd>
+			<dd data-link="UserManage/UserList.html">用户列表</dd>
+			<dd data-link="UserManage/MemberList.html">会员列表</dd>
+			<dd data-link="UserManage/ActivityList.html">活动列表</dd>
+		</dl>
+		<dl><dt class="icon_200000">用户数据<span class="contract">－</span></dt>
+			<dd>项目列表
+				<ul style="display:none;">
+					<li>项目详情</li>
+					<li>视图管理</li>
+				</ul>
+			</dd>
+			<dd>项目数据
+				<ul style="display:none;">
+					<li>记录列表</li>
+					<li>用药记录列表</li>
+					<li>饮食记录</li>
+					<li>运动记录</li>
+					<li>反馈记录</li>
+				</ul>
+			</dd>
+		</dl>
+		<dl><dt class="icon_300000">会员报告<span class="contract">－</span></dt>
+			<dd>处方列表</dd>
+			<dd>会员报告列表
+				<ul style="display:none;">
+					<li>会员报告详情</li>
+				</ul>
+			</dd>
+			<dd>咨询列表</dd>
+			<dd>验单列表
+				<ul style="display:none;">
+					<li>验单详情</li>
+				</ul>
+			</dd>
+		</dl>
+		<dl><dt class="icon_400000">会员报告<span class="contract">－</span></dt>
+			<dd>处方列表</dd>
+			<dd>会员报告列表</dd>
+			<dd>咨询列表</dd>
+			<dd>验单列表</dd>
+		</dl>
+		<dl><dt class="icon_500000">系统管理<span class="contract">－</span></dt>
+			<dd>预约项目</dd>
+			<dd>移动端设置</dd>
+			<dd>支付列表</dd>
+			<dd>饮食设置
+				<ul style="display:none;">
+					<li>编辑饮食</li>
+				</ul>
+			</dd>
+			<dd>卡券列表
+				<ul style="display:none;">
+					<li>发放详情</li>
+				</ul>
+			</dd>
+			<dd>管理员设置</dd>
+		</dl>
+		<dl><dt class="icon_600000">用户说明<span class="contract">－</span></dt>
+
+		</dl>
+
+	</div>
+
+	<!-- 顶部 -->
+	<div class="navtop text-right userbar">
+		<span class="glyphicon glyphicon-bell" style="color:white; " aria-hidden="true"></span>
+		<span class="glyphicon glyphicon-log-in" style="color:white;" aria-hidden="true"></span>
+	</div>
+	<!-- 显示区域 -->
+	<div class="workspace">
+		<!--连接地址-->
+		<iframe id="work-frame" name="work-frame" scrolling="auto" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%" src="UserManage/OrderAdd.html" style="-webkit-user-select: none;">
+        </iframe>
+	</div>
+
+	<!-- 脚本 -->
+	<script type="text/javascript" src="../Scripts/jquery-1.10.1.js"></script>
+	<script type="text/javascript" src="../Scripts/jquery.datetimepicker.full.min.js"></script>
+	<script type="text/javascript" src="../Scripts/angular.min.js"></script>
+	<script type="text/javascript" src="../Scripts/bootstrap.js"></script>
+	<script type="text/javascript" src="../Styles/jquery-confirm/jquery-confirm.min.js"></script>
+	<script type="text/javascript" src="../Scripts/select2.js"></script>
+	<script type="text/javascript" src="../Scripts/bootstrap-paginator.js"></script>
+	<script type="text/javascript" src="../Scripts/CommonScript.js"></script>
+
+	<script type="text/javascript">
+		function reinitIframe() {
+			var iframe = document.getElementById("frame_content");
+			try {
+				iframe.height = iframe.contentWindow.document.documentElement.scrollHeight;
+			} catch (ex) {}
+		}
+		window.setInterval("reinitIframe()", 200);
+	</script>
+	<script>
+		$(function() {
+			$("#select2").select2({
+				tags: true,
+				maximumSelectionLength: 3,
+				width: "250px"
+			});
+
+			$("dd").each(function() {
+				$(this).click(function() {
+					var href = $(this).attr("data-link");
+					$("#work-frame").attr("src", href);
+				});
+			});
+		}); // 菜单栏方法
+		$("div.menu").find("dl").each(function(index) {
+			$(this).find("dt").on("click", function(e) {
+				if ($(this).parent().hasClass('expand')) {
+					$(this).parent().removeClass("expand");
+					return false;
+				}
+				if (!$(this).parent().is(".expand ")) {
+					// 判断其他的是否有展开的，收起
+					$(".menu dl.expand").removeClass("expand");
+					$(this).parent().addClass("expand");
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>

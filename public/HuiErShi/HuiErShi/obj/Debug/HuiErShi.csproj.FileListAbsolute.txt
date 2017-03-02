@@ -1,0 +1,6 @@
+C:\Users\Administrator\Desktop\惠尔仕项目\HuiErShi\HuiErShi\bin\HuiErShi.dll.config
+C:\Users\Administrator\Desktop\惠尔仕项目\HuiErShi\HuiErShi\bin\HuiErShi.dll
+C:\Users\Administrator\Desktop\惠尔仕项目\HuiErShi\HuiErShi\bin\HuiErShi.pdb
+C:\Users\Administrator\Desktop\惠尔仕项目\HuiErShi\HuiErShi\obj\Debug\HuiErShi.dll
+C:\Users\Administrator\Desktop\惠尔仕项目\HuiErShi\HuiErShi\obj\Debug\HuiErShi.pdb
+C:\Users\Administrator\Desktop\惠尔仕项目\HuiErShi\HuiErShi\obj\Debug\HuiErShi.csprojResolveAssemblyReference.cache
