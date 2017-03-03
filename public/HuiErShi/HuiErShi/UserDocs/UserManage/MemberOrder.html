@@ -28,9 +28,21 @@
             <form class="form-inline" role="form">
                 <div class="form-group">
                     <label class="lbl_search">预约日期：</label>
-                    <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+
+                    <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
+                        <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+                        <span class="add-on input-group-addon">
+                              <i class="icon-th glyphicon glyphicon-calendar"></i>
+                        </span>
+                    </div>
                     <label class="">至</label>
-                    <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+                    <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
+                        <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+                        <span class="add-on input-group-addon">
+                              <i class="icon-th glyphicon glyphicon-calendar"></i>
+                        </span>
+                    </div>
+
                 </div>
                 <div class="form-group text-left">
                     <label class="">&nbsp;&nbsp;预约情况： </label>
@@ -43,7 +55,7 @@
                 </div>
                 <div class="form-group text-left">
                     <label class="">&nbsp;&nbsp;预约项目： </label>
-                    <select class="form-control" name="sltDistrict" id="sltDistrict">
+                    <select class="form-control" name="sltItem" id="sltItem">
                         <option value="4">全部</option>
                         <option value="1">已发布</option>
                         <option value="0">未发布</option>
@@ -126,8 +138,9 @@
     <script>
         $(function() {
             $(".start_end_time").datetimepicker();
-            var tool = new JSTOOL();
             tool.changeSelect($("#sltDistrict"), false);
+            tool.changeSelect($("#sltItem"), false);
+
         });
         //
         var params = "vipType=&minExpiredAt=&maxExpiredAt=&keyWord="; //全局变量
@@ -211,11 +224,6 @@
             }
         });
     </script>
-
-</body>
-
-</html>
-cript>
 
 </body>
 
