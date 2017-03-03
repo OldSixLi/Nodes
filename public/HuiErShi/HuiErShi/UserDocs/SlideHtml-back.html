@@ -8,23 +8,23 @@
 	<title>主页</title>
 	<link rel="stylesheet" href="../Styles/bootstrap.css">
 	<link rel="stylesheet" href="../Styles/select2.min.css">
-	<link rel="stylesheet" href="../Styles/pageindex.css">
+	<link rel="stylesheet" href="../Styles/pageindex-back.css">
 </head>
 
 
 <body class="index" scroll="no" lang="en">
 	<!-- LOGO -->
-	<div class="logo" id="logo" style="-webkit-user-select: none;"><b>神州浩天智慧平</b></div>
+	<div class="logo" id="logo" style="-webkit-user-select: none;"><b>惠尔仕健康项目</b></div>
 	<!-- 侧边栏菜单 -->
 	<div class="menu" style="-webkit-user-select: none;">
-		<dl><dt class="icon_usermanage">用户管理<span class="contract">－</span></dt>
+		<dl><dt class="icon_usermanage">用户管理<span class="contract">　</span></dt>
 			<dd data-link="UserManage/UserList.html">需求记录</dd>
 			<dd data-link="UserManage/MemberOrder.html">预约列表</dd>
 			<dd data-link="UserManage/UserList.html">用户列表</dd>
 			<dd data-link="UserManage/MemberList.html">会员列表</dd>
 			<dd data-link="UserManage/ActivityList.html">活动列表</dd>
 		</dl>
-		<dl><dt class="icon_userdata">用户数据<span class="contract">－</span></dt>
+		<dl><dt class="icon_userdata">用户数据<span class="contract">　</span></dt>
 			<dd>项目列表
 				<ul style="display:none;">
 					<li>项目详情</li>
@@ -41,7 +41,7 @@
 				</ul>
 			</dd>
 		</dl>
-		<dl><dt class="icon_report">会员报告<span class="contract">－</span></dt>
+		<dl><dt class="icon_report">会员报告<span class="contract">　</span></dt>
 			<dd>处方列表</dd>
 			<dd>会员报告列表
 				<ul style="display:none;">
@@ -55,7 +55,7 @@
 				</ul>
 			</dd>
 		</dl>
-		<dl><dt class="icon_system">系统管理<span class="contract">－</span></dt>
+		<dl><dt class="icon_system">系统管理<span class="contract">　</span></dt>
 			<dd>预约项目</dd>
 			<dd>移动端设置</dd>
 			<dd>支付列表</dd>
@@ -115,6 +115,8 @@
 			$("dd").each(function() {
 				$(this).click(function() {
 					var href = $(this).attr("data-link");
+					$("dd").removeClass('action');
+					$(this).addClass('action');
 					$("#work-frame").attr("src", href);
 				});
 			});

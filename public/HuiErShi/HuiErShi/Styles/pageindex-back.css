@@ -63,7 +63,7 @@ body {
 }
 
 .index>.menu>dl.expand>dt {
-    background-color: #003d52;
+    background-color: #2F3640;
     color: #01AB58;
 }
 
@@ -101,15 +101,16 @@ body {
 
 .index>.menu>dl>dt>span.contract {
     position: absolute;
-    top: 0px;
-    right: 20px;
+    top: 2px;
+    right: 1px;
     bottom: 0xp;
     font-size: 24px;
-    display: none;
+    display: block;
+    background: url("../images/menu/coll.png") no-repeat center;
 }
 
 .index>.menu>dl.expand>dt>span.contract {
-    display: block;
+    background: url("../images/menu/active.png") no-repeat center;
     cursor: pointer;
 }
 
@@ -118,9 +119,15 @@ body {
     display: none;
 }
 
-.index>.menu>dl>dd:hover, .index>.menu>dl>dd.action {
-    background: #002e3d;
-    color: #19c6ff;
+.index>.menu>dl>dd.action {
+    background: #2F3640;
+    color: #01AB58;
+    border-right: 2px solid #01AB58;
+}
+
+.index>.menu>dl>dd:hover {
+    background: #2F3640;
+    color: #01AB58;
 }
 
 .index>.menu>dl.expand>dd {

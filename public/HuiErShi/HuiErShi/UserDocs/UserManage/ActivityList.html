@@ -44,8 +44,8 @@
                         <option value="0">未发布</option>
                         <option value="3">已发布不可报名</option>
                     </select></div>
-                <a ng-click="search()" class="btn btn-primary" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a> &nbsp;&nbsp;&nbsp;
-                <a href="ActivityAdd.html" class="btn btn-primary pull-right" id="btnAddActivity"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加活动</a>
+                <a ng-click="search()" class="btn btn-success" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a> &nbsp;&nbsp;&nbsp;
+                <a href="ActivityAdd.html" class="btn btn-success pull-right" id="btnAddActivity"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加活动</a>
             </form>
         </div>
 
@@ -103,7 +103,7 @@
                 <label>跳至</label>
                 <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
                 <label>页</label>
-                <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+                <button class="btn btn-success btn-sm" ng-click="skip()">确定</button>
             </div>
             <!-- 分页控件 -->
             <div class="pull-right">

@@ -46,7 +46,7 @@
                     <input id="txtUserName" name="keyword" class="form-control" placeholder="用户名称" type="text">
                 </div>
                 <!-- 搜索按钮 -->
-                <a ng-click="search()" class="btn btn-primary" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+                <a ng-click="search()" class="btn btn-success" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
             </form>
         </div>
         <!-- 数据绑定部分 -->
@@ -99,7 +99,7 @@
                 <label>跳至</label>
                 <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
                 <label>页</label>
-                <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+                <button class="btn btn-success btn-sm" ng-click="skip()">确定</button>
             </div>
             <!-- 分页控件 -->
             <div class="pull-right">
@@ -148,10 +148,10 @@
                                 function() {
                                     pageing($("#currentPage").val(), params);
                                 });
-                            //  $("#alreadyPage").show();
+                            
                         } else {
                             $("#databody").html('<tr><td colspan="100" class="text-center ">没有相关数据</td></tr> ');
-                            //  $("#alreadyPage").hide(); //未获取到数据时删除操作
+
                         }
                     }
                 });

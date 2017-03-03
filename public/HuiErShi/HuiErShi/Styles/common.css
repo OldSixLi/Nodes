@@ -353,3 +353,42 @@ th.order {
 .order {
     cursor: pointer;
 }
+.input-group-addon {
+   color: #449d44;
+}
+
+
+/*修改Bootsrap分页 分隔样式*/
+.pagination li {
+    margin-left:8px;
+    display: inline-block;
+    float: left;
+}
+.pagination li:first-child {
+    margin-left: 0;
+}
+.pagination li a {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+/*修改Bootsrap分页控件配色*/
+.pagination > li > a, .pagination > li > span {
+  color: #7a7676;
+}
+
+.pagination > .active > a, .pagination > .active > span,
+ .pagination > .active > a:hover,
+.pagination > .active > span:hover,
+ .pagination > .active > a:focus,
+ .pagination > .active > span:focus {
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+
+}
+
+/*下拉框错误提示*/
+.has-error .select2-container--default span.select2-selection--single {
+  border: 1px solid #a94442;
+  border-radius: 4px;
+}

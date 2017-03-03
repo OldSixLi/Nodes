@@ -59,8 +59,8 @@
                     </div>
                 </div>
                 <div class="form-group text-left">
-                    <a ng-click="search()" class="btn btn-primary" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a> &nbsp;&nbsp;&nbsp;
-                    <a class="btn btn-primary pull-right" id="btnAddActivity" data-toggle="modal" data-target="#addRecord"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加</a>
+                    <a ng-click="search()" class="btn btn-success" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a> &nbsp;&nbsp;&nbsp;
+                    <a class="btn btn-success pull-right" id="btnAddActivity" data-toggle="modal" data-target="#addRecord"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加</a>
                 </div>
             </form>
         </div>
@@ -111,7 +111,7 @@
                 <label>跳至</label>
                 <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
                 <label>页</label>
-                <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+                <button class="btn btn-success btn-sm" ng-click="skip()">确定</button>
             </div>
             <!-- 分页控件 -->
             <div class="pull-right">
@@ -176,7 +176,7 @@
                         </div>
                         <div class="modal-footer">
                             <p class="text-center">
-                                <button type="submit" w5c-form-submit="vm.saveinfo($event)" class="btn btn-primary">保存</button>
+                                <button type="submit" w5c-form-submit="vm.saveinfo($event)" class="btn btn-success">保存</button>
                                 <a class="btn btn-default" data-dismiss="modal">取消</a>
                             </p>
                         </div>
