@@ -27,15 +27,26 @@
             <form class="form-inline" role="form">
                 <div class="form-group text-left">
                     <label class="lbl_search">活动日期：</label>
-                    <div class="input-group">
+
+
+
+                    <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
                         <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
-                        <div class="input-group-btn">
-                            <button><span class="glyphicon glyphicon-calendar"></span></button>
-                        </div>
+                        <span class="add-on input-group-addon">
+                          <i class="icon-th glyphicon glyphicon-calendar"></i>
+                        </span>
                     </div>
 
+
                     <label class="">至</label>
-                    <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+
+                    <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
+                        <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+                        <span class="add-on input-group-addon">
+                          <i class="icon-th glyphicon glyphicon-calendar"></i>
+                        </span>
+                    </div>
+
                 </div>
                 <div class="form-group text-left">
                     <label class="">&nbsp;&nbsp;&nbsp;&nbsp;名称： </label>
