@@ -25,14 +25,14 @@
                     <label class="lbl_search">活动日期：</label>
 
                     <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-                        <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+                        <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" style="width:150px;">
                         <span class="add-on input-group-addon">
                           <i class="icon-th glyphicon glyphicon-calendar"></i>
                         </span>
                     </div>
                     至
                     <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-                        <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+                        <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间" style="width:150px;">
                         <span class="add-on input-group-addon">
                           <i class="icon-th glyphicon glyphicon-calendar"></i>
                         </span>
@@ -178,7 +178,7 @@
                 var vipType = $("#sltType").val();
                 //校验只有一个搜索条件
                 if (!(minExpiredAt || maxExpiredAt || username || vipType)) {
-                    alert("请至少输入一个搜索条件");
+                    tool.alert("提示","请至少输入一个搜索条件");
                     return false;
                 }
                 //起止日期校验

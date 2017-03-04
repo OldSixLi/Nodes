@@ -12,7 +12,7 @@
     <link href="../../Styles/common.css" rel="stylesheet">
     <style>
         .form-inline .form-control {
-            width: 110px;
+            width: 140px;
         }
     </style>
 </head>
@@ -25,19 +25,43 @@
             <li class="active">预约列表</li>
         </ol>
         <div class="col-xs-12" id="search_block">
-            <form class="form-inline" role="form">
-                <div class="form-group">
+            <form class="form-inline text-right" role="form">
+               
+                <div class="form-group text-left">
+                    <label class="">&nbsp;&nbsp;预约情况： </label>
+                    <select class="form-control" name="sltDistrict" id="sltDistrict" style="width:140px;">
+                        <option value="4">全部</option>
+                        <option value="1">已发布</option>
+                        <option value="0">未发布</option>
+                        <option value="3">已发布不可报名</option>
+                    </select>
+                </div>&nbsp;&nbsp;
+                
+                <div class="form-group text-left">
+                    <label class="">&nbsp;&nbsp;预约项目： </label>
+                    <select class="form-control" name="sltItem" id="sltItem" style="width:140px;">
+                        <option value="4">全部</option>
+                        <option value="1">已发布</option>
+                        <option value="0">未发布</option>
+                        <option value="3">已发布不可报名</option>
+                    </select>
+                </div>&nbsp;&nbsp;
+                 <div class="form-group text-left">
+                    <label class="">&nbsp;&nbsp;关键字： </label><input id="txtKeyWord" name="keyword" class="form-control" placeholder="关键字" type="text">
+                </div>
+                <hr />
+                 <div class="form-group">
                     <label class="lbl_search">预约日期：</label>
 
                     <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-                        <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+                        <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" style="max-width:150px;">
                         <span class="add-on input-group-addon">
                               <i class="icon-th glyphicon glyphicon-calendar"></i>
                         </span>
                     </div>
                     <label class="">至</label>
                     <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-                        <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+                        <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间" style="max-width:150px;">
                         <span class="add-on input-group-addon">
                               <i class="icon-th glyphicon glyphicon-calendar"></i>
                         </span>
@@ -45,27 +69,8 @@
 
                 </div>
                 <div class="form-group text-left">
-                    <label class="">&nbsp;&nbsp;预约情况： </label>
-                    <select class="form-control" name="sltDistrict" id="sltDistrict">
-                        <option value="4">全部</option>
-                        <option value="1">已发布</option>
-                        <option value="0">未发布</option>
-                        <option value="3">已发布不可报名</option>
-                    </select>
-                </div>
-                <div class="form-group text-left">
-                    <label class="">&nbsp;&nbsp;预约项目： </label>
-                    <select class="form-control" name="sltItem" id="sltItem">
-                        <option value="4">全部</option>
-                        <option value="1">已发布</option>
-                        <option value="0">未发布</option>
-                        <option value="3">已发布不可报名</option>
-                    </select>
-                </div>
-                <div class="form-group text-left">
-                    <label class="">&nbsp;&nbsp;关键字： </label><input id="txtKeyWord" name="keyword" class="form-control" placeholder="关键字" type="text">&nbsp;&nbsp;<a ng-click="search()" class="btn btn-success" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
-                </div>
-                <div class="form-group pull-right">
+                     <a ng-click="search()" class="btn btn-success" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;&nbsp;&nbsp;
+               
                     <a href="OrderAdd.html" class="btn btn-success pull-right" id="btnAddActivity"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加预约</a>
                 </div>
             </form>

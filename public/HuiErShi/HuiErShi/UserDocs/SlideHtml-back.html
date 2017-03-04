@@ -7,18 +7,22 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>主页</title>
 	<link rel="stylesheet" href="../Styles/bootstrap.css">
-	<link rel="stylesheet" href="../Styles/select2.min.css">
-	<link rel="stylesheet" href="../Styles/pageindex-back.css">
+    <link rel="stylesheet" href="../Styles/select2.min.css">
+    <link href="../Styles/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Styles/pageindex-back.css">
 </head>
 
 
 <body class="index" scroll="no" lang="en">
 	<!-- LOGO -->
-	<div class="logo" id="logo" style="-webkit-user-select: none;"><b>惠尔仕健康项目</b></div>
+	<div class="logo" id="logo" style="-webkit-user-select: none;">
+    <b>惠尔仕健康项目</b>
+    </div>
 	<!-- 侧边栏菜单 -->
 	<div class="menu" style="-webkit-user-select: none;">
-		<dl><dt class="icon_usermanage">用户管理<span class="contract">　</span></dt>
-			<dd data-link="UserManage/UserList.html">需求记录</dd>
+		<dl class="expand">
+        <dt class="icon_usermanage">用户管理<span class="contract">　</span></dt>
+			<dd data-link="UserManage/DemandList.html">需求记录</dd>
 			<dd data-link="UserManage/MemberOrder.html">预约列表</dd>
 			<dd data-link="UserManage/UserList.html">用户列表</dd>
 			<dd data-link="UserManage/MemberList.html">会员列表</dd>
@@ -84,16 +88,20 @@
 	</div>
 	<!-- 显示区域 -->
 	<div class="workspace">
-		<!--连接地址-->
-		<!-- UserManage/UserInfo.html -->
-		<iframe id="work-frame" name="work-frame" scrolling="auto" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%" src="" style="-webkit-user-select: none;">
+		<!--连接地址--> 
+		<iframe id="work-frame" name="work-frame" scrolling="auto" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%" src="UserManage/OrderAdd.html" style="-webkit-user-select: none;">
         </iframe>
 	</div>
-
-	<!-- 脚本 -->
-	<script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="../Scripts/bootstrap.js"></script>
-	<script type="text/javascript" src="../Scripts/select2.js"></script>
+ 
+    <!-- 脚本 -->
+    <script type="text/javascript" src="../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../Styles/jquery-confirm/jquery-confirm.min.js"></script>
+    <script type="text/javascript" src="../Scripts/select2.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../Scripts/CommonScript.js"></script>
 
 	<script type="text/javascript">
 		function reinitIframe() {

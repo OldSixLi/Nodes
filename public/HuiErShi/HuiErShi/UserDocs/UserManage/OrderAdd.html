@@ -82,10 +82,9 @@
             </table>
         </div>
         <p> Selected : {{selected}} </p>
-        <input type="text" value="{{selected.join(',')}}" id="userIds" />
-
+    
     </div>
-    <div ng-show="dataLengths">
+    <div ng-show="dataLengths" class="row">
         <div class="form-group pull-right topage_block">
             <!-- 跳转至 -->
             <label>{{totalRecord}}条/{{totalPage}}页</label>
@@ -99,14 +98,16 @@
             <ul class="pagination" id="alreadyPage"></ul>
         </div>
     </div>
-    <form action="">
-        <div class="col-md-6 col-md-offset-3">
+    <form class="row" id="orderForm">
+        <div class="col-md-6 col-md-offset-3 col-sm-12">
+        <!-- 用于存放选择的用户ID -->
+         <input type="hidden" value="{{selected.join(',')}}" name="userids" id="userIds" />
             <div class="row form-group">
-                <div class="col-md-3 text-right">
+                <div class="col-md-3 col-sm-3 col-xs-3 text-right">
                     <label for="date">预约日期:</label></div>
-                <div class="col-md-9 ">
+                <div class="col-md-9 col-sm-9 col-xs-9">
                     <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-                        <input type="text" id="date" placeholder="请选择时间" class="start_end_time form-control" placeholder="开始时间" />
+                        <input type="text" id="date" placeholder="请选择时间" class="start_end_time form-control"/>
                         <span class="add-on input-group-addon">
                               <i class="icon-th glyphicon glyphicon-calendar"></i>
                         </span>
@@ -114,30 +115,32 @@
                 </div>
             </div>
             <div class="row form-group">
-                <div class="col-md-3 text-right">
+                <div class="col-md-3 col-sm-3 col-xs-3 text-right ">
                     <label>预约项目:</label></div>
-                <div class="col-md-9 ">
-                    <input type="checkbox" placeholder="开始时间" />肝功能检查&nbsp;&nbsp;
-                    <input type="checkbox" placeholder="开始时间" />专家: 艾美丽&nbsp;&nbsp;
-                    <input type="checkbox" placeholder="开始时间" />专家: 慕容厦&nbsp;&nbsp;
-                    <input type="checkbox" placeholder="开始时间" />会员建档&nbsp;&nbsp;
-                    <input type="checkbox" placeholder="开始时间" />体格检查&nbsp;&nbsp;
+                <div class="col-md-9 col-sm-9 col-xs-9">
+                    <input type="checkbox" name="orderItems" value="1" />肝功能检查&nbsp;&nbsp;
+                    <input type="checkbox" name="orderItems" value="2"/>专家: 艾美丽&nbsp;&nbsp;
+                    <input type="checkbox" name="orderItems" value="3"/>专家: 慕容厦&nbsp;&nbsp;
+                    <input type="checkbox" name="orderItems" value="4"/>会员建档&nbsp;&nbsp;
+                    <input type="checkbox" name="orderItems" value="5"/>体格检查&nbsp;&nbsp;
                 </div>
+                <!-- 用于存放当前用户选择的项目ID -->
+                <input type="hidden"  name="itemId" id="hidden-items"  />
             </div>
             <div class="row form-group">
-                <div class="col-md-3 text-right">
+                <div class="col-md-3 col-sm-3 col-xs-3 text-right">
                     <label>预约备注:</label></div>
-                <div class="col-md-9 ">
-                    <input type="text" class="form-control" placeholder="请输入预约备注" />
+                <div class="col-md-9 col-sm-9 col-xs-9">
+                    <input type="text" class="form-control" name="notes" id="notes" placeholder="请输入预约备注" ng-model="notes"/>
                 </div>
-            </div><br />
-
+            </div> 
             <div class="row form-group">
                 <div class="col-md-9 col-md-offset-3 text-center">
-                    <input type="submit" class="btn btn-success" value="确定" /> &nbsp;&nbsp;
+                    <input type="button" class="btn btn-success" value="确定" ng-click="save()" /> &nbsp;&nbsp;
                     <input type="button" class="btn btn-default" value="取消" />
                 </div>
             </div>
+
         </div>
     </form>
     <!-- 当前页隐藏域 -->
@@ -147,14 +150,19 @@
     <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
     <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
     <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../../Scripts/select2.js"></script>
+    <!-- <script type="text/javascript" src="../../Scripts/bootstrap.js"></script> -->
+    <!-- <script type="text/javascript" src="../../Scripts/select2.js"></script> -->
     <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
     <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
 
     <script>
         $(function() {
             $(".start_end_time").datetimepicker();
+            $('form input[type=checkbox]').change(function(){
+                $('#hidden-items').val($('form input[type=checkbox]:checked').map(function(){return this.value}).get().join(','));
+
+              })
+
         });
         var params = "vipType=&minExpiredAt=&maxExpiredAt=&keyWord="; //全局变量
         var app = angular.module('myApp', []);
@@ -211,7 +219,7 @@
             pageing(1, params);
             //查询按钮
             $scope.search = function() {
-                alert('a');
+                // alert('a');
                 //用户名称
                 var username = $("#keyword").val();
                 //会员类型
@@ -234,12 +242,26 @@
                 }
                 pageing($scope.toPageValue, params);
             }
+            $scope.save=function() {
+                console.log("当前项目ID:"+$scope.itemId);
+                var saveInfo={
+                    userId:$scope.selected.join(','),
+                    appointmentTime:Date.parse(new Date($("#date").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#date").val())),
+                    itemId:$("#hidden-items").val(),
+                    comment:$scope.notes
+                }
+
+                $.post('http://60.205.170.209:8080/admin/api/api-docs/appointment',saveInfo, function(data) {
+                    if (data.success) {
+                        tool.alerts('提示','保存成功');
+                        $('#orderForm')[0].reset();
+                }else{
+                        tool.alerts('提示','保存失败');$('#orderForm')[0].reset();
+                    }
+                });
+            }
         });
     </script>
 </body>
 
-</html>
-</script>
-</body>
-
-</html>
+</html> 
