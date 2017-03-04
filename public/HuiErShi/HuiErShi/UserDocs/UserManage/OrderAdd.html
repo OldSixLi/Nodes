@@ -14,7 +14,7 @@
     <!-- 面包屑导航 -->
     <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
         <li><a href="javascript:void(0)">客户管理</a></li>
-        <li><a href="javascript:void(0)">预约列表</a></li>
+        <li><a href="javascript:history.back(-1)">预约列表</a></li>
         <li class="active">添加预约</li>
     </ol>
     <div class="text-right col-xs-12" id="search_block">
@@ -81,8 +81,8 @@
                 </tbody>
             </table>
         </div>
-        <p> Selected : {{selected}} </p>
-    
+        <!-- <p> Selected : {{selected}} </p> -->
+
     </div>
     <div ng-show="dataLengths" class="row">
         <div class="form-group pull-right topage_block">
@@ -133,11 +133,11 @@
                 <div class="col-md-9 col-sm-9 col-xs-9">
                     <input type="text" class="form-control" name="notes" id="notes" placeholder="请输入预约备注" ng-model="notes"/>
                 </div>
-            </div> 
+            </div>
             <div class="row form-group">
                 <div class="col-md-9 col-md-offset-3 text-center">
                     <input type="button" class="btn btn-success" value="确定" ng-click="save()" /> &nbsp;&nbsp;
-                    <input type="button" class="btn btn-default" value="取消" />
+                    <a href="javascript:history.back(-1)" class="btn btn-default">取消</a>
                 </div>
             </div>
 
@@ -160,19 +160,15 @@
             $(".start_end_time").datetimepicker();
             $('form input[type=checkbox]').change(function(){
                 $('#hidden-items').val($('form input[type=checkbox]:checked').map(function(){return this.value}).get().join(','));
-
-              })
-
+              });
         });
         var params = "vipType=&minExpiredAt=&maxExpiredAt=&keyWord="; //全局变量
         var app = angular.module('myApp', []);
         app.controller('customersCtrl', function($scope, $http) {
-
             $scope.selected = [];
             $scope.isChecked = function(x) {
                 return $scope.selected.indexOf(x) >= 0;
             };
-
             $scope.updateSelection = function($event, x) {
 
                 var checkbox = $event.target;
@@ -186,7 +182,6 @@
                     console.log($scope.selected.join(','));
                 }
             };
-
             //分页方法声明
             var pageing = function(pageindex, params) {
                 //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../vip?
@@ -234,7 +229,6 @@
             }
             //跳转至某页方法
             $scope.skip = function() {
-
                 if ($scope.toPageValue <= 1) {
                     $scope.toPageValue = 1;
                 } else if ($scope.toPageValue > $scope.totalPage) {
@@ -250,7 +244,6 @@
                     itemId:$("#hidden-items").val(),
                     comment:$scope.notes
                 }
-
                 $.post('http://60.205.170.209:8080/admin/api/api-docs/appointment',saveInfo, function(data) {
                     if (data.success) {
                         tool.alerts('提示','保存成功');
@@ -264,4 +257,4 @@
     </script>
 </body>
 
-</html> 
+</html>

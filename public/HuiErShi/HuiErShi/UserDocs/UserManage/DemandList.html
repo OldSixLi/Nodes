@@ -14,7 +14,6 @@
         .form-group {
             margin-left: 10px;
         }
-
         .form-inline .form-control {
             width: 150px;
         }
@@ -85,17 +84,17 @@
                         </tr>
                     </thead>
                     <tbody id="databody">
-                        <tr ng-show="dataLengths" ng-repeat="x in names.list">
-                            <td>{{ $index+names.page.currentPage*10-9}}</td>
+                        <tr ng-show="dataLengths" ng-repeat="x in data.content">
+                            <td>{{$index+data.page*data.pageNum-data.pageNum+1}}</td>
                             <td>{{ x.FP_HM }}</td>
-                            <td>{{ x.NSRMC }}</td>
-                            <td>{{ x.FP_HM }}</td>
-                            <td>{{ x.NSRMC }}</td>
-                            <td>{{ x.FP_HM }}</td>
-                            <td>{{ x.NSRMC }}</td>
-                            <td>{{ x.FP_HM }}</td>
-                            <td>{{ x.ID }}</td>
-                            <td>{{ x.KPRQ?x.KPRQ:&quot;2017年2月16日14:04:10&quot; }}</td>
+                            <td>{{ x.user.vipEntity.adviser.name }}</td>
+                            <td>{{ x.user.vipEntity.realName }}</td>
+                            <td>{{ x.demandWay=="Telephone"?"电话":"来访"}}</td>
+                            <td>{{ x.problem }}</td>
+                            <td>{{ x.solution }}</td>
+                            <td>{{ x.completed?"已完成":"未完成" }}</td>
+                            <td>{{ x.completedAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                            <td>{{ x.remark}}</td>
                         </tr>
                         <tr ng-show="!dataLengths">
                             <td colspan="100" class="text-center">没有相关数据</td>
@@ -135,7 +134,7 @@
                                 <div class="col-sm-2 text-right">
                                     <label for="inputEmail3" class="control-label">会员姓名：</label>
                                 </div>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <select name="addMemberName" id="addMemberName" class="form-control" ng-model="vm.data.name" required style="width:100%;">
                                         <option value="">请选择</option>
                                         <option value="2">张无忌</option>
@@ -146,7 +145,7 @@
                                 <div class="col-sm-2 text-right">
                                     <label for="inputEmail3" class="control-label">电话/来访：</label>
                                 </div>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <select class="form-control" name="phone" id="phone" ng-model="vm.data.phone" required style="width:100%;">
                                         <option value="">请选择</option>
                                         <option value="2">张无忌</option>
@@ -157,21 +156,21 @@
                                 <div class="col-sm-2 text-right">
                                     <label for="inputPassword3" class="control-label">客户反馈问题：</label>
                                 </div>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <textarea class="form-control" name="problem" id="inputEmail3" placeholder="请输入客户反馈问题" ng-model="vm.data.problem" required></textarea>　 　</div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-2 text-right">
                                     <label for="inputPassword3" class="control-label">解决方案：</label>
                                 </div>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <textarea class="form-control" name="plan" id="inputEmail3" placeholder="请输入解决方案" ng-model="vm.data.plan" required></textarea>　 　</div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-2 text-right">
                                     <label for="inputPassword3" class="control-label ">备注：</label>
                                 </div>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <textarea class="form-control" name="remark" id="inputEmail3" placeholder="请输入备注" ng-model="vm.data.remark" required></textarea>　 　</div>
                             </div>
                         </div>
@@ -236,29 +235,27 @@
                     remark: {
                         required: "此项为必填项，请输入备注。"
                     }
-
                 });
             }]);
             app.controller("customersCtrl", ["$scope", "$http", function($scope, $http) {
-
                 //分页方法声明
                 var pageing = function(pageindex, params) {
                     //请求地址
                     //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../activity?
-                    var url = "../../JSON/data.json?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+                    var url = "../../JSON/demand.json?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
                     $http.get(url).success(function(data) {
                         if (data != null && data != "" && data != "null") {
                             //判断当前是否存在记录
-                            $scope.dataLengths = data.list.length > 0;
-                            if (data.list != null && data.list.length > 0) {
+                            $scope.dataLengths = data.content.length > 0;
+                            if (data.content != null && data.content.length > 0) {
                                 //赋值操作
-                                $scope.names = data;
-                                $scope.totalPage = data.page.totalPage;
-                                $scope.totalRecord = data.page.totalResult;
+                                $scope.data = data;
+                                $scope.totalPage = data.totalPages;
+                                $scope.totalRecord = data.totalElements;
                                 //调用生成分页方法
                                 initPageDiv($("#alreadyPage"), //在哪里生成页码
                                     pageindex, //当前页
-                                    data.page.totalPage, //总页数
+                                    data.totalPages, //总页数
                                     5, //每次显示多少页
                                     $("#currentPage"), //隐藏域的值：当前页数
                                     function() {
@@ -323,16 +320,16 @@
                             }
                         })
                         .success(function(data) {
-                            console.log(data);
+                            // console.log(data);
                             if (!data.success) {
                                 $scope.errorName = data.errors.name;
                                 $scope.errorSuperhero = data.errors.superheroAlias;
                                 $scope.vm = {};
                             } else {
                                 $scope.vm = {};
-                                // if successful, bind success message to message
                                 $scope.message = data.message;
                                 $(":submit").attr("disabled", false);
+                                //TODO $("#addRecord").modal('hide');
                             }
                         });
                     alert("Save Successfully!!!");
