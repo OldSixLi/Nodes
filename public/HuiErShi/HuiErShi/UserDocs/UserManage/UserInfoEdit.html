@@ -52,10 +52,10 @@
                 <!-- 用户头像 -->
                 <div class="col-md-2 ">
                     <!--TODO 用户头像上传涉及到后台部分，暂时没做-->
-                    <img id="userPhoto" src="{{vm.entity.iconUrl}}" ng-model="vm.entity.iconUrl" class="img-responsive img-thumbnail">
+                    <img id="userPhoto" src="{{vm.entity.iconUrl}}" ng-model="vm.iconUrl" class="img-responsive img-thumbnail">
                     <input name="fileUserPhoto" type="file">
                     <!-- 用来隐藏当前图片的地址 -->
-                    <input type="hidden" ng-model="vm.entity.iconUrl" />
+                    <input type="hidden" ng-model="vm.iconUrl" />
                 </div>
                 <!-- 左侧表单 -->
                 <div class="col-md-5 form-horizontal">
@@ -65,7 +65,7 @@
                             <label for="realName" class="control-label">姓名：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="realName" required ng-model="vm.entity.vipEntity.realName" placeholder="用户真实姓名" />
+                            <input type="text" class="form-control" name="realName" required ng-model="vm.entity.realName" placeholder="用户真实姓名" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -73,7 +73,7 @@
                             <label for="mobile" class="control-label">手机：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="mobile" required ng-model="vm.entity.vipEntity.mobile" ng-pattern="/^1[34578]\d{9}$/" placeholder="请输入11位手机号">
+                            <input type="text" class="form-control" name="mobile" required ng-model="vm.entity.mobile" ng-pattern="/^1[34578]\d{9}$/" placeholder="请输入11位手机号">
                         </div>
                     </div>
                     <div class="form-group">
@@ -93,7 +93,7 @@
                             <label for="txtUserNum" class="control-label">会员序号：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="txtUserNum" required ng-model="vm.entity.vipEntity.TODO" placeholder="会员序号">
+                            <input type="text" class="form-control" name="txtUserNum" required ng-model="vm.entity.todo" placeholder="会员序号">
                         </div>
                     </div>
                     <div class="form-group">
@@ -102,7 +102,7 @@
                         </div>
                         <div class="col-sm-8">
                             <!--56民族列表-->
-                            <select name="nationality" class="form-control" id="nationality" required ng-model="vm.entity.vipEntity.nationality" style="max-width: 100%">
+                            <select name="nationality" class="form-control" id="nationality" required ng-model="vm.entity.nationality" style="max-width: 100%">
                                 <option value="">请选择民族</option>
                                 <option value="汉族">汉族</option>
                                 <option value="蒙古族">蒙古族</option>
@@ -169,7 +169,7 @@
                         </div>
                         <div class="col-sm-8">
                             <!--TODO  后期修改，全国省市基础文件包过大-->
-                            <input type="text" class="form-control" name="nativePlace" required ng-model="vm.entity.vipEntity.nativePlace" placeholder="籍贯">
+                            <input type="text" class="form-control" name="nativePlace" required ng-model="vm.entity.nativePlace" placeholder="籍贯">
 
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                             <label for="job" class="control-label">职业：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="job" required ng-model="vm.entity.vipEntity.job" placeholder="职业">
+                            <input type="text" class="form-control" name="job" required ng-model="vm.entity.job" placeholder="职业">
                         </div>
                     </div>
                     <div class="form-group">
@@ -186,7 +186,7 @@
                             <label for="txtUserFoodHabits" class="control-label">饮食习惯：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="txtUserFoodHabits" required ng-model="vm.entity.vipEntity.txtUserFoodHabits" placeholder="饮食习惯">
+                            <input type="text" class="form-control" name="txtUserFoodHabits" required ng-model="vm.entity.todo" placeholder="饮食习惯">
                         </div>
                     </div>
                     <div class="form-group">
@@ -194,7 +194,7 @@
                             <label for="txtUserSportHabits" class="control-label">运动习惯：</label>
                         </div>
                         <div class="col-sm-8">
-                            <select name="txtUserSportHabits" id="txtUserSportHabits" class="form-control" required ng-model="vm.entity.vipEntity.txtUserSportHabits" style="max-width: 100%">
+                            <select name="txtUserSportHabits" id="txtUserSportHabits" class="form-control" required ng-model="vm.entity.todo" style="max-width: 100%">
                             <option value="">请选择</option>
                                 <option value="不运动">不运动</option>
                                 <option value="每周少于3次">每周少于3次</option>
@@ -207,7 +207,7 @@
                             <label for="txtUserPressure" class="control-label">压力状况：</label>
                         </div>
                         <div class="col-sm-8">
-                            <select name="txtUserPressure" id="txtUserPressure" class="form-control" required ng-model="vm.entity.vipEntity.txtUserPressure" style="max-width: 100%">
+                            <select name="txtUserPressure" id="txtUserPressure" class="form-control" required ng-model="vm.entity.todo" style="max-width: 100%">
                             <option value="">请选择</option>
                                 <option value="轻松">轻松</option>
                                 <option value="经常感到压力">经常感到压力</option>
@@ -240,7 +240,7 @@
                             <label for="idNo" class="control-label">身份证：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="idNo" required ng-model="vm.entity.vipEntity.idNo" ng-pattern="/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/" placeholder="身份证号">
+                            <input type="text" class="form-control" name="idNo" required ng-model="vm.entity.idNo" ng-pattern="/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/" placeholder="身份证号">
                         </div>
                     </div>
                     <div class="form-group">
@@ -248,7 +248,7 @@
                             <label for="contactAddress" class="control-label">地址：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="contactAddress" required ng-model="vm.entity.vipEntity.contactAddress" placeholder="居住地址">
+                            <input type="text" class="form-control" name="contactAddress" required ng-model="vm.entity.contactAddress" placeholder="居住地址">
                         </div>
                     </div>
                     <div class="form-group">
@@ -256,7 +256,7 @@
                             <label for="medicalHistory" class="control-label">既往史：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="medicalHistory" required ng-model="vm.entity.vipEntity.medicalHistory" placeholder="既往史">
+                            <input type="text" class="form-control" name="medicalHistory" required ng-model="vm.entity.medicalHistory" placeholder="既往史">
                         </div>
                     </div>
                     <div class="form-group">
@@ -264,7 +264,7 @@
                             <label for="familyMedicalHistory" class="control-label">家族史：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="familyMedicalHistory" required ng-model="vm.entity.vipEntity.familyMedicalHistory" placeholder="家族病史">
+                            <input type="text" class="form-control" name="familyMedicalHistory" required ng-model="vm.entity.familyMedicalHistory" placeholder="家族病史">
                         </div>
                     </div>
                     <div class="form-group">
@@ -272,7 +272,7 @@
                             <label for="fertility" class="control-label">生育史：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="fertility" required ng-model="vm.entity.vipEntity.fertility" placeholder="月经生育史">
+                            <input type="text" class="form-control" name="fertility" required ng-model="vm.entity.fertility" placeholder="月经生育史">
                         </div>
                     </div>
                     <div class="form-group">
@@ -280,7 +280,7 @@
                             <label for="allergic" class="control-label">过敏史：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" required ng-model="vm.entity.vipEntity.allergic" name="allergic" placeholder="过敏史">
+                            <input type="text" class="form-control" required ng-model="vm.entity.allergic" name="allergic" placeholder="过敏史">
                         </div>
                     </div>
                     <div class="form-group">
@@ -288,7 +288,7 @@
                             <label for="sleepSituation" class="control-label">睡眠情况：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="sleepSituation" required ng-model="vm.entity.vipEntity.sleepSituation" placeholder="睡眠情况">
+                            <input type="text" class="form-control" name="sleepSituation" required ng-model="vm.entity.sleepSituation" placeholder="睡眠情况">
                         </div>
                     </div>
                     <div class="form-group">
@@ -296,7 +296,7 @@
                             <label for="drinkingSituation" class="control-label">饮酒情况：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="drinkingSituation" required ng-model="vm.entity.vipEntity.drinkingSituation" placeholder="饮酒情况">
+                            <input type="text" class="form-control" name="drinkingSituation" required ng-model="vm.entity.drinkingSituation" placeholder="饮酒情况">
                         </div>
                     </div>
                     <div class="form-group">
@@ -304,7 +304,7 @@
                             <label for="smokingSituation" class="control-label">吸烟情况：</label>
                         </div>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="smokingSituation" required ng-model="vm.entity.vipEntity.smokingSituation" placeholder="吸烟情况">
+                            <input type="text" class="form-control" name="smokingSituation" required ng-model="vm.entity.smokingSituation" placeholder="吸烟情况">
                         </div>
                     </div>
 
@@ -371,20 +371,15 @@
         {
             $(".start_end_time").datetimepicker();
             // 下拉菜单美化
-            var tool = new JSTOOL();
             tool.changeSelect($("#userBelong"), false);
-            var tool = new JSTOOL();
             tool.changeSelect($("#nationality"), false);
-            var tool = new JSTOOL();
             tool.changeSelect($("#txtUserSportHabits"), false);
-            var tool = new JSTOOL();
             tool.changeSelect($("#txtUserPressure"), false);
         });
         (function()
         {
             var app = angular.module("myApp", ["w5c.validator"]);
             window.app = app;
-
             //配置验证规则
             app.config(["w5cValidatorProvider", function(w5cValidatorProvider)
             {
@@ -437,19 +432,22 @@
             {
                 var vm = $scope.vm = {
                     entity:
-                    {} //用来存放页面数据
+                    {
+
+                    } //用来存放页面数据
+                    // entity.TODO = "TODO";
                 };
                 var url = new UrlSearch();
-                var vipid = url.vipid; //获取当前用户的ID
-                console.log(url.vipid);
-                if (url.vipid)
+                if (url.id)
                 {
-                    var url = "../../JSON/vipjson.json?vipid=" + vipid;
+                    var userid = url.id; //获取当前用户的ID
+                    var url = "http://60.205.170.209:8080/admin/api/vip/" + userid;
                     $http.get(url).success(function(data)
                     {
                         if (data != null && data != "" && data != "null" && data.id)
                         {
                             $scope.vm.entity = data;
+                            $scope.vm.entity.todo = "TODO";
                             $scope.vm.vipcards = data.vipcards;
                             $scope.vm.dataLengths = data.vipcards.length;
                         }
@@ -462,6 +460,25 @@
                         //处理响应失败
                         alert("获取用户数据出错！");
                         window.history.back(-1); //回退至上一页面
+                    });
+
+                    //获取当前用户汇总信息
+                    var infoUrl = "http://60.205.170.209:8080/admin/api/vip/" + userid + "/summary"
+                    $http.get(cardsUrl).success(function(healthyData)
+                    {
+                        if (healthyData != null && healthyData != "" && healthyData != "null")
+                        {
+                            $scope.vipInfo = healthyData;
+                        }
+                        else
+                        {
+                            tool.alert("提示", healthyData.errorMessage);
+                        }
+                    }).error(function(data)
+                    {
+                        //处理响应失败
+                        tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+                        window.location.href = "MemberList.html";
                     });
                 }
                 else
@@ -505,7 +522,5 @@
         })();
     </script>
 </body>
-
-
 
 </html>

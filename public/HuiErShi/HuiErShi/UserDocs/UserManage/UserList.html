@@ -78,12 +78,13 @@
                     <!-- 数据主体部分 -->
                     <tbody id="databody">
                         <tr ng-show="dataLengths" ng-repeat="x in names.content|orderBy:title :desc">
-                            <td> {{x.length=$index+names.page*names.pageNum-names.pageNum+1}}</td>
-                            <td><img src="{{x.iconUrl}}" alt="">{{ x.userName }}</td>
+                            <td> {{x.length=$index+(names.page+1)*names.pageNum-names.pageNum+1}}</td>
+                            <td><img src="{{x.iconUrl}}" alt="">
+                                <a href="userInfoEdit.html?id={{x.id}}">{{ x.userName }}</a></td>
                             <td>{{ x.gender=="M"?"男":"女" }}</td>
                             <td>{{ x.district }}</td>
                             <td>{{ x.referee }}</td>
-                            <td>{{x.time= x.createAt.year+'/'+x.createAt.month+'/'+x.createAt.day+' '+x.createAt.hours+'/'+x.createAt.minutes+'/'+x.createAt.seconds}}</td>
+                            <td>{{ x.time=x.createAt| date:"yyyy/MM/dd HH:mm:ss"}}</td>
                         </tr>
                         <tr ng-show="!dataLengths">
                             <td colspan="100" class="text-center ">暂无结果</td>
@@ -147,19 +148,14 @@
                             $scope.totalRecord = data.totalElements;
                             //调用生成分页方法
                             initPageDiv($("#alreadyPage"), //在哪里生成页码
-                                pageindex, //当前页
+                                pageindex + 1, //当前页
                                 data.totalPages, //总页数
                                 5, //每次显示多少页
                                 $("#currentPage"), //隐藏域的值：当前页数
                                 function()
                                 {
-                                    pageing($("#currentPage").val(), params);
+                                    pageing($("#currentPage").val() - 1, params);
                                 });
-
-                        }
-                        else
-                        {
-                            $("#databody").html('<tr><td colspan="100" class="text-center ">没有相关数据</td></tr> ');
 
                         }
                     }
@@ -180,13 +176,13 @@
                 //校验只有一个搜索条件
                 if (!(minExpiredAt || maxExpiredAt || username))
                 {
-                    alert("请至少输入一个搜索条件");
+                    tool.alert("提示", "请至少输入一个搜索条件");
                     return false;
                 }
                 //起止日期校验
                 if (minExpiredAt > maxExpiredAt)
                 {
-                    alert("活动日期中结束时间不得早于起始时间");
+                    tool.alert("提示", "活动日期中结束时间不得早于起始时间");
                     return false;
                 }
 
