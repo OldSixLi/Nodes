@@ -1,3 +1,4 @@
+
 <!--活动添加页面-->
 <html>
 
@@ -7,12 +8,9 @@
     <title>活动详情</title>
     <!-- 通用Bootstrap样式库 -->
     <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
+    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
     <!-- 个人维护样式库 -->
     <link href="../../Styles/common.css" rel="stylesheet">
-
-
-    <script>
-    </script>
 </head>
 
 <body>
@@ -28,11 +26,11 @@
     <!--页面主体-->
     <div class="container-fluid" ng-app="myApp" ng-controller="validateCtrl">
         <div class="row">
-            <form action="" id="headForm" method="post" enctype="multipart/form-data">
+            <!--<form action="" id="headForm" method="post" enctype="multipart/form-data">
                 <input type="file" style="display:none" name="imageRes" id="imageRes" />
-                <!-- onchange="uploadImage()" -->
+
                 <input type="hidden" name="type" value="turn" />
-            </form>
+            </form>-->
 
             <!--表单元素-->
             <form class="form-horizontal w5c-form demo-form" w5c-form-validate="vm.validateOptions" novalidate name="validateForm">
@@ -65,131 +63,131 @@
                                 <input type="text" class="form-control" id="name" name="name" placeholder="请输入活动名称" required ng-model="vm.entity.name">
                             </div>
                         </div>
+                        <div class="row ">
+                            <div class="col-xs-12">
+                                <div class="form-group col-xs-6">
+                                    <div class="col-sm-4 text-right">
+                                        <label for="startAt" class="control-label">活动时间：</label>
+                                    </div>
+                                    <div class="col-sm-7 text-left">
+                                        <input type="text" class="form-control start_end_time" id="startAt" name="startAt" placeholder="请选择时间" required ng-model="vm.entity.startAt">
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-6">
 
-                        <div class="form-group col-xs-6">
-
-                            <div class="col-sm-4 text-right">
-                                <label for="startAt" class="control-label">活动时间：</label>
-                            </div>
-                            <div class="col-sm-7 text-left">
-                                <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-
-                                    <input type="text" class="form-control" id="startAt" name="startAt" placeholder="请选择时间" required ng-model="vm.entity.startAt">
-
+                                    <div class="col-sm-3 text-right">
+                                        <label for="lasted" class="control-label">持续：</label>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <input type="text" class="form-control" id="lasted" name="lasted" placeholder="单位：小时" required ng-model="vm.entity.lasted">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group col-xs-6">
+                        <div class="row ">
+                            <div class="col-xs-12">
+                                <div class="form-group col-xs-6">
+                                    <div class="col-sm-4 text-right">
+                                        <label for="signUpCost" class="control-label">报名费：</label>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="signUpCost" name="signUpCost" placeholder="报名费用" required ng-model="vm.entity.signUpCost">
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-6">
+                                    <div class="col-sm-3 text-right">
+                                        <label for="maxApplyNumber" class="control-label">活动人数：</label>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <input type="text" class="form-control" id="maxApplyNumber" name="maxApplyNumber" placeholder="单位：人" required ng-model="vm.entity.maxApplyNumber">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-xs-12">
+                                <div class="form-group col-xs-6">
+                                    <div class="col-sm-4 text-right">
+                                        <label for="txtActivityPlace" class="control-label">活动地点：</label>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="location" name="location" required placeholder="活动详细地址" ng-model="vm.entity.location">
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-6">
+                                    <div class="col-sm-3 text-right">
+                                        <label for="signByUser" class="control-label">自助签到：</label>
 
-                            <div class="col-sm-3 text-right">
-                                <label for="lasted" class="control-label">持续：</label>
-                            </div>
-                            <div class="col-sm-6 col-md-6">
-                                <input type="text" class="form-control" id="lasted" name="lasted" placeholder="单位：小时" required ng-model="vm.entity.lasted">
-                            </div>
-                        </div>
-
-                        <div class="form-group col-xs-6">
-                            <div class="col-sm-4 text-right">
-                                <label for="signUpCost" class="control-label">报名费：</label>
-                            </div>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control" id="signUpCost" name="signUpCost" placeholder="报名费用" required ng-model="vm.entity.signUpCost">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="signByUser" ng-model="vm.entity.signByUser" ng-value=true ng-checked="true">开
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="signByUser" ng-model="vm.entity.signByUser" ng-value=false>关
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group col-xs-6">
-                            <div class="col-sm-3 text-right">
-                                <label for="maxApplyNumber" class="control-label">活动人数：</label>
+                        <div class="form-group" ng-class="point_className">
+                            <div class="col-sm-2 text-right">
+                                <label for="coordinate" class="control-label">地点坐标：</label>
                             </div>
-                            <div class="col-sm-6 col-md-6">
-                                <input type="text" class="form-control" id="maxApplyNumber" name="maxApplyNumber" placeholder="单位：人" required ng-model="vm.entity.maxApplyNumber">
-                            </div>
-                        </div>
-
-                        <!--  <div class="col-sm-1" style="text-align:left;padding:10px 0 0 0;">
-
-                            </div> -->
-                    </div>
-                    <div class="form-group col-xs-6">
-                        <div class="col-sm-4 text-right">
-                            <label for="txtActivityPlace" class="control-label">活动地点：</label>
-                        </div>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="location" name="location" placeholder="活动详细地址" required ng-model="vm.entity.location">
-                        </div>
-                    </div>
-                    <div class="form-group col-xs-6">
-                        <div class="col-sm-3 text-right">
-                            <label for="signByUser" class="control-label">自助签到：</label>
-
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="radio">
-                                <label>
-                                        <input type="radio" name="signByUser"
-                                               value="option1" checked required ng-model="vm.entity.signByUser">开
-                                    </label>
-                                <label>
-                                        <input type="radio" name="signByUser"
-                                               value="option2" required ng-model="vm.entity.signByUser">关
-                                    </label>
-
+                            <div class="col-sm-8 col-md-8">
+                                <input type="text" class="form-control" id="coordinate" name="coordinate" placeholder="活动的坐标" ng-model="vm.entity.coordinate" onclick="openMap()">
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2 text-right">
-                            <label for="coordinate" class="control-label">地点坐标：</label>
+                        <div class="form-group">
+                            <div class="col-sm-2 text-right">
+                                <label for="announcement" class="control-label">通知公告：</label>
+                            </div>
+                            <div class="col-sm-8 col-md-8">
+                                <input type="text" class="form-control" id="announcement" name="announcement" placeholder="例：慢性病管理健康常识知多点！欢迎参加！" required ng-model="vm.entity.announcement">
+                            </div>
                         </div>
-                        <div class="col-sm-8 col-md-8">
-                            <input type="text" class="form-control" id="coordinate" name="coordinate" placeholder="活动的坐标" ng-pattern="/\S/" ng-model="vm.entity.coordinate" onclick="openMap()">
+                        <div class="form-group">
+                            <div class="col-sm-2 text-right">
+                                <label for="description" class="control-label">活动详情：</label>
+                            </div>
+                            <div class="col-sm-8 col-md-8">
+                                <textarea class="form-control" name="description" id="description" rows="5" placeholder="请输入活动详细内容" required ng-model="vm.entity.description"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2 text-right">
-                            <label for="announcement" class="control-label">通知公告：</label>
-                        </div>
-                        <div class="col-sm-8 col-md-8">
-                            <input type="text" class="form-control" id="announcement" name="announcement" placeholder="例：慢性病管理健康常识知多点！欢迎参加！" required ng-model="vm.entity.signByUser">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2 text-right">
-                            <label for="description" class="control-label">活动详情：</label>
-                        </div>
-                        <div class="col-sm-8 col-md-8">
-                            <textarea class="form-control" name="description" id="description" rows="5" placeholder="请输入活动详细内容" required ng-model="vm.entity.description"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2 text-right">
-                            <label for="isReleased" class="control-label">是否发布：</label>
-                        </div>
-                        <div class="col-sm-10">
-                            <div class="radio">
-                                <label>
+                        <div class="form-group">
+                            <div class="col-sm-2 text-right">
+                                <label for="isReleased" class="control-label">是否发布：</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="radio">
+                                    <label>
                                         <input type="radio" name="isReleased" id="isReleased1"
                                                value="option1" checked>待发布 (用户不可见)&nbsp;&nbsp;&nbsp;&nbsp;
                                     </label>
-                                <label>
+                                    <label>
                                         <input type="radio" name="isReleased" id="isReleased2"
                                                value="option2">发布 (用户可见)&nbsp;&nbsp;&nbsp;&nbsp;
                                     </label>
-                                <label>
+                                    <label>
                                         <input type="radio" name="isReleased" id="isReleased3"
                                                value="option2">发布 (可见不可报名)&nbsp;&nbsp;&nbsp;&nbsp;
                                     </label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <!--提交按钮-->
                     <div class="col-md-3 col-md-offset-3 col-sm-6 col-sm-offset-3">
-                        <input type="submit" class="btn btn-block btn-success" id="btnActivitySubmit" value="保存活动信息" w5c-form-submit="vm.savainfo($event)">
+
+                        <!-- <button type="submit" class="btn btn-block btn-success" id="btnActivitySubmit" w5c-form-submit="vm.saveinfo($event)">保存活动信息</button> -->
+                        <button type="submit" class="btn btn-success" w5c-form-submit="vm.saveinfo($event)">保存活动信息</button>
                     </div>
                 </div>
+            </form>
+            <button type="button" name="button" ng-click="vm.saveinfo($event)">测试</button>
         </div>
-        </form>
-    </div>
     </div>
     <!-- 脚本 -->
     <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
@@ -199,10 +197,13 @@
     <script type="text/javascript" src="../../Scripts/select2.js"></script>
     <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
     <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery-form.js"></script>
 
 
     <script>
+        $(function()
+        {
+            $(".start_end_time").datetimepicker();
+        });
         (function()
         {
             var app = angular.module("myApp", ["w5c.validator"]);
@@ -214,8 +215,7 @@
                 {
                     blurTrig: true,
                     showError: true,
-                    removeError: true,
-                    isAlert: true //用户数据输入错误时，是否进行弹框提示
+                    removeError: true
                 });
 
                 w5cValidatorProvider.setRules(
@@ -226,10 +226,43 @@
                     },
                     coordinate:
                     {
-                        pattern: "请选择地点坐标"
+                        required: "请选择地点坐标"
+                    },
+                    name:
+                    {
+                        required: "请输入活动名称"
+                    },
+                    startAt:
+                    {
+                        required: "请选择活动时间"
+                    },
+                    lasted:
+                    {
+                        required: "请输入活动持续时间"
+                    },
+                    location:
+                    {
+                        required: "请选择地点坐标"
+                    },
+                    maxApplyNumber:
+                    {
+                        required: "请输入活动人数"
+                    },
+                    signUpCost:
+                    {
+                        required: "请输入报名费用"
+                    },
+                    announcement:
+                    {
+                        required: "请输入通知公告"
+                    },
+                    description:
+                    {
+                        required: "请输入活动详情"
                     }
                 });
             }]);
+
             app.controller("validateCtrl", ["$scope", "$http", function($scope, $http)
             {
                 var vm = $scope.vm = {　
@@ -242,12 +275,12 @@
 
                 vm.saveinfo = function($event)
                 {
-
+                    console.log("表单开始提交");
                     $(":submit").attr("disabled", true);
                     $http(
                         {
                             method: 'POST',
-                            url: 'process.php', //登录接口
+                            url: 'process.php',
                             data: $('[name="validateForm"]').serialize(),
                             headers:
                             {
@@ -266,14 +299,13 @@
                             else
                             {
                                 $scope.vm = {};
-                                // if successful, bind success message to message
                                 $scope.message = data.message;
-                                tool.alert("提示", "数据保存成功");
                                 $(":submit").attr("disabled", false);
                             }
+                        }).error(function()
+                        {
+                            alert("Save Successfully!!!");
                         });
-
-
 
                 };
 
@@ -390,6 +422,7 @@
                     var result = result.split("-");
                     console.log("zuobiao" + result);
                     document.getElementById("coordinate").value = result[1] + ',' + result[0];
+                    $("#coordinate").val(result[1] + ',' + result[0])
                     // document.getElementById("ZUOBIAO_Y").value = result[1];
                     // document.getElementById("course_zuobiao").innerHTML = result[1] + ',' + result[0];
                 }
@@ -402,6 +435,8 @@
             // document.getElementById("ZUOBIAO_X").value = x;
             // document.getElementById("ZUOBIAO_Y").value = y;
             document.getElementById("coordinate").value = y + ',' + x;
+            $("#coordinate").val(y + ',' + x);
+
         }
 
         function myBrowser()

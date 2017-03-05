@@ -367,49 +367,65 @@
     <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
     <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
     <script>
-        $(function() {
+        $(function()
+        {
             $(".start_end_time").datetimepicker();
             // 下拉菜单美化
-            var tool = new JSTOOL();tool.changeSelect($("#userBelong"), false);
-            var tool = new JSTOOL();tool.changeSelect($("#nationality"), false);
-            var tool = new JSTOOL();tool.changeSelect($("#txtUserSportHabits"), false);
-            var tool = new JSTOOL();tool.changeSelect($("#txtUserPressure"), false);
+            var tool = new JSTOOL();
+            tool.changeSelect($("#userBelong"), false);
+            var tool = new JSTOOL();
+            tool.changeSelect($("#nationality"), false);
+            var tool = new JSTOOL();
+            tool.changeSelect($("#txtUserSportHabits"), false);
+            var tool = new JSTOOL();
+            tool.changeSelect($("#txtUserPressure"), false);
         });
-        (function() {
+        (function()
+        {
             var app = angular.module("myApp", ["w5c.validator"]);
             window.app = app;
 
             //配置验证规则
-            app.config(["w5cValidatorProvider", function(w5cValidatorProvider) {
+            app.config(["w5cValidatorProvider", function(w5cValidatorProvider)
+            {
                 // 全局配置
-                w5cValidatorProvider.config({
+                w5cValidatorProvider.config(
+                {
                     blurTrig: true,
                     showError: true,
                     removeError: true
                 });
 
-                w5cValidatorProvider.setRules({
-                    realName: {
+                w5cValidatorProvider.setRules(
+                {
+                    realName:
+                    {
                         required: "请输入用户登录名"
                     },
-                    mobile: {
+                    mobile:
+                    {
                         required: "请输入密码",
                         pattern: "手机号码格式输入不正确"
                     },
-                    txtUserNum: {
+                    txtUserNum:
+                    {
                         required: "请输入会员编号"
                     },
-                    nationality: {
+                    nationality:
+                    {
                         required: "请选择民族"
                     },
-                    job: {
+                    job:
+                    {
                         required: "请输入职业"
                     },
-                    idNo: {
+                    idNo:
+                    {
                         required: "请输入身份证号",
                         pattern: "身份证号码格式输入不正确"
                     },
-                    contactAddress: {
+                    contactAddress:
+                    {
                         required: "请输入地址"
                     }
                 });
@@ -417,50 +433,67 @@
 
             // 控制器
             //TODO：饮食习惯、运动习惯、压力状况 没有相关的接口。编号，所属不确定
-            app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
+            app.controller("validateCtrl", ["$scope", "$http", function($scope, $http)
+            {
                 var vm = $scope.vm = {
-                    entity: {} //用来存放页面数据
+                    entity:
+                    {} //用来存放页面数据
                 };
                 var url = new UrlSearch();
                 var vipid = url.vipid; //获取当前用户的ID
                 console.log(url.vipid);
-                if (url.vipid) {
+                if (url.vipid)
+                {
                     var url = "../../JSON/vipjson.json?vipid=" + vipid;
-                    $http.get(url).success(function(data) {
-                        if (data != null && data != "" && data != "null" && data.id) {
+                    $http.get(url).success(function(data)
+                    {
+                        if (data != null && data != "" && data != "null" && data.id)
+                        {
                             $scope.vm.entity = data;
                             $scope.vm.vipcards = data.vipcards;
                             $scope.vm.dataLengths = data.vipcards.length;
-                        } else {
+                        }
+                        else
+                        {
                             alert("不存在此用户！");
                         }
-                    }).error(function(data, header, config, status) {
+                    }).error(function(data, header, config, status)
+                    {
                         //处理响应失败
                         alert("获取用户数据出错！");
                         window.history.back(-1); //回退至上一页面
                     });
-                } else {
+                }
+                else
+                {
                     alert("当前页面未获取到数据！");
                     window.history.back(-1);
                 }
-                vm.saveinfo = function($event) {
+                vm.saveinfo = function($event)
+                {
                     $(":submit").attr("disabled", true);
-                    $http({
+                    $http(
+                        {
                             method: 'POST',
                             url: '', //TODO 修改接口
                             data: $('[name="validateForm"]').serialize(),
-                            headers: {
+                            headers:
+                            {
                                 'Content-Type': 'application/x-www-form-urlencoded'
                             }
                         })
-                        .success(function(data) {
+                        .success(function(data)
+                        {
                             console.log(data);
-                            if (!data.success) {
+                            if (!data.success)
+                            {
                                 $scope.errorName = data.errors.name;
                                 $scope.errorSuperhero = data.errors.superheroAlias;
                                 $scope.vm = {};
                                 alert("Save Successfully!!!");
-                            } else {
+                            }
+                            else
+                            {
                                 $scope.vm = {};
                                 // if successful, bind success message to message
                                 $scope.message = data.message;

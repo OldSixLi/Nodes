@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>选取坐标</title>
+	<title>请单击位置选取坐标</title>
 	<link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=40GWXiduhOft266lK4N1dopL"></script>
@@ -54,59 +54,80 @@
 		var dg;
 		var mb = myBrowser();
 
-		function myBrowser() {
+		function myBrowser()
+		{
 			var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
 			var isOpera = userAgent.indexOf("Opera") > -1;
-			if (isOpera) {
+			if (isOpera)
+			{
 				return "Opera"
 			}; //判断是否Opera浏览器
-			if (userAgent.indexOf("Firefox") > -1) {
+			if (userAgent.indexOf("Firefox") > -1)
+			{
 				return "FF";
 			} //判断是否Firefox浏览器
-			if (userAgent.indexOf("Chrome") > -1) {
+			if (userAgent.indexOf("Chrome") > -1)
+			{
 				return "Chrome";
 			}
-			if (userAgent.indexOf("Safari") > -1) {
+			if (userAgent.indexOf("Safari") > -1)
+			{
 				return "Safari";
 			} //判断是否Safari浏览器
-			if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
+			if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera)
+			{
 				return "IE";
 			}; //判断是否IE浏览器
 		}
-		$(document).ready(function() {
+		$(document).ready(function()
+		{
 			//dg = frameElement.lhgDG;
 		});
 
-		function success() {
-			if (dg.curWin.document.forms[0]) {
+		function success()
+		{
+			if (dg.curWin.document.forms[0])
+			{
 				dg.curWin.document.forms[0].action = dg.curWin.location + "";
 				dg.curWin.document.forms[0].submit();
-			} else {
+			}
+			else
+			{
 				dg.curWin.location.reload();
 			}
 			dg.cancel();
 		}
 		var ary = "";
 
-		function choose() {
+		function choose()
+		{
 			//解决Chrome浏览器不兼容showModalDialog问题
-			if (mb == "Chrome") {
+			if (mb == "Chrome")
+			{
 				//Chrome浏览器关闭地图子窗口时调用父页面的函数将选取的坐标传回
 				window.opener.getXYForChrome(document.getElementById("ZUOBIAO_X").value, document.getElementById("ZUOBIAO_Y").value);
 				window.close();
-			} else {
+			}
+			else
+			{
 				var ZUOBIAO_X = document.getElementById("ZUOBIAO_X").value;
 				var ZUOBIAO_Y = document.getElementById("ZUOBIAO_Y").value;
 
-				if (ZUOBIAO_X == "" || ZUOBIAO_Y == "") {
+				if (ZUOBIAO_X == "" || ZUOBIAO_Y == "")
+				{
 					alert("请先输入经纬度");
-				} else {
+				}
+				else
+				{
 					ary = ZUOBIAO_X + "-" + ZUOBIAO_Y;
 					console.log(ary);
-					if ("Chrome" == mb) {
+					if ("Chrome" == mb)
+					{
 						//for chrome
 						return;
-					} else {
+					}
+					else
+					{
 						window.returnValue = ary;
 					}
 					window.close();
@@ -115,14 +136,16 @@
 		}
 
 		//手动搜索
-		function searchMap() {
+		function searchMap()
+		{
 			myValue = $("#suggestId").val();
 			setPlace();
 		}
 	</script>
 	<script type="text/javascript">
 		// 百度地图API功能
-		function G(id) {
+		function G(id)
+		{
 			return document.getElementById(id);
 		}
 		var map = new BMap.Map("allmap");
@@ -132,17 +155,20 @@
 				"input": "suggestId",
 				"location": map
 			});
-		ac.addEventListener("onhighlight", function(e) { //鼠标放在下拉列表上的事件
+		ac.addEventListener("onhighlight", function(e)
+		{ //鼠标放在下拉列表上的事件
 			var str = "";
 			var _value = e.fromitem.value;
 			var value = "";
-			if (e.fromitem.index > -1) {
+			if (e.fromitem.index > -1)
+			{
 				value = _value.province + _value.city + _value.district + _value.street + _value.business;
 			}
 			str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
 
 			value = "";
-			if (e.toitem.index > -1) {
+			if (e.toitem.index > -1)
+			{
 				_value = e.toitem.value;
 				value = _value.province + _value.city + _value.district + _value.street + _value.business;
 			}
@@ -150,20 +176,24 @@
 		});
 
 		var myValue;
-		ac.addEventListener("onconfirm", function(e) { //鼠标点击下拉列表后的事件
+		ac.addEventListener("onconfirm", function(e)
+		{ //鼠标点击下拉列表后的事件
 			var _value = e.item.value;
-			myValue = _value.province + _value.city + _value.district + _value.street + _value.business; 
+			myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
 			setPlace();
 		});
 
-		function setPlace() {
+		function setPlace()
+		{
 			map.clearOverlays(); //清除地图上所有覆盖物
-			function myFun() {
+			function myFun()
+			{
 				var pp = local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
 				map.centerAndZoom(pp, 18);
 				map.addOverlay(new BMap.Marker(pp)); //添加标注
 			}
-			var local = new BMap.LocalSearch(map, { //智能搜索
+			var local = new BMap.LocalSearch(map,
+			{ //智能搜索
 				onSearchComplete: myFun
 			});
 			local.search(myValue);
@@ -172,29 +202,36 @@
 
 
 		map.addControl(new BMap.ScaleControl()); // 添加默认比例尺控件
-		map.addControl(new BMap.ScaleControl({
+		map.addControl(new BMap.ScaleControl(
+		{
 			anchor: BMAP_ANCHOR_TOP_LEFT
 		})); // 左上
-		map.addControl(new BMap.ScaleControl({
+		map.addControl(new BMap.ScaleControl(
+		{
 			anchor: BMAP_ANCHOR_TOP_RIGHT
 		})); // 右上
-		map.addControl(new BMap.ScaleControl({
+		map.addControl(new BMap.ScaleControl(
+		{
 			anchor: BMAP_ANCHOR_BOTTOM_LEFT
 		})); // 左下
-		map.addControl(new BMap.ScaleControl({
+		map.addControl(new BMap.ScaleControl(
+		{
 			anchor: BMAP_ANCHOR_BOTTOM_RIGHT
 		})); // 右下
 
 		map.addControl(new BMap.NavigationControl()); //添加默认缩放平移控件
-		map.addControl(new BMap.NavigationControl({
+		map.addControl(new BMap.NavigationControl(
+		{
 			anchor: BMAP_ANCHOR_TOP_RIGHT,
 			type: BMAP_NAVIGATION_CONTROL_SMALL
 		})); //右上角，仅包含平移和缩放按钮
-		map.addControl(new BMap.NavigationControl({
+		map.addControl(new BMap.NavigationControl(
+		{
 			anchor: BMAP_ANCHOR_BOTTOM_LEFT,
 			type: BMAP_NAVIGATION_CONTROL_PAN
 		})); //左下角，仅包含平移按钮
-		map.addControl(new BMap.NavigationControl({
+		map.addControl(new BMap.NavigationControl(
+		{
 			anchor: BMAP_ANCHOR_BOTTOM_RIGHT,
 			type: BMAP_NAVIGATION_CONTROL_ZOOM
 		})); //右下角，仅包含缩放按钮
@@ -203,7 +240,8 @@
 		map.enableContinuousZoom(); //启用地图惯性拖拽，默认禁用
 
 
-		function showInfo(e) {
+		function showInfo(e)
+		{
 
 			document.getElementById("ZUOBIAO_X").value = e.point.lat;
 			document.getElementById("ZUOBIAO_Y").value = e.point.lng;

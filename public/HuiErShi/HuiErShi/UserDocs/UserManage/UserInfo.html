@@ -263,16 +263,22 @@
     <!--自定义脚本部分-->
     <script>
         var app = angular.module('myApp', []);
-        app.controller('customersCtrl', function($scope, $http) {
+        app.controller('customersCtrl', function($scope, $http)
+        {
             //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../vip?
             var url = "../../JSON/vipjson.json?vipid=1";
-            $http.get(url).success(function(data) {
-                if (data != null && data != "" && data != "null" && data.id) {
+            $http.get(url).success(function(data)
+            {
+                if (data != null && data != "" && data != "null" && data.id)
+                {
                     $scope.data = data;
-                } else {
+                }
+                else
+                {
                     alert("不存在此用户");
                 }
-            }).error(function(data, header, config, status) {
+            }).error(function(data, header, config, status)
+            {
                 //处理响应失败
                 alert("不存在此用户");
                 window.location.href = "MemberList.html";
