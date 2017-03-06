@@ -6,9 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>会员详情</title>
-    <!-- 通用Bootstrap样式库 -->
     <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
-    <!-- 个人维护样式库 -->
     <link href="../../Styles/common.css" rel="stylesheet">
 </head>
 
@@ -264,53 +262,38 @@
     <!--自定义脚本部分-->
     <script>
         var app = angular.module('myApp', []);
-        app.controller('customersCtrl', function($scope, $http)
-        {
-            //'TODO'  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../vip?
+        app.controller('customersCtrl', function($scope, $http) {
             var urlObj = new UrlSearch();
-            if (urlObj.id)
-            {
+            if (urlObj.id) {
                 $scope.userid = urlObj.id;
                 var url = "http://60.205.170.209:8080/admin/api/vip/" + urlObj.id;
                 //获取当前用户的具体信息
-                $http.get(url).success(function(data)
-                {
-                    if (data != null && data != "" && data != "null" && data.id)
-                    {
+                $http.get(url).success(function(data) {
+                    if (data != null && data != "" && data != "null" && data.id) {
                         $scope.data = data;
-                    }
-                    else
-                    {
+                    } else {
                         tool.alert("提示", data.errorMessage);
                     }
-                }).error(function(data, header, config, status)
-                {
+                }).error(function(data, header, config, status) {
                     //处理响应失败
                     tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
                     window.location.href = "MemberList.html";
                 });
                 //获取当前用户汇总信息
                 var infoUrl = "http://60.205.170.209:8080/admin/api/vip/" + urlObj.id + "/summary"
-                $http.get(infoUrl).success(function(healthyData)
-                {
-                    if (healthyData != null && healthyData != "" && healthyData != "null")
-                    {
+                $http.get(infoUrl).success(function(healthyData) {
+                    if (healthyData != null && healthyData != "" && healthyData != "null") {
                         $scope.vipInfo = healthyData;
-                    }
-                    else
-                    {
+                    } else {
                         tool.alert("提示", healthyData.errorMessage);
                     }
-                }).error(function(data)
-                {
+                }).error(function(data) {
                     //处理响应失败
                     tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
                     window.location.href = "MemberList.html";
                 });
 
-            }
-            else
-            {
+            } else {
                 tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
             }
 
