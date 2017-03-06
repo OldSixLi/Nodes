@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -22,7 +22,7 @@
                         <input name="password" class="form-control" placeholder="密码" ng-model="vm.data.password" type="password" required>
                     </div>
                     <div class="form-group">
-                         <button type="submit" w5c-form-submit="vm.saveinfo($event)" class="btn btn-primary">登录</button>
+                        <button type="submit" w5c-form-submit="vm.saveinfo($event)" class="btn btn-primary">登录</button>
                     </div>
                 </form>
 
@@ -34,74 +34,58 @@
     <script type="text/javascript" src="../Scripts/w5cValidator.js"></script>
     <!-- 脚本 -->
     <script>
-        (function()
-        {
+        (function() {
             var app = angular.module("myApp", ["w5c.validator"]);
             window.app = app;
-            app.config(["w5cValidatorProvider", function(w5cValidatorProvider)
-            {
+            app.config(["w5cValidatorProvider", function(w5cValidatorProvider) {
                 // 全局配置
-                w5cValidatorProvider.config(
-                {
+                w5cValidatorProvider.config({
                     blurTrig: true,
                     showError: true,
                     removeError: true
                 });
 
-                w5cValidatorProvider.setRules(
-                {
-                    username:
-                    {
+                w5cValidatorProvider.setRules({
+                    username: {
                         required: "用户名称不能为空"
                     },
-                    password:
-                    {
+                    password: {
                         required: "密码不能为空"
                     }
                 });
             }]);
 
-            app.controller("validateCtrl", ["$scope", "$http", function($scope, $http)
-            {
+            app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
                 var vm = $scope.vm = {
                     showErrorType: "1",
                     showDynamicElement: true,
                     dynamicName: "dynamicName",
-                    data:
-                    {}
+                    data: {}
                 };
 
-                vm.saveinfo = function($event)
-                {
+                vm.saveinfo = function($event) {
                     $(":submit").attr("disabled", true);
-                    $http(
-                        {
+                    $http({
                             method: 'POST',
-                            url: 'process.php',
+                            url: 'http://60.205.170.209:8080/admin/api/token',
                             data: $('[name="validateForm"]').serialize(),
-                            headers:
-                            {
+                            headers: {
                                 'Content-Type': 'application/x-www-form-urlencoded'
                             }
 
                         })
-                        .success(function(data)
-                        {
-                            if (!data.success)
-                            {
+                        .success(function(data) {
+                            if (!data.success) {
                                 $scope.errorName = data.errors.name;
                                 $scope.errorSuperhero = data.errors.superheroAlias;
                                 $scope.vm = {};
-                            }
-                            else
-                            {
+                            } else {
                                 $scope.vm = {};
                                 $scope.message = data.message;
                                 $(":submit").attr("disabled", false);
                             }
-                        }).error(function()
-                        {
-                            alert("Save Successfully!!!");
+                        }).error(function() {
+                            alert("登录失败,请重试!")
                         });
 
                 };

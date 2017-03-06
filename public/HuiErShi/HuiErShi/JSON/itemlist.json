@@ -1,0 +1,31 @@
+{
+  "totalPages": 0,
+  "totalElements": 0,
+  "pageNum": 0,
+  "content": [
+    {
+      "itemId": "",
+      "spell": "",
+      "unit": "",
+      "canAddByUser": false,
+      "views": [
+        {
+          "name": "",
+          "id": 0
+        }
+      ],
+      "minReference": 0,
+      "maxReference": 0,
+      "minInputCount": 0,
+      "maxInputCount": 0,
+      "selections": "",
+      "radio": false,
+      "description": "",
+      "name": "",
+      "type": "ItemType"
+    }
+  ],
+  "page": 0
+}
+"page": 0
+}

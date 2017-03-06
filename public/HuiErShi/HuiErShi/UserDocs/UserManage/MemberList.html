@@ -86,7 +86,7 @@
                     </thead>
                     <tbody id="databody">
                         <tr ng-show="dataLengths" ng-repeat="x in names.content">
-                            <td>{{ $index+(names.page+1)*20-19}}</td>
+                            <td>{{ $index+names.page*names.pageNum+1}}</td>
                             <td><img src="{{x.iconUrl}}" alt="" /><a href="UserInfo.html?id={{x.id}}">{{x.realName}}</a> </td>
                             <td>{{ x.gender=="M"?"男":"女" }}</td>
                             <td>{{ x.nativePlace }}</td>

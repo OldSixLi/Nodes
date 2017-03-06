@@ -81,12 +81,12 @@
                     </thead>
                     <tbody id="databody">
                         <tr ng-show="dataLengths" ng-repeat="x in data.content">
-                            <td>{{ $index+data.page*data.pageNum-data.pageNum+1}}</td>
+                            <td>{{ $index+(data.page+1)*data.pageNum-data.pageNum+1}}</td>
                             <td>{{ x.startAt*1000 | date:"yyyy/MM/dd HH:mm:ss" }}</td>
                             <td>{{x.name}}</td>
                             <td>{{ x.sponsorName }}</td>
                             <td>{{ x.signUpCost }}</td>
-                            <td><span ng-show="{{!x.released}}">已发布</span></td>
+                            <td><span ng-show="{{!x.released}}">已发布</span><span ng-show="{{x.released}}">未发布</span></td>
                         </tr>
                         <tr ng-show="!dataLengths">
                             <td colspan="100" class="text-center">没有相关数据</td>
@@ -136,8 +136,8 @@
             //分页方法声明
             var pageing = function(pageindex, params) {
                 //请求地址
-                //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../activity?
-                var url = "../../JSON/activity.json?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+                //TODO  需要修改部分?
+                var url = "http://60.205.170.209:8080/admin/api/activity?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
                 $http.get(url).success(function(data) {
                     if (data != null && data != "" && data != "null") {
                         //判断当前是否存在记录
