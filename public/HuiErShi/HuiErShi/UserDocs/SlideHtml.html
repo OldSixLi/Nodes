@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="https://raw.githubusercontent.com/OldSixLi/ListPage/master/myapp/public/images/my.ico" />
 	<title>主页</title>
 	<link rel="stylesheet" href="../Styles/bootstrap.css">
 	<link rel="stylesheet" href="../Styles/select2.min.css">
@@ -85,7 +86,7 @@
 	<!-- 显示区域 -->
 	<div class="workspace">
 		<!--连接地址-->
-		<iframe id="work-frame" name="work-frame" scrolling="auto" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%" src="UserManage/UserList.html" style="-webkit-user-select: none;">
+		<iframe id="work-frame" name="work-frame" scrolling="auto" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%" src="UserData/ViewManage.html" style="-webkit-user-select: none;">
         </iframe>
 	</div>
 
@@ -100,36 +101,48 @@
 	<script type="text/javascript" src="../Scripts/CommonScript.js"></script>
 
 	<script type="text/javascript">
-		function reinitIframe() {
+		function reinitIframe()
+		{
 			var iframe = document.getElementById("frame_content");
-			try {
+			try
+			{
 				iframe.height = iframe.contentWindow.document.documentElement.scrollHeight;
-			} catch (ex) {}
+			}
+			catch (ex)
+			{}
 		}
 		window.setInterval("reinitIframe()", 200);
 	</script>
 	<script>
-		$(function() {
-			$("#select2").select2({
+		$(function()
+		{
+			$("#select2").select2(
+			{
 				tags: true,
 				maximumSelectionLength: 3,
 				width: "250px"
 			});
 
-			$("dd").each(function() {
-				$(this).click(function() {
+			$("dd").each(function()
+			{
+				$(this).click(function()
+				{
 					var href = $(this).attr("data-link");
 					$("#work-frame").attr("src", href);
 				});
 			});
 		}); // 菜单栏方法
-		$("div.menu").find("dl").each(function(index) {
-			$(this).find("dt").on("click", function(e) {
-				if ($(this).parent().hasClass('expand')) {
+		$("div.menu").find("dl").each(function(index)
+		{
+			$(this).find("dt").on("click", function(e)
+			{
+				if ($(this).parent().hasClass('expand'))
+				{
 					$(this).parent().removeClass("expand");
 					return false;
 				}
-				if (!$(this).parent().is(".expand ")) {
+				if (!$(this).parent().is(".expand "))
+				{
 					// 判断其他的是否有展开的，收起
 					$(".menu dl.expand").removeClass("expand");
 					$(this).parent().addClass("expand");
