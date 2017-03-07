@@ -22,6 +22,23 @@
             border-radius: 0;
             width: 105%;
         }
+
+        .panel-select {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .div_search {
+            margin: 0;
+        }
+
+        .viewSearch {
+            margin: 15px -15px;
+        }
+
+        .control-label {
+            line-height: 34px;
+        }
     </style>
 </head>
 
@@ -29,34 +46,37 @@
     <!--新视图-->
     <!--TODO  后期重新布局-->
     <div class="container">
-        <div class="row">
-            <div class="col-md-2 pull-right">
+        <div class="row viewSearch">
+            <div class="col-xs-2 pull-right">
                 <a class="btn btn-primary " style="float: right;"><i class=" glyphicon glyphicon-plus"></i>&nbsp;创建新数据视图</a>
             </div>
-            <div class="div_search pull-right">
-                <label class="control-label">新视图名：</label>
-                <input type="text" id="txtKeyWord" placeholder="新视图名">&nbsp;
-            </div>
+            <div class="col-xs-3 pull-right"><input type="text" class="form-control" id="txtKeyWord" placeholder="新视图名"></div>
+            <div class="col-xs-1 pull-right"><label class="control-label">新视图名:</label></div>
+
         </div>
         <!--分割线-->
-        <hr style="margin-top: 0" />
+        <hr style="margin-top:0;" />
     </div>
     <!--当前视图-->
     <div class="container">
         <div class="row">
-            <div class="col-md-2 pull-right">
-                <a class="btn btn-primary " style="float: right;"><i class=" glyphicon glyphicon-plus"></i>&nbsp;创建新数据视图</a>
+            <div class="col-xs-2  pull-right"><a class="btn btn-primary " style="float: right;"><i class=" glyphicon glyphicon-plus"></i>&nbsp;保存视图设置</a></div>
+
+            <div class="col-xs-3 pull-right"><input type="text" id="txtKeyWord" class=" pull-right form-control" placeholder="新视图名"></div>
+            <div class="col-xs-1 pull-right"><label class="control-label pull-right" style="margin-top: 5px;">标签：</label></div>
+            <div class="col-xs-1"> <label class="control-label">当前视图:</label></div>
+            <div class="col-xs-3"><select class="form-control">
+                <option value="value">尿常规报告单</option>
+            </select>
             </div>
-            <div class="col-md-10 " style="padding-right: 2px">
+            <div class="col-md-10" style="padding-right: 2px">
                 <div class="div_search" style="width: 290px;float: left">
-                    <label class="control-label">当前视图：</label>
-                    <select>
-                        <option value="value">尿常规报告单</option>
-                    </select>&nbsp;&nbsp;
+
+
                 </div>
                 <div class="pull-right">
-                    <input type="text" id="txtKeyWord" class=" pull-right form-control" style="max-width:400px;width: 400px" placeholder="新视图名">
-                    <label class="control-label pull-right" style="margin-top: 5px;">标签：</label>
+
+
                 </div>
             </div>
         </div>
@@ -64,10 +84,10 @@
     <div class="container">
         <div class="row datalist">
             <div class="col-md-5 col-sm-5 col-xs-5">
-                <div class="panel panel-default" style="overflow: hidden">
+                <div class="panel panel-default panel-select">
                     <div class="panel-heading" style="text-align: right"><b>可选数据项目</b></div>
                     <div style="padding: 5px">
-                        <!-- <input type="text" name="name" class="form-control" value="" placeholder="请输入书名称或缩写或拼音名" /> -->
+                        <input type="text" name="name" class="form-control" value="" placeholder="请输入书名称或缩写或拼音名" />
                     </div>
 
                     <select name="from" id="multiselect" class="form-control" size="8" multiple="multiple">
@@ -76,81 +96,29 @@
                 </div>
             </div>
 
-            <div class="col-md-2 col-sm-2  col-xs-2">
-
-
+            <div class="col-md-2 col-sm-2  col-xs-2" style="padding-top:100px;">
                 <button type="button" id="multiselect_rightSelected" class="btn btn-block btn-primary"><span>加入视图</span><i class="glyphicon glyphicon-chevron-right"></i></button>
                 <button type="button" id="multiselect_leftSelected" class="btn btn-block "><span>移出视图</span><i class="glyphicon glyphicon-chevron-left"></i></button>
             </div>
 
             <div class="col-md-5 col-sm-5 col-xs-5">
-                <div class="panel panel-default" style="overflow: hidden">
+                <div class="panel panel-default panel-select">
                     <div class="panel-heading" style="text-align: right"><b>可选数据项目</b></div>
 
                     <select name="to" id="multiselect_to" class="form-control" size="8" multiple="multiple"></select>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-5">
-                <select name="from[]" id="search" class="form-control" size="8" multiple="multiple">
-            <option value="1">Item 1</option>
-            <option value="2">Item 5</option>
-            <option value="2">Item 2</option>
-            <option value="2">Item 4</option>
-            <option value="3">Item 3</option>
-        </select>
-            </div>
-
-            <div class="col-xs-2">
-                <button type="button" id="search_rightAll" class="btn btn-block"><i class="glyphicon glyphicon-forward"></i></button>
-                <button type="button" id="search_rightSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-right"></i></button>
-                <button type="button" id="search_leftSelected" class="btn btn-block"><i class="glyphicon glyphicon-chevron-left"></i></button>
-                <button type="button" id="search_leftAll" class="btn btn-block"><i class="glyphicon glyphicon-backward"></i></button>
-            </div>
-
-            <div class="col-xs-5">
-                <select name="to[]" id="search_to" class="form-control" size="8" multiple="multiple"></select>
-            </div>
-        </div>
     </div>
-    <script async="" src="//www.google-analytics.com/analytics.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
-    <!-- <script src="../../Scripts/jquery-1.11.1.min.js"></script>
-    <script src="../../Scripts/bootstrap.js"></script>
-    <script src="../../Scripts/jquery.pagination.js"></script>
-    <script src="../../Scripts/prettify.min.js"></script> -->
-    <script src="../../Scripts/multiselect.min.js"></script>
-    <script src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script src="../../Scripts/CommonScript.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/multiselect.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
     <script type="text/javascript">
-        // jQuery(document).ready(function($) {
-        //     $('#search').multiselect({
-        //         search: {
-        //             left: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
-        //             right: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
-        //         },
-        //         fireSearch: function(value) {
-        //             return value.length > 3;
-        //         }
-        //     });
-        // });
-
-
-        $(document).ready(function() {
-            // make code pretty
-            window.prettyPrint && prettyPrint();
-
-            $('#search').multiselect({
-                search: {
-                    left: '<input type="text" name="q" class="form-control" placeholder="Search..." />'
-                },
-                fireSearch: function(value) {
-                    return value.length > 1;
-                }
-            });
+        $(document).ready(function($) {
+            $('#from').multiselect();
         });
     </script>
 </body>
