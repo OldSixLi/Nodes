@@ -111,11 +111,11 @@
                     <tbody id="databody">
                         <tr ng-show="dataLengths" ng-repeat="x in data.content">
                             <td>{{ $index+names.page.currentPage*10-9}}</td>
-                            <td>{{ x.FP_HM }}</td>
-                            <td>{{ x.NSRMC }}</td>
-                            <td>{{ x.NSRMC }}</td>
-                            <td>{{ x.ID }}</td>
-                            <td>{{ x.KPRQ?x.KPRQ:"2017年2月16日14:04:10" }}</td>
+                            <td>{{ x.item.name }}</td>
+                            <td>{{ x.item.minReference+"~"+x.item.maxReference }}</td>
+                            <td>TODO </td>
+                            <td>{{ x.item.createAt|date:"yyyy/MM/dd HH:mm:ss" +"/"+x.item.fromWhere}}</td>
+                            <td>TODO</td>
                         </tr>
                         <tr ng-show="!dataLengths">
                             <td colspan="100" class="text-center ">没有相关数据</td>
