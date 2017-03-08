@@ -16,27 +16,27 @@
             height: 30px;
             font-size: 15px;
         }
-
+        
         .datalist select {
             border: none;
             border-radius: 0;
             width: 105%;
         }
-
+        
         .panel-select {
             height: 500px;
             overflow-y: scroll;
             overflow-x: hidden;
         }
-
+        
         .div_search {
             margin: 0;
         }
-
+        
         .viewSearch {
             margin: 10px -15px 10px;
         }
-
+        
         .control-label {
             line-height: 34px;
         }
@@ -115,47 +115,37 @@
     <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
     <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
     <script type="text/javascript">
-        jQuery(document).ready(function($)
-        {
+        jQuery(document).ready(function($) {
             $('#multiselect').multiselect();
         });
+
         var app = angular.module('myApp', []);
-        app.controller('myCtrl', function($scope)
-        {
-            $scope.options = [
-            {
+        app.controller('myCtrl', function($scope) {
+            $scope.options = [{
                 site: "Google",
                 url: "http://www.google.com"
-            },
-            {
+            }, {
                 site: "Runoob",
                 url: "http://www.runoob.com"
-            },
-            {
+            }, {
                 site: "Taobao",
                 url: "http://www.taobao.com"
-            },
-            {
+            }, {
                 site: "Google",
                 url: "http://www.google.com"
-            },
-            {
+            }, {
                 site: "Runoob",
                 url: "http://www.runoob.com"
-            },
-            {
+            }, {
                 site: "Taobao",
                 url: "http://www.taobao.com"
-            },
-            {
+            }, {
                 site: "Google",
                 url: "http://www.google.com"
-            },
-            {
+            }, {
                 site: "Runoob",
                 url: "http://www.runoob.com"
-            },
-            {
+            }, {
                 site: "Taobao",
                 url: "http://www.taobao.com"
             }];
