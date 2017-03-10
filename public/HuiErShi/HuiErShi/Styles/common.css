@@ -415,11 +415,12 @@ th.order {
     border-radius: 4px;
 }
 
+
+/*更改日期控件样式*/
+
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default,
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current,
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box>div>div.xdsoft_current {
     background: #449d44;
     box-shadow: #449d80 0 1px 3px 0 inset;
-    color: #fff;
-    font-weight: 700;
 }
