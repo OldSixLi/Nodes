@@ -78,7 +78,8 @@ tr>th {
     list-style: none;
 }
 
-.secondMenu:hover, .secondMenu.active {
+.secondMenu:hover,
+.secondMenu.active {
     display: block;
 }
 
@@ -233,7 +234,8 @@ td img {
     margin: 0 0 20px 0;
 }
 
-.div_search input, .div_search select {
+.div_search input,
+.div_search select {
     width: 80%;
     max-width: 180px;
     height: 34px;
@@ -252,7 +254,8 @@ td img {
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
-.div_search input:focus, .div_search select:focus {
+.div_search input:focus,
+.div_search select:focus {
     border-color: #66afe9;
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
@@ -272,7 +275,8 @@ td img {
     display: inline-block;
 }
 
-#Pagination a, #Pagination span {
+#Pagination a,
+#Pagination span {
     position: relative;
     float: left;
     padding: 6px 12px;
@@ -292,7 +296,8 @@ td img {
     border-color: #337ab7;
 }
 
-#Pagination .prev, #Pagination .next {
+#Pagination .prev,
+#Pagination .next {
     position: relative;
     float: left;
     padding: 6px 12px;
@@ -304,7 +309,8 @@ td img {
     border: 1px solid #ddd;
 }
 
-#Pagination .current.prev, #Pagination .current.next {
+#Pagination .current.prev,
+#Pagination .current.next {
     color: #dddddd;
     pointer-events: none;
     cursor: not-allowed;
@@ -316,7 +322,8 @@ td img {
 
 /*数据检索项，输入框样式*/
 
-#formSearch input, #formSearch select {
+#formSearch input,
+#formSearch select {
     max-width: 210px;
     height: 34px;
     padding: 6px 2px;
@@ -334,7 +341,8 @@ td img {
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
-#formSearch input:focus, #formSearch select:focus {
+#formSearch input:focus,
+#formSearch select:focus {
     border-color: #66afe9;
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
@@ -353,42 +361,65 @@ th.order {
 .order {
     cursor: pointer;
 }
+
 .input-group-addon {
-   color: #449d44;
+    color: #449d44;
 }
 
 
 /*修改Bootsrap分页 分隔样式*/
+
 .pagination li {
-    margin-left:8px;
+    margin-left: 8px;
     display: inline-block;
     float: left;
 }
+
 .pagination li:first-child {
     margin-left: 0;
 }
+
 .pagination li a {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
+
+
 /*修改Bootsrap分页控件配色*/
-.pagination > li > a, .pagination > li > span {
-  color: #7a7676;
+
+.pagination>li>a,
+.pagination>li>span {
+    color: #7a7676;
 }
 
-.pagination > .active > a, .pagination > .active > span,
- .pagination > .active > a:hover,
-.pagination > .active > span:hover,
- .pagination > .active > a:focus,
- .pagination > .active > span:focus {
-  background-color: #5cb85c;
-  border-color: #4cae4c;
-
+.pagination>.active>a,
+.pagination>.active>span,
+.pagination>.active>a:hover,
+.pagination>.active>span:hover,
+.pagination>.active>a:focus,
+.pagination>.active>span:focus {
+    background-color: #5cb85c;
+    border-color: #4cae4c;
 }
+
+.pagination>li>a {
+    cursor: pointer;
+}
+
 
 /*下拉框错误提示*/
+
 .has-error .select2-container--default span.select2-selection--single {
-  border: 1px solid #a94442;
-  border-radius: 4px;
+    border: 1px solid #a94442;
+    border-radius: 4px;
+}
+
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_default,
+.xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_current,
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box>div>div.xdsoft_current {
+    background: #449d44;
+    box-shadow: #449d80 0 1px 3px 0 inset;
+    color: #fff;
+    font-weight: 700;
 }
