@@ -2,155 +2,155 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>视图管理</title>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>视图管理</title>
 
-    <!-- 通用Bootstrap样式库 -->
-    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-    <!-- 个人维护样式库 -->
-    <link href="../../Styles/common.css" rel="stylesheet">
-    <!-- <link href="../../Styles/prettify.css" rel="stylesheet"> -->
-    <style type="text/css">
-        .datalist option {
-            height: 30px;
-            font-size: 15px;
-        }
-        
-        .datalist select {
-            border: none;
-            border-radius: 0;
-            width: 105%;
-        }
-        
-        .panel-select {
-            height: 500px;
-            overflow-y: scroll;
-            overflow-x: hidden;
-        }
-        
-        .div_search {
-            margin: 0;
-        }
-        
-        .viewSearch {
-            margin: 10px -15px 10px;
-        }
-        
-        .control-label {
-            line-height: 34px;
-        }
-    </style>
-</head>
+  <!-- 通用Bootstrap样式库 -->
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+  <!-- 个人维护样式库 -->
+  <link href="../../Styles/common.css" rel="stylesheet">
+  <!-- <link href="../../Styles/prettify.css" rel="stylesheet"> -->
+  <style type="text/css">
+   .datalist option {
+    height: 30px;
+    font-size: 15px;
+   }
+   
+   .datalist select {
+    border: none;
+    border-radius: 0;
+    width: 105%;
+   }
+   
+   .panel-select {
+    height: 500px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+   }
+   
+   .div_search {
+    margin: 0;
+   }
+   
+   .viewSearch {
+    margin: 10px -15px 10px;
+   }
+   
+   .control-label {
+    line-height: 34px;
+   }
+  </style>
+ </head>
 
-<body ng-app="myApp" ng-controller="myCtrl">
-    <!--新视图-->
-    <!--TODO  后期重新布局-->
-    <div class="container">
-        <div class="row viewSearch">
+ <body ng-app="myApp" ng-controller="myCtrl">
+  <!--新视图-->
+  <!--TODO  后期重新布局-->
+  <div class="container">
+   <div class="row viewSearch">
 
-            <div class="form-inline text-right">
-                <div class="form-group col-xs-offset-6 col-xs-6 text-right">
-                    <label class="control-label">新视图名:</label>
-                    <input type="text" class="form-control" id="txtKeyWord" placeholder="新视图名">&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary " style="float: right;"><i class=" glyphicon glyphicon-plus"></i>&nbsp;创建新数据视图</a>
-                </div>
-
-            </div>
-
-        </div>
-        <!--分割线-->
-        <hr style="margin:0 ;" />
+    <div class="form-inline text-right">
+     <div class="form-group col-xs-offset-6 col-xs-6 text-right">
+      <label class="control-label">新视图名:</label>
+      <input type="text" class="form-control" id="txtKeyWord" placeholder="新视图名"> &nbsp;&nbsp;&nbsp;&nbsp;
+      <a class="btn btn-primary " style="float: right;"><i class=" glyphicon glyphicon-plus"></i>&nbsp;创建新数据视图</a>
+     </div>
     </div>
-    <!--当前视图-->
-    <div class="container">
-        <div class="row viewSearch">
-            <div class="form-inline text-right">
-                <div class="form-group col-xs-4 text-left">
-                    <label class="control-label">当前视图:</label>
-                    <select class="form-control">
+
+   </div>
+   <!--分割线-->
+   <hr style="margin:0 ;" />
+  </div>
+  <!--当前视图-->
+  <div class="container">
+   <div class="row viewSearch">
+    <div class="form-inline text-right">
+     <div class="form-group col-xs-4 text-left">
+      <label class="control-label">当前视图:</label>
+      <select class="form-control">
                       <option value="value">尿常规报告单</option>
                   </select>
-                </div>
-                <div class="form-group col-xs-offset-2 col-xs-4">
-                    <label class="control-label">标签：</label>
-                    <input type="text" id="txtKeyWord" class=" pull-right form-control" placeholder="新视图名">
-                </div>
-                <div class="form-group col-xs-2">
-                    <a class="btn btn-primary " style="float: right;"><i class=" glyphicon glyphicon-plus"></i>&nbsp;保存视图设置</a>
-                </div>
-            </div>
-        </div>
+     </div>
+     <div class="form-group col-xs-offset-2 col-xs-4">
+      <label class="control-label">标签：</label>
+      <input type="text" id="txtKeyWord" class=" pull-right form-control" placeholder="新视图名">
+     </div>
+     <div class="form-group col-xs-2">
+      <a class="btn btn-primary " style="float: right;"><i class=" glyphicon glyphicon-plus"></i>&nbsp;保存视图设置</a>
+     </div>
     </div>
-    <div class="container">
-        <div class="row datalist">
-            <div class="col-md-5 col-sm-5 col-xs-5">
-                <div class="panel panel-default panel-select">
-                    <div class="panel-heading" style="text-align: right"><b>可选数据项目</b>
-                    </div>
-                    <div style="padding:5px;">
-                        <input type="text" name="name" class="form-control" value="" placeholder="请输入书名称或缩写或拼音名" ng-model="test" />
-                    </div>
-                    <select name="from" id="multiselect" class="form-control" size="8" multiple="multiple" ng-model="selectedName">
+   </div>
+  </div>
+  <div class="container">
+   <div class="row datalist">
+    <div class="col-md-5 col-sm-5 col-xs-5">
+     <div class="panel panel-default panel-select">
+      <div class="panel-heading" style="text-align: right"><b>可选数据项目</b>
+      </div>
+      <div style="padding:5px;">
+       <input type="text" name="name" class="form-control" value="" placeholder="请输入书名称或缩写或拼音名" ng-model="test" />
+      </div>
+      <select name="from" id="multiselect" class="form-control" size="8" multiple="multiple" ng-model="selectedName">
                     <option ng-repeat="x in options | filter:test "  value="{{x.url}}">{{x.site}}</option>
                     </select>
-                </div>
-            </div>
-            <div class="col-md-2 col-sm-2  col-xs-2" style="padding-top:100px;">
-                <button type="button" id="multiselect_rightSelected" class="btn btn-block btn-primary"><span>加入视图</span><i class="glyphicon glyphicon-chevron-right"></i></button>
-                <button type="button" id="multiselect_leftSelected" class="btn btn-block "><span>移出视图</span><i class="glyphicon glyphicon-chevron-left"></i></button>
-            </div>
-            <div class="col-md-5 col-sm-5 col-xs-5">
-                <div class="panel panel-default panel-select">
-                    <div class="panel-heading" style="text-align: right"><b>可选数据项目</b></div>
-
-                    <select name="to" id="multiselect_to" class="form-control" size="8" multiple="multiple"></select>
-                </div>
-            </div>
-        </div>
+     </div>
     </div>
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/multiselect.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-    <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $('#multiselect').multiselect();
-        });
+    <div class="col-md-2 col-sm-2  col-xs-2" style="padding-top:100px;">
+     <button type="button" id="multiselect_rightSelected" class="btn btn-block btn-primary"><span>加入视图</span><i class="glyphicon glyphicon-chevron-right"></i></button>
+     <button type="button" id="multiselect_leftSelected" class="btn btn-block "><span>移出视图</span><i class="glyphicon glyphicon-chevron-left"></i></button>
+    </div>
+    <div class="col-md-5 col-sm-5 col-xs-5">
+     <div class="panel panel-default panel-select">
+      <div class="panel-heading" style="text-align: right"><b>可选数据项目</b></div>
 
-        var app = angular.module('myApp', []);
-        app.controller('myCtrl', function($scope) {
-            $scope.options = [{
-                site: "Google",
-                url: "http://www.google.com"
-            }, {
-                site: "Runoob",
-                url: "http://www.runoob.com"
-            }, {
-                site: "Taobao",
-                url: "http://www.taobao.com"
-            }, {
-                site: "Google",
-                url: "http://www.google.com"
-            }, {
-                site: "Runoob",
-                url: "http://www.runoob.com"
-            }, {
-                site: "Taobao",
-                url: "http://www.taobao.com"
-            }, {
-                site: "Google",
-                url: "http://www.google.com"
-            }, {
-                site: "Runoob",
-                url: "http://www.runoob.com"
-            }, {
-                site: "Taobao",
-                url: "http://www.taobao.com"
-            }];
-        });
-    </script>
-</body>
+      <select name="to" id="multiselect_to" class="form-control" size="8" multiple="multiple"></select>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/multiselect.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <script type="text/javascript">
+   jQuery(document).ready(function($) {
+    $('#multiselect').multiselect();
+   });
+
+   var app = angular.module('myApp', []);
+   app.controller('myCtrl', function($scope) {
+    $scope.options = [{
+     site: "Google",
+     url: "http://www.google.com"
+    }, {
+     site: "Runoob",
+     url: "http://www.runoob.com"
+    }, {
+     site: "Taobao",
+     url: "http://www.taobao.com"
+    }, {
+     site: "Google",
+     url: "http://www.google.com"
+    }, {
+     site: "Runoob",
+     url: "http://www.runoob.com"
+    }, {
+     site: "Taobao",
+     url: "http://www.taobao.com"
+    }, {
+     site: "Google",
+     url: "http://www.google.com"
+    }, {
+     site: "Runoob",
+     url: "http://www.runoob.com"
+    }, {
+     site: "Taobao",
+     url: "http://www.taobao.com"
+    }];
+   });
+  </script>
+ </body>
 
 </html>

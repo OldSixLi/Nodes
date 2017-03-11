@@ -1,489 +1,500 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>饮食记录</title>
-        <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-        <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-        <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-        <!-- 个人维护样式库 -->
-        <link href="../../Styles/common.css" rel="stylesheet">
-    </head>
+
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>饮食记录</title>
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+  <!-- 个人维护样式库 -->
+  <link href="../../Styles/common.css" rel="stylesheet">
+ </head>
+
  <body ng-app="myApp">
-    <!--检索项-->
-     <div ng-controller="customersCtrl" class="container-fluid">
-         <!-- 面包屑导航 -->
-         <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-             <li><a href="javascript:void(0)">用户数据</a></li>
-             <li class="active">饮食记录</li>
-         </ol>
-         <div class="text-right col-xs-12" id="search_block">
-             <form class="form-inline" role="form">
-                 <div class="form-group text-left">
-                     <label class="control-label">会员姓名：</label>
-                     <select class=" form-control " name="sltType" id="username" style="width:150px;">
+  <!--检索项-->
+  <div ng-controller="customersCtrl" class="container-fluid">
+   <!-- 面包屑导航 -->
+   <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+    <li><a href="javascript:void(0)">用户数据</a></li>
+    <li class="active">饮食记录</li>
+   </ol>
+   <div class="text-right col-xs-12" id="search_block">
+    <form class="form-inline" role="form">
+     <div class="form-group text-left">
+      <label class="control-label">会员姓名：</label>
+      <select class=" form-control " name="sltType" id="username" style="width:150px;">
                          <option value="">所有</option>
                          <option value="北京">北京</option>
                          <option value="天津">天津</option>
                          <option value="上海">上海</option>
                          <option value="重庆">重庆</option>
                      </select>
-                 </div> 
-                 <div class="form-group text-left">
-                     <label class="lbl_search">&nbsp;&nbsp;&nbsp;选择日期：</label>
-                     <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间"> 
-                 </div>
-                 <!-- 搜索按钮 -->
-                 <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
-                 <a   class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-plus"></i>&nbsp;查看更多</a>
-             </form>
-         </div>
-         <!-- 数据显示 -->
-         <div class="ng-scope tab-content container-fluid">
-             <div class=" fixed-table-container" style="margin-bottom: 10px;">
-                 <table class="table table-hover  ">
-                     <!-- 表头 -->
-                     <thead>
-                         <tr>
-                             <th class="order" ng-click="title='FP_HM';desc=!desc">
-                                 餐别
-                                 <span></span>
-                             </th>
-                             <th class="order" ng-click="title='FP_HM';desc=!desc">
-                                 实物类别
-                                 <span></span>
-                             </th>
-                             <th class="order" ng-click="title='FP_HM';desc=!desc">
-                                 食物二级类型<span></span>
-                             </th>
-                             <th>
-                                 食物
-                             </th>
-                             <th>
-                                 重量（g）
-                             </th>
-                         </tr>
-                     </thead>
-                     <tbody id="databody">
-                         <tr ng-show="dataLengths" ng-repeat="x in names.list">
-                             <td>{{ $index+names.page.currentPage*10-9}}</td>
-                             <td>{{ x.FP_HM }}</td>
-                             <td>{{ x.ID }}</td>
-                             <td>{{ x.ID }}</td>
-                             <td>{{ x.KPRQ?x.KPRQ:"2017年2月16日14:04:10" }}</td>
-                         </tr>
-                         <tr ng-show="!dataLengths">
-                             <td colspan="100" class="text-center ">没有相关数据</td>
-                         </tr>
-                     </tbody>
-                 </table>
-             </div>
-             <div class="col-md-1"><b>备注：</b></div>
-             <div class="col-md-11"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
-             </div>
-         </div>
-         
-         <!-- 当前页隐藏域 -->
-         <input id="currentPage" name="currentPage" value="1" type="hidden">
      </div>
-     <div class="container-fluid">
-         <h4><b>每餐能量营养分析</b></h4>
-         <table class="table table-bordered table-condensed">         
-             <tr>
-                 <th></th>
-                 <th>总能量</th>
-                 <th>占总能量比例</th>
-                 <th>碳水化合物(g)</th>
-                 <th>能量比例</th>
-                 <th>蛋白质(g)</th>
-                 <th>能量比例</th>
-                 <th>脂肪(g)</th>
-                 <th>能量比例</th> 
-             </tr>
-             <tr>
-                 <td>早餐</td>
-                 <td>500</td>
-                 <td>25%</td>
-                 <td>50</td>
-                 <td></td>
-                 <td>20</td>
-                 <td></td>
-                 <td>80</td>
-                 <td></td>
-             </tr><tr>
-                      <td>午餐</td>
-                      <td>600</td>
-                      <td>30%</td>
-                      <td> </td>
-                      <td></td>
-                      <td> </td>
-                      <td></td>
-                      <td> </td>
-                      <td></td>
-                  </tr>
-             <tr>
-                 <td>晚餐</td>
-                 <td>700</td>
-                 <td>35%</td>
-                 <td> </td>
-                 <td></td>
-                 <td> </td>
-                 <td></td>
-                 <td> </td>
-                 <td></td>
-             </tr>
-             <tr>
-                 <td>零食</td>
-                 <td>200</td>
-                 <td>10%</td>
-                 <td> </td>
-                 <td></td>
-                 <td> </td>
-                 <td></td>
-                 <td> </td>
-                 <td></td>
-             </tr>
-             <tr>
-                 <td>总计</td>
-                 <td>2000</td>
-                 <td>100%</td>
-                 <td> </td>
-                 <td></td>
-                 <td> </td>
-                 <td></td>
-                 <td> </td>
-                 <td></td>
-             </tr>
-         </table>
-         <table class="table table-bordered table-condensed" style="margin: 20px 0">
-             <tr>
-                 <th style="width: 50px;"></th>
-                 <th>总能量</th>
-                 <th>占总能量比例</th>
-                 <th>碳水化合物(g)</th>
-                 <th>能量比例</th>
-                 <th>蛋白质(g)</th>
-                 <th>能量比例</th>
-                 <th>脂肪(g)</th>
-                 <th>能量比例</th>
-             </tr>
-             <tr>
-                 <td>早餐</td>
-                 <td>早餐所有食物能量加总</td>
-                 <td>早餐所有食物能量加总/全天食物总能量</td>
-                 <td>摄入g数</td>
-                 <td>碳水化合物g数X4/早餐总能量</td>
-                 <td>摄入g数</td>
-                 <td>蛋白质g数X4/早餐总能量</td>
-                 <td>摄入g数</td>
-                 <td>脂肪g数X9/早餐总能量</td>
-             </tr>
-             <tr>
-                 <td>午餐</td>
-                 <td>午餐所有食物能量加总</td>
-                 <td>午餐所有食物能量加总/全天食物总能量</td>
-                 <td>摄入g数 </td>
-                 <td>碳水化合物g数X4/午餐总能量</td>
-                 <td>   摄入g数</td>
-                 <td>蛋白质g数X4/午餐总能量
-                 </td>
-                 <td>摄入g数 </td>
-                 <td>脂肪g数X9/午餐总能量</td>
-             </tr>
-             <tr>
-                 <td>晚餐</td>
-                 <td>晚餐所有食物能量加总</td>
-                 <td>晚餐所有食物能量加总/全天食物总能量</td>
-                 <td> 摄入g数</td>
-                 <td>碳水化合物g数X4/晚餐总能量</td>
-                 <td> 摄入g数</td>
-                 <td>蛋白质g数X4/晚餐总能量</td>
-                 <td>摄入g数 </td>
-                 <td>脂肪g数X9/晚餐总能量</td>
-             </tr>
-             <tr>
-                 <td>零食</td>
-                 <td>零食所有食物能量加总</td>
-                 <td>零食所有食物能量加总/全天食物总能量</td>
-                 <td>摄入g数 </td>
-                 <td>碳水化合物g数X4/零食总能量</td>
-                 <td>摄入g数 </td>
-                 <td>蛋白质g数X4/零食总能量</td>
-                 <td> 摄入g数</td>
-                 <td>脂肪g数X9/零食总能量</td>
-             </tr>
-             <tr>
-                 <td>总计</td>
-                 <td>全天食物总能量</td>
-                 <td>100%</td>
-                 <td> 全天碳水化合物摄入g数加总</td>
-                 <td>全天碳水化合物摄入g数加总x4/全天食物总能量</td>
-                 <td>全天蛋白质摄入g数加总 </td>
-                 <td>全天蛋白质摄入g数加总x4/全天食物总能量</td>
-                 <td>全天脂肪摄入g数加总 </td>
-                 <td>全天脂肪摄入g数加总x9/全天食物总能量</td>
-             </tr>
-         </table>
-         
-         <p><b>1g碳水化合物产生4kcal热量，1g脂肪产生9kcal热量，1g蛋白质产生4kcal热量</b></p>
-         
-         <h4><b>日分类食物摄入量分析</b></h4>
-         <div class="row">
-             <div class="col-xs-4">
-                 <!--左侧表格数据-->
-                 <table class="table table-bordered table-condensed">
-                     <tr>
-                         <th>营养素</th>
-                         <th>摄入量</th>
-                         <th>推荐量</th>
-                     </tr>
-                     <tr>
-                         <td>总量</td>
-                         <td>1308</td>
-                         <td></td>
-                     </tr>
-                     <tr>
-                         <td>谷类</td>
-                         <td>600</td>
-                         <td>50-150</td>
-                     </tr>
-                     <tr>
-                         <td>杂豆</td>
-                         <td>68</td>
-                         <td>50-150</td>
-                     </tr>
-                     <tr>
-                         <td>薯类</td>
-                         <td>77</td>
-                         <td>50-100</td>
-                     </tr>
-                     <tr>
-                         <td>蔬菜</td>
-                         <td>28</td>
-                         <td>300-500</td>
-                     </tr>
-                     <tr>
-                         <td>水果</td>
-                         <td>59</td>
-                         <td>200-350</td>
-                     </tr>
-                     <tr>
-                         <td>畜禽肉</td>
-                         <td>29</td>
-                         <td>40-75</td>
-                     </tr>
-                     <tr>
-                         <td>水产品</td>
-                         <td>59</td>
-                         <td>40-75</td>
-                     </tr>
-                     <tr>
-                         <td>奶制品</td>
-                         <td>38</td>
-                         <td>300</td>
-                     </tr>
-                     <tr>
-                         <td>蛋类</td>
-                         <td>94</td>
-                         <td>40-50</td>
-                     </tr>
-                     <tr>
-                         <td>豆制品</td>
-                         <td>182</td>
-                         <td>25-35</td>
-                     </tr>
-                     <tr>
-                         <td>坚果类</td>
-                         <td>13</td>
-                         <td>25-35</td>
-                     </tr>
-                     <tr>
-                         <td>储能量食物</td>
-                         <td>11</td>
-                         <td>盐&lt;6g 油25-30g</td>
-                     </tr>
-                     <tr>
-                         <td>其他</td>
-                         <td>50</td>
-                         <td>水1500-1700ml</td>
-                     </tr>
-                 </table>
-             </div>
-             <!--右侧表格数据-->
-             <div class="col-xs-7 col-xs-offset-1">
-                 <table class="table table-bordered table-condensed">
-                     <tr>
-                         <th>Chart 7</th>
-                         <th>日分类食物摄入量分析</th>
-                         <th>推荐量</th>
-                     </tr>
-                     <tr>
-                         <td>日期</td>
-                         <td>[2016-11-12]</td>
-                         <td></td>
-                     </tr> 
-                     <tr>
-                         <td>营养素</td>
-                         <td>摄入量(g)</td>
-                         <td>推荐量</td>
-                     </tr>
-                     <tr>
-                         <td>总量</td>
-                         <td>[SUM当天各类营养素总摄入量]</td>
-                         <td></td>
-                     </tr>
-                     <tr>
-                         <td>谷类</td>
- 
-                         <td>[SUM当日谷物总量]</td>
-                         <td>50-150</td>
-                     </tr>
-                     <tr>
-                         <td>杂豆</td>
-                         <td>[SUM当日杂豆总量]</td>
-                         <td>50-150</td>
-                     </tr>
-                     <tr>
-                         <td>薯类</td>
-                         <td>[SUM当日薯类总量]</td>
-                         <td>50-100</td>
-                     </tr>
-                     <tr>
-                         <td>蔬菜</td>
-                         <td>[SUM当日蔬菜总量]</td>
-                         <td>300-500</td>
-                     </tr>
-                     <tr>
-                         <td>水果</td>
-                         <td>[SUM当日水果总量]</td>
-                         <td>200-350</td>
-                     </tr>
-                     <tr>
-                         <td>畜禽肉</td>
-                         <td>[SUM当日畜禽肉总量]</td>
-                         <td>40-75</td>
-                     </tr>
-                     <tr>
-                         <td>水产品</td>
-                         <td>[SUM当日水产品总量]</td>
-                         <td>40-75</td>
-                     </tr>
-                     <tr>
-                         <td>奶制品</td>
-                         <td>[SUM当日奶制品总量]</td>
-                         <td>300</td>
-                     </tr>
-                     <tr>
-                         <td>蛋类</td>
-                         <td>[SUM当日蛋类总量]</td>
-                         <td>40-50</td>
-                     </tr>
-                     <tr>
-                         <td>豆制品</td>
-                         <td>[SUM当日豆制品总量]</td>
-                         <td>25-35</td>
-                     </tr>
-                     <tr>
-                         <td>坚果类</td>
-                         <td>[SUM当日坚果类总量]</td>
-                         <td>25-35</td>
-                     </tr>
-                     <tr>
-                         <td>储能量食物</td>
-                         <td>[SUM当日储能量食物总量]</td>
-                         <td>盐&lt;6g 油25-30g</td>
-                     </tr>
-                     <tr>
-                         <td>其他</td>
-                         <td>[SUM当日其他总量]</td>
-                         <td>水1500-1700ml</td>
-                     </tr>
-                 </table>
-             </div>
-         </div>
+     <div class="form-group text-left">
+      <label class="lbl_search">&nbsp;&nbsp;&nbsp;选择日期：</label>
+      <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
      </div>
-    <!--脚本-->
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../../Scripts/select2.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-    <script>
-        $(function () {
-            $(".start_end_time").datetimepicker();
-            var tool = new JSTOOL();tool.changeSelect($("#username"), true);
-        });
-        var params = "medicineName=&userId=&minCreatedAt=&maxCreatedAt="; //全局变量
-        var app = angular.module('myApp', []);
-        app.controller('customersCtrl', function ($scope, $http) {
-            //分页方法声明
-            var pageing = function (pageindex, params) {
-                //请求地址
-                ////&page=0&pageNum=10
-                //TODO  需要修改部分 http://60.205.170.209:8080/admin/api/api-docs/../medicine?
-                var url = "../../JSON/data.json?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
-                $http.get(url).success(function (data) {
-                    if (data != null && data != "" && data != "null") {
-                        //判断当前是否存在记录
-                        $scope.dataLengths = data.list.length > 0;
-                        if (data.list != null && data.list.length > 0) {
-                            //赋值操作
-                            $scope.title = 'FP_HM';//排序字段
-                            $scope.desc = 0;//排序方式（默认升序）
-                            $scope.names = data;
-                            $scope.totalPage = data.page.totalPage;
-                            $scope.totalRecord = data.page.totalResult;
-                            //调用生成分页方法
-                            initPageDiv($("#alreadyPage"), //在哪里生成页码
-                                pageindex, //当前页
-                                data.page.totalPage, //总页数
-                                5, //每次显示多少页
-                                $("#currentPage"), //隐藏域的值：当前页数
-                                function () {
-                                    pageing($("#currentPage").val(), params);
-                                });
-                        } else {
-                            alert("未获取到数据，请重试");
-                        }
-                    }
-                });
-            }
-            //分页方法
-            pageing(1, params);
-            //查询按钮
-            $scope.search = function () {
-                //TODO  需要修改部分
-                //起始时间时间戳
-                var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
-                //结束时间时间戳
-                var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-                //用户名称
-                var username = $("#username").val();
-                //会员类型
-                var keyword = $("#keyword").val();
-                //校验只有一个搜索条件
-                if (!(minExpiredAt || maxExpiredAt || username || keyword)) {
-                    alert("请至少输入一个搜索条件");
-                    return false;
-                }
-                //起止日期校验
-                if (minExpiredAt > maxExpiredAt) { alert("结束时间不得早于起始时间"); return false; }
-                params = "medicineName=" + keyword + "&userId=" + username + "&minCreatedAt=" + minExpiredAt + "&maxCreatedAt=" + maxExpiredAt;
-                pageing(1, params);
-            }
-            //跳转至某页方法
-            $scope.skip = function () {
-                if ($scope.toPageValue <= 1) {
-                    $scope.toPageValue = 1;
-                } else if ($scope.toPageValue > $scope.totalPage) {
-                    $scope.toPageValue = $scope.totalPage;
-                }
-                pageing($scope.toPageValue, params);
-            }
-        });
-    </script>
-</body>
+     <!-- 搜索按钮 -->
+     <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
+     <a class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-plus"></i>&nbsp;查看更多</a>
+    </form>
+   </div>
+   <!-- 数据显示 -->
+   <div class="ng-scope tab-content container-fluid">
+    <div class=" fixed-table-container" style="margin-bottom: 10px;">
+     <table class="table table-hover  ">
+      <!-- 表头 -->
+      <thead>
+       <tr>
+        <th class="order" ng-click="title='FP_HM';desc=!desc">
+         餐别
+         <span></span>
+        </th>
+        <th class="order" ng-click="title='FP_HM';desc=!desc">
+         实物类别
+         <span></span>
+        </th>
+        <th class="order" ng-click="title='FP_HM';desc=!desc">
+         食物二级类型<span></span>
+        </th>
+        <th>
+         食物
+        </th>
+        <th>
+         重量（g）
+        </th>
+       </tr>
+      </thead>
+      <tbody id="databody">
+       <tr ng-show="dataLengths" ng-repeat="x in names.list">
+        <td>{{ $index+names.page.currentPage*10-9}}</td>
+        <td>{{ x.FP_HM }}</td>
+        <td>{{ x.ID }}</td>
+        <td>{{ x.ID }}</td>
+        <td>{{ x.KPRQ?x.KPRQ:"2017年2月16日14:04:10" }}</td>
+       </tr>
+       <tr ng-show="!dataLengths">
+        <td colspan="100" class="text-center ">没有相关数据</td>
+       </tr>
+      </tbody>
+     </table>
+    </div>
+    <div class="col-md-1"><b>备注：</b></div>
+    <div class="col-md-11">
+     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes,
+      nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>
+    </div>
+   </div>
+
+   <!-- 当前页隐藏域 -->
+   <input id="currentPage" name="currentPage" value="1" type="hidden">
+  </div>
+  <div class="container-fluid">
+   <div class="col-xs-12">
+    <h4><b>每餐能量营养分析</b></h4>
+    <table class="table table-bordered table-condensed">
+     <tr>
+      <th></th>
+      <th>总能量</th>
+      <th>占总能量比例</th>
+      <th>碳水化合物(g)</th>
+      <th>能量比例</th>
+      <th>蛋白质(g)</th>
+      <th>能量比例</th>
+      <th>脂肪(g)</th>
+      <th>能量比例</th>
+     </tr>
+     <tr>
+      <td>早餐</td>
+      <td>500</td>
+      <td>25%</td>
+      <td>50</td>
+      <td></td>
+      <td>20</td>
+      <td></td>
+      <td>80</td>
+      <td></td>
+     </tr>
+     <tr>
+      <td>午餐</td>
+      <td>600</td>
+      <td>30%</td>
+      <td> </td>
+      <td></td>
+      <td> </td>
+      <td></td>
+      <td> </td>
+      <td></td>
+     </tr>
+     <tr>
+      <td>晚餐</td>
+      <td>700</td>
+      <td>35%</td>
+      <td> </td>
+      <td></td>
+      <td> </td>
+      <td></td>
+      <td> </td>
+      <td></td>
+     </tr>
+     <tr>
+      <td>零食</td>
+      <td>200</td>
+      <td>10%</td>
+      <td> </td>
+      <td></td>
+      <td> </td>
+      <td></td>
+      <td> </td>
+      <td></td>
+     </tr>
+     <tr>
+      <td>总计</td>
+      <td>2000</td>
+      <td>100%</td>
+      <td> </td>
+      <td></td>
+      <td> </td>
+      <td></td>
+      <td> </td>
+      <td></td>
+     </tr>
+    </table>
+    <table class="table table-bordered table-condensed" style="margin: 20px 0">
+     <tr>
+      <th style="width: 50px;"></th>
+      <th>总能量</th>
+      <th>占总能量比例</th>
+      <th>碳水化合物(g)</th>
+      <th>能量比例</th>
+      <th>蛋白质(g)</th>
+      <th>能量比例</th>
+      <th>脂肪(g)</th>
+      <th>能量比例</th>
+     </tr>
+     <tr>
+      <td>早餐</td>
+      <td>早餐所有食物能量加总</td>
+      <td>早餐所有食物能量加总/全天食物总能量</td>
+      <td>摄入g数</td>
+      <td>碳水化合物g数X4/早餐总能量</td>
+      <td>摄入g数</td>
+      <td>蛋白质g数X4/早餐总能量</td>
+      <td>摄入g数</td>
+      <td>脂肪g数X9/早餐总能量</td>
+     </tr>
+     <tr>
+      <td>午餐</td>
+      <td>午餐所有食物能量加总</td>
+      <td>午餐所有食物能量加总/全天食物总能量</td>
+      <td>摄入g数 </td>
+      <td>碳水化合物g数X4/午餐总能量</td>
+      <td> 摄入g数</td>
+      <td>蛋白质g数X4/午餐总能量
+      </td>
+      <td>摄入g数 </td>
+      <td>脂肪g数X9/午餐总能量</td>
+     </tr>
+     <tr>
+      <td>晚餐</td>
+      <td>晚餐所有食物能量加总</td>
+      <td>晚餐所有食物能量加总/全天食物总能量</td>
+      <td> 摄入g数</td>
+      <td>碳水化合物g数X4/晚餐总能量</td>
+      <td> 摄入g数</td>
+      <td>蛋白质g数X4/晚餐总能量</td>
+      <td>摄入g数 </td>
+      <td>脂肪g数X9/晚餐总能量</td>
+     </tr>
+     <tr>
+      <td>零食</td>
+      <td>零食所有食物能量加总</td>
+      <td>零食所有食物能量加总/全天食物总能量</td>
+      <td>摄入g数 </td>
+      <td>碳水化合物g数X4/零食总能量</td>
+      <td>摄入g数 </td>
+      <td>蛋白质g数X4/零食总能量</td>
+      <td> 摄入g数</td>
+      <td>脂肪g数X9/零食总能量</td>
+     </tr>
+     <tr>
+      <td>总计</td>
+      <td>全天食物总能量</td>
+      <td>100%</td>
+      <td> 全天碳水化合物摄入g数加总</td>
+      <td>全天碳水化合物摄入g数加总x4/全天食物总能量</td>
+      <td>全天蛋白质摄入g数加总 </td>
+      <td>全天蛋白质摄入g数加总x4/全天食物总能量</td>
+      <td>全天脂肪摄入g数加总 </td>
+      <td>全天脂肪摄入g数加总x9/全天食物总能量</td>
+     </tr>
+    </table>
+
+    <p><b>1g碳水化合物产生4kcal热量，1g脂肪产生9kcal热量，1g蛋白质产生4kcal热量</b></p>
+
+    <h4><b>日分类食物摄入量分析</b></h4>
+    <div class="row">
+     <div class="col-xs-4">
+      <!--左侧表格数据-->
+      <table class="table table-bordered table-condensed">
+       <tr>
+        <th>营养素</th>
+        <th>摄入量</th>
+        <th>推荐量</th>
+       </tr>
+       <tr>
+        <td>总量</td>
+        <td>1308</td>
+        <td></td>
+       </tr>
+       <tr>
+        <td>谷类</td>
+        <td>600</td>
+        <td>50-150</td>
+       </tr>
+       <tr>
+        <td>杂豆</td>
+        <td>68</td>
+        <td>50-150</td>
+       </tr>
+       <tr>
+        <td>薯类</td>
+        <td>77</td>
+        <td>50-100</td>
+       </tr>
+       <tr>
+        <td>蔬菜</td>
+        <td>28</td>
+        <td>300-500</td>
+       </tr>
+       <tr>
+        <td>水果</td>
+        <td>59</td>
+        <td>200-350</td>
+       </tr>
+       <tr>
+        <td>畜禽肉</td>
+        <td>29</td>
+        <td>40-75</td>
+       </tr>
+       <tr>
+        <td>水产品</td>
+        <td>59</td>
+        <td>40-75</td>
+       </tr>
+       <tr>
+        <td>奶制品</td>
+        <td>38</td>
+        <td>300</td>
+       </tr>
+       <tr>
+        <td>蛋类</td>
+        <td>94</td>
+        <td>40-50</td>
+       </tr>
+       <tr>
+        <td>豆制品</td>
+        <td>182</td>
+        <td>25-35</td>
+       </tr>
+       <tr>
+        <td>坚果类</td>
+        <td>13</td>
+        <td>25-35</td>
+       </tr>
+       <tr>
+        <td>储能量食物</td>
+        <td>11</td>
+        <td>盐&lt;6g 油25-30g</td>
+       </tr>
+       <tr>
+        <td>其他</td>
+        <td>50</td>
+        <td>水1500-1700ml</td>
+       </tr>
+      </table>
+     </div>
+     <!--右侧表格数据-->
+     <div class="col-xs-7 col-xs-offset-1">
+      <table class="table table-bordered table-condensed">
+       <tr>
+        <th>Chart 7</th>
+        <th>日分类食物摄入量分析</th>
+        <th>推荐量</th>
+       </tr>
+       <tr>
+        <td>日期</td>
+        <td>[2016-11-12]</td>
+        <td></td>
+       </tr>
+       <tr>
+        <td>营养素</td>
+        <td>摄入量(g)</td>
+        <td>推荐量</td>
+       </tr>
+       <tr>
+        <td>总量</td>
+        <td>[SUM当天各类营养素总摄入量]</td>
+        <td></td>
+       </tr>
+       <tr>
+        <td>谷类</td>
+
+        <td>[SUM当日谷物总量]</td>
+        <td>50-150</td>
+       </tr>
+       <tr>
+        <td>杂豆</td>
+        <td>[SUM当日杂豆总量]</td>
+        <td>50-150</td>
+       </tr>
+       <tr>
+        <td>薯类</td>
+        <td>[SUM当日薯类总量]</td>
+        <td>50-100</td>
+       </tr>
+       <tr>
+        <td>蔬菜</td>
+        <td>[SUM当日蔬菜总量]</td>
+        <td>300-500</td>
+       </tr>
+       <tr>
+        <td>水果</td>
+        <td>[SUM当日水果总量]</td>
+        <td>200-350</td>
+       </tr>
+       <tr>
+        <td>畜禽肉</td>
+        <td>[SUM当日畜禽肉总量]</td>
+        <td>40-75</td>
+       </tr>
+       <tr>
+        <td>水产品</td>
+        <td>[SUM当日水产品总量]</td>
+        <td>40-75</td>
+       </tr>
+       <tr>
+        <td>奶制品</td>
+        <td>[SUM当日奶制品总量]</td>
+        <td>300</td>
+       </tr>
+       <tr>
+        <td>蛋类</td>
+        <td>[SUM当日蛋类总量]</td>
+        <td>40-50</td>
+       </tr>
+       <tr>
+        <td>豆制品</td>
+        <td>[SUM当日豆制品总量]</td>
+        <td>25-35</td>
+       </tr>
+       <tr>
+        <td>坚果类</td>
+        <td>[SUM当日坚果类总量]</td>
+        <td>25-35</td>
+       </tr>
+       <tr>
+        <td>储能量食物</td>
+        <td>[SUM当日储能量食物总量]</td>
+        <td>盐&lt;6g 油25-30g</td>
+       </tr>
+       <tr>
+        <td>其他</td>
+        <td>[SUM当日其他总量]</td>
+        <td>水1500-1700ml</td>
+       </tr>
+      </table>
+     </div>
+    </div>
+   </div>
+  </div>
+  <!--脚本-->
+  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <script>
+   $(function() {
+    $(".start_end_time").datetimepicker();
+    var tool = new JSTOOL();
+    tool.changeSelect($("#username"), true);
+   });
+   var params = "medicineName=&userId=&minCreatedAt=&maxCreatedAt="; //全局变量
+   var app = angular.module('myApp', []);
+   app.controller('customersCtrl', function($scope, $http) {
+    //分页方法声明
+    var pageing = function(pageindex, params) {
+      //请求地址
+      ////&page=0&pageNum=10
+      //TODO  需要修改部分 http://60.205.170.209:8080/admin/api/api-docs/../medicine?
+      var url = "../../JSON/data.json?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+      $http.get(url).success(function(data) {
+       if (data != null && data != "" && data != "null") {
+        //判断当前是否存在记录
+        $scope.dataLengths = data.list.length > 0;
+        if (data.list != null && data.list.length > 0) {
+         //赋值操作
+         $scope.title = 'FP_HM'; //排序字段
+         $scope.desc = 0; //排序方式（默认升序）
+         $scope.names = data;
+         $scope.totalPage = data.page.totalPage;
+         $scope.totalRecord = data.page.totalResult;
+         //调用生成分页方法
+         initPageDiv($("#alreadyPage"), //在哪里生成页码
+          pageindex, //当前页
+          data.page.totalPage, //总页数
+          5, //每次显示多少页
+          $("#currentPage"), //隐藏域的值：当前页数
+          function() {
+           pageing($("#currentPage").val(), params);
+          });
+        } else {
+         alert("未获取到数据，请重试");
+        }
+       }
+      });
+     }
+     //分页方法
+    pageing(1, params);
+    //查询按钮
+    $scope.search = function() {
+      //TODO  需要修改部分
+      //起始时间时间戳
+      var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+      //结束时间时间戳
+      var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+      //用户名称
+      var username = $("#username").val();
+      //会员类型
+      var keyword = $("#keyword").val();
+      //校验只有一个搜索条件
+      if (!(minExpiredAt || maxExpiredAt || username || keyword)) {
+       alert("请至少输入一个搜索条件");
+       return false;
+      }
+      //起止日期校验
+      if (minExpiredAt > maxExpiredAt) {
+       alert("结束时间不得早于起始时间");
+       return false;
+      }
+      params = "medicineName=" + keyword + "&userId=" + username + "&minCreatedAt=" + minExpiredAt + "&maxCreatedAt=" + maxExpiredAt;
+      pageing(1, params);
+     }
+     //跳转至某页方法
+    $scope.skip = function() {
+     if ($scope.toPageValue <= 1) {
+      $scope.toPageValue = 1;
+     } else if ($scope.toPageValue > $scope.totalPage) {
+      $scope.toPageValue = $scope.totalPage;
+     }
+     pageing($scope.toPageValue, params);
+    }
+   });
+  </script>
+ </body>
 
 </html>
