@@ -1,0 +1,75 @@
+<!-- 马少博  创建于 2017年3月13日14:54:28 -->
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='shortcut icon' href='https://raw.githubusercontent.com/OldSixLi/ListPage/master/myapp/public/images/my.ico' />
+  <title> </title>
+  <!-- Bootstrap引用 -->
+  <link href='http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css' rel='stylesheet'>
+  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <select id="userSlt" class="form-control"> 
+            <option value="">请选择</option>
+          </select>
+  <!-- 脚本 -->
+  <!-- <script src='http://cdn.bootcss.com/angular.js/1.4.1/angular.js'></script> -->
+  <script src='http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js'></script>
+  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
+  <script src='http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+  <script>
+    $(function() {
+      $("#userSlt").select2({
+        ajax: {
+          url: "../../JSON/select2.json",
+          dataType: 'json',
+          delay: 500,
+          data: function(params) {
+            return {
+              q: params.term, // search term  
+            };
+          },
+          processResults: function(data, page) {
+
+            var results = [];
+            $.each(data, function(i, v) {
+              var o = {};
+              o.id = v.id;　
+              o.value = v.value;
+              results.push(o);
+            });
+            return {
+              results: results
+            };
+          },
+          cache: true
+        },
+        escapeMarkup: function(markup) {
+          console.debug(markup)
+          return markup;
+        }, // let our custom formatter work  
+        minimumInputLength: 1, //至少输入多少个字符后才会去调用ajax  
+        maximumInputLength: 20, //最多能输入多少个字符后才会去调用ajax  
+        minimumResultsForSearch: 1,
+        width: "260px",
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection,
+      });
+    });
+
+    function formatRepo(repo) {
+      return repo.value;
+    }
+
+    function formatRepoSelection(repo) {
+      return repo.value;
+    }
+  </script>
+</body>
+
+</html>

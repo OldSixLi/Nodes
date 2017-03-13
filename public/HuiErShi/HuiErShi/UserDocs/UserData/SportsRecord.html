@@ -11,7 +11,6 @@
   <link href="../../Styles/common.css" rel="stylesheet">
 </head>
 
-
 <body ng-app="myApp">
   <div ng-controller="customersCtrl" class="container-fluid">
     <!-- 面包屑导航 -->
@@ -21,20 +20,22 @@
     </ol>
     <div class="col-xs-12" id="search_block">
       <form class="form-inline text-right" role="form">
-
         <div class="form-group text-left">
           <label class="control-label">会员姓名:</label>
-          <select id="userSlt" class="form-control">
-			  <option value="">请选择</option>
-			  </select> &nbsp;&nbsp;&nbsp;
+          <!--下拉菜单-->
+          <select id="userSlt" class="form-control"> 
+          </select> &nbsp;&nbsp;&nbsp;
+
+          <!--日期-->
           <label class="control-label">日期:</label>
           <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
             <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
             <span class="add-on input-group-addon">
-										<i class="icon-th glyphicon glyphicon-calendar"></i>
-									</span>
+              <i class="icon-th glyphicon glyphicon-calendar"></i>
+            </span>
           </div>
-          <a class="btn btn-primary" id="btnSearch"><i class="glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+
+          <a class="btn btn-primary" id="btnSearch" ng-click="search()"><i class="glyphicon glyphicon-search"></i>&nbsp;搜索</a>
         </div>
       </form>
     </div>
@@ -42,8 +43,8 @@
     <!-- 数据显示 -->
     <div class="tab-content container-fluid">
 
-
     </div>
+
     <!--分页控件-->
     <div ng-show="dataLengths">
       <div class="form-group pull-right topage_block">
@@ -67,54 +68,55 @@
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
     $(function() {
-      //TODO 获取全部视图的数据
-      //   tool.changeSelect($("#"), true); //下拉菜单美化
-
-
+      //日期框初始化
+      $(".start_end_time").datetimepicker();
+      // 下拉框AJAX获取数据
       $("#userSlt").select2({
+        placeholder: "请选择",
         ajax: {
           url: "../../JSON/select2.json",
           dataType: 'json',
           delay: 250,
           data: function(params) {
             return {
-              //参数
               q: params.term,
             };
           },
-          processResults: function(data) {
+          processResults: function(data, page) {
             return {
-              // 数据返回   规则:[{id:1,text:'text'},{id:2,text:'text'}]
               results: data
             };
           },
-          cache: true
+          cache: false
         },
         escapeMarkup: function(markup) {
           return markup;
         },
-        minimumInputLength: 3,
+        minimumInputLength: 1,
+        minimumResultsForSearch: 1,
+        width: "220px",
         templateResult: formatRepo,
-        templateSelection: formatRepoSelection
+        templateSelection: formatRepoSelection,
       });
     });
 
     function formatRepo(repo) {
-      return repo.text;
+      return repo.value;
     }
 
     function formatRepoSelection(repo) {
-      return repo.text;
+      return repo.value;
     }
     var basicUrl = "http://60.205.170.209:8080/admin/api/"; //统一接口地址
     var params = "user?userName=&minCreatedAt=&maxCreatedAt="; //请求参数变量
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
+
       //分页方法声明
       var pageing = function(pageindex, params) {
         var url = basicUrl + params + "&page=" + pageindex + "&pageNum=10"; //请求地址
@@ -139,10 +141,18 @@
           //处理响应失败
           tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
         });
+
+      }
+      $scope.search = function() {
+        console.log("值:" + $("#userSlt").val());
+        var userid = $("#userSlt").val();
+        var time = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+        if (userid == "" || time == 0) {
+          tool.alert("提示", "请至少选择一项搜索信息");
+        }
       }
     });
   </script>
-
 </body>
 
 </html>
