@@ -25,7 +25,6 @@
        <button type="submit" w5c-form-submit="vm.saveinfo($event)" class="btn btn-primary">登录</button>
       </div>
      </form>
-
     </div>
    </div>
   </div>
@@ -76,17 +75,13 @@
          name: $scope.vm.data.username,
          pwd: hex_md5($scope.vm.data.password)
         })
-
        })
-       .success(function(data) {
-        if (!data.success) {
-         $scope.errorName = data.errors.name;
-         $scope.errorSuperhero = data.errors.superheroAlias;
-         $scope.vm = {};
-        } else {
-         $scope.vm = {};
-         //  $scope.message = data.message;
-         //  $(":submit").attr("disabled", false);
+       .success(function(data, xhr) {
+        if (xhr == 200) {
+         //成功操作
+         // TODO  保存COOKIE
+         window.location.href = "slideHtml.html";
+         $scope.vm.data = {};
         }
        }).error(function(response) {
         alert(response.errorMessage);

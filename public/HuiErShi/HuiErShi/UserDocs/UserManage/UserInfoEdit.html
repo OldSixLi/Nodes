@@ -87,9 +87,9 @@
        <div class="col-sm-8">
         <!-- TODO 修改为相应的类型以及名称-->
         <select class="form-control" name="userBelong" id="userBelong" style="max-width: 100%;" required ng-model="vm.entity.vipEntity.userbelong">
-                            <option value="">请选择</option>
-                                <option value="天津滨海新区中心">天津滨海新区中心</option>
-                            </select>
+        <option value="">请选择</option>
+            <option value="天津滨海新区中心">天津滨海新区中心</option>
+        </select>
        </div>
       </div>
       <div class="form-group">
@@ -375,7 +375,6 @@
     $(".start_end_time").datetimepicker();
     // 下拉菜单美化
     tool.changeSelect($("#userBelong"), false);
-    tool.changeSelect($("#nationality"), false);
     tool.changeSelect($("#txtUserSportHabits"), false);
     tool.changeSelect($("#txtUserPressure"), false);
    });
@@ -431,6 +430,9 @@
       $http.get(url).success(function(data) {
        if (data != null && data != "" && data != "null" && data.id) {
         $scope.vm.entity = data;
+        // $("#nationality").select2('val', data.nationality);
+        // tool.changeSelect($("#nationality"), false);
+
         $scope.vm.entity.todo = "TODO";
         $scope.vm.vipcards = data.vipcards;
         $scope.vm.dataLengths = 0;
@@ -464,7 +466,6 @@
         } else {
          tool.alert("提示", "保存失败,请重试!");
         }
-        console.log(xhr);
         // if (!data.success) {
         //  $scope.errorName = data.errors.name;
         //  $scope.errorSuperhero = data.errors.superheroAlias;
