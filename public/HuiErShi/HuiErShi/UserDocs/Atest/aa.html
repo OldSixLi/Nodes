@@ -14,61 +14,145 @@
 </head>
 
 <body>
-  <select id="userSlt" class="form-control"> 
-            <option value="">请选择</option>
-          </select>
+  <div class="row">
+    <!-- 消除外边距 -->
+    <div class="col-md-12">
+      <div id="btn-uploader">
+        <a id="pickfiles" href="javascript:void 0;">Upload File</a>
+      </div>
+    </div>
+  </div>
+  <input type="text" id="hidden-token" value="">
   <!-- 脚本 -->
   <!-- <script src='http://cdn.bootcss.com/angular.js/1.4.1/angular.js'></script> -->
   <script src='http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js'></script>
   <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
   <script src='http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+
+  <script type="text/javascript" src="http://cdn.staticfile.org/plupload/3.0-beta1/plupload.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/moxie.js"></script>
+
+  <script type="text/javascript" src="../../Scripts/qiniu.min.js"></script>
   <script>
-    $(function() {
-      $("#userSlt").select2({
-        ajax: {
-          url: "../../JSON/select2.json",
-          dataType: 'json',
-          delay: 500,
-          data: function(params) {
-            return {
-              q: params.term, // search term  
-            };
+    //获取七牛uptoken
+
+
+    // $.ajax({
+    //     method: "GET",
+    //     // headers: {
+    //     //   "content-type": HEADERS.contentType,
+    //     //   "timestamp": HEADERS.timestamp,
+    //     //   "sign": HEADERS.sign("GET"),
+    //     //   "accessKey": HEADERS.accessKey
+    //     // },
+    //     url: serviceURL + '/cqiniu/uptoken'
+    //   })
+    //   .success(function(data, status, headers, config) {
+    //     var data = {
+    //       data: data
+    //     };
+    //     return data
+    //       // console.log("get uptoken clear");
+    //   });
+
+    var res = $.get("https://www.medschoolcloud.com/api/cqiniu/uptoken",
+      function(data) {
+        var s = data.uptoken;
+        uploader = Qiniu.uploader({
+          runtimes: 'html5,flash,html4',
+          browse_button: 'pickfiles', //上传按钮的ID
+          container: 'btn-uploader', //上传按钮的上级元素ID
+          drop_element: 'btn-uploader',
+          max_file_size: '100mb', //最大文件限制
+          flash_swf_url: '/static/js/plupload/Moxie.swf',
+          dragdrop: false,
+          chunk_size: '4mb', //分块大小
+          uptoken_url: s, //设置请求qiniu-token的url
+          //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+          // uptoken : '<Your upload token>',
+          //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+          // unique_names: true,
+          // 默认 false，key为文件名。若开启该选项，SDK会为每个文件自动生成key（文件名）
+          // save_key: true,
+          // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK在前端将不对key进行任何处理
+          domain: 'http://ogos02i1z.bkt.clouddn.com/', //自己的七牛云存储空间域名
+          multi_selection: false, //是否允许同时选择多文件
+          //文件类型过滤，这里限制为图片类型
+          filters: {
+            mime_types: [{
+              title: "Image files",
+              extensions: "jpg,jpeg,gif,png"
+            }]
           },
-          processResults: function(data, page) {
+          auto_start: true,
+          init: {
+            'FilesAdded': function(up, files) {
+              //do something
+            },
+            'BeforeUpload': function(up, file) {
+              //do something
+            },
+            'UploadProgress': function(up, file) {
+              //可以在这里控制上传进度的显示
+              //可参考七牛的例子
+            },
+            'UploadComplete': function() {
+              //do something
+            },
+            'FileUploaded': function(up, file, info) {
+              //每个文件上传成功后,处理相关的事情
+              //其中 info 是文件上传成功后，服务端返回的json，形式如
+              //{
+              //  "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+              //  "key": "gogopher.jpg"
+              //}
+              var domain = up.getOption('domain');
+              var res = eval('(' + info + ')');
+              var sourceLink = domain + res.key; //获取上传文件的链接地址
+              //do something
+            },
+            'Error': function(up, err, errTip) {
+              alert(errTip);
+            },
+            'Key': function(up, file) {
+              //当save_key和unique_names设为false时，该方法将被调用
+              var key = "";
+              $.ajax({
+                url: '/qiniu-token/get-key/',
+                type: 'GET',
+                async: false, //这里应设置为同步的方式
+                success: function(data) {
+                  var ext = Qiniu.getFileExtension(file.name);
+                  key = data + '.' + ext;
+                },
+                cache: false
+              });
+              return key;
+            }
+          }
+        });
 
-            var results = [];
-            $.each(data, function(i, v) {
-              var o = {};
-              o.id = v.id;　
-              o.value = v.value;
-              results.push(o);
-            });
-            return {
-              results: results
-            };
-          },
-          cache: true
-        },
-        escapeMarkup: function(markup) {
-          console.debug(markup)
-          return markup;
-        }, // let our custom formatter work  
-        minimumInputLength: 1, //至少输入多少个字符后才会去调用ajax  
-        maximumInputLength: 20, //最多能输入多少个字符后才会去调用ajax  
-        minimumResultsForSearch: 1,
-        width: "260px",
-        templateResult: formatRepo,
-        templateSelection: formatRepoSelection,
-      });
-    });
+        $("#hidden-token").val(data.uptoken);
+      },
+      "json"
+    );
 
-    function formatRepo(repo) {
-      return repo.value;
+    //自动获取当前日期时分秒给上传的图片命名
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+      month = "0" + month;
     }
-
-    function formatRepoSelection(repo) {
-      return repo.value;
+    if (strDate >= 0 && strDate <= 9) {
+      strDate = "0" + strDate;
     }
+    var hours = date.getHours(); //获取系统时，
+    var minutes = date.getMinutes(); //分
+    var seconds = date.getSeconds(); //秒
+    var nowTime = year + "" + month + "" + strDate + "" + hours + "" + minutes + "" + seconds;
+    $("#picPath").html("请选择文件");
   </script>
 </body>
 
