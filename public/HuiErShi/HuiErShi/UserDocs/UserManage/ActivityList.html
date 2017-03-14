@@ -82,8 +82,9 @@
           <tbody id="databody">
             <tr ng-show="dataLengths" ng-repeat="x in data.content">
               <td>{{ $index+(data.page+1)*data.pageNum-data.pageNum+1}}</td>
-              <td>{{ x.startAt*1000 | date:"yyyy/MM/dd HH:mm:ss" }}</td>
-              <td>{{x.name}}</td>
+              <td>{{ x.startAt| date:"yyyy/MM/dd HH:mm:ss" }}</td>
+              <td>
+                <a href="ActivityAdd.html?id={{x.id}}">{{x.name}}</a></td>
               <td>{{ x.sponsorName }}</td>
               <td>{{ x.signUpCost }}</td>
               <td><span ng-show="{{!x.released}}">已发布</span><span ng-show="{{x.released}}">未发布</span></td>
