@@ -12,10 +12,7 @@
   <link href='http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css' rel='stylesheet'>
   <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
   <style>
-    .img-block {
-      width: 200px;
-      height: 200px;
-    }
+
   </style>
 </head>
 
@@ -24,9 +21,11 @@
     <div class="row">
       <!-- 消除外边距 -->
       <div class="col-md-12">
+        <!--上传图片Begin-->
         <div id="btn-uploader" class="text-center">
-          <a id="pickfiles" href="javascript:void 0;"> <img src='../../images/7.png' id="img" class='img-responsive img-thumbnail img-block' style="width:200px;height:200px;" alt='自定义'></a>
+          <a id="pickfiles" href="javascript:void 0;"> <img src='../../images/7.png' id="img" class='img-responsive img-thumbnail img-block' alt='自定义'></a>
         </div>
+        <!--上传图片End-->
 
       </div>
     </div>
@@ -37,13 +36,13 @@
   <script src='http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js'></script>
   <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
   <script src='http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-  <script type="text/javascript" src="http://cdn.staticfile.org/plupload/3.0-beta1/plupload.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/plupload.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/moxie.js"></script>
-  <script type="text/javascript" src="../../Scripts/qiniu.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
     var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
-
     //获取七牛uptoken　
     uploader = Qiniu.uploader({
       runtimes: 'html5,flash,html4',
@@ -95,36 +94,19 @@
         },
         'FileUploaded': function(up, file, info) {　
           var json = JSON.parse(info);
-          console.log(JSON.stringify(json.key));
-          $("#img").attr("src", domainUrl + json.key);
+          tool.alert("提示", "上传成功");
+          //图片压缩处理:限制图片长宽均为200px ,且图片质量为原来75%;
+          $("#img").attr("src", domainUrl + json.key + "?imageView2/1/w/200/h/200/q/75|imageslim");
         },
         'Error': function(up, err, errTip) {
-          alert(errTip);
+          tool.alert("提示", errTip);
         },
         'Key': function(up, file) {
-          //当save_key和unique_names设为false时，该方法将被调用
-          var key = nowTime + file.name;　
-          return key;
+          // var key = nowTime + file.name;　
+          return file.name;
         }
       }
     });
-
-    //自动获取当前日期时分秒给上传的图片命名
-    var date = new Date();
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
-    var strDate = date.getDate();
-    if (month >= 1 && month <= 9) {
-      month = "0" + month;
-    }
-    if (strDate >= 0 && strDate <= 9) {
-      strDate = "0" + strDate;
-    }
-    var hours = date.getHours(); //获取系统时，
-    var minutes = date.getMinutes(); //分
-    var seconds = date.getSeconds(); //秒
-    var nowTime = year + "" + month + "" + strDate + "" + hours + "" + minutes + "" + seconds;
-    $("#picPath").html("请选择文件");
   </script>
 </body>
 

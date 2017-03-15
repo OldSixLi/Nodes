@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
- <head>
+<head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>用户信息</title>
@@ -11,102 +11,107 @@
   <link href="../../Styles/common.css" rel="stylesheet">
   <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
   <style>
-   /*表单文字右对齐*/
-   
-   .form-horizontal .col-md-3,
-   .form-horizontal .col-xs-3,
-   .form-horizontal .col-sm-3,
-   .form-horizontal .col-lg-3 {
-    text-align: right;
-   }
-   
-   .select2-formgroup {
-    margin-bottom: 17px;
-   }
+    /*表单文字右对齐*/
+    
+    .form-horizontal .col-md-3,
+    .form-horizontal .col-xs-3,
+    .form-horizontal .col-sm-3,
+    .form-horizontal .col-lg-3 {
+      text-align: right;
+    }
+    
+    .select2-formgroup {
+      margin-bottom: 17px;
+    }
   </style>
- </head>
+</head>
 
- <body ng-app="myApp" ng-controller="validateCtrl">
+<body ng-app="myApp" ng-controller="validateCtrl">
   <!-- 面包屑导航 -->
   <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-   <li><a href="javascript:void(0)">客户管理</a></li>
-   <li><a href="javascript:void(0)">用户列表</a></li>
-   <li class="active">{{data.userName}}</li>
+    <li><a href="javascript:void(0)">客户管理</a></li>
+    <li><a href="javascript:void(0)">用户列表</a></li>
+    <li class="active">{{data.userName}}</li>
   </ol>
   <!-- 用户基础信息 -->
   <div class="container-fluid">
-   <div class="row">
-    <div class="col-md-1 col-md-offset-1 col-sm-2">
-     <img id="userPhoto1" src="../../images/5.png" class="img-responsive ">
+    <div class="row">
+      <div class="col-md-1 col-md-offset-1 col-sm-2">
+        <img id="userPhoto1" src="../../images/5.png" class="img-responsive ">
+      </div>
+      <div class="userinfo">
+        <div class="col-md-2">昵称：<span id="top_userName">{{vm.entity.realName}}</span></div>
+        <div class="col-md-2">性别：<span id="top_gender">{{vm.entity.gender=="M"?"女":"男"}}</span></div>
+        <div class="col-md-6">地区：<span id="top_nativePlace">{{vm.entity.district}}</span></div>
+      </div>
     </div>
-    <div class="userinfo">
-     <div class="col-md-2">昵称：<span id="top_userName">{{vm.entity.realName}}</span></div>
-     <div class="col-md-2">性别：<span id="top_gender">{{vm.entity.gender=="M"?"女":"男"}}</span></div>
-     <div class="col-md-6">地区：<span id="top_nativePlace">{{vm.entity.district}}</span></div>
-    </div>
-   </div>
   </div>
   <!-- 表单 -->
   <div class="container">
-   <div class="row">
-    <hr>
-    <!--TODO 后期修改接口地址-->
-    <!--  <form id="saveInfo" action="" method="post" target="_self"> -->
-    <form class="form-horizontal w5c-form demo-form" w5c-form-validate="vm.validateOptions" novalidate name="validateForm">
-     <!-- 用户头像 -->
-     <div class="col-md-2 ">
-      <!--TODO 用户头像上传涉及到后台部分，暂时没做-->
-      <img id="userPhoto" src="{{vm.entity.iconUrl}}" ng-model="vm.iconUrl" class="img-responsive img-thumbnail">
-      <input name="fileUserPhoto" type="file">
-      <!-- 用来隐藏当前图片的地址 -->
-      <input type="hidden" ng-model="vm.iconUrl" />
-     </div>
-     <!-- 左侧表单 -->
-     <div class="col-md-5 form-horizontal">
+    <div class="row">
+      <hr>
+      <!--TODO 后期修改接口地址-->
+      <!--  <form id="saveInfo" action="" method="post" target="_self"> -->
+      <form class="form-horizontal w5c-form demo-form" w5c-form-validate="vm.validateOptions" novalidate name="validateForm">
+        <!-- 用户头像 -->
+        <div class="col-md-2" style="padding: 0;">
+          <!--TODO 用户头像上传涉及到后台部分，暂时没做-->
+          <!--上传图片Begin-->
+          <div id="btn-uploader">
+            <a id="pickfiles" href="javascript:void 0;"> <img src='{{vm.entity.iconUrl == "" ? "../../images/upload/upload-alert.png" : vm.entity.iconUrl}}' id="img" class='img-responsive img-thumbnail img-block' alt='自定义'></a>
+          </div>
+          <!--上传图片End-->
+          <!--<img id="userPhoto" src="{{vm.entity.iconUrl}}" ng-model="vm.iconUrl" class="img-responsive img-thumbnail">-->
+          <!--<input name="fileUserPhoto" type="file">-->
+          <!-- 用来隐藏当前图片的地址 -->
+          <input type="hidden" name="iconUrl" ng-model="vm.iconUrl" />
+        </div>
+        <!-- 左侧表单 -->
+        <div class="col-md-5 form-horizontal">
 
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="realName" class="control-label">姓名：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" name="realName" required ng-model="vm.entity.realName" placeholder="用户真实姓名" />
-       </div>
-      </div>
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="mobile" class="control-label">手机：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" name="mobile" required ng-model="vm.entity.mobile" ng-pattern="/^1[34578]\d{9}$/" placeholder="请输入11位手机号">
-       </div>
-      </div>
-      <div class="form-group select2-formgroup">
-       <div class="col-sm-3">
-        <label for="userBelong" class="control-label">所属：</label>
-       </div>
-       <div class="col-sm-8">
-        <!-- TODO 修改为相应的类型以及名称-->
-        <select class="form-control" name="userBelong" id="userBelong" style="max-width: 100%;" required ng-model="vm.entity.vipEntity.userbelong">
-        <option value="">请选择</option>
-            <option value="天津滨海新区中心">天津滨海新区中心</option>
-        </select>
-       </div>
-      </div>
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="txtUserNum" class="control-label">会员序号：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" name="txtUserNum" required ng-model="vm.entity.todo" placeholder="会员序号">
-       </div>
-      </div>
-      <div class="form-group select2-formgroup">
-       <div class="col-sm-3">
-        <label for="nationality" class="control-label">民族：</label>
-       </div>
-       <div class="col-sm-8">
-        <!--56民族列表-->
-        <select name="nationality" class="form-control" id="nationality" required ng-model="vm.entity.nationality" style="max-width: 100%">
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="realName" class="control-label">姓名：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="realName" required ng-model="vm.entity.realName" placeholder="用户真实姓名" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="mobile" class="control-label">手机：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="mobile" required ng-model="vm.entity.mobile" ng-pattern="/^1[34578]\d{9}$/" placeholder="请输入11位手机号">
+            </div>
+          </div>
+          <div class="form-group select2-formgroup">
+            <div class="col-sm-3">
+              <label for="userBelong" class="control-label">所属：</label>
+            </div>
+            <div class="col-sm-8">
+              <!-- TODO 修改为相应的类型以及名称-->
+              <select class="form-control" name="userBelong" id="userBelong" style="max-width: 100%;" required ng-model="vm.entity.vipEntity.userbelong">
+                <option value="">请选择</option>
+                    <option value="天津滨海新区中心">天津滨海新区中心</option>
+            </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="txtUserNum" class="control-label">会员序号：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="txtUserNum" required ng-model="vm.entity.todo" placeholder="会员序号">
+            </div>
+          </div>
+          <div class="form-group select2-formgroup">
+            <div class="col-sm-3">
+              <label for="nationality" class="control-label">民族：</label>
+            </div>
+            <div class="col-sm-8">
+              <!--56民族列表-->
+              <select name="nationality" class="form-control" id="nationality" required ng-model="vm.entity.nationality" style="max-width: 100%">
                                 <option value="">请选择民族</option>
                                 <option value="汉族">汉族</option>
                                 <option value="蒙古族">蒙古族</option>
@@ -165,327 +170,401 @@
                                 <option value="独龙族">独龙族</option>
                                 <option value="基诺族">基诺族</option>
                             </select>
-       </div>
-      </div>
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="nativePlace" class="control-label">籍贯：</label>
-       </div>
-       <div class="col-sm-8">
-        <!--TODO  后期修改，全国省市基础文件包过大-->
-        <input type="text" class="form-control" name="nativePlace" required ng-model="vm.entity.nativePlace" placeholder="籍贯">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="nativePlace" class="control-label">籍贯：</label>
+            </div>
+            <div class="col-sm-8">
+              <!--TODO  后期修改，全国省市基础文件包过大-->
+              <input type="text" class="form-control" name="nativePlace" required ng-model="vm.entity.nativePlace" placeholder="籍贯">
 
-       </div>
-      </div>
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="job" class="control-label">职业：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" name="job" required ng-model="vm.entity.job" placeholder="职业">
-       </div>
-      </div>
-      <div class="form-group ">
-       <div class="col-sm-3">
-        <label for="txtUserFoodHabits" class="control-label">饮食习惯：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" name="txtUserFoodHabits" required ng-model="vm.entity.todo" placeholder="饮食习惯">
-       </div>
-      </div>
-      <div class="form-group select2-formgroup">
-       <div class="col-sm-3">
-        <label for="txtUserSportHabits" class="control-label">运动习惯：</label>
-       </div>
-       <div class="col-sm-8">
-        <select name="txtUserSportHabits" id="txtUserSportHabits" class="form-control" required ng-model="vm.entity.todo" style="max-width: 100%">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="job" class="control-label">职业：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="job" required ng-model="vm.entity.job" placeholder="职业">
+            </div>
+          </div>
+          <div class="form-group ">
+            <div class="col-sm-3">
+              <label for="txtUserFoodHabits" class="control-label">饮食习惯：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="txtUserFoodHabits" required ng-model="vm.entity.todo" placeholder="饮食习惯">
+            </div>
+          </div>
+          <div class="form-group select2-formgroup">
+            <div class="col-sm-3">
+              <label for="txtUserSportHabits" class="control-label">运动习惯：</label>
+            </div>
+            <div class="col-sm-8">
+              <select name="txtUserSportHabits" id="txtUserSportHabits" class="form-control" required ng-model="vm.entity.todo" style="max-width: 100%">
                             <option value="">请选择</option>
                                 <option value="不运动">不运动</option>
                                 <option value="每周少于3次">每周少于3次</option>
                                 <option value="经常运动">经常运动</option>
                             </select>
-       </div>
-      </div>
-      <div class="form-group select2-formgroup">
-       <div class="col-sm-3">
-        <label for="txtUserPressure" class="control-label">压力状况：</label>
-       </div>
-       <div class="col-sm-8">
-        <select name="txtUserPressure" id="txtUserPressure" class="form-control" required ng-model="vm.entity.todo" style="max-width: 100%">
+            </div>
+          </div>
+          <div class="form-group select2-formgroup">
+            <div class="col-sm-3">
+              <label for="txtUserPressure" class="control-label">压力状况：</label>
+            </div>
+            <div class="col-sm-8">
+              <select name="txtUserPressure" id="txtUserPressure" class="form-control" required ng-model="vm.entity.todo" style="max-width: 100%">
                             <option value="">请选择</option>
                                 <option value="轻松">轻松</option>
                                 <option value="经常感到压力">经常感到压力</option>
                                 <option value="压力很大">压力很大</option>
                             </select>
-       </div>
-      </div>
+            </div>
+          </div>
 
-     </div>
-     <!-- 右侧表单 -->
-     <div class="col-md-5 form-horizontal">
+        </div>
+        <!-- 右侧表单 -->
+        <div class="col-md-5 form-horizontal">
 
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="gender" class="control-label">性别：</label>
-       </div>
-       <div class="col-sm-8">
-        <div class="radio" style="height:34px;margin-bottom:0;padding-top:0">
-         <label>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="gender" class="control-label">性别：</label>
+            </div>
+            <div class="col-sm-8">
+              <div class="radio" style="height:34px;margin-bottom:0;padding-top:0">
+                <label>
                                     <input type="radio" name="gender" value="M" checked="checked" checked required ng-model="vm.entity.gender">男
                                 </label>
-         <label>
+                <label>
                                     <input type="radio" name="gender" value="F" ng-model="vm.entity.gender">女
                                 </label>
-        </div>
-       </div>
-      </div>
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="idNo" class="control-label">身份证：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" name="idNo" required ng-model="vm.entity.idNo" ng-pattern="/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/" placeholder="身份证号">
-       </div>
-      </div>
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="contactAddress" class="control-label">地址：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" name="contactAddress" required ng-model="vm.entity.contactAddress" placeholder="居住地址">
-       </div>
-      </div>
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="medicalHistory" class="control-label">既往史：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" name="medicalHistory" required ng-model="vm.entity.medicalHistory" placeholder="既往史">
-       </div>
-      </div>
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="familyMedicalHistory" class="control-label">家族史：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" name="familyMedicalHistory" required ng-model="vm.entity.familyMedicalHistory" placeholder="家族病史">
-       </div>
-      </div>
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="fertility" class="control-label">生育史：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" name="fertility" required ng-model="vm.entity.fertility" placeholder="月经生育史">
-       </div>
-      </div>
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="allergic" class="control-label">过敏史：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" required ng-model="vm.entity.allergic" name="allergic" placeholder="过敏史">
-       </div>
-      </div>
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="sleepSituation" class="control-label">睡眠情况：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" name="sleepSituation" required ng-model="vm.entity.sleepSituation" placeholder="睡眠情况">
-       </div>
-      </div>
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="drinkingSituation" class="control-label">饮酒情况：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" name="drinkingSituation" required ng-model="vm.entity.drinkingSituation" placeholder="饮酒情况">
-       </div>
-      </div>
-      <div class="form-group">
-       <div class="col-sm-3">
-        <label for="smokingSituation" class="control-label">吸烟情况：</label>
-       </div>
-       <div class="col-sm-8">
-        <input type="text" class="form-control" name="smokingSituation" required ng-model="vm.entity.smokingSituation" placeholder="吸烟情况">
-       </div>
-      </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="idNo" class="control-label">身份证：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="idNo" required ng-model="vm.entity.idNo" ng-pattern="/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/" placeholder="身份证号">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="contactAddress" class="control-label">地址：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="contactAddress" required ng-model="vm.entity.contactAddress" placeholder="居住地址">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="medicalHistory" class="control-label">既往史：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="medicalHistory" required ng-model="vm.entity.medicalHistory" placeholder="既往史">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="familyMedicalHistory" class="control-label">家族史：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="familyMedicalHistory" required ng-model="vm.entity.familyMedicalHistory" placeholder="家族病史">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="fertility" class="control-label">生育史：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="fertility" required ng-model="vm.entity.fertility" placeholder="月经生育史">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="allergic" class="control-label">过敏史：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" required ng-model="vm.entity.allergic" name="allergic" placeholder="过敏史">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="sleepSituation" class="control-label">睡眠情况：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="sleepSituation" required ng-model="vm.entity.sleepSituation" placeholder="睡眠情况">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="drinkingSituation" class="control-label">饮酒情况：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="drinkingSituation" required ng-model="vm.entity.drinkingSituation" placeholder="饮酒情况">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-3">
+              <label for="smokingSituation" class="control-label">吸烟情况：</label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" name="smokingSituation" required ng-model="vm.entity.smokingSituation" placeholder="吸烟情况">
+            </div>
+          </div>
 
-     </div>
-     <!-- 表单按钮 -->
-     <div class="col-md-3 col-md-offset-5">
-      <!-- ng-disabled="validateForm.$invalid && vm.show_type != 3" -->
-      <button type="submit" id="submit" class="btn btn-block btn-success" w5c-form-submit="vm.saveinfo($event)">创建会员资料</button>
-     </div>
-    </form>
-   </div>
+        </div>
+        <!-- 表单按钮 -->
+        <div class="col-md-3 col-md-offset-5">
+          <!-- ng-disabled="validateForm.$invalid && vm.show_type != 3" -->
+          <button type="submit" id="submit" class="btn btn-block btn-success" w5c-form-submit="vm.saveinfo($event)">创建会员资料</button>
+        </div>
+      </form>
+    </div>
   </div>
   <!-- 表格数据显示 -->
   <div class="table_data">
-   <div class="container">
-    <div class="row">
-     <div class="col-md-12">
-      <div class=" fixed-table-container">
-       <table class="table table-hover  ">
-        <!-- 表头 -->
-        <thead>
-         <tr>
-          <th>序号</th>
-          <th>会员卡编号</th>
-          <th>会员卡类型</th>
-          <th>有效期</th>
-          <th>激活时间</th>
-          <th>会籍顾问</th>
-          <th>操作</th>
-         </tr>
-        </thead>
-        <tbody>
-         <tr ng-show="vm.dataLengths" ng-repeat="x in vm.vipcards">
-          <td>{{$index+1}}</td>
-          <td>{{x.vipCardEntity.id}}</td>
-          <td>{{x.vipCardEntity.vipType=="considerate"?"体验型":"关爱型"}}</td>
-          <td>{{x.vipCardEntity.validityPeriod}}天</td>
-          <td>{{x.expiredAt*1000|date:"yyyy/MM/dd HH:mm:ss"}}</td>
-          <td>{{vm.entity.vipEntity.adviser.name}}</td>
-          <td><a href="#" ng-show="!x.activated">激活</a><span ng-show="x.activated">已激活</span></td>
-         </tr>
-         <tr ng-show="!vm.dataLengths">
-          <td colspan="100" class="text-center ">暂无结果</td>
-         </tr>
-        </tbody>
-       </table>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class=" fixed-table-container">
+            <table class="table table-hover  ">
+              <!-- 表头 -->
+              <thead>
+                <tr>
+                  <th>序号</th>
+                  <th>会员卡编号</th>
+                  <th>会员卡类型</th>
+                  <th>有效期</th>
+                  <th>激活时间</th>
+                  <th>会籍顾问</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-show="vm.dataLengths" ng-repeat="x in vm.vipcards">
+                  <td>{{$index+1}}</td>
+                  <td>{{x.vipCardEntity.id}}</td>
+                  <td>{{x.vipCardEntity.vipType=="considerate"?"体验型":"关爱型"}}</td>
+                  <td>{{x.vipCardEntity.validityPeriod}}天</td>
+                  <td>{{x.expiredAt*1000|date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                  <td>{{vm.entity.vipEntity.adviser.name}}</td>
+                  <td><a href="#" ng-show="!x.activated">激活</a><span ng-show="x.activated">已激活</span></td>
+                </tr>
+                <tr ng-show="!vm.dataLengths">
+                  <td colspan="100" class="text-center ">暂无结果</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h5>资料登记: <span> 姓名&nbsp;时间 2016-10-20 10:30</span> </h5>
+        </div>
       </div>
-      <h5>资料登记: <span> 姓名&nbsp;时间 2016-10-20 10:30</span> </h5>
-     </div>
     </div>
-   </div>
   </div>
 
   <!-- 脚本 -->
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
   <script type="text/javascript" src="../../Scripts/select2.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
+
+
   <script>
-   $(function() {
-    $(".start_end_time").datetimepicker();
-    // 下拉菜单美化
-    tool.changeSelect($("#userBelong"), false);
-    tool.changeSelect($("#txtUserSportHabits"), false);
-    tool.changeSelect($("#txtUserPressure"), false);
-   });
-   (function() {
-    var app = angular.module("myApp", ["w5c.validator"]);
-    window.app = app;
-    //配置验证规则
-    app.config(["w5cValidatorProvider", function(w5cValidatorProvider) {
-     // 全局配置
-     w5cValidatorProvider.config({
-      blurTrig: true,
-      showError: true,
-      removeError: true
-     });
-
-     w5cValidatorProvider.setRules({
-      realName: {
-       required: "请输入用户登录名"
+    var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
+    //获取七牛uptoken　
+    uploader = Qiniu.uploader({
+      runtimes: 'html5,flash,html4',
+      browse_button: 'pickfiles', //上传按钮的ID
+      container: 'btn-uploader', //上传按钮的上级元素ID
+      drop_element: 'btn-uploader',
+      max_file_size: '100mb', //最大文件限制　
+      dragdrop: false,
+      chunk_size: '4mb', //分块大小 
+      unique_names: true,
+      save_key: true,
+      uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
+        var token = "";
+        $.ajax({
+          type: "get",
+          url: "http://60.205.170.209:8080/admin/api/qnToken",
+          async: false,
+          dataType: "json",
+          success: function(data) {
+            token = data.upToken;
+          }
+        });
+        return token;
       },
-      mobile: {
-       required: "请输入密码",
-       pattern: "手机号码格式输入不正确"
+      unique_names: false,
+      domain: domainUrl, //自己的七牛云存储空间域名
+      multi_selection: false, //是否允许同时选择多文件
+      //文件类型过滤，这里限制为图片类型
+      filters: {
+        mime_types: [{
+          title: "Image files",
+          extensions: "jpg,jpeg,gif,png"
+        }]
       },
-      txtUserNum: {
-       required: "请输入会员编号"
-      },
-      nationality: {
-       required: "请选择民族"
-      },
-      job: {
-       required: "请输入职业"
-      },
-      idNo: {
-       required: "请输入身份证号",
-       pattern: "身份证号码格式输入不正确"
-      },
-      contactAddress: {
-       required: "请输入地址"
+      auto_start: true,
+      init: {
+        'FilesAdded': function(up, files) {
+          //do something
+        },
+        'BeforeUpload': function(up, file) {
+          //do something
+        },
+        'UploadProgress': function(up, file) {
+          //可以在这里控制上传进度的显示
+          //可参考七牛的例子
+        },
+        'UploadComplete': function() {
+          //do something
+        },
+        'FileUploaded': function(up, file, info) {　
+          var json = JSON.parse(info);
+          tool.alert("提示", "上传成功");
+          //图片压缩处理:限制图片长宽均为200px ,且图片质量为原来75%;
+          var imgSrc = domainUrl + json.key + "?imageView2/1/w/200/h/200/q/75|imageslim";
+          $("#img").attr("src", imgSrc);
+          $("[name='iconUrl']").val(imgSrc);
+        },
+        'Error': function(up, err, errTip) {
+          tool.alert("提示", errTip);
+        },
+        'Key': function(up, file) {
+          // var key = nowTime + file.name;　
+          return file.name;
+        }
       }
-     });
-    }]);
+    });
 
-    // 控制器
-    //TODO：饮食习惯、运动习惯、压力状况 没有相关的接口。编号，所属不确定
-    app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
-     var vm = $scope.vm = {
-      entity: {} //用来存放页面数据
-     };
-     var urlObj = new UrlSearch();
-     if (urlObj.id) {
-      var userid = urlObj.id; //获取当前用户的ID
-      var url = "http://60.205.170.209:8080/admin/api/vip/" + userid;
-      $http.get(url).success(function(data) {
-       if (data != null && data != "" && data != "null" && data.id) {
-        $scope.vm.entity = data;
-        // $("#nationality").select2('val', data.nationality);
-        // tool.changeSelect($("#nationality"), false);
+    $(function() {
+      $(".start_end_time").datetimepicker();
+      // 下拉菜单美化
+      tool.changeSelect($("#userBelong"), false);
+      tool.changeSelect($("#txtUserSportHabits"), false);
+      tool.changeSelect($("#txtUserPressure"), false);
+    });
+    (function() {
+      var app = angular.module("myApp", ["w5c.validator"]);
+      window.app = app;
+      //配置验证规则
+      app.config(["w5cValidatorProvider", function(w5cValidatorProvider) {
+        // 全局配置
+        w5cValidatorProvider.config({
+          blurTrig: true,
+          showError: true,
+          removeError: true
+        });
 
-        $scope.vm.entity.todo = "TODO";
-        $scope.vm.vipcards = data.vipcards;
-        $scope.vm.dataLengths = 0;
-       } else {
-        tool.alert("提示", "不存在此用户！");
-       }
-      }).error(function(data, header, config, status) {
-       //处理响应失败
-       tool.alert("提示", "获取用户数据出错！");
-       window.history.back(-1); //回退至上一页面
-      });
-     } else {
-      tool.alert("提示", "当前页面未获取到数据！");
-      window.history.back(-1);
-     }
-     vm.saveinfo = function($event) {
-      console.log("开始上传数据...");
-      //   $(":submit").attr("disabled", true);
-      vm.entity.todo = "1";
-      $http({
-        method: 'PATCH',
-        url: url = "http://60.205.170.209:8080/admin/api/vip/" + urlObj.id,
-        data: $('[name="validateForm"]').serialize(),
-        headers: {
-         'Content-Type': 'application/x-www-form-urlencoded'
-        }
-       })
-       .success(function(data, xhr) {
-        if (xhr == 200) {
-         tool.alert("提示", "保存成功!");
+        w5cValidatorProvider.setRules({
+          realName: {
+            required: "请输入用户登录名"
+          },
+          mobile: {
+            required: "请输入密码",
+            pattern: "手机号码格式输入不正确"
+          },
+          txtUserNum: {
+            required: "请输入会员编号"
+          },
+          nationality: {
+            required: "请选择民族"
+          },
+          job: {
+            required: "请输入职业"
+          },
+          idNo: {
+            required: "请输入身份证号",
+            pattern: "身份证号码格式输入不正确"
+          },
+          contactAddress: {
+            required: "请输入地址"
+          }
+        });
+      }]);
+
+      // 控制器
+      //TODO：饮食习惯、运动习惯、压力状况 没有相关的接口。编号，所属不确定
+      app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
+        var vm = $scope.vm = {
+          entity: {} //用来存放页面数据
+        };
+        var urlObj = new UrlSearch();
+        if (urlObj.id) {
+          var userid = urlObj.id; //获取当前用户的ID
+          var url = "http://60.205.170.209:8080/admin/api/vip/" + userid;
+          $http.get(url).success(function(data) {
+            if (data != null && data != "" && data != "null" && data.id) {
+              $scope.vm.entity = data;
+              // $("#nationality").select2('val', data.nationality);
+              // tool.changeSelect($("#nationality"), false);
+              //   vm.entity.iconUrl = vm.entity.iconUrl == "" ? "../../images/upload/upload-alert.png" : vm.entity.iconUrl;
+              $scope.vm.entity.todo = "TODO";
+              $scope.vm.vipcards = data.vipcards;
+              $scope.vm.dataLengths = 0;
+            } else {
+              tool.alert("提示", "不存在此用户！");
+            }
+          }).error(function(data, header, config, status) {
+            //处理响应失败
+            tool.alert("提示", "获取用户数据出错！");
+            window.history.back(-1); //回退至上一页面
+          });
         } else {
-         tool.alert("提示", "保存失败,请重试!");
+          tool.alert("提示", "当前页面未获取到数据！");
+          window.history.back(-1);
         }
-        // if (!data.success) {
-        //  $scope.errorName = data.errors.name;
-        //  $scope.errorSuperhero = data.errors.superheroAlias;
-        //  // $scope.vm = {};
-        //  tool.alert("提示", "保存失败,请重试!");
-        // } else {
-        //  $scope.vm = {};
-        //  $scope.message = data.message;
-        //  $scope.vm = {};
-        //  tool.alert("提示", "保存成功!");
-        //  $(":submit").attr("disabled", false);
-        // }
-       }).error(function(response) {
-        alert(response.errorMessage);
-        $(":submit").attr("disabled", false);
-       });
-     };
-    }]);
-   })();
+        vm.saveinfo = function($event) {
+          console.log("开始上传数据...");
+          //   $(":submit").attr("disabled", true);
+          vm.entity.todo = "1";
+          $http({
+              method: 'PATCH',
+              url: url = "http://60.205.170.209:8080/admin/api/vip/" + urlObj.id,
+              data: $('[name="validateForm"]').serialize(),
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            })
+            .success(function(data, xhr) {
+              if (xhr == 200) {
+                tool.alert("提示", "保存成功!");
+              } else {
+                tool.alert("提示", "保存失败,请重试!");
+              }
+              // if (!data.success) {
+              //  $scope.errorName = data.errors.name;
+              //  $scope.errorSuperhero = data.errors.superheroAlias;
+              //  // $scope.vm = {};
+              //  tool.alert("提示", "保存失败,请重试!");
+              // } else {
+              //  $scope.vm = {};
+              //  $scope.message = data.message;
+              //  $scope.vm = {};
+              //  tool.alert("提示", "保存成功!");
+              //  $(":submit").attr("disabled", false);
+              // }
+            }).error(function(response) {
+              alert(response.errorMessage);
+              $(":submit").attr("disabled", false);
+            });
+        };
+      }]);
+    })();
   </script>
- </body>
+</body>
 
 </html>

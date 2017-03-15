@@ -26,7 +26,9 @@ var BasicUrl = "http://60.205.170.209:8080/admin/api/";
   };
 })(jQuery);
 $(function() {
-  $.datetimepicker.setLocale('ch'); //时间选择控件默认设置中文
+  if ($.datetimepicker) {
+    $.datetimepicker.setLocale('ch'); //时间选择控件默认设置中文
+  }
   /// <summary>悬浮于一级菜单时显示二级菜单的内容</summary>
   $("#mainMenu>li>a").each(function(index) {
     $(this).hover(function() {
