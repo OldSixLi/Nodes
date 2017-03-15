@@ -55,7 +55,7 @@
           <!-- 表头 -->
           <thead>
             <tr>
-              <th>序号</th>
+              <th style="width:15%;">序号</th>
               <th data-order='userName' class="order text-left" ng-click="title='userName';desc=!desc;sort('userName')">
                 昵称
                 <span class="glyphicon glyphicon-sort"></span></th>
@@ -65,10 +65,11 @@
               <th data-order='district' class="order" ng-click="title='district';desc=!desc;sort('district')">
                 地区
                 <span class="glyphicon glyphicon-sort"></span></th>
-              <th>推荐人</th>
-              <th data-order='time' class="order" ng-click="title='time';desc=!desc;sort('time')">
+              <!--<th>推荐人</th>-->
+              <!--data-order='time' class="order" ng-click="title='time';desc=!desc;sort('time')"-->
+              <th>
                 注册时间
-                <span class="glyphicon glyphicon-sort"></span></th>
+                <!--<span class="glyphicon glyphicon-sort"></span></th>-->
             </tr>
           </thead>
           <!-- 数据主体部分 -->
@@ -79,7 +80,6 @@
                 <a href="userInfoEdit.html?id={{x.id}}">{{ x.userName }}</a></td>
               <td>{{ x.gender=="M"?"男":"女" }}</td>
               <td>{{ x.district }}</td>
-              <td>{{ x.referee }}</td>
               <td>{{ x.time=x.createAt| date:"yyyy/MM/dd HH:mm:ss"}}</td>
             </tr>
             <tr ng-show="!dataLengths">
