@@ -1,577 +1,592 @@
-<!--活动添加页面-->
+﻿<!--活动添加页面-->
 <!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>活动详情</title>
-  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
-  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/common.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>活动详情</title>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
+    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/common.css" rel="stylesheet">
+    <style type="text/css">.w5c-form { }
+
+                                                       .demo-form { }
+    </style>
 </head>
 
 <body>
-  <div class="container-fluid">
-    <div class="row">
-      <!-- 面包屑导航 -->
-      <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-        <li><a href="javascript:void(0)">客户管理</a></li>
-        <li class="active">活动列表</li>
-      </ol>
-    </div>
-  </div>
-  <!--页面主体-->
-  <div class="container-fluid" ng-app="myApp" ng-controller="validateCtrl">
-    <div class="row">
-      <!--<form action="" id="headForm" method="post" enctype="multipart/form-data">
-                <input type="file" style="display:none" name="imageRes" id="imageRes" />
-
-                <input type="hidden" name="type" value="turn" />
-            </form>-->
-
-      <!--表单元素-->
-      <form class="form-horizontal w5c-form demo-form" w5c-form-validate="vm.validateOptions" novalidate name="validateForm">
-        <!--活动图片上传-->
-        <div class="col-md-2 col-sm-2">
-          <!-- 点击上传图片 -->
-          <!--<a href="javascript:;" onclick="uploadPic(this)">
-            <img src="../../images/7.png" style="height:170px;" class="img-responsive img-thumbnail">
-          </a>-->
-
-          <!--上传图片Begin-->
-          <div id="btn-uploader">
-            <a id="pickfiles" href="javascript:void 0;"> <img src='{{vm.entity.iconUrl == "" ? "../../images/upload/upload-alert.png" : vm.entity.iconUrl}}' id="img" class='img-responsive img-thumbnail img-block' alt='自定义'></a>
-            <input type="hidden" name="iconUrl" id="iconUrl" />
-          </div>
-          <!--上传图片End-->
-
-          <!-- <input type="file" id="fileUserPhoto" name="fileUserPhoto"> -->
-          <!--<input type="hidden" name="iconUrl" id="iconUrl" value="232" ng-model="vm.entity.iconUrl" />-->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 面包屑导航 -->
+            <ol class="breadcrumb col-xs-12" style="-ms-border-radius:0; border-radius:0;background-color:white;">
+                <li><a href="javascript:void(0)">客户管理</a></li>
+                <li class="active">活动列表</li>
+            </ol>
         </div>
+    </div>
+    <!--页面主体-->
+    <div class="container-fluid" ng-app="myApp" ng-controller="validateCtrl">
+        <div class="row">
+            <!--<form action="" id="headForm" method="post" enctype="multipart/form-data">
+                      <input type="file" style="display:none" name="imageRes" id="imageRes" />
 
-        <div class="col-md-10 col-sm-10">
-          <div class="form-horizontal">
-            <!--输入项-->
-            <div class="form-group">
-              <div class="col-sm-2 col-md-2 text-right">
-                <label for="sponsorName" class="control-label">主办方：</label>
-              </div>
-              <div class="col-sm-8 col-md-8">
-                <input type="text" class="form-control" id="sponsorName" name="sponsorName" placeholder="主办方单位名称" required ng-model="vm.entity.sponsorName">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-2 text-right">
-                <label for="name" class="control-label">活动名称：</label>
-              </div>
-              <div class="col-sm-8 col-md-8">
-                <input type="text" class="form-control" id="name" name="name" placeholder="请输入活动名称" required ng-model="vm.entity.name">
-              </div>
-            </div>
-            <div class="row ">
-              <div class="col-xs-12">
-                <div class="form-group col-xs-6">
-                  <div class="col-sm-4 text-right">
-                    <label for="startAt" class="control-label">活动时间：</label>
-                  </div>
-                  <div class="col-sm-7 text-left">
-                    <input type="text" class="form-control start_end_time" id="startAt" name="startAt" placeholder="请选择时间" required ng-model="vm.entity.startAt">
-                  </div>
-                </div>
-                <div class="form-group col-xs-6">
-                  <div class="col-sm-3 text-right">
-                    <label for="lasted" class="control-label">持续：</label>
-                  </div>
-                  <div class="col-sm-6 col-md-6">
-                    <input type="text" class="form-control" id="lasted" name="lasted" placeholder="单位：小时" required ng-model="vm.entity.lastedTime">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row ">
-              <div class="col-xs-12">
-                <div class="form-group col-xs-6">
-                  <div class="col-sm-4 text-right">
-                    <label for="signUpCost" class="control-label">报名费：</label>
-                  </div>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control" id="signUpCost" name="signUpCost" placeholder="报名费用" required ng-model="vm.entity.signUpCost">
-                  </div>
-                </div>
-                <div class="form-group col-xs-6">
-                  <div class="col-sm-3 text-right">
-                    <label for="maxApplyNumber" class="control-label">活动人数：</label>
-                  </div>
-                  <div class="col-sm-6 col-md-6">
-                    <input type="text" class="form-control" id="maxApplyNumber" name="maxApplyNumber" placeholder="单位：人" required ng-model="vm.entity.maxApplyNumber">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row ">
-              <div class="col-xs-12">
-                <div class="form-group col-xs-6">
-                  <div class="col-sm-4 text-right">
-                    <label for="txtActivityPlace" class="control-label">活动地点：</label>
-                  </div>
-                  <div class="col-sm-7">
-                    <input type="text" class="form-control" id="location" name="location" required placeholder="活动详细地址" ng-model="vm.entity.location">
-                  </div>
-                </div>
-                <div class="form-group col-xs-6">
-                  <div class="col-sm-3 text-right">
-                    <label for="signByUser" class="control-label">自助签到：</label>
-
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="radio">
-                      <label>
-                <input type="radio" name="signByUser" ng-model="vm.entity.signByUser" ng-value=true ng-checked="true">开
-            </label>
-                      <label>
-                    <input type="radio" name="signByUser" ng-model="vm.entity.signByUser" ng-value=false>关
-                </label>
+                      <input type="hidden" name="type" value="turn" />
+                  </form>-->
+            <!--表单元素-->
+            <form class="form-horizontal w5c-form demo-form" w5c-form-validate="vm.validateOptions" novalidate name="validateForm">
+                <!--活动图片上传-->
+                <div class="col-md-2 col-sm-2">
+                    <!-- 点击上传图片 --> 
+                    <!--上传图片Begin-->
+                    <div id="btn-uploader">
+                        <a id="pickfiles" href="javascript:void 0;"> <img src='{{vm.entity.iconUrl == "" ? "../../images/upload/upload-alert.png" : vm.entity.iconUrl}}' id="img" class='img-responsive img-thumbnail img-block' alt='自定义'></a>
+                        <input type="hidden" name="iconUrl" id="iconUrl" />
                     </div>
-                  </div>
+                    <!--上传图片End-->
+                    <!-- <input type="file" id="fileUserPhoto" name="fileUserPhoto"> -->
+                    <!--<input type="hidden" name="iconUrl" id="iconUrl" value="232" ng-model="vm.entity.iconUrl" />-->
                 </div>
-              </div>
-            </div>
-            <div class="form-group" ng-class="point_className">
-              <div class="col-sm-2 text-right">
-                <label for="coordinate" class="control-label">地点坐标：</label>
-              </div>
-              <div class="col-sm-8 col-md-8">
-                <input type="text" class="form-control" id="coordinate" name="coordinate" placeholder="活动的坐标" ng-model="vm.entity.coordinate" onclick="openMap()">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-2 text-right">
-                <label for="announcement" class="control-label">通知公告：</label>
-              </div>
-              <div class="col-sm-8 col-md-8">
-                <input type="text" class="form-control" id="announcement" name="announcement" placeholder="例：慢性病管理健康常识知多点！欢迎参加！" required ng-model="vm.entity.announcement">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-2 text-right">
-                <label for="description" class="control-label">活动详情：</label>
-              </div>
-              <div class="col-sm-8 col-md-8">
-                <textarea class="form-control" name="description" id="description" rows="5" placeholder="请输入活动详细内容" required ng-model="vm.entity.description"></textarea>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-2 text-right">
-                <label for="isReleased" class="control-label">是否发布：</label>
-              </div>
-              <div class="col-sm-10">
-                <div class="radio">
-                  <label>
-                <input type="radio" name="isReleased" id="isReleased1"
-                ng-value=false  ng-model="vm.entity.isReleased">待发布 (用户不可见)
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                </label>
-                  <label>
-            <input type="radio" name="isReleased" id="isReleased2"
-                    ng-value=true ng-model="vm.entity.isReleased">
-                    发布 (用户可见)&nbsp;&nbsp;&nbsp;&nbsp;
-                </label>
-                  <label>
-            <input type="radio" name="allowSignUp" id="allowSignUp1" ng-checked="true"
-                    ng-value=true ng-model="vm.entity.allowSignUp" checked>发布 (可见不可报名)&nbsp;&nbsp;&nbsp;&nbsp;
-                </label>
+
+                <div class="col-md-10 col-sm-10">
+                    <div class="form-horizontal">
+                        <!--输入项-->
+                        <div class="form-group">
+                            <div class="col-sm-2 col-md-2 text-right">
+                                <label for="sponsorName" class="control-label">主办方：</label>
+                            </div>
+                            <div class="col-sm-8 col-md-8">
+                                <input type="text" class="form-control" id="sponsorName" name="sponsorName" placeholder="主办方单位名称" required ng-model="vm.entity.sponsorName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 text-right">
+                                <label for="name" class="control-label">活动名称：</label>
+                            </div>
+                            <div class="col-sm-8 col-md-8">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="请输入活动名称" required ng-model="vm.entity.name">
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-xs-12">
+                                <div class="form-group col-xs-6">
+                                    <div class="col-sm-4 text-right">
+                                        <label for="startAt" class="control-label">活动时间：</label>
+                                    </div>
+                                    <div class="col-sm-7 text-left">
+                                        <input type="text" class="form-control start_end_time" id="startAt" name="startAt" placeholder="请选择时间" required ng-model="vm.entity.startAt">
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-6">
+                                    <div class="col-sm-3 text-right">
+                                        <label for="lasted" class="control-label">持续：</label>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <input type="text" class="form-control" id="lasted" name="lasted" placeholder="单位：小时" required ng-model="vm.entity.lastedTime">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-xs-12">
+                                <div class="form-group col-xs-6">
+                                    <div class="col-sm-4 text-right">
+                                        <label for="signUpCost" class="control-label">报名费：</label>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="signUpCost" name="signUpCost" placeholder="报名费用" required ng-model="vm.entity.signUpCost">
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-6">
+                                    <div class="col-sm-3 text-right">
+                                        <label for="maxApplyNumber" class="control-label">活动人数：</label>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <input type="text" class="form-control" id="maxApplyNumber" name="maxApplyNumber" placeholder="单位：人" required ng-model="vm.entity.maxApplyNumber">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-xs-12">
+                                <div class="form-group col-xs-6">
+                                    <div class="col-sm-4 text-right">
+                                        <label for="txtActivityPlace" class="control-label">活动地点：</label>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <input type="text" class="form-control" id="location" name="location" required placeholder="活动详细地址" ng-model="vm.entity.location">
+                                    </div>
+                                </div>
+                                <div class="form-group col-xs-6">
+                                    <div class="col-sm-3 text-right">
+                                        <label for="signByUser" class="control-label">自助签到：</label>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="signByUser" ng-model="vm.entity.signByUser" ng-value=true ng-checked="true">开
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="signByUser" ng-model="vm.entity.signByUser" ng-value=false>关
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-class="point_className">
+                            <div class="col-sm-2 text-right">
+                                <label for="coordinate" class="control-label">地点坐标：</label>
+                            </div>
+                            <div class="col-sm-8 col-md-8">
+                                <input type="text" class="form-control" id="coordinate" name="coordinate" placeholder="活动的坐标" ng-model="vm.entity.coordinate" onclick="openMap()">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 text-right">
+                                <label for="announcement" class="control-label">通知公告：</label>
+                            </div>
+                            <div class="col-sm-8 col-md-8">
+                                <input type="text" class="form-control" id="announcement" name="announcement" placeholder="例：慢性病管理健康常识知多点！欢迎参加！" required ng-model="vm.entity.announcement">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 text-right">
+                                <label for="description" class="control-label">活动详情：</label>
+                            </div>
+                            <div class="col-sm-8 col-md-8">
+                                <textarea class="form-control" name="description" id="description" rows="5" placeholder="请输入活动详细内容" required ng-model="vm.entity.description"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2 text-right">
+                                <label for="isReleased" class="control-label">是否发布：</label>
+                            </div>
+                            <div class="col-sm-10">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="isReleased" id="isReleased1"
+                                               ng-value=false ng-model="vm.entity.isReleased">待发布 (用户不可见)
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="isReleased" id="isReleased2"
+                                               ng-value=true ng-model="vm.entity.isReleased">
+                                        发布 (用户可见)&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="allowSignUp" id="allowSignUp1" ng-checked="true"
+                                               ng-value=true ng-model="vm.entity.allowSignUp" checked>发布 (可见不可报名)&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--提交按钮-->
+                    <div class="row">
+                        <!-- 消除外边距 -->
+                        <div class="col-md-12">
+                            <div class="col-md-6 col-sm-6 text-right" ng-show="{{isSave}}">
+                                <button type="submit" class="btn  btn-success" w5c-form-submit="vm.saveinfo($event)">保存活动信息</button>
+                            </div>
+                            <div class="col-md-6 col-sm-6 text-right" ng-show="{{!isSave}}">
+                                <button type="submit" class="btn  btn-success" w5c-form-submit="vm.editInfo($event)">修改活动信息</button>
+                            </div>
+                            <div class="col-md-6 col-sm-6 text-left">
+                                <button type="button" class="btn btn-default" onclick="javascript:history.back(-1)">　　返回　　</button>
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <!--提交按钮-->
-          <div class="row">
-            <!-- 消除外边距 -->
-            <div class="col-md-12">
-              <div class="col-md-3 col-md-offset-3 col-sm-3 col-sm-offset-3" ng-show="{{isSave}}">
-                <button　 type="submit" class="btn btn-block btn-success" w5c-form-submit="vm.saveinfo($event)">保存活动信息</button>
-              </div>
-              <div class="col-md-3 col-md-offset-3 col-sm-6 col-sm-offset-3" ng-show="{{!isSave}}">
-                <button　type="submit" class="btn btn-block btn-success" w5c-form-submit="vm.editInfo($event)">修改活动信息</button>
-              </div>
-              <div class="col-md-3 col-sm-3">
-                <button type="button" class="btn btn-block btn-default" onclick="javascript:history.back(-1)">返回</button>
-              </div>
-            </div>
-          </div>
+            </form>
         </div>
-      </form>
     </div>
-  </div>
-  <!-- 脚本 -->
-  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-  <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
+    <!-- 脚本 -->
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
 
 
-  <script>
-    // 七牛云处理图片Begin
-    var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
-    //获取七牛uptoken　
-    uploader = Qiniu.uploader({
-      runtimes: 'html5,flash,html4',
-      browse_button: 'pickfiles', //上传按钮的ID
-      container: 'btn-uploader', //上传按钮的上级元素ID
-      drop_element: 'btn-uploader',
-      max_file_size: '100mb', //最大文件限制　
-      dragdrop: false,
-      chunk_size: '4mb', //分块大小 
-      unique_names: true,
-      save_key: true,
-      uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
-        var token = "";
-        $.ajax({
-          type: "get",
-          url: "http://60.205.170.209:8080/admin/api/qnToken",
-          async: false,
-          dataType: "json",
-          success: function(data) {
-            token = data.upToken;
-          }
-        });
-        return token;
-      },
-      unique_names: false,
-      domain: domainUrl, //自己的七牛云存储空间域名
-      multi_selection: false, //是否允许同时选择多文件
-      //文件类型过滤，这里限制为图片类型
-      filters: {
-        mime_types: [{
-          title: "Image files",
-          extensions: "jpg,jpeg,gif,png"
-        }]
-      },
-      auto_start: true,
-      init: {
-        'FilesAdded': function(up, files) {
-          //do something
-        },
-        'BeforeUpload': function(up, file) {
-          //do something
-        },
-        'UploadProgress': function(up, file) {
-          //可以在这里控制上传进度的显示
-          //可参考七牛的例子
-        },
-        'UploadComplete': function() {
-          //do something
-        },
-        'FileUploaded': function(up, file, info) {　
-          var json = JSON.parse(info);
-          tool.alert("提示", "上传成功");
-          //图片压缩处理:限制图片长宽均为200px ,且图片质量为原来75%;
-          var imgSrc = domainUrl + json.key + "?imageView2/1/w/200/h/200/q/75|imageslim";
-          $("#img").attr("src", imgSrc);
-          $("[name='iconUrl']").val(imgSrc);
-        },
-        'Error': function(up, err, errTip) {
-          tool.alert("提示", errTip);
-        },
-        'Key': function(up, file) {
-          // var key = nowTime + file.name;　
-          return file.name;
-        }
-      }
-    });
-    // 七牛云上传图片End
-
-    $(function() {
-      $(".start_end_time").datetimepicker();
-    });
-    (function() {
-      var app = angular.module("myApp", ["w5c.validator"]);
-      window.app = app;
-      app.config(["w5cValidatorProvider", function(w5cValidatorProvider) {
-        // 全局配置
-        w5cValidatorProvider.config({
-          blurTrig: true,
-          showError: true,
-          removeError: true
-        });
-
-        w5cValidatorProvider.setRules({
-          sponsorName: {
-            required: "请输入主办方名称"
-          },
-          coordinate: {
-            required: "请选择地点坐标"
-          },
-          name: {
-            required: "请输入活动名称"
-          },
-          startAt: {
-            required: "请选择活动时间"
-          },
-          lasted: {
-            required: "请输入活动持续时间"
-          },
-          location: {
-            required: "请选择地点坐标"
-          },
-          maxApplyNumber: {
-            required: "请输入活动人数"
-          },
-          signUpCost: {
-            required: "请输入报名费用"
-          },
-          announcement: {
-            required: "请输入通知公告"
-          },
-          description: {
-            required: "请输入活动详情"
-          }
-        });
-      }]);
-
-      app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
-        var vm = $scope.vm = {　
-          //   showErrorType: "1",
-          //   showDynamicElement: true,
-          //   dynamicName: "dynamicName",
-          data: {}
-        };
-        var urlObj = new UrlSearch();
-        //判断当前为修改页面还是新增页面
-
-        if (urlObj.id) {
-          $scope.activityId = urlObj.id;
-          $scope.isSave = false;
-          var activityid = urlObj.id;
-          var url = BasicUrl + "activity/" + activityid;
-          $http.get(url).success(function(data) {
-            if (data != null && data != "" && data != "null" && data.id) {
-              $scope.vm.entity = data;
-              $scope.vm.entity.todo = "TODO";
-            } else {
-              tool.alert("提示", "当前活动不存在！");
-              window.history.back(-1); //回退至上一页面
+    <script>
+        // 七牛云处理图片Begin
+        var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
+        //获取七牛uptoken　
+        uploader = Qiniu.uploader( {
+            runtimes: 'html5,flash,html4',
+            browse_button: 'pickfiles', //上传按钮的ID
+            container: 'btn-uploader', //上传按钮的上级元素ID
+            drop_element: 'btn-uploader',
+            max_file_size: '100mb', //最大文件限制　
+            dragdrop: false,
+            chunk_size: '4mb', //分块大小
+            unique_names: true,
+            save_key: true,
+            uptoken_func: function () { // 在需要获取uptoken时，该方法会被调用　
+                var token = "";
+                $.ajax( {
+                    type: "get",
+                    url: "http://60.205.170.209:8080/admin/api/qnToken",
+                    async: false,
+                    dataType: "json",
+                    success: function ( data ) {
+                        token = data.upToken;
+                    }
+                } );
+                return token;
+            },
+            unique_names: false,
+            domain: domainUrl, //自己的七牛云存储空间域名
+            multi_selection: false, //是否允许同时选择多文件
+            //文件类型过滤，这里限制为图片类型
+            filters: {
+                mime_types: [{
+                    title: "Image files",
+                    extensions: "jpg,jpeg,gif,png"
+                }]
+            },
+            auto_start: true,
+            init: {
+                'FilesAdded': function ( up, files ) {
+                    //do something
+                },
+                'BeforeUpload': function ( up, file ) {
+                    //do something
+                },
+                'UploadProgress': function ( up, file ) {
+                    //可以在这里控制上传进度的显示
+                    //可参考七牛的例子
+                },
+                'UploadComplete': function () {
+                    //do something
+                },
+                'FileUploaded': function ( up, file, info ) {
+                    var json = JSON.parse( info );
+                    tool.alert( "提示", "上传成功" );
+                    //图片压缩处理:限制图片长宽均为200px ,且图片质量为原来75%;
+                    var imgSrc = domainUrl + json.key + "?imageView2/1/w/200/h/200/q/75|imageslim";
+                    $( "#img" ).attr( "src", imgSrc );
+                    $( "[name='iconUrl']" ).val( imgSrc );
+                },
+                'Error': function ( up, err, errTip ) {
+                    tool.alert( "提示", errTip );
+                },
+                'Key': function ( up, file ) {
+                    // var key = nowTime + file.name;　
+                    return file.name;
+                }
             }
-          }).error(function(data, header, config, status) {　
-            tool.alert("提示", "获取活动信息出错,请重试！");
-            window.history.back(-1); //回退至上一页面
-          });
-        } else {
-          $scope.isSave = true;
+        } );
+        // 七牛云上传图片End
+
+        $( function () {
+            $( ".start_end_time" ).datetimepicker();
+        } );
+        ( function () {
+            var app = angular.module( "myApp", ["w5c.validator"] );
+            window.app = app;
+            app.config( ["w5cValidatorProvider", function ( w5cValidatorProvider ) {
+                // 全局配置
+                w5cValidatorProvider.config( {
+                    blurTrig: true,
+                    showError: true,
+                    removeError: true
+                } );
+
+                w5cValidatorProvider.setRules( {
+                    sponsorName: {
+                        required: "请输入主办方名称"
+                    },
+                    coordinate: {
+                        required: "请选择地点坐标"
+                    },
+                    name: {
+                        required: "请输入活动名称"
+                    },
+                    startAt: {
+                        required: "请选择活动时间"
+                    },
+                    lasted: {
+                        required: "请输入活动持续时间"
+                    },
+                    location: {
+                        required: "请选择地点坐标"
+                    },
+                    maxApplyNumber: {
+                        required: "请输入活动人数"
+                    },
+                    signUpCost: {
+                        required: "请输入报名费用"
+                    },
+                    announcement: {
+                        required: "请输入通知公告"
+                    },
+                    description: {
+                        required: "请输入活动详情"
+                    }
+                } );
+            }] );
+
+            app.controller( "validateCtrl", ["$scope", "$http", function ( $scope, $http ) {
+                var vm = $scope.vm = {
+                    //   showErrorType: "1",
+                    //   showDynamicElement: true,
+                    //   dynamicName: "dynamicName",
+                    data: {}
+                };
+                var urlObj = new UrlSearch();
+                //判断当前为修改页面还是新增页面
+
+                if ( urlObj.id )
+                {
+                    $scope.activityId = urlObj.id;
+                    $scope.isSave = false;
+                    var activityid = urlObj.id;
+                    var url = BasicUrl + "activity/" + activityid;
+                    $http.get( url ).success( function ( data ) {
+                        if ( data != null && data != "" && data != "null" && data.id )
+                        {
+                            $scope.vm.entity = data;
+                            $scope.vm.entity.todo = "TODO";
+                        } else
+                        {
+                            tool.alert( "提示", "当前活动不存在！" );
+                            window.history.back( -1 ); //回退至上一页面
+                        }
+                    } ).error( function ( data, header, config, status ) {
+                        tool.alert( "提示", "获取活动信息出错,请重试！" );
+                        window.history.back( -1 ); //回退至上一页面
+                    } );
+                } else
+                {
+                    $scope.isSave = true;
+                }
+                //新增按钮操作
+                vm.saveinfo = function ( $event ) {
+                    console.log( "表单开始提交" );
+                     $.ajax( {
+                        type: "post",
+                        url: 'http://60.205.170.209:8080/admin/api/activity',
+                        data: {
+                            name: vm.entity.name,
+                            sponsorName: vm.entity.sponsorName,
+                            iconUrl: $( "#iconUrl" ).val(),
+                            coordinate: $( "#coordinate" ).val(),
+                            announcement: vm.entity.announcement,
+                            startAt: Date.parse( new Date( vm.entity.startAt ) ).toString() == "NaN" ? 0 : Date.parse( new Date( vm.entity.startAt ) ),
+                            lasted: vm.entity.lastedTime,
+                            signUpCost: vm.entity.signUpCost,
+                            maxApplyNumber: vm.entity.maxApplyNumber,
+                            description: vm.entity.description,
+                            location: vm.entity.location,
+                            allowSignUp: $( "[name='allowSignUp']" ).val(),
+                            isReleased: $( "[name='allowSignUp']" ).val(),
+                            signByUser: $( "[name='allowSignUp']" ).val()
+                        },
+
+                        dataType: "json",
+                        success: function ( data, textStatus, request ) {
+                            if ( data.success )
+                            {
+                                tool.alert( "提示", "成功" );
+                            }
+
+                        },
+                        complete: function ( xhr, textStatus ) {
+                            console.log( xhr.status );
+                            if ( xhr.status == 200 && xhr.statusText == "OK" )
+                            {
+                                // $('[name="validateForm"]')[0].reset();
+                                tool.alert( "提示", "数据保存成功" );
+                                window.location.href = "ActivityList.html";
+                            }
+                        }
+
+                    } );
+
+                };
+                //修改按钮操作
+                vm.editInfo = function () {
+                    console.log( "表单开始提交" );
+                     $.ajax( {
+                        type: "PATCH",
+                        url: BasicUrl + 'activity/' + $scope.activityId,
+                        data: {
+                            name: vm.entity.name,
+                            sponsorName: vm.entity.sponsorName,
+                            iconUrl: $( "#iconUrl" ).val(),
+                            coordinate: $( "#coordinate" ).val(),
+                            announcement: vm.entity.announcement,
+                            startAt: Date.parse( new Date( vm.entity.startAt ) ).toString() == "NaN" ? 0 : Date.parse( new Date( vm.entity.startAt ) ),
+                            lasted: vm.entity.lastedTime,
+                            signUpCost: vm.entity.signUpCost,
+                            maxApplyNumber: vm.entity.maxApplyNumber,
+                            description: vm.entity.description,
+                            location: vm.entity.location,
+                            allowSignUp: $( "[name='allowSignUp']" ).val(),
+                            isReleased: $( "[name='allowSignUp']" ).val(),
+                            signByUser: $( "[name='allowSignUp']" ).val()
+                        },
+
+                        dataType: "json",
+                        success: function ( data, textStatus, request ) {
+                            if ( data.success )
+                            {
+                                tool.alert( "提示", "成功" );
+                            }
+
+                        },
+                        complete: function ( xhr, textStatus ) {
+                            console.log( xhr.status );
+                            if ( xhr.status == 200 && xhr.statusText == "OK" )
+                            {
+                                tool.alert( "提示", "数据保存成功" );
+                                window.location.href = "ActivityList.html";
+                            }
+                        }
+
+                    } );
+
+                }
+            }] );
+
+        } )();
+
+        /*预览图片*/
+        function show( btn ) {
+            top.$( 'body' ).find( ".jconfirm" ).hide();
+            var frame = $( '<div style="width:100%;height:100%;background:#000;opacity:0.8;z-index:10000;position:absolute;top:0;left:0"></div>' ).on( 'click', function () {
+                top.$( 'body' ).find( ".jconfirm" ).show();
+                frame.remove();
+                pic.remove();
+            } );
+            var pic = $( "<img style='max-width:80%;max-height:80%;z-index:15000;position:absolute;top:10%;left:50%' src='" + $( btn ).attr( 'src' ) + "'>" ).on( 'click', function () {
+                top.$( 'body' ).find( ".jconfirm" ).show();
+                frame.remove();
+                pic.remove();
+            } );
+            frame.appendTo( top.$( 'body' ) );
+            pic.appendTo( top.$( 'body' ) );
+            pic.css( 'margin-left', '-' + pic.css( 'width' ).substring( 0, pic.css( 'width' ).indexOf( 'px' ) ) / 2 + 'px' );
         }
-        //新增按钮操作
-        vm.saveinfo = function($event) {
-          console.log("表单开始提交");
-          var response = $.ajax({
-            type: "post",
-            url: 'http://60.205.170.209:8080/admin/api/activity',
-            data: {
-              name: vm.entity.name,
-              sponsorName: vm.entity.sponsorName,
-              iconUrl: $("#iconUrl").val(),
-              coordinate: $("#coordinate").val(),
-              announcement: vm.entity.announcement,
-              startAt: Date.parse(new Date(vm.entity.startAt)).toString() == "NaN" ? 0 : Date.parse(new Date(vm.entity.startAt)),
-              lasted: vm.entity.lastedTime,
-              signUpCost: vm.entity.signUpCost,
-              maxApplyNumber: vm.entity.maxApplyNumber,
-              description: vm.entity.description,
-              location: vm.entity.location,
-              allowSignUp: $("[name='allowSignUp']").val(),
-              isReleased: $("[name='allowSignUp']").val(),
-              signByUser: $("[name='allowSignUp']").val()
-            },
 
-            dataType: "json",
-            success: function(data, textStatus, request) {
-              if (data.success) {
-                tool.alert("提示", "成功");
-              }
+        function uploadPic( btn ) {
+            $( "#imageRes" ).click(); 
+        }
+        /*上传图片*/
+        function uploadImage() {
+            var options = {
+                dataType: 'json',
+                success: function ( data ) {
+                    if ( data.success == true )
+                    {
+                        tool.confirm( "确定上传图片",
+                          "<img style='width:100%' src=" + data.bean + " onclick='show(this)'>",
+                          function () {
+                              //发请求对数据库进行修改
+                              var divId = $( "#hidden_divname" ).val();
+                              $( "#" + divId ).find( "img" ).eq( 0 ).attr( "src", data.bean );
+                          },
+                          function () {
+                              //删除缓存图片
+                              $.post( deletePic, {
+                                  picurl: data.bean
+                              }, function ( data ) { } );
+                          } );
+                    } else
+                    {
+                        tool.alert( '提示', '上传图片必须为JPG、PNG、JEPG', function () { } );
+                    }
+                }
+            };
+            $( '#headForm' ).ajaxSubmit( options );
+        }
+        // 地图操作
+        //打开地图窗口
+        var locat = ( window.location + '' ).split( '/' );
+        $( function () {
+            if ( 'tool' == locat[3] )
+            {
+                locat = locat[0] + '//' + locat[2];
+            } else
+            {
+                locat = locat[0] + '//' + locat[2] + '/' + locat[3];
+            };
+        } );
+        $( hangge() );
+        $( hangge() );
+        var mb = myBrowser();
+        var childX = "";
+        var childY = "";
+        //清除加载进度
+        function hangge() {
+            $( "#jzts" ).hide();
+        }
 
-            },
-            complete: function(xhr, textStatus) {
-              console.log(xhr.status);
-              if (xhr.status == 200 && xhr.statusText == "OK") {
-                // $('[name="validateForm"]')[0].reset();
-                tool.alert("提示", "数据保存成功");
-                window.location.href = "ActivityList.html";
-              }
+        function openMap() {
+            var result = "";
+            //解决Chrome浏览器不兼容showModalDialog问题
+            if ( "Chrome" == mb )
+            {
+                result = window.open( "MapXY.html", "", "width=720px;height=500px;" );
+            } else
+            {
+                result = window.showModalDialog( "MapXY.html", "", "dialogWidth=720px;dialogHeight=500px;" );
+
+                if ( result == null || "" == result )
+                {
+                    return;
+                } else
+                {
+                     result = result.split( "-" );
+                    console.log( "zuobiao" + result );
+                    document.getElementById( "coordinate" ).value = result[1] + ',' + result[0];
+                    $( "#coordinate" ).val( result[1] + ',' + result[0] );
+                }
             }
+        }
 
-          });
+        //Chrome浏览器关闭地图子窗口时将选取的坐标传回该父页面
+        function getXYForChrome( x, y ) { 
+            document.getElementById( "coordinate" ).value = y + ',' + x;
+            $( "#coordinate" ).val( y + ',' + x );
 
-        };
-        //修改按钮操作
-        vm.editInfo = function() {
-          console.log("表单开始提交");
-          var response = $.ajax({
-            type: "PATCH",
-            url: BasicUrl + 'activity/' + $scope.activityId,
-            data: {
-              name: vm.entity.name,
-              sponsorName: vm.entity.sponsorName,
-              iconUrl: $("#iconUrl").val(),
-              coordinate: $("#coordinate").val(),
-              announcement: vm.entity.announcement,
-              startAt: Date.parse(new Date(vm.entity.startAt)).toString() == "NaN" ? 0 : Date.parse(new Date(vm.entity.startAt)),
-              lasted: vm.entity.lastedTime,
-              signUpCost: vm.entity.signUpCost,
-              maxApplyNumber: vm.entity.maxApplyNumber,
-              description: vm.entity.description,
-              location: vm.entity.location,
-              allowSignUp: $("[name='allowSignUp']").val(),
-              isReleased: $("[name='allowSignUp']").val(),
-              signByUser: $("[name='allowSignUp']").val()
-            },
+        }
 
-            dataType: "json",
-            success: function(data, textStatus, request) {
-              if (data.success) {
-                tool.alert("提示", "成功");
-              }
-
-            },
-            complete: function(xhr, textStatus) {
-              console.log(xhr.status);
-              if (xhr.status == 200 && xhr.statusText == "OK") {
-                tool.alert("提示", "数据保存成功");
-                window.location.href = "ActivityList.html";
-              }
+        function myBrowser() {
+            var userAgent = navigator.userAgent;
+            var isOpera = userAgent.indexOf( "Opera" ) > -1;
+            if ( isOpera ) {
+                return "Opera";
+            }; //判断是否Opera浏览器
+            if ( userAgent.indexOf( "Firefox" ) > -1 )
+            {
+                return "FF";
+            } //判断是否Firefox浏览器
+            if ( userAgent.indexOf( "Chrome" ) > -1 )
+            {
+                return "Chrome";
             }
-
-          });
-
+            if ( userAgent.indexOf( "Safari" ) > -1 )
+            {
+                return "Safari";
+            } //判断是否Safari浏览器
+            if ( userAgent.indexOf( "compatible" ) > -1 && userAgent.indexOf( "MSIE" ) > -1 && !isOpera )
+            {
+                return "IE";
+            }; //判断是否IE浏览器
         }
-      }]);
-
-    })();
-
-    /*预览图片*/
-    function show(btn) {
-      top.$('body').find(".jconfirm").hide();
-      var frame = $('<div style="width:100%;height:100%;background:#000;opacity:0.8;z-index:10000;position:absolute;top:0;left:0"></div>').on('click', function() {
-        top.$('body').find(".jconfirm").show();
-        frame.remove();
-        pic.remove();
-      });
-      var pic = $("<img style='max-width:80%;max-height:80%;z-index:15000;position:absolute;top:10%;left:50%' src='" + $(btn).attr('src') + "'>").on('click', function() {
-        top.$('body').find(".jconfirm").show();
-        frame.remove();
-        pic.remove();
-      });
-      frame.appendTo(top.$('body'));
-      pic.appendTo(top.$('body'));
-      pic.css('margin-left', '-' + pic.css('width').substring(0, pic.css('width').indexOf('px')) / 2 + 'px');
-    }
-
-    function uploadPic(btn) {
-      $("#imageRes").click();
-      // var divId = $(btn).parent().attr("id");
-      // $("#hidden_divname").val(divId); //当前上传图片的父元素div的ID
-    }
-    /*上传图片*/
-    function uploadImage() {
-      var options = {
-        dataType: 'json',
-        success: function(data) {
-          if (data.success == true) {
-            tool.confirm("确定上传图片",
-              "<img style='width:100%' src=" + data.bean + " onclick='show(this)'>",
-              function() {
-                //发请求对数据库进行修改
-                var divId = $("#hidden_divname").val();
-                $("#" + divId).find("img").eq(0).attr("src", data.bean);
-              },
-              function() {
-                //删除缓存图片
-                $.post(deletePic, {
-                  picurl: data.bean
-                }, function(data) {});
-              });
-          } else {
-            tool.alert('提示', '上传图片必须为JPG、PNG、JEPG', function() {});
-          }
-        }
-      };
-      $('#headForm').ajaxSubmit(options);
-    }
-    // 地图操作
-    //打开地图窗口
-    var locat = (window.location + '').split('/');
-    $(function() {
-      if ('tool' == locat[3]) {
-        locat = locat[0] + '//' + locat[2];
-      } else {
-        locat = locat[0] + '//' + locat[2] + '/' + locat[3];
-      };
-    });
-    $(hangge());
-    $(hangge());
-    var mb = myBrowser();
-    var childX = "";
-    var childY = "";
-    //清除加载进度
-    function hangge() {
-      $("#jzts").hide();
-    }
-
-    function openMap() {
-      var result = "";
-      //解决Chrome浏览器不兼容showModalDialog问题
-      if ("Chrome" == mb) {
-        result = window.open("MapXY.html", "", "width=720px;height=500px;");
-      } else {
-        result = window.showModalDialog("MapXY.html", "", "dialogWidth=720px;dialogHeight=500px;");
-
-        if (result == null || "" == result) {
-          return;
-        } else {
-          var result = result.split("-");
-          console.log("zuobiao" + result);
-          document.getElementById("coordinate").value = result[1] + ',' + result[0];
-          $("#coordinate").val(result[1] + ',' + result[0]);
-        }
-      }
-    }
-
-    //Chrome浏览器关闭地图子窗口时将选取的坐标传回该父页面
-    function getXYForChrome(x, y) {
-      // document.getElementById("ZUOBIAO_X").value = x;
-      // document.getElementById("ZUOBIAO_Y").value = y;
-      document.getElementById("coordinate").value = y + ',' + x;
-      $("#coordinate").val(y + ',' + x);
-
-    }
-
-    function myBrowser() {
-      var userAgent = navigator.userAgent;
-      var isOpera = userAgent.indexOf("Opera") > -1;
-      if (isOpera) {
-        return "Opera"
-      }; //判断是否Opera浏览器
-      if (userAgent.indexOf("Firefox") > -1) {
-        return "FF";
-      } //判断是否Firefox浏览器
-      if (userAgent.indexOf("Chrome") > -1) {
-        return "Chrome";
-      }
-      if (userAgent.indexOf("Safari") > -1) {
-        return "Safari";
-      } //判断是否Safari浏览器
-      if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
-        return "IE";
-      }; //判断是否IE浏览器
-    }
-    //地图操作END
-  </script>
+        //地图操作END
+    </script>
 </body>
 
 </html>
