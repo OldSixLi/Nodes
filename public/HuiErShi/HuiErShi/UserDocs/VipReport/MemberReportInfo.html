@@ -1,0 +1,80 @@
+<!--会员详情页面-->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>会员详情</title>
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
+  <link href="../../Styles/common.css" rel="stylesheet">
+</head>
+
+<body ng-app="myApp" ng-controller="customersCtrl">
+  <!-- 面包屑导航 -->
+  <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+    <li><a href="javascript:void(0)">会员报告</a></li>
+    <li><a href="javascript:history.back(-1);">报告列表</a></li>
+    <li class="active">{{"TODO"}}</li>
+  </ol>
+  <!--会员详情-->
+  <div class="section">
+    <div class="container">
+
+      <div class="row">
+
+      </div>
+    </div>
+  </div>
+
+  <!--脚本-->
+  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <!--自定义脚本部分-->
+  <script>
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+      var reportObj = new UrlSearch();
+      if (reportObj.id) {
+        $scope.reportId = reportObj.id;
+        var url = BasicUrl + "vip/" + reportObj.id;
+        //获取当前用户的具体信息
+        $http.get(url).success(function(data) {
+          if (data != null && data != "" && data != "null" && data.id) {
+            $scope.data = data;
+          } else {
+            tool.alert("提示", data.errorMessage);
+          }
+        }).error(function(data, header, config, status) {
+          //处理响应失败
+          //   tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+          window.location.href = "MemberList.html";
+        });
+        //获取当前用户汇总信息
+        var infoUrl = "http://60.205.170.209:8080/admin/api/vip/" + urlObj.id + "/summary"
+        $http.get(infoUrl).success(function(healthyData) {
+          if (healthyData != null && healthyData != "" && healthyData != "null") {
+            $scope.vipInfo = healthyData;
+          } else {
+            tool.alert("提示", healthyData.errorMessage);
+          }
+        }).error(function(data) {
+          //处理响应失败
+          //   tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+          window.location.href = "MemberList.html";
+        });
+
+      } else {
+        // tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+      }
+
+    });
+  </script>
+</body>
+
+</html>

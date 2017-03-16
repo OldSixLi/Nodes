@@ -1,232 +1,210 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>验单列表</title>
-    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-    <!-- 个人维护样式库 -->
-    <link href="../../Styles/common.css" rel="stylesheet">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>验单列表</title>
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+  <!-- 个人维护样式库 -->
+  <link href="../../Styles/common.css" rel="stylesheet">
 
-    <style>
-        .form-inline .form-control {
-            width: 150px;
-        }
-    </style> 
-    <script>
-        $(function () {
-            // 初始化时间控件
-            $(".start_end_time").datetimepicker();
-        });
-    </script>
+  <style>
+    .form-inline .form-control {
+      width: 150px;
+    }
+  </style>
 </head>
+
 <body ng-app="myApp">
-    <!--检索项-->
-    <div ng-controller="customersCtrl" class="container-fluid">
-        <!-- 面包屑导航 -->
-        <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-            <li><a href="javascript:void(0)">会员报告</a></li>
-            <li class="active">验单列表</li>
-        </ol>
-        <!--搜索模块-->
-        <div class="col-xs-12" id="search_block">
-            <form class="form-inline" role="form">
-                <div class="form-group text-left">
-                    <label class="lbl_search">上传时间：</label>
-                    <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
-                    <label class="">至</label>
-                    <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
-                </div>
-
-                <div class="form-group text-left">
-                    <label class="control-label">&nbsp;&nbsp;姓名：</label>
-                    <input type="text" class="form-control" id="txtKeyWord" placeholder="名称、缩写、拼音名">
-                </div> 
-                <div class="form-group text-left">
-                    <label class="">&nbsp;&nbsp;类型： </label>
-                    <select class=" form-control " id="sltAdviser" style="width:150px;">
-                        <option value="">所有</option>
-                        <option value="待录入">待录入</option>
-                        <option value="已录入">已录入</option>
-                        <option value="录入失败">录入失败</option>
-                    </select>
-                </div>
-
-                <div class="form-group text-left">
-                    <label class="">&nbsp;&nbsp;录入： </label>
-                    <select class=" form-control " id="sltTag" style="width:150px;">
-                        <option value="">所有</option>
-                        <option value="检查登记">检查登记</option>
-                        <option value="专家填写">专家填写</option>
-                        <option value="已发布">已发布</option>
-                    </select>
-                </div> 
-                <!-- 搜索按钮 -->
-                <a ng-click="search()" class="btn btn-primary pull-right" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
-            </form>
-        </div>
-        <!-- 数据显示 -->
-        <div class="ng-scope tab-content container-fluid">
-            <div class=" fixed-table-container">
-                <table class="table table-hover  ">
-                    <!-- 表头 -->
-                    <thead>
-                        <tr>
-                            <th>
-                                验单照片
-
-                            </th>
-                            <th class="order" ng-click="title='FP_HM';desc=!desc">
-                                姓名
-
-                            </th>
-                            <th class="order" ng-click="title='FP_HM';desc=!desc">
-                                上传日期
-                            </th>
-                            <th class="order" ng-click="title='FP_HM';desc=!desc">
-                                验单日期
-                            </th>
-                            <th>
-                                录入人
-
-                            </th>
-                            <th>
-                                录入时间
-
-                            </th>
-                            <th>
-                                验单名
-
-                            </th>
-                            <th>
-                                验单编号 (项目数)
-
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="databody">
-                        <tr ng-show="dataLengths" ng-repeat="x in names.list | orderBy : title : desc">
-                            <td><a href="{{x.FP_HM }}" target="_blank"><img src="{{x.FP_HM }}" /></a></td>
-                            <td>{{ x.FP_HM}}</td>
-                            <td>{{ x.FP_HM }}</td>
-                            <td>{{ x.FP_HM }}</td>
-                            <td>{{ x.FP_HM }}</td>
-                            <td>{{ x.ID }}</td>
-                            <td>{{ x.KPRQ?x.KPRQ:"2017年2月16日14:04:10" }}</td>
-                            <td> <a href="{{ x.FP_HM }}">{{ x.FP_HM}}</a></td>
-                        </tr>
-                        <tr ng-show="!dataLengths">
-                            <td colspan="100" class="text-center ">没有相关数据</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <!--分页-->
-        <div ng-show="dataLengths">
-            <div class="form-group pull-right topage_block">
-
-                <!-- 跳转至 -->
-                <label>{{totalRecord}}条/{{totalPage}}页</label>
-                <label>跳至</label>
-                <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
-                <label>页</label>
-                <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
-            </div>
-            <!-- 分页控件 -->
-            <div class="pull-right">
-                <ul class="pagination" id="alreadyPage"></ul>
-            </div>
+  <!--检索项-->
+  <div ng-controller="customersCtrl" class="container-fluid">
+    <!-- 面包屑导航 -->
+    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+      <li><a href="javascript:void(0)">会员报告</a></li>
+      <li class="active">验单列表</li>
+    </ol>
+    <!--搜索模块-->
+    <div class="col-xs-12" id="search_block">
+      <form class="form-inline" role="form">
+        <div class="form-group text-left">
+          <label class="lbl_search">上传时间：</label>
+          <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+          <label class="">至</label>
+          <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
         </div>
 
-        <!-- 当前页隐藏域 -->
-        <input id="currentPage" name="currentPage" value="1" type="hidden">
+        <div class="form-group text-left">
+          <label class="control-label">&nbsp;&nbsp;姓名：</label>
+          <input type="text" class="form-control" id="txtKeyWord" placeholder="名称、缩写、拼音名">
+        </div>
+        <div class="form-group text-left">
+          <label class="">&nbsp;&nbsp;类型： </label>
+          <select class=" form-control " id="sltAdviser" style="width:150px;">
+            <option value="">所有</option>
+            <option value="待录入">待录入</option>
+            <option value="已录入">已录入</option>
+            <option value="录入失败">录入失败</option>
+          </select>
+        </div>
+
+        <div class="form-group text-left">
+          <label class="">&nbsp;&nbsp;录入： </label>
+          <select class=" form-control " id="sltTag" style="width:150px;">
+            <option value="">所有</option>
+            <option value="检查登记">检查登记</option>
+            <option value="专家填写">专家填写</option>
+            <option value="已发布">已发布</option>
+          </select>
+        </div>
+        <!-- 搜索按钮 -->
+        <a ng-click="search()" class="btn btn-primary pull-right" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+      </form>
     </div>
-    <!--脚本-->
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../../Scripts/select2.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-    <script>
-        $(function () {
-            $(".start_end_time").datetimepicker();
-            var tool = new JSTOOL();tool.changeSelect($("#username"), true);
-        });
+    <!-- 数据显示 -->
+    <div class="ng-scope tab-content container-fluid">
+      <div class=" fixed-table-container">
+        <table class="table table-hover  ">
+          <!-- 表头 -->
+          <thead>
+            <tr>
+              <th>验单照片</th>
+              <th class="order" ng-click="title='FP_HM';desc=!desc"> 姓名 </th>
+              <th class="order" ng-click="title='FP_HM';desc=!desc"> 上传日期 </th>
+              <th class="order" ng-click="title='FP_HM';desc=!desc"> 验单日期 </th>
+              <th>录入人</th>
+              <th>录入时间</th>
+              <th>验单名</th>
+              <th>验单编号(项目数)</th>
+            </tr>
+          </thead>
+          <tbody id="databody">
+            <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
+              <td>
+                <a ng-repeat="c in x.picUrl" href="#{{c}}" target="_blank"><img src="{{c}}" /></a>
+              </td>
+              <td>{{"TODO"}}</td>
+              <td>{{"TODO"}}</td>
+              <td>{{"TODO"}}</td>
+              <td>{{"TODO"}}</td>
+              <td>{{"TODO"}}</td>
+              <td>{{"TODO"}}</td>
+              <td>{{ x.id}}</td>
+            </tr>
+            <tr ng-show="!dataLengths">
+              <td colspan="100" class="text-center ">没有相关数据</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--分页-->
+    <div ng-show="dataLengths">
+      <div class="form-group pull-right topage_block">
 
-        var params = "keyWord=&adviserId=&minCreatedAt=&maxCreatedAt="; //全局变量  请求的参数
-        var app = angular.module('myApp', []);
-        app.controller('customersCtrl', function ($scope, $http) {
-            //分页方法声明
-            var pageing = function (pageindex, params) {
-                //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../report?
-
-                var url = "../../JSON/data.json?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
-                $http.get(url).success(function (data) {
-                    if (data != null && data != "" && data != "null") {
-                        //判断当前是否存在记录
-                        $scope.dataLengths = data.list.length > 0;
-                        if (data.list != null && data.list.length > 0) {
-                            //赋值操作
-                            $scope.title = 'FP_HM';//排序字段
-                            $scope.desc = 0;//排序方式（默认升序）
-                            $scope.names = data;
-                            $scope.totalPage = data.page.totalPage;
-                            $scope.totalRecord = data.page.totalResult;
-                            //调用生成分页方法
-                            initPageDiv($("#alreadyPage"), //在哪里生成页码
-                                pageindex, //当前页
-                                data.page.totalPage, //总页数
-                                5, //每次显示多少页
-                                $("#currentPage"), //隐藏域的值：当前页数
-                                function () {
-                                    pageing($("#currentPage").val(), params);
-                                });
-                        } else {
-                            alert("未获取到数据，请重试");
-                        }
-                    }
-                });
+        <!-- 跳转至 -->
+        <label>{{totalRecord}}条/{{totalPage}}页</label>
+        <label>跳至</label>
+        <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
+        <label>页</label>
+        <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+      </div>
+      <!-- 分页控件 -->
+      <div class="pull-right">
+        <ul class="pagination" id="alreadyPage"></ul>
+      </div>
+    </div>
+    <!-- 当前页隐藏域 -->
+    <input id="currentPage" name="currentPage" value="1" type="hidden">
+  </div>
+  <!--脚本-->
+  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <script>
+    $(function() {
+      $(".start_end_time").datetimepicker();
+      tool.changeSelect($("#username"), true);
+    });
+    // keyWord=&adviserId=&minCreatedAt=&maxCreatedAt=
+    var params = ""; //全局变量  请求的参数
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+      //分页方法声明
+      var pageing = function(pageindex, params) {
+          var url = BasicUrl + "inspection?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+          $http.get(url).success(function(data) {
+            if (data != null && data != "" && data != "null") {
+              //判断当前是否存在记录
+              $scope.dataLengths = data.content.length > 0;
+              if (data.content != null && data.content.length > 0) {
+                //赋值操作
+                $scope.title = 'FP_HM'; //排序字段
+                $scope.desc = 0; //排序方式（默认升序）
+                $scope.data = data;
+                $scope.totalPage = data.totalPages;
+                $scope.totalRecord = data.totalElements;
+                //调用生成分页方法
+                initPageDiv($("#alreadyPage"), //在哪里生成页码
+                  pageindex + 1, //当前页
+                  data.totalPages, //总页数
+                  5, //每次显示多少页
+                  $("#currentPage"), //隐藏域的值：当前页数
+                  function() {
+                    pageing($("#currentPage").val() - 1, params);
+                  });
+              } else {
+                tool.alert("提示", "未获取到数据！");
+              }
             }
-            //分页方法
-            pageing(1, params);
-            //查询按钮
-            $scope.search = function () {
+          });
+        }
+        //分页方法
+      pageing(0, params);
+      //查询按钮
+      $scope.search = function() {
 
-                //起始时间时间戳
-                var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
-                //结束时间时间戳
-                var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-                //用户名称
-                var keyWord = $("#txtKeyWord").val();
-                //会员类型
-                var adviserId = $("#sltAdviser").val();
-                var status = $("#sltStatus").val();
+          //起始时间时间戳
+          var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+          //结束时间时间戳
+          var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+          //用户名称
+          var keyWord = $("#txtKeyWord").val();
+          //会员类型
+          var adviserId = $("#sltAdviser").val();
+          var status = $("#sltStatus").val();
 
-                //校验只有一个搜索条件
-                if (!(minExpiredAt || maxExpiredAt || keyWord || adviserId || status)) {
-                    alert("请至少输入一个搜索条件");
-                    return false;
-                }
-                //起止日期校验
-                if (minExpiredAt > maxExpiredAt) { alert("活动日期中结束时间不得早于起始时间"); return false; }
-                //tag=&name=
-                params = "keyWord=" + keyWord + "&adviserId=" + adviserId + "&minCreatedAt=" + minExpiredAt + "&maxCreatedAt=" + maxExpiredAt;
-                pageing(1, params);
-            }
-            //跳转至某页方法
-            $scope.skip = function () {
-                if ($scope.toPageValue <= 1) {
-                    $scope.toPageValue = 1;
-                } else if ($scope.toPageValue > $scope.totalPage) {
-                    $scope.toPageValue = $scope.totalPage;
-                }
-                pageing($scope.toPageValue, params);
-            }
-        });
-    </script>
+          //校验只有一个搜索条件
+          if (!(minExpiredAt || maxExpiredAt || keyWord || adviserId || status)) {　　　
+            tool.alert("提示", "请至少输入一个搜索条件!");
+            return false;
+          }
+          //起止日期校验
+          if (minExpiredAt > maxExpiredAt) {　
+            tool.alert("提示", "活动日期中结束时间不得早于起始时间!");
+
+            return false;
+          }
+          //tag=&name=
+          params = "keyWord=" + keyWord + "&adviserId=" + adviserId + "&minCreatedAt=" + minExpiredAt + "&maxCreatedAt=" + maxExpiredAt;
+          pageing(1, params);
+        }
+        //跳转至某页方法
+      $scope.skip = function() {
+        if ($scope.toPageValue <= 1) {
+          $scope.toPageValue = 1;
+        } else if ($scope.toPageValue > $scope.totalPage) {
+          $scope.toPageValue = $scope.totalPage;
+        }
+        pageing($scope.toPageValue - 1, params);
+      }
+    });
+  </script>
 </body>
+
 </html>
