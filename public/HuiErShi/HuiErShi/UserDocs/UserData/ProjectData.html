@@ -2,7 +2,7 @@
 <!--当前页面没有接口-->
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-<head>
+ <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>项目数据</title>
   <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
@@ -12,133 +12,133 @@
   <link href="../../Styles/common.css" rel="stylesheet">
 
   <style>
-    .form-group .form-control {
-      width: 150px;
-    }
-    
-    .form-group {
-      margin-left: 10px;
-    }
+   .form-group .form-control {
+    width: 150px;
+   }
+   
+   .form-control.topage {
+    width: 50px;
+   }
+   
+   .form-group {
+    margin-left: 10px;
+   }
   </style>
-</head>
+ </head>
 
-<body ng-app="myApp">
+ <body ng-app="myApp">
   <!--检索项-->
   <div ng-controller="customersCtrl" class="container-fluid">
-    <!-- 面包屑导航 -->
-    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-      <li><a href="javascript:void(0)">用户数据</a></li>
-      <li class="active">项目数据</li>
-    </ol>
-    <div class="text-right col-xs-12" id="search_block">
-      <form class="form-inline" role="form">
-        <div class="form-group text-left">
-          <label class="control-label">会员姓名：</label>
-          <select class=" form-control " name="sltType" id="sltType">
-                        <option value="">所有</option>
-                        <option value="北京">北京</option>
-                        <option value="天津">天津</option>
-                        <option value="上海">上海</option>
-                        <option value="重庆">重庆</option>
-                    </select>
-        </div>
-        <div class="form-group text-left">
-          <label class="">视图标签： </label>
-          <select class=" form-control " name="sltType" id="sltType">
-                        <option value="">所有</option>
-                        <option value="北京">北京</option>
-                        <option value="天津">天津</option>
-                        <option value="上海">上海</option>
-                        <option value="重庆">重庆</option>
-                    </select>
-        </div>
-        <div class="form-group text-left">
-          <label class="">数据视图： </label>
-          <select class=" form-control " name="sltType" id="sltType">
-                        <option value="">所有</option>
-                        <option value="北京">北京</option>
-                        <option value="天津">天津</option>
-                        <option value="上海">上海</option>
-                        <option value="重庆">重庆</option>
-                    </select>
-        </div>
-        <div class="form-group text-left">
-          <label class="">来源筛选： </label>
-          <select class=" form-control " name="sltType" id="sltType">
-                        <option value="">所有</option>
-                        <option value="北京">北京</option>
-                        <option value="天津">天津</option>
-                        <option value="上海">上海</option>
-                        <option value="重庆">重庆</option>
-                    </select>
-        </div>
-        <!-- 搜索按钮 -->
-        <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
-      </form>
-    </div>
-    <!-- 数据显示 -->
-    <div class="ng-scope tab-content container-fluid">
-      <div class=" fixed-table-container">
-        <table class="table table-hover  ">
-          <!-- 表头 -->
-          <thead>
-            <tr>
-              <th>
-                选择
-              </th>
-              <th>
-                项目名
-              </th>
-              <th>
-                参考值
-              </th>
-              <th>
-                最后记录
-              </th>
-              <th>
-                最后记录时间 / 来源
-              </th>
-              <th>
-                记录数量
-              </th>
-              <th>
-                关联视图
-              </th>
+   <!-- 面包屑导航 -->
+   <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+    <li><a href="javascript:void(0)">用户数据</a></li>
+    <li class="active">项目数据</li>
+   </ol>
+   <div class="text-right col-xs-12" id="search_block">
+    <form class="form-inline" role="form">
+     <div class="form-group text-left">
+      <label class="control-label">会员姓名：</label>
+      <select class=" form-control " name="userId" id="userId">
+          <option value="">所有</option>
+          <option value="北京">北京</option>
+          <option value="天津">天津</option>
+          <option value="上海">上海</option>
+          <option value="重庆">重庆</option>
+      </select>
+     </div>
+     <div class="form-group text-left">
+      <label class="">视图标签： </label>
+      <select class=" form-control " name="tag" id="tag">
+        <option value="请选择">请选择</option>
+        <option ng-repeat="x in tag">{{x}}</option>      
+      </select>
+     </div>
+     <div class="form-group text-left">
+      <label class="">数据视图： </label>
+      <select class="form-control" name="viewId" id="viewId">
+        <option value="请选择">请选择</option>
+        <option ng-repeat="x in views" value="{{x.id}}">{{x.name}}</option>      
+      </select>
+     </div>
+     <div class="form-group text-left">
+      <label class="">来源筛选： </label>
+      <select class=" form-control " name="from" id="from">
+        , 、
+        <option  value="所有">所有</option>  
+        <option  value="PC">PC</option>  
+        <option  value="APP">APP</option>  
+      </select>
+     </div>
+     <!-- 搜索按钮 -->
+     <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+    </form>
+   </div>
+   <!-- 数据显示 -->
+   <div class="ng-scope tab-content container-fluid">
+    <div class=" fixed-table-container">
+     <table class="table table-hover  ">
+      <!-- 表头 -->
+      <thead>
+       <tr>
+        <th>
+         序号
+        </th>
+        <th>
+         项目名
+        </th>
+        <th>
+         参考值
+        </th>
+        <th>
+         最后记录
+        </th>
+        <th>
+         最后记录时间 / 来源
+        </th>
+        <th>
+         记录数量
+        </th>
+        <th>
+         关联视图
+        </th>
 
-            </tr>
-          </thead>
-          <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in data.content">
-              <td>{{ $index+names.page.currentPage*10-9}}</td>
-              <td>{{ x.item.name }}</td>
-              <td>{{ x.item.minReference+"~"+x.item.maxReference }}</td>
-              <td>TODO </td>
-              <td>{{ x.item.createAt|date:"yyyy/MM/dd HH:mm:ss" +"/"+x.item.fromWhere}}</td>
-              <td>TODO</td>
-            </tr>
-            <tr ng-show="!dataLengths">
-              <td colspan="100" class="text-center ">没有相关数据</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+       </tr>
+      </thead>
+      <tbody id="databody">
+       <tr ng-show="dataLengths" ng-repeat="x in data.content">
+        <td>{{ $index+data.page*data.pageNum+1}}</td>
+        <td>{{ x.id}}</td>
+        <td>{{ x.val}}</td>
+        <td>{{"TODO"}}</td>
+        <td>{{ x.createAt|date:"yyyy-MM-dd HH:mm:ss" +"　/　"+x.fromWhere}}</td>
+        <td>{{x.totalCount}} </td>
+        <td>{{"TODO"}} </td>
+       </tr>
+       <tr ng-show="!dataLengths">
+        <td colspan="100" class="text-center ">没有相关数据</td>
+       </tr>
+      </tbody>
+     </table>
     </div>
-    <div ng-show="dataLengths">
-      <div class="form-group pull-right topage_block">
-        <!-- 跳转至 -->
-        <label>{{totalRecord}}条/{{totalPage}}页</label>
-        <label>跳至</label>
-        <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
-        <label>页</label>
-        <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
-      </div>
-      <!-- 分页控件 -->
-      <div class="pull-right">
-        <ul class="pagination" id="alreadyPage"></ul>
-      </div>
+   </div>
+
+   <!--分页控件-->
+   <div ng-show="dataLengths">
+    <div class="form-group pull-right topage_block">
+     <!-- 跳转至 -->
+     <label>{{totalRecord}}条/{{totalPage}}页</label>
+     <label>跳至</label>
+     <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
+     <label>页</label>
+     <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
     </div>
-    <!-- 当前页隐藏域 -->
-    <input id="currentPage" name="currentPage" value="1" type="hidden">
+    <!-- 分页控件 -->
+    <div class="pull-right">
+     <ul class="pagination" id="alreadyPage"></ul>
+    </div>
+   </div>
+   <!-- 当前页隐藏域 -->
+   <input id="currentPage" name="currentPage" value="1" type="hidden">
   </div>
   <!--脚本-->
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
@@ -149,81 +149,106 @@
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
-    $(function() {
-      $(".start_end_time").datetimepicker();
-      var tool = new JSTOOL();
-      tool.changeSelect($("#sltType"), false);
-    });
-    var params = ""; //全局变量
-    var basicUrl = "http://60.205.170.209:8080/admin/api/"; //统一接口地址
-    var params = "dataView?itemId=&userId=&viewId=&tag=&from="; //请求参数变量
-    var app = angular.module('myApp', []);
-    app.controller('customersCtrl', function($scope, $http) {
-      //分页方法声明
-      var pageing = function(pageindex, params) {
-        var url = basicUrl + params + "&page=" + pageindex + "&pageNum=10"; //请求地址
-        $http.get(url).success(function(data) {
-          if (data != null && data != "" && data != "null") {
-            $scope.dataLengths = data.content.length > 0; //判断当前是否存在记录
-            if (data.content != null && data.content.length > 0) {
-              //赋值操作
-              $scope.data = data;
-              $scope.totalPage = data.totalPages;
-              $scope.totalRecord = data.totalElements;
+   $(function() {
+    $(".start_end_time").datetimepicker();
 
-              //调用生成分页方法
-              initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
-                pageing($("#currentPage").val() - 1, params);
-              });
-            } else {
-              tool.alert("提示", "当前条件下未获取到数据");
-            }
-          }
-        }).error(function(data) {
-          //处理响应失败
-          tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
-        });
+    tool.changeSelect($("#userId"), false);
+    tool.changeSelect($("#tag"), false);
+    tool.changeSelect($("#viewId"), false);
+    tool.changeSelect($("#from"), false);
+
+   });
+   var params = ""; //全局变量
+   var basicUrl = "http://60.205.170.209:8080/admin/api/"; //统一接口地址
+   //  itemId=&userId=&viewId=&tag=&from=&
+   var params = "dataView?"; //请求参数变量
+   var app = angular.module('myApp', []);
+   var projectObj = new UrlSearch();
+
+   app.controller('customersCtrl', function($scope, $http) {
+    //分页方法声明
+    var pageing = function(pageindex, params) {
+     //如果存在项目ID
+     if (projectObj.id) {
+      var url = basicUrl + params + "itemId=" + projectObj.id + "&userId=1&page=" + pageindex + "&pageNum=10"; //请求地址
+      $http.get(url).success(function(data) {
+       if (data != null && data != "" && data != "null") {
+        $scope.dataLengths = data.content.length > 0; //判断当前是否存在记录
+        if (data.content != null && data.content.length > 0) {
+         //赋值操作
+         $scope.data = data;
+         $scope.totalPage = data.totalPages;
+         $scope.totalRecord = data.totalElements;
+
+         //调用生成分页方法
+         initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
+          pageing($("#currentPage").val() - 1, params);
+         });
+        } else {
+         // tool.alert("提示", "当前条件下未获取到数据");
+        }
+       }
+      }).error(function(data) {
+       //处理响应失败
+       // tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+      });
+      //视图标签赋值
+     } else {
+      //不存在项目ID
+      // window.history.back(-1);
+      tool.alert("提示", "当前项目数据参数错误!");
+     }
+    }
+    $http.get(BasicUrl + "tag").success(function(data) {
+     if (data != null && data != "" && data != "null") {
+      $scope.tag = data;
+     }
+    });
+
+    $http.get(BasicUrl + "view").success(function(data) {
+     if (data != null && data != "" && data != "null") {
+      $scope.views = data;
+     }
+    });
+    //分页方法
+    pageing(0, params);
+    //查询按钮
+    $scope.search = function() {
+      //TODO  需要修改部分
+      //起始时间时间戳
+      var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+      //结束时间时间戳
+      var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+      //用户名称
+      var username = $("#txtUserName").val();
+      //会员类型
+      var vipType = $("#sltType").val();
+      //校验只有一个搜索条件
+      if (!(minExpiredAt || maxExpiredAt || username || vipType)) {
+       alert("请至少输入一个搜索条件");
+       return false;
+      }
+      //起止日期校验
+      if (minExpiredAt > maxExpiredAt) {
+       alert("活动日期中结束时间不得早于起始时间");
+       return false;
       }
 
-      //分页方法
+      // vipType=&minExpiredAt=&maxExpiredAt=&keyWord=
+      params = "vipType=" + vipType + "&minExpiredAt=" + minExpiredAt + "&maxExpiredAt=" + maxExpiredAt + "&keyWord=" + username;
       pageing(1, params);
-      //查询按钮
-      $scope.search = function() {
-          //TODO  需要修改部分
-          //起始时间时间戳
-          var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
-          //结束时间时间戳
-          var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-          //用户名称
-          var username = $("#txtUserName").val();
-          //会员类型
-          var vipType = $("#sltType").val();
-          //校验只有一个搜索条件
-          if (!(minExpiredAt || maxExpiredAt || username || vipType)) {
-            alert("请至少输入一个搜索条件");
-            return false;
-          }
-          //起止日期校验
-          if (minExpiredAt > maxExpiredAt) {
-            alert("活动日期中结束时间不得早于起始时间");
-            return false;
-          }
-
-          // vipType=&minExpiredAt=&maxExpiredAt=&keyWord=
-          params = "vipType=" + vipType + "&minExpiredAt=" + minExpiredAt + "&maxExpiredAt=" + maxExpiredAt + "&keyWord=" + username;
-          pageing(1, params);
-        }
-        //跳转至某页方法
-      $scope.skip = function() {
-        if ($scope.toPageValue <= 1) {
-          $scope.toPageValue = 1;
-        } else if ($scope.toPageValue > $scope.totalPage) {
-          $scope.toPageValue = $scope.totalPage;
-        }
-        pageing($scope.toPageValue, params);
-      }
-    });
+     }
+     //跳转至某页方法
+    $scope.skip = function() {
+     if ($scope.toPageValue <= 1) {
+      $scope.toPageValue = 1;
+     } else if ($scope.toPageValue > $scope.totalPage) {
+      $scope.toPageValue = $scope.totalPage;
+     }
+     pageing($scope.toPageValue, params);
+    }
+   });
   </script>
-</body>
+ </body>
 
 </html>

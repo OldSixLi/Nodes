@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+ <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>运动记录</title>
   <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
@@ -9,59 +9,96 @@
   <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
   <!-- 个人维护样式库 -->
   <link href="../../Styles/common.css" rel="stylesheet">
-</head>
+ </head>
 
-<body ng-app="myApp">
+ <body ng-app="myApp">
   <div ng-controller="customersCtrl" class="container-fluid">
-    <!-- 面包屑导航 -->
-    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-      <li><a href="javascript:history.back(-1)">用户数据</a></li>
-      <li class="active">运动记录</li>
-    </ol>
-    <div class="col-xs-12" id="search_block">
-      <form class="form-inline text-right" role="form">
-        <div class="form-group text-left">
-          <label class="control-label">会员姓名:</label>
-          <!--下拉菜单-->
-          <select id="userSlt" class="form-control"> 
+   <!-- 面包屑导航 -->
+   <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+    <li><a href="javascript:history.back(-1)">用户数据</a></li>
+    <li class="active">运动记录</li>
+   </ol>
+   <div class="col-xs-12" id="search_block">
+    <form class="form-inline text-right" role="form">
+     <div class="form-group text-left">
+      <label class="control-label">会员姓名:</label>
+      <!--下拉菜单-->
+      <select id="userSlt" class="form-control"> 
           </select> &nbsp;&nbsp;&nbsp;
 
-          <!--日期-->
-          <label class="control-label">日期:</label>
-          <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
-            <span class="add-on input-group-addon">
+      <!--日期-->
+      <label class="control-label">日期:</label>
+      <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
+       <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+       <span class="add-on input-group-addon">
               <i class="icon-th glyphicon glyphicon-calendar"></i>
             </span>
-          </div>
-
-          <a class="btn btn-primary" id="btnSearch" ng-click="search()"><i class="glyphicon glyphicon-search"></i>&nbsp;搜索</a>
-        </div>
-      </form>
-    </div>
-
-    <!-- 数据显示 -->
-    <div class="tab-content container-fluid">
-
-    </div>
-
-    <!--分页控件-->
-    <div ng-show="dataLengths">
-      <div class="form-group pull-right topage_block">
-        <!-- 跳转至 -->
-        <label>{{totalRecord}}条/{{totalPage}}页</label>
-        <label>跳至</label>
-        <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
-        <label>页</label>
-        <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
       </div>
-      <!-- 分页控件 -->
-      <div class="pull-right">
-        <ul class="pagination" id="alreadyPage"></ul>
-      </div>
-      <!-- 当前页隐藏域 -->
-      <input id="currentPage" name="currentPage" value="1" type="hidden">
+
+      <a class="btn btn-primary" id="btnSearch" ng-click="search()"><i class="glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+     </div>
+    </form>
+   </div>
+
+   <!-- 数据显示 -->
+   <div class="tab-content container-fluid">
+    <h1>{{"TODO 运动数据表格"}}</h1>
+    <div class=" fixed-table-container">
+     <table class="table table-hover  ">
+      <!-- 表头 -->
+      <thead>
+       <tr>
+        <th>序号</th>
+        <th>运动名称</th>
+        <th>运动开始时间</th>
+        <th>运动结束时间</th>
+        <th>持续时长</th>
+        <th>组数</th>
+        <th>每组数量</th>
+        <th>卡路里</th>
+        <th>心率</th>
+        <th>REP</th>
+       </tr>
+      </thead>
+      <tbody id="databody">
+       <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
+        <td>{{$index+data.page*data.pageNum+1}}</td>
+        <td>{{ x.name }}</td>
+        <td>{{ x.startAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
+        <td>{{ x.endAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
+        <td>{{ x.lasted+"分"}}</td>
+        <td>{{ x.group}}</td>
+        <td>{{ x.count}}</td>
+        <td>{{ x.calorie}}</td>
+        <td>{{ x.heartRate}}</td>
+        <td>{{ x.rpe}}</td>
+
+       </tr>
+       <tr ng-show="!dataLengths">
+        <td colspan="100" class="text-center ">没有相关数据</td>
+       </tr>
+      </tbody>
+     </table>
     </div>
+   </div>
+
+   <!--分页控件-->
+   <div ng-show="dataLengths">
+    <div class="form-group pull-right topage_block">
+     <!-- 跳转至 -->
+     <label>{{totalRecord}}条/{{totalPage}}页</label>
+     <label>跳至</label>
+     <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
+     <label>页</label>
+     <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+    </div>
+    <!-- 分页控件 -->
+    <div class="pull-right">
+     <ul class="pagination" id="alreadyPage"></ul>
+    </div>
+    <!-- 当前页隐藏域 -->
+    <input id="currentPage" name="currentPage" value="1" type="hidden">
+   </div>
 
   </div>
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
@@ -72,87 +109,90 @@
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
-    $(function() {
-      //日期框初始化
-      $(".start_end_time").datetimepicker();
-      // 下拉框AJAX获取数据
-      $("#userSlt").select2({
-        placeholder: "请选择",
-        ajax: {
-          url: "../../JSON/select2.json",
-          dataType: 'json',
-          delay: 250,
-          data: function(params) {
-            return {
-              q: params.term,
-            };
-          },
-          processResults: function(data, page) {
-            return {
-              results: data
-            };
-          },
-          cache: false
-        },
-        escapeMarkup: function(markup) {
-          return markup;
-        },
-        minimumInputLength: 1,
-        minimumResultsForSearch: 1,
-        width: "220px",
-        templateResult: formatRepo,
-        templateSelection: formatRepoSelection,
-      });
+   $(function() {
+    //日期框初始化
+    $(".start_end_time").datetimepicker();
+    // 下拉框AJAX获取数据
+    $("#userSlt").select2({
+     placeholder: "请选择",
+     ajax: {
+      url: "../../JSON/select2.json",
+      dataType: 'json',
+      delay: 250,
+      data: function(params) {
+       return {
+        q: params.term,
+       };
+      },
+      processResults: function(data, page) {
+       return {
+        results: data
+       };
+      },
+      cache: false
+     },
+     escapeMarkup: function(markup) {
+      return markup;
+     },
+     minimumInputLength: 1,
+     minimumResultsForSearch: 1,
+     width: "220px",
+     templateResult: formatRepo,
+     templateSelection: formatRepoSelection,
     });
+   });
 
-    function formatRepo(repo) {
-      return repo.value;
-    }
+   function formatRepo(repo) {
+    return repo.value;
+   }
 
-    function formatRepoSelection(repo) {
-      return repo.value;
-    }
-    var basicUrl = "http://60.205.170.209:8080/admin/api/"; //统一接口地址
-    var params = "user?userName=&minCreatedAt=&maxCreatedAt="; //请求参数变量
-    var app = angular.module('myApp', []);
-    app.controller('customersCtrl', function($scope, $http) {
+   function formatRepoSelection(repo) {
+    return repo.value;
+   }
+   //  user?userName=&minCreatedAt=&maxCreatedAt=
+   var params = ""; //请求参数变量
+   var app = angular.module('myApp', []);
+   app.controller('customersCtrl', function($scope, $http) {
+    // 分页方法
+    var pageing = function(pageindex, params) {
+      //TODO  需要修改部分
+      var url = BasicUrl + "sport?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+      $http.get(url).success(function(data) {
+       if (data != null && data != "" && data != "null") {
+        $scope.dataLengths = data.content.length > 0; //判断当前是否存在记录
+        if (data.content != null && data.content.length > 0) {
+         //赋值操作
+         $scope.data = data;
+         $scope.totalPage = data.totalPages;
+         $scope.totalRecord = data.totalElements;
 
-      //分页方法声明
-      var pageing = function(pageindex, params) {
-        var url = basicUrl + params + "&page=" + pageindex + "&pageNum=10"; //请求地址
-        $http.get(url).success(function(data) {
-          if (data != null && data != "" && data != "null") {
-            $scope.dataLengths = data.content.length > 0; //判断当前是否存在记录
-            if (data.content != null && data.content.length > 0) {
-              //赋值操作
-              $scope.data = data;
-              $scope.totalPage = data.totalPages;
-              $scope.totalRecord = data.totalElements;
-
-              //调用生成分页方法
-              initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
-                pageing($("#currentPage").val() - 1, params);
-              });
-            } else {
-              tool.alert("提示", "当前条件下未获取到数据");
-            }
-          }
-        }).error(function(data) {
-          //处理响应失败
-          tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
-        });
-
-      }
-      $scope.search = function() {
-        console.log("值:" + $("#userSlt").val());
-        var userid = $("#userSlt").val();
-        var time = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-        if (userid == "" || time == 0) {
-          tool.alert("提示", "请至少选择一项搜索信息");
+         //调用生成分页方法
+         initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
+          pageing($("#currentPage").val() - 1, params);
+         });
+        } else {
+         $scope.dataLengths = false;
+         // tool.alert("提示", "当前条件下未获取到数据");
         }
-      }
-    });
+       }
+      }).error(function(data) {
+       $scope.dataLengths = false;
+       //处理响应失败
+       // tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+      });
+     }
+     //分页方法
+    pageing(0, params);
+    $scope.search = function() {
+     console.log("值:" + $("#userSlt").val());
+     var userid = $("#userSlt").val();
+     var time = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+     if (userid == "" || time == 0) {
+      tool.alert("提示", "请至少选择一项搜索信息");
+     }
+    }
+   });
   </script>
-</body>
+ </body>
 
 </html>
