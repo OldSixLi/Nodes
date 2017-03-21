@@ -31,18 +31,18 @@
   <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
     <li><a href="javascript:void(0)">客户管理</a></li>
     <li><a href="javascript:void(0)">用户列表</a></li>
-    <li class="active">{{vm.entity.vipEntity.realName}}</li>
+    <li class="active">{{userData.userName}}</li>
   </ol>
   <!-- 用户基础信息 -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-1 col-md-offset-1 col-sm-2">
-        <img id="userPhoto1" src='{{vm.entity.iconUrl == "" ? "../../images/upload/upload-alert.png" : vm.entity.iconUrl}}' class="img-responsive">
+        <img id="userPhoto1" src='{{userData.iconUrl==""?"":userData.iconUrl}}' class="img-responsive">
       </div>
       <div class="userinfo">
-        <div class="col-md-2">昵称：<span id="top_userName">{{vm.entity.userName}}</span></div>
-        <div class="col-md-2">性别：<span id="top_gender">{{vm.entity.gender=="M"?"女":"男"}}</span></div>
-        <div class="col-md-6">地区：<span id="top_nativePlace">{{vm.entity.district}}</span></div>
+        <div class="col-md-2">昵称：<span id="top_userName">{{userData.userName}}</span></div>
+        <div class="col-md-2">性别：<span id="top_gender">{{userData.gender=="M"?"女":"男"}}</span></div>
+        <div class="col-md-6">地区：<span id="top_nativePlace">{{userData.district}}</span></div>
       </div>
     </div>
   </div>
@@ -350,7 +350,7 @@
                   <td>{{x.vipCardEntity.validityPeriod}}天</td>
                   <td>{{x.expiredAt|date:"yyyy/MM/dd HH:mm:ss"}}</td>
                   <td>
-                    <a href="#?{{vm.entity.vipEntity.adviser.id}}"><img src='{{vm.entity.vipEntity.adviser.iconUrl}}' alt='会籍顾问'></a>
+                    <a href="#?{{vm.entity.vipEntity.adviser.id}}"><img src='{{vm.entity.vipEntity.adviser.iconUrl}}' alt='会籍顾问'>{{vm.entity.vipEntity.adviser.name}}</a>
                   </td>
 
                   <td><a href="#" ng-show="!x.activated">激活</a><span ng-show="x.activated">已激活</span></td>
@@ -504,15 +504,30 @@
         var urlObj = new UrlSearch();
         if (urlObj.id) {
           var userid = urlObj.id; //获取当前用户的ID
-          var url = "http://60.205.170.209:8080/admin/api/vip/" + userid;
-          $http.get(url).success(function(data) {
+          // 会员信息展示
+          // var url = "http://60.205.170.209:8080/admin/api/vip/" + userid;
+          $http.get(BasicUrl + "vip/" + userid).success(function(data) {
             if (data != null && data != "" && data != "null" && data.id) {
               $scope.vm.entity.vipEntity = data;
               $scope.vm.entity.todo = "TODO";
               $scope.vm.vipcards = data.vipcards;
               $scope.vm.dataLengths = data.vipcards.length;
             } else {
-              tool.alert("提示", "不存在此用户！");
+              // tool.alert("提示", "不存在此用户！");
+            }
+          }).error(function(data, header, config, status) {
+            //处理响应失败
+            tool.alert("提示", "获取用户数据出错！");
+            window.history.back(-1); //回退至上一页面
+          });
+
+
+          //用户信息展示
+          $http.get(BasicUrl + "user/" + userid).success(function(data) {
+            if (data != null && data != "" && data != "null" && data.id) {
+              $scope.userData = data;
+            } else {
+              // tool.alert("提示", "不存在此用户！");
             }
           }).error(function(data, header, config, status) {
             //处理响应失败
