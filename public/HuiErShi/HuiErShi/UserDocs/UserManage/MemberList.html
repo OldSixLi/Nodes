@@ -89,8 +89,8 @@
               <td>{{ $index+names.page*names.pageNum+1}}</td>
               <td><img src="{{x.iconUrl}}" alt="" /><a href="UserInfo.html?id={{x.id}}">{{x.realName}}</a> </td>
               <td>{{ x.gender=="M"?"男":"女" }}</td>
-              <td>{{ x.nativePlace }}</td>
-              <td>{{ x.type }}</td>
+              <td>{{ x.origin }}</td>
+              <td>{{ x.vipCard.vipCardEntity.vipType=="considerate"?"体验型":"关爱型" }}</td>
               <td>{{ x.adviser.name}}</td>
               <td>{{x.date=x.vipCard.expiredAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
             </tr>
