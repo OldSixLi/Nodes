@@ -12,7 +12,7 @@
   <link href="../../Styles/common.css" rel="stylesheet">
   <style>
     .form-inline .form-control {
-      width: 140px;
+      /*width: 140px;*/
     }
   </style>
 </head>
@@ -29,7 +29,7 @@
 
         <div class="form-group text-left">
           <label class="">&nbsp;&nbsp;预约情况： </label>
-          <select class="form-control" name="sltDistrict" id="sltDistrict" style="width:140px;">
+          <select class="form-control" name="sltDistrict" id="sltDistrict" 　>
                         <option value="4">全部</option>
                         <option value="1">已发布</option>
                         <option value="0">未发布</option>
@@ -39,7 +39,7 @@
 
         <div class="form-group text-left">
           <label class="">&nbsp;&nbsp;预约项目： </label>
-          <select class="form-control" name="sltItem" id="sltItem" style="width:140px;">
+          <select class="form-control" name="sltItem" id="sltItem" 　>
                         <option value="4">全部</option>
                         <option value="1">已发布</option>
                         <option value="0">未发布</option>
@@ -47,26 +47,27 @@
                     </select>
         </div>&nbsp;&nbsp;
         <div class="form-group text-left">
-          <label class="">&nbsp;&nbsp;关键字： </label><input id="txtKeyWord" name="keyword" class="form-control" placeholder="关键字" type="text">
+          <label class="">&nbsp;&nbsp;关键字： </label>
+          <input id="txtKeyWord" name="keyword" class="form-control" placeholder="关键字" type="text">
         </div>
         <hr />
         <div class="form-group">
           <label class="lbl_search">预约日期：</label>
-
           <div class="input-group">
-            <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" style="max-width:150px;" value={{starttime}}>
+            <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" value={{starttime}}>
             <div class="input-group-btn">
-              <button type="button" class="btn btn-default start_end_time" ng-model="starttime">
+              <button type="button" class="btn btn-default" id="btnStarttime">
                 <span class="glyphicon glyphicon-calendar"></span></button>
             </div>
           </div>
 
           <label class="">至</label>
-          <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间" style="max-width:150px;">
-            <span class="add-on input-group-addon">
-                              <i class="icon-th glyphicon glyphicon-calendar"></i>
-                        </span>
+          <div class="input-group">
+            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" id="btnEndtime">
+                <span class="glyphicon glyphicon-calendar"></span></button>
+            </div>
           </div>
 
         </div>
@@ -148,9 +149,13 @@
       $(".start_end_time").datetimepicker();
       tool.changeSelect($("#sltDistrict"), false);
       tool.changeSelect($("#sltItem"), false);
-
-    });
-    //
+      $("#btnStarttime").click(function() {
+        $("#txtStartTime").datetimepicker('show');
+      });
+      $("#btnEndtime").click(function() {
+        $("#txtEndTime").datetimepicker('show');
+      });
+    });　
     var params = "vipType=&minExpiredAt=&maxExpiredAt=&keyWord="; //全局变量
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {

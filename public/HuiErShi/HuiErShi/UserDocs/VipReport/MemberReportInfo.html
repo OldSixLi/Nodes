@@ -22,7 +22,76 @@
     <div class="container">
       <div class="row">
         <!-- 消除外边距 -->
-        <div class="col-md-12"></div>
+        <div class="col-md-2"><img src='http://usr.im/100x100?text=文字说明' class='img-responsive img-thumbnail' alt='自定义'></div>
+        <div class="col-md-3">
+          <p><b>　　姓名:</b><span>张海燕</span></p>
+          <p><b>报告单号:</b><span>1526644515615</span></p>
+        </div>
+        <div class="col-md-2">
+          <p><b>性别:</b><span>女</span></p>
+          <p><b>日期:</b><span>2017/3/22</span></p>
+        </div>
+        <div class="col-md-2">
+          <p><b>年龄:</b><span>18</span></p>
+          <p><b>状态:</b><span>很好</span></p>
+        </div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-primary">发布报告</button>
+        </div>
+        <div class="col-md-2"> </div>
+        <div class="col-md-6 ">
+          <p><b>　　验单:</b>
+            <a>肝功能(L5253)</a>&nbsp;&nbsp;&nbsp;&nbsp;<a>肝功能(创建验单)</a>
+          </p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <!-- 消除外边距 -->
+        <div class="col-md-2"><img src='http://usr.im/100x100?text=文字说明' class='img-responsive img-thumbnail' alt='自定义'></div>
+        <div class="col-md-10">
+          <p><b>报告分析:</b> {{"报告分析"}}(<a href="#?">修改</a>)</p>
+        </div>
+        <div class="col-md-10 col-md-offset-2"><b>报告分析:</b>
+          <ul ng-repeat="x in infos">{{"具体信息"}}
+            <li>{{"具体信息"}}</li>
+
+          </ul>
+        </div>
+        <div class="col-md-10 col-md-offset-2">
+          <table class="table  table-hover table-bordered">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <th> 处方名称 </th>
+                <th> 处方类别 </th>
+                <th> 拼音名 </th>
+                <th> 操作 </th>
+              </tr>
+            </thead>
+            <tbody id="databody">
+              <tr ng-show="dataLengths" ng-repeat="x in names.content">
+                <td>{{ x.gender=="M"?"男":"女" }}</td>
+                <td>{{ x.origin }}</td>
+                <td>{{ x.vipCard.vipCardEntity.vipType=="considerate"?"体验型":"关爱型" }}</td>
+                <td>
+                  <a href="#?">{{ x.adviser.name}}</a></td>
+              </tr>
+              <tr ng-show="!dataLengths">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-2"><img src='http://usr.im/100x100?text=文字说明' class='img-responsive img-thumbnail' alt='自定义'></div>
+        <div class="col-md-10"><b>报告分析:</b>
+          <p><b>报告分析:</b> {{"报告分析"}}(<a href="#?">修改</a>)</p>
+        </div>
       </div>
     </div>
   </div>
