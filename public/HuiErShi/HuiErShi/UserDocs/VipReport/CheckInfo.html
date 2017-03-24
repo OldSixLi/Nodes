@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>报告详情</title>
+  <title>验单详情</title>
   <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
   <link href="../../Styles/common.css" rel="stylesheet">
   <style>
@@ -21,8 +21,9 @@
   <!-- 面包屑导航 -->
   <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
     <li><a href="javascript:void(0)">会员报告</a></li>
-    <li><a href="javascript:history.back(-1);">报告列表</a></li>
-    <li class="active">{{"TODO"}}</li>
+    <li><a href="javascript:history.back(-1);">验单列表</a></li>
+    <li class="active">{{"验单详情"}}</li>
+
   </ol>
   <!--会员详情-->
   <div class="section">
@@ -127,30 +128,30 @@
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <!--自定义脚本部分-->
   <script>
-    var app = angular.module('myApp', []);
-    app.controller('customersCtrl', function($scope, $http) {
-      var reportObj = new UrlSearch();
-      if (reportObj.id) {
-        // 获取当前的会员报告单号
-        $scope.reportId = reportObj.id;
-        var url = BasicUrl + "report/" + reportObj.id;
-        //获取当前用户的具体信息
-        $http.get(url).success(function(data) {
-          if (data != null && data != "" && data != "null" && data.id) {
-            $scope.data = data;
-          } else {
-            tool.alert("提示", data.errorMessage);
-          }
-        }).error(function(data, header, config, status) {
-          //处理响应失败
-          //   tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
-          window.location.href = "MemberList.html";
-        });
-      } else {
-        tool.alert("提示", "参数错误,当前无法获取数据!");
-      }
+    // var app = angular.module('myApp', []);
+    // app.controller('customersCtrl', function($scope, $http) {
+    //   var reportObj = new UrlSearch();
+    //   if (reportObj.id) {
+    //     // 获取当前的会员报告单号
+    //     $scope.reportId = reportObj.id;
+    //     var url = BasicUrl + "report/" + reportObj.id;
+    //     //获取当前用户的具体信息
+    //     $http.get(url).success(function(data) {
+    //       if (data != null && data != "" && data != "null" && data.id) {
+    //         $scope.data = data;
+    //       } else {
+    //         tool.alert("提示", data.errorMessage);
+    //       }
+    //     }).error(function(data, header, config, status) {
+    //       //处理响应失败
+    //       //   tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+    //       window.location.href = "MemberList.html";
+    //     });
+    //   } else {
+    //     tool.alert("提示", "参数错误,当前无法获取数据!");
+    //   }
 
-    });
+    // });
   </script>
 </body>
 

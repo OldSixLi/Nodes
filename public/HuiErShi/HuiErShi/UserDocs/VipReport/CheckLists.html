@@ -82,15 +82,15 @@
           <tbody id="databody">
             <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
               <td>
-                <a ng-repeat="c in x.picUrl" href="#{{c}}" target="_blank"><img src="{{c}}" /></a>
+                <a ng-repeat="c in x.picUrl" href="CheckInfo.html?id={{x.id}}"><img src="{{c}}" /></a>
               </td>
+              <td>{{x.user.userName}}</td>
+              <td>{{x.Inspection.createAt | date:"yyyy/MM/dd HH:mm:ss" }}</td>
+              <td>{{x.Inspection.checkAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
               <td>{{"TODO"}}</td>
               <td>{{"TODO"}}</td>
               <td>{{"TODO"}}</td>
-              <td>{{"TODO"}}</td>
-              <td>{{"TODO"}}</td>
-              <td>{{"TODO"}}</td>
-              <td>{{ x.id}}</td>
+              <td>{{ x.report.reportNo }}</td>
             </tr>
             <tr ng-show="!dataLengths">
               <td colspan="100" class="text-center ">没有相关数据</td>
@@ -121,7 +121,7 @@
   <!--脚本-->
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
   <script type="text/javascript" src="../../Scripts/select2.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
