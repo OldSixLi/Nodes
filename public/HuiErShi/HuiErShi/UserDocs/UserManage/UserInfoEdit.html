@@ -31,18 +31,18 @@
   <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
     <li><a href="javascript:void(0)">客户管理</a></li>
     <li><a href="javascript:void(0)">用户列表</a></li>
-    <li class="active">{{data.userName}}</li>
+    <li class="active">{{userData.userName}}</li>
   </ol>
   <!-- 用户基础信息 -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-1 col-md-offset-1 col-sm-2">
-        <img id="userPhoto1" src='{{vm.entity.iconUrl == "" ? "../../images/upload/upload-alert.png" : vm.entity.iconUrl}}' class="img-responsive ">
+        <img id="userPhoto1" src='{{userData.iconUrl==""?"":userData.iconUrl}}' class="img-responsive">
       </div>
       <div class="userinfo">
-        <div class="col-md-2">昵称：<span id="top_userName">{{vm.entity.userName}}</span></div>
-        <div class="col-md-2">性别：<span id="top_gender">{{vm.entity.gender=="M"?"女":"男"}}</span></div>
-        <div class="col-md-6">地区：<span id="top_nativePlace">{{vm.entity.district}}</span></div>
+        <div class="col-md-2">昵称：<span id="top_userName">{{userData.userName}}</span></div>
+        <div class="col-md-2">性别：<span id="top_gender">{{userData.gender=="M"?"女":"男"}}</span></div>
+        <div class="col-md-6">地区：<span id="top_nativePlace">{{userData.district}}</span></div>
       </div>
     </div>
   </div>
@@ -58,12 +58,9 @@
           <!--TODO 用户头像上传涉及到后台部分，暂时没做-->
           <!--上传图片Begin-->
           <div id="btn-uploader">
-            <a id="pickfiles" href="javascript:void 0;"> <img src='{{vm.entity.iconUrl == "" ? "../../images/upload/upload-alert.png" : vm.entity.iconUrl}}' id="img" class='img-responsive img-thumbnail img-block' alt='自定义'></a>
+            <a id="pickfiles" href="javascript:void 0;">
+              <img src='{{vm.entity.vipEntity.iconUrl==""?"../../images/upload/upload-alert.png":vm.entity.vipEntity.iconUrl}}' id="img" class='img-responsive img-thumbnail img-block' alt='点击上传会员头像'></a>
           </div>
-          <!--上传图片End-->
-          <!--<img id="userPhoto" src="{{vm.entity.iconUrl}}" ng-model="vm.iconUrl" class="img-responsive img-thumbnail">-->
-          <!--<input name="fileUserPhoto" type="file">-->
-          <!-- 用来隐藏当前图片的地址 -->
           <input type="hidden" name="iconUrl" ng-model="vm.iconUrl" />
         </div>
         <!-- 左侧表单 -->
@@ -87,11 +84,11 @@
           </div>
           <div class="form-group select2-formgroup">
             <div class="col-sm-3">
-              <label for="userBelong" class="control-label">所属：</label>
+              <label for="origin" class="control-label">所属：</label>
             </div>
             <div class="col-sm-8">
               <!-- TODO 修改为相应的类型以及名称-->
-              <select class="form-control" name="userBelong" id="userBelong" style="max-width: 100%;" required ng-model="vm.entity.vipEntity.userbelong">
+              <select class="form-control" name="origin" id="origin" style="max-width: 100%;" required ng-model="vm.entity.vipEntity.origin">
                 <option value="">请选择</option>
                     <option value="天津滨海新区中心">天津滨海新区中心</option>
             </select>
@@ -99,10 +96,10 @@
           </div>
           <div class="form-group">
             <div class="col-sm-3">
-              <label for="txtUserNum" class="control-label">会员序号：</label>
+              <label for="txtUserNum" class="control-label">会员编号：</label>
             </div>
             <div class="col-sm-8">
-              <input type="text" class="form-control" name="txtUserNum" required ng-model="vm.entity.todo" placeholder="会员序号">
+              <input type="text" class="form-control" name="vipNo" required ng-model="vm.entity.vipEntity.vipNo" placeholder="会员编号">
             </div>
           </div>
           <div class="form-group select2-formgroup">
@@ -192,18 +189,18 @@
           </div>
           <div class="form-group ">
             <div class="col-sm-3">
-              <label for="txtUserFoodHabits" class="control-label">饮食习惯：</label>
+              <label for="dietHabits" class="control-label">饮食习惯：</label>
             </div>
             <div class="col-sm-8">
-              <input type="text" class="form-control" name="txtUserFoodHabits" required ng-model="vm.entity.todo" placeholder="饮食习惯">
+              <input type="text" class="form-control" name="dietHabits" required ng-model="vm.entity.vipEntity.dietHabits" placeholder="饮食习惯">
             </div>
           </div>
           <div class="form-group select2-formgroup">
             <div class="col-sm-3">
-              <label for="txtUserSportHabits" class="control-label">运动习惯：</label>
+              <label for="sportHabits" class="control-label">运动习惯：</label>
             </div>
             <div class="col-sm-8">
-              <select name="txtUserSportHabits" id="txtUserSportHabits" class="form-control" required ng-model="vm.entity.todo" style="max-width: 100%">
+              <select name="sportHabits" id="sportHabits" class="form-control" required ng-model="vm.entity.vipEntity.sportHabits" style="max-width: 100%">
                             <option value="">请选择</option>
                                 <option value="不运动">不运动</option>
                                 <option value="每周少于3次">每周少于3次</option>
@@ -213,15 +210,15 @@
           </div>
           <div class="form-group select2-formgroup">
             <div class="col-sm-3">
-              <label for="txtUserPressure" class="control-label">压力状况：</label>
+              <label for="pressureCondition" class="control-label">压力状况：</label>
             </div>
             <div class="col-sm-8">
-              <select name="txtUserPressure" id="txtUserPressure" class="form-control" required ng-model="vm.entity.todo" style="max-width: 100%">
-                            <option value="">请选择</option>
-                                <option value="轻松">轻松</option>
-                                <option value="经常感到压力">经常感到压力</option>
-                                <option value="压力很大">压力很大</option>
-                            </select>
+              <select name="pressureCondition" id="pressureCondition" class="form-control" required ng-model="vm.entity.vipEntity.pressureCondition" style="max-width: 100%">
+              <option value="">请选择</option>
+                  <option value="轻松">轻松</option>
+                  <option value="经常感到压力">经常感到压力</option>
+                  <option value="压力很大">压力很大</option>
+              </select>
             </div>
           </div>
 
@@ -353,7 +350,7 @@
                   <td>{{x.vipCardEntity.validityPeriod}}天</td>
                   <td>{{x.expiredAt|date:"yyyy/MM/dd HH:mm:ss"}}</td>
                   <td>
-                    <a href="#?{{vm.entity.vipEntity.adviser.id}}"><img src='{{vm.entity.vipEntity.adviser.iconUrl}}' alt='会籍顾问'></a>
+                    <a href="#?{{vm.entity.vipEntity.adviser.id}}"><img src='{{vm.entity.vipEntity.adviser.iconUrl}}' alt='会籍顾问'>{{vm.entity.vipEntity.adviser.name}}</a>
                   </td>
 
                   <td><a href="#" ng-show="!x.activated">激活</a><span ng-show="x.activated">已激活</span></td>
@@ -447,7 +444,6 @@
           tool.alert("提示", errTip);
         },
         'Key': function(up, file) {
-          // var key = nowTime + file.name;　
           return file.name;
         }
       }
@@ -508,18 +504,30 @@
         var urlObj = new UrlSearch();
         if (urlObj.id) {
           var userid = urlObj.id; //获取当前用户的ID
-          var url = "http://60.205.170.209:8080/admin/api/user/" + userid;
-          $http.get(url).success(function(data) {
+          // 会员信息展示
+          // var url = "http://60.205.170.209:8080/admin/api/vip/" + userid;
+          $http.get(BasicUrl + "vip/" + userid).success(function(data) {
             if (data != null && data != "" && data != "null" && data.id) {
-              $scope.vm.entity = data;
-              // $("#nationality").select2('val', data.nationality);
-              // tool.changeSelect($("#nationality"), false);
-              //   vm.entity.iconUrl = vm.entity.iconUrl == "" ? "../../images/upload/upload-alert.png" : vm.entity.iconUrl;
+              $scope.vm.entity.vipEntity = data;
               $scope.vm.entity.todo = "TODO";
               $scope.vm.vipcards = data.vipcards;
               $scope.vm.dataLengths = data.vipcards.length;
             } else {
-              tool.alert("提示", "不存在此用户！");
+              // tool.alert("提示", "不存在此用户！");
+            }
+          }).error(function(data, header, config, status) {
+            //处理响应失败
+            tool.alert("提示", "获取用户数据出错！");
+            window.history.back(-1); //回退至上一页面
+          });
+
+
+          //用户信息展示
+          $http.get(BasicUrl + "user/" + userid).success(function(data) {
+            if (data != null && data != "" && data != "null" && data.id) {
+              $scope.userData = data;
+            } else {
+              // tool.alert("提示", "不存在此用户！");
             }
           }).error(function(data, header, config, status) {
             //处理响应失败
@@ -531,8 +539,7 @@
           window.history.back(-1);
         }
         vm.saveinfo = function($event) {
-          console.log("开始上传数据...");
-          //   $(":submit").attr("disabled", true);
+          $(":submit").attr("disabled", true);
           vm.entity.todo = "1";
           $http({
               method: 'PATCH',
@@ -545,23 +552,13 @@
             .success(function(data, xhr) {
               if (xhr == 200) {
                 tool.alert("提示", "保存成功!");
+                $(":submit").attr("disabled", false);
               } else {
                 tool.alert("提示", "保存失败,请重试!");
+                $(":submit").attr("disabled", false);
               }
-              // if (!data.success) {
-              //  $scope.errorName = data.errors.name;
-              //  $scope.errorSuperhero = data.errors.superheroAlias;
-              //  // $scope.vm = {};
-              //  tool.alert("提示", "保存失败,请重试!");
-              // } else {
-              //  $scope.vm = {};
-              //  $scope.message = data.message;
-              //  $scope.vm = {};
-              //  tool.alert("提示", "保存成功!");
-              //  $(":submit").attr("disabled", false);
-              // }
             }).error(function(response) {
-              alert(response.errorMessage);
+              tool.alert("提示", response.errorMessage);
               $(":submit").attr("disabled", false);
             });
         };

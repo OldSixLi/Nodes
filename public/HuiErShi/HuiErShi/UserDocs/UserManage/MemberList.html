@@ -14,7 +14,7 @@
 
 <body ng-app="myApp">
   <!--检索项-->
-  <div ng-controller="customersCtrl" class="container-fluid" ng-cloak>
+  <div ng-controller="customersCtrl" class="container-fluid" ng-clock>
     <!-- 面包屑导航 -->
     <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
       <li><a href="javascript:void(0)">客户管理</a></li>
@@ -89,8 +89,8 @@
               <td>{{ $index+names.page*names.pageNum+1}}</td>
               <td><img src="{{x.iconUrl}}" alt="" /><a href="UserInfo.html?id={{x.id}}">{{x.realName}}</a> </td>
               <td>{{ x.gender=="M"?"男":"女" }}</td>
-              <td>{{ x.nativePlace }}</td>
-              <td>{{ x.type }}</td>
+              <td>{{ x.origin }}</td>
+              <td>{{ x.vipCard.vipCardEntity.vipType=="considerate"?"体验型":"关爱型" }}</td>
               <td>{{ x.adviser.name}}</td>
               <td>{{x.date=x.vipCard.expiredAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
             </tr>
