@@ -30,7 +30,7 @@
      </div>
      <div class="form-group text-left">
       <label class="control-label">&nbsp;&nbsp;卡券：</label>
-      <select class=" form-control " id="sltTag" style="width:150px;">
+      <select class=" form-control " id="cards" style="width:150px;">
         <option value="">无</option>
       </select>
      </div>
@@ -54,42 +54,30 @@
       <!-- 表头 -->
       <thead>
        <tr>
-        <th>
-         支付项目
-        </th>
-        <th>
-         金额
-        </th>
-        <th>
-         昵称
-        </th>
-        <th>
-         姓名
-        </th>
-        <th>
-         支付时间
-        </th>
+        <th> 序号 </th>
+        <th> 支付项目 </th>
+        <th> 金额 </th>
+        <th> 昵称 </th>
+        <th> 姓名 </th>
+        <th> 支付时间</th>
         <th class="order" ng-click="title='outTradeNo';desc=!desc">
-         收据号
-         <span></span>
-        </th>
-        <th>
-         支付方式
-        </th>
+         收据号<span></span></th>
+        <th> 支付方式</th>
        </tr>
       </thead>
       <tbody id="databody">
        <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
-        <td>{{ x.commodity.commodityName }}</td>
+        <td>{{ $index+data.page*data.pageNum+1}}</td>
+        <td>{{ x.commodity.commodityName+"不确定" }}</td>
         <td>{{ x.commodity.price }}</td>
         <td>
          <a href="#?id={{x.user.id}}">{{x.user.userName}}</a>
         </td>
         <td>
-         <a href="{{x.vipEntity.id}}">{{x.vipEntity.realName}}</a>
+         <a href="{{x.vipEntity.id}}">{{x.user.vipEntity.realName}}</a>
         </td>
-        <td>{{ x.payment.payAt }}</td>
-        <td>{{ outTradeNo=x.payment.outTradeNo }}</td>
+        <td>{{ x.payment.payAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+        <td>{{ outTradeNo=x.payment.outTradeNo+"不确定" }}</td>
         <td>{{ x.tradeType=="offline"?"线下支付":"微信支付"}}</td>
        </tr>
        <tr ng-show="!dataLengths">
@@ -128,7 +116,7 @@
   <script>
    $(function() {
     $(".start_end_time").datetimepicker();
-    tool.changeSelect($("#username"), true);
+    tool.changeSelect($("#cards"), false);
    });
    //    var params = "keyWord=&minPayTime=&maxPayTime=";
    var params = "";
