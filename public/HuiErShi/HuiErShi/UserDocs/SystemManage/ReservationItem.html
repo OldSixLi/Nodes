@@ -151,7 +151,7 @@
       });
      }
      //分页方法
-    pageing(1, params);
+    pageing(0, params);
     //查询按钮
     $scope.search = function() {
 
@@ -166,7 +166,7 @@
       }
       //tag=&name=
       params = "tag=" + tag + "&name=" + name;
-      pageing(1, params);
+      pageing(0, params);
      }
      //跳转至某页方法
     $scope.skip = function() {
@@ -194,7 +194,7 @@
          if (length == 1 && queryParams.currentPage != 1) {
           $("#currentPage").val(queryParams.currentPage - 1);
          }
-         pageing(1, params);
+         pageing(0, params);
         } else {
          tool.alert("提示", "删除失败");
         }

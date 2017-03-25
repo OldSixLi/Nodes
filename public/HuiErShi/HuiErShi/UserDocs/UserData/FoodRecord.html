@@ -459,7 +459,7 @@
       });
      }
      //分页方法
-    pageing(1, params);
+    pageing(0, params);
     //查询按钮
     $scope.search = function() {
       //TODO  需要修改部分
@@ -482,7 +482,7 @@
        return false;
       }
       params = "medicineName=" + keyword + "&userId=" + username + "&minCreatedAt=" + minExpiredAt + "&maxCreatedAt=" + maxExpiredAt;
-      pageing(1, params);
+      pageing(0, params);
      }
      //跳转至某页方法
     $scope.skip = function() {

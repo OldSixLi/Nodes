@@ -20,6 +20,10 @@
     border-radius: 5px;
     padding-top: 10px;
    }
+   
+   .marginTop5 {
+    margin-top: 5px;
+   }
   </style>
  </head>
 
@@ -48,7 +52,7 @@
      <div class="col-md-10"></div>
     </div>
     <!--按钮操作-->
-    <div class="row" style="margin-top:5px;">
+    <div class="row marginTop5">
      <div class="col-md-3" id="btn-uploader">
       <button type="button" class="btn btn-default btn-sm btn-block" id="pickfiles">上传默认日程背景</button>
      </div>
@@ -56,13 +60,12 @@
       <button type="button" class="btn btn-default" id="saveBtn" ng-click="saveInfo()">保存</button></p>
      </div>
     </div>
-
    </div>
 
    <!--表格-->
-   <div class="container">
+   <div class="container marginTop5">
     <div class="row">
-     <div class="col-md-6">
+     <div class="col-md-6" style="padding:0;">
       <table class="table  table-hover table-bordered">
        <!-- 表头 -->
        <thead>
@@ -87,7 +90,6 @@
       </table>
      </div>
     </div>
-
    </div>
   </div>
 
@@ -105,6 +107,7 @@
   <script type="text/javascript" src="../../Scripts/select2.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
+
   <!--自定义脚本部分-->
   <script>
    var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
@@ -192,7 +195,7 @@
      }
      //分页方法
     pageing(0, params);
-    // 上传背景按钮操作
+    // 上传背景按钮操作方法
     $scope.saveInfo = function() {　
      var bgUrl = $("#iconUrl").val();
      if (bgUrl) {
@@ -224,7 +227,7 @@
     }
 
 
-    //删除项目
+    //删除项目操作方法
     $scope.deleteItem = function(id) {
      var deleteUrl = BasicUrl + "settings/" + id;
      tool.confirm("提示",
@@ -248,10 +251,6 @@
         });
       },
       function() {});
-
-
-
-
     }
    });
   </script>

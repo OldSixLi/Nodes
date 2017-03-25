@@ -35,7 +35,7 @@
          });
      }
      //分页方法
-     pageing(1, params);
+     pageing(0, params);
      //查询按钮
      $scope.search = function() {
          //TODO  需要修改部分
@@ -54,7 +54,7 @@
          if (minExpiredAt > maxExpiredAt) { alert("活动日期中结束时间不得早于起始时间"); return false; }
 
          params = "userName=" + username + "&minCreatedAt=" + minExpiredAt + "&maxExpiredAt=" + maxExpiredAt;
-         pageing(1, params);
+         pageing(0, params);
      }
      //跳转至某页方法
      $scope.skip = function() {

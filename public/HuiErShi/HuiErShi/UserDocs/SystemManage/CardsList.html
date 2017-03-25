@@ -1,152 +1,155 @@
 ﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>卡券列表</title>
-        <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-        <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-        <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-        <!-- 个人维护样式库 -->
-        <link href="../../Styles/common.css" rel="stylesheet">
-    </head>
 
-    <body ng-app="myApp">
-    <!--检索项-->
-    <div ng-controller="customersCtrl" class="container-fluid">
-        <!-- 面包屑导航 -->
-        <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-            <li><a href="javascript:void(0)">系统管理</a></li>
-            <li class="active">食物列表</li>
-        </ol>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>卡券列表</title>
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+  <!-- 个人维护样式库 -->
+  <link href="../../Styles/common.css" rel="stylesheet">
+ </head>
 
-        <div class="text-right col-xs-12" id="search_block">
-            <a href="#" class="btn btn-primary" id="btnAddActivity"><i class=" glyphicon glyphicon-plus"></i>&nbsp;创建新卡券</a>
-        </div>
-        <!-- 数据显示 -->
-        <div class="ng-scope tab-content container-fluid">
-            <div class=" fixed-table-container">
-                <table class="table table-hover  ">
-                    <!-- 表头 -->
-                    <thead>
-                        <tr>
-                            <th>
-                                卡券名称
-                            </th>
-                            <th>
-                                有效期
-                            </th>
-                            <th>
-                                价格
-                            </th>
-                            <th>
-                                门诊次数
-                            </th>
-                            <th>
-                                类型
-                            </th>
-                            <th>
-                                备注
-                            </th>
-                            <th>
-                                使用情况
-                            </th> 
-                            <th>
-                                操作
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="databody">
-                        <tr ng-show="dataLengths" ng-repeat="x in names.list">
-                            <td><a href="{{x.FP_HM}}">操作</a></td>
-                            <td>{{ $index+names.page.currentPage*10-9}}</td>
-                            <td>{{ x.FP_HM }}</td>
-                            <td>{{ x.FP_HM }}</td>
-                            <td>{{ x.ID }}</td>
-                            <td>{{x.FP_HM}}</td> 
-                            <td><a href="{{x.FP_HM}}">操作</a></td> 
-                            <td> <a href="{{x.FP_HM}}" title="删除信息"><span class="glyphicon glyphicon-trash"></span></a></td>
-                        </tr>
-                        <tr ng-show="!dataLengths">
-                            <td colspan="100" class="text-center ">没有相关数据</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div ng-show="dataLengths">
-            <div class="form-group pull-right topage_block">
+ <body ng-app="myApp">
+  <!--检索项-->
+  <div ng-controller="customersCtrl" class="container-fluid">
+   <!-- 面包屑导航 -->
+   <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+    <li><a href="javascript:void(0)">系统管理</a></li>
+    <li class="active">食物列表</li>
+   </ol>
 
-                <!-- 跳转至 -->
-                <label>{{totalRecord}}条/{{totalPage}}页</label>
-                <label>跳至</label>
-                <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
-                <label>页</label>
-                <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
-            </div>
-            <!-- 分页控件 -->
-            <div class="pull-right">
-                <ul class="pagination" id="alreadyPage"></ul>
-            </div>
-        </div>
-        <!-- 当前页隐藏域 -->
-        <input id="currentPage" name="currentPage" value="1" type="hidden">
+   <div class="text-right col-xs-12" id="search_block">
+    <a href="#" class="btn btn-primary" id="btnAddActivity"><i class=" glyphicon glyphicon-plus"></i>&nbsp;创建新卡券</a>
+   </div>
+   <!-- 数据显示 -->
+   <div class="ng-scope tab-content container-fluid">
+    <div class=" fixed-table-container">
+     <table class="table table-hover  ">
+      <!-- 表头 -->
+      <thead>
+       <tr>
+        <th>
+         卡券名称
+        </th>
+        <th>
+         有效期
+        </th>
+        <th>
+         价格
+        </th>
+        <th>
+         门诊次数
+        </th>
+        <th>
+         类型
+        </th>
+        <th>
+         备注
+        </th>
+        <th>
+         使用情况
+        </th>
+        <th>
+         操作
+        </th>
+       </tr>
+      </thead>
+      <tbody id="databody">
+       <tr ng-show="dataLengths" ng-repeat="x in names.list">
+        <td><a href="{{x.FP_HM}}">操作</a></td>
+        <td>{{ $index+names.page.currentPage*10-9}}</td>
+        <td>{{ x.FP_HM }}</td>
+        <td>{{ x.FP_HM }}</td>
+        <td>{{ x.ID }}</td>
+        <td>{{x.FP_HM}}</td>
+        <td><a href="{{x.FP_HM}}">操作</a></td>
+        <td> <a href="{{x.FP_HM}}" title="删除信息"><span class="glyphicon glyphicon-trash"></span></a></td>
+       </tr>
+       <tr ng-show="!dataLengths">
+        <td colspan="100" class="text-center ">没有相关数据</td>
+       </tr>
+      </tbody>
+     </table>
     </div>
-    <!--脚本-->
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../../Scripts/select2.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-    <script>
-        $(function () {
-            $(".start_end_time").datetimepicker();
-            var tool = new JSTOOL();tool.changeSelect($("#username"), true);
-        });
-        //
-        var params = ""; //全局变量  请求的参数
-        var app = angular.module('myApp', []);
-        app.controller('customersCtrl', function ($scope, $http) {
-            //分页方法声明
-            var pageing = function (pageindex, params) {
-                var url = "http://60.205.170.209:8080/admin/api/api-docs/../vipCard";
-                $http.get(url).success(function (data) {
-                    if (data != null && data != "" && data != "null") {
-                        //判断当前是否存在记录
-                        $scope.dataLengths = data.list.length > 0;
-                        if (data.list != null && data.list.length > 0) {
-                           
-                            $scope.names = data;
-                            $scope.totalPage = data.page.totalPage;
-                            $scope.totalRecord = data.page.totalResult;
-                            //调用生成分页方法
-                            initPageDiv($("#alreadyPage"), //在哪里生成页码
-                                pageindex, //当前页
-                                data.page.totalPage, //总页数
-                                5, //每次显示多少页
-                                $("#currentPage"), //隐藏域的值：当前页数
-                                function () {
-                                    pageing($("#currentPage").val(), params);
-                                });
-                        } else {
-                            alert("未获取到数据，请重试");
-                        }
-                    }
-                });
-            } 
-            pageing(1, params);
-            
-            //跳转至某页方法
-            $scope.skip = function () {
-                if ($scope.toPageValue <= 1) {
-                    $scope.toPageValue = 1;
-                } else if ($scope.toPageValue > $scope.totalPage) {
-                    $scope.toPageValue = $scope.totalPage;
-                }
-                pageing($scope.toPageValue, params);
-            }
-        });
-    </script>
-</body>
+   </div>
+   <div ng-show="dataLengths">
+    <div class="form-group pull-right topage_block">
+
+     <!-- 跳转至 -->
+     <label>{{totalRecord}}条/{{totalPage}}页</label>
+     <label>跳至</label>
+     <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
+     <label>页</label>
+     <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+    </div>
+    <!-- 分页控件 -->
+    <div class="pull-right">
+     <ul class="pagination" id="alreadyPage"></ul>
+    </div>
+   </div>
+   <!-- 当前页隐藏域 -->
+   <input id="currentPage" name="currentPage" value="1" type="hidden">
+  </div>
+  <!--脚本-->
+  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <script>
+   $(function() {
+    $(".start_end_time").datetimepicker();
+    var tool = new JSTOOL();
+    tool.changeSelect($("#username"), true);
+   });
+   //
+   var params = ""; //全局变量  请求的参数
+   var app = angular.module('myApp', []);
+   app.controller('customersCtrl', function($scope, $http) {
+    //分页方法声明
+    var pageing = function(pageindex, params) {
+     var url = "http://60.205.170.209:8080/admin/api/api-docs/../vipCard";
+     $http.get(url).success(function(data) {
+      if (data != null && data != "" && data != "null") {
+       //判断当前是否存在记录
+       $scope.dataLengths = data.list.length > 0;
+       if (data.list != null && data.list.length > 0) {
+
+        $scope.names = data;
+        $scope.totalPage = data.page.totalPage;
+        $scope.totalRecord = data.page.totalResult;
+        //调用生成分页方法
+        initPageDiv($("#alreadyPage"), //在哪里生成页码
+         pageindex, //当前页
+         data.page.totalPage, //总页数
+         5, //每次显示多少页
+         $("#currentPage"), //隐藏域的值：当前页数
+         function() {
+          pageing($("#currentPage").val(), params);
+         });
+       } else {
+        alert("未获取到数据，请重试");
+       }
+      }
+     });
+    }
+    pageing(0, params);
+
+    //跳转至某页方法
+    $scope.skip = function() {
+     if ($scope.toPageValue <= 1) {
+      $scope.toPageValue = 1;
+     } else if ($scope.toPageValue > $scope.totalPage) {
+      $scope.toPageValue = $scope.totalPage;
+     }
+     pageing($scope.toPageValue, params);
+    }
+   });
+  </script>
+ </body>
+
 </html>
