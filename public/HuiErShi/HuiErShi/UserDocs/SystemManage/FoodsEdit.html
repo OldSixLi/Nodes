@@ -61,8 +61,8 @@
        <div class="col-sm-6 col-md-4">
         <label for="subcategories" class="control-label">二级类型：</label>
        </div>
-       <div class="col-sm-6 col-md-7" name="subcategories" ng-model="data.subcategories">
-        <select class="form-control">
+       <div class="col-sm-6 col-md-7">
+        <select class="form-control" name="subcategories" ng-model="data.subcategories">
             <option value="volvo">谷薯类</option>
             <option value="saab">蔬菜水果类</option>
             <option value="mercedes">鸡鱼肉蛋类</option>
@@ -318,7 +318,7 @@
   <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
   <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
   <script type="text/javascript" src="../../Scripts/select2.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
@@ -396,6 +396,7 @@
    $(function() {
     $(".start_end_time").datetimepicker();
    });
+
    (function() {
     var app = angular.module("myApp", ["w5c.validator"]);
     window.app = app;
@@ -441,24 +442,24 @@
      var vm = $scope.vm = {
       entity: {} //用来存放页面数据
      };
-     var urlObj = new UrlSearch();
-     if (urlObj.id) {
-      var userid = urlObj.id; //获取当前用户的ID
+     var foodObj = new UrlSearch();
+     if (foodObj.id) {
+      var foodid = foodObj.id; //获取当前用户的ID
       // 会员信息展示
       // var url = "http://60.205.170.209:8080/admin/api/vip/" + userid;
-      $http.get(BasicUrl + "vip/" + userid).success(function(data) {
+      $http.get(BasicUrl + "vip/" + foodid).success(function(data) {
        if (data != null && data != "" && data != "null" && data.id) {
         $scope.vm.entity.vipEntity = data;
         $scope.vm.entity.todo = "TODO";
         $scope.vm.vipcards = data.vipcards;
         $scope.vm.dataLengths = data.vipcards.length;
        } else {
-        // tool.alert("提示", "不存在此用户！");
+        // tool.alert("提示", "不存在食物信息！");
        }
       }).error(function(data, header, config, status) {
        //处理响应失败
        tool.alert("提示", "获取用户数据出错！");
-       window.history.back(-1); //回退至上一页面
+       //    window.history.back(-1); //回退至上一页面
       });
 
 
@@ -475,32 +476,62 @@
        window.history.back(-1); //回退至上一页面
       });
      } else {
-      tool.alert("提示", "当前页面未获取到数据！");
+      //   tool.alert("提示", "当前页面未获取到数据！");
       //   window.history.back(-1);
      }
-     vm.saveinfo = function($event) {
-      $(":submit").attr("disabled", true);
-      vm.entity.todo = "1";
-      $http({
-        method: 'PATCH',
-        url: url = "http://60.205.170.209:8080/admin/api/vip/" + urlObj.id,
-        data: $('[name="validateForm"]').serialize(),
-        headers: {
-         'Content-Type': 'application/x-www-form-urlencoded'
-        }
-       })
-       .success(function(data, xhr) {
-        if (xhr == 200) {
-         tool.alert("提示", "保存成功!");
-         $(":submit").attr("disabled", false);
-        } else {
-         tool.alert("提示", "保存失败,请重试!");
-         $(":submit").attr("disabled", false);
-        }
-       }).error(function(response) {
-        tool.alert("提示", response.errorMessage);
-        $(":submit").attr("disabled", false);
-       });
+
+
+     $scope.saveInfo = function() {
+      //   $(":submit").attr("disabled", true); 
+      //添加操作
+      if (foodObj.id) {
+       $http({
+         method: 'PATCH',
+         url: url = BasicUrl + "diet/" + foodObj.id,
+         data: $('[name="validateForm"]').serialize(),
+         headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+         }
+        })
+        .success(function(data, xhr) {
+         if (xhr == 200) {
+          tool.alert("提示", "保存成功!");
+          //  $(":submit").attr("disabled", false);
+         } else {
+          tool.alert("提示", "保存失败,请重试!");
+          $(":submit").attr("disabled", false);
+         }
+        }).error(function(response) {
+         if (response && response.errorMessage) {
+          tool.alert("提示", response.errorMessage);
+         }
+         // $(":submit").attr("disabled", false);
+        });
+      } else {
+       $http({
+         method: 'POST',
+         url: url = BasicUrl + "diet",
+         data: $('[name="validateForm"]').serialize(),
+         headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+         }
+        })
+        .success(function(data, xhr) {
+         if (xhr == 200) {
+          tool.alert("提示", "保存成功!");
+          //  $(":submit").attr("disabled", false);
+         } else {
+          tool.alert("提示", "保存失败,请重试!");
+          $(":submit").attr("disabled", false);
+         }
+        }).error(function(response) {
+         if (response && response.errorMessage) {
+          tool.alert("提示", response.errorMessage);
+         }
+         // $(":submit").attr("disabled", false);
+        });
+
+      }
      };
     }]);
    })();

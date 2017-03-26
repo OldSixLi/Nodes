@@ -44,29 +44,14 @@
       <!-- 表头 -->
       <thead>
        <tr>
-        <th>
-         项目名
-         <span></span>
-        </th>
+        <th>项目名 <span></span> </th>
         <th class="order" ng-click="title='FP_HM';desc=!desc">
-         成本
-         <span></span>
-        </th>
-        <th>
-         报告单
-        </th>
-        <th>
-         备注
-        </th>
-        <th>
-         创建人
-        </th>
-        <th>
-         创建时间
-        </th>
-        <th>
-         操作
-        </th>
+         成本 <span></span> </th>
+        <th>报告单</th>
+        <th>备注</th>
+        <th>创建人</th>
+        <th>创建时间</th>
+        <th>操作</th>
        </tr>
       </thead>
       <tbody id="databody">
@@ -78,7 +63,7 @@
         <td>{{"TODO" }}</td>
         <td>{{"TODO" }}</td>
         <td>{{"TODO" }}</td>
-        <td><a href="#" ng-click=deleteItem({{x.id}})>操作</a></td>
+        <td><a href="#" ng-click='deleteItem("{{x.id}}")'>操作</a></td>
        </tr>
        <tr ng-show="!dataLengths">
         <td colspan="100" class="text-center ">没有相关数据</td>
@@ -108,7 +93,7 @@
   <!--脚本-->
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
   <script type="text/javascript" src="../../Scripts/select2.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>

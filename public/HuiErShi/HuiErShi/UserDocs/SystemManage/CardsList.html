@@ -17,7 +17,7 @@
    <!-- 面包屑导航 -->
    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
     <li><a href="javascript:void(0)">系统管理</a></li>
-    <li class="active">食物列表</li>
+    <li class="active">卡券列表</li>
    </ol>
 
    <div class="text-right col-xs-12" id="search_block">
@@ -30,42 +30,28 @@
       <!-- 表头 -->
       <thead>
        <tr>
-        <th>
-         卡券名称
-        </th>
-        <th>
-         有效期
-        </th>
-        <th>
-         价格
-        </th>
-        <th>
-         门诊次数
-        </th>
-        <th>
-         类型
-        </th>
-        <th>
-         备注
-        </th>
-        <th>
-         使用情况
-        </th>
-        <th>
-         操作
-        </th>
+        <th>序号</th>
+        <th>卡券名称</th>
+        <th>有效期</th>
+        <th>价格</th>
+        <th>门诊次数</th>
+        <th>类型</th>
+        <th>备注</th>
+        <th>使用情况</th>
+        <th>操作</th>
        </tr>
       </thead>
       <tbody id="databody">
-       <tr ng-show="dataLengths" ng-repeat="x in names.list">
-        <td><a href="{{x.FP_HM}}">操作</a></td>
-        <td>{{ $index+names.page.currentPage*10-9}}</td>
-        <td>{{ x.FP_HM }}</td>
-        <td>{{ x.FP_HM }}</td>
-        <td>{{ x.ID }}</td>
-        <td>{{x.FP_HM}}</td>
-        <td><a href="{{x.FP_HM}}">操作</a></td>
-        <td> <a href="{{x.FP_HM}}" title="删除信息"><span class="glyphicon glyphicon-trash"></span></a></td>
+       <tr ng-show="dataLengths" ng-repeat="x in data">
+        <td>{{ $index+data.page*data.pageNum+1}}</td>
+        <td><a href="{{x.id}}">{{x.name}}</a></td>
+        <td>{{ x.expiredAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
+        <td>{{ x.price }}</td>
+        <td>{{ x.outpatientCount }}</td>
+        <td>{{x.vipType=="considerate"?"体验型":"关爱型"}}</td>
+        <td> {{"TODO备注"}}</td>
+        <td> {{"TODO使用情况"}}</td>
+        <td> <a ng-click="deleteItem( '{{x.name}}')"><span class="glyphicon glyphicon-trash"></span></a></td>
        </tr>
        <tr ng-show="!dataLengths">
         <td colspan="100" class="text-center ">没有相关数据</td>
@@ -94,12 +80,16 @@
   </div>
   <!--脚本-->
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
   <script type="text/javascript" src="../../Scripts/select2.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
   <script>
    $(function() {
     $(".start_end_time").datetimepicker();
@@ -116,10 +106,10 @@
      $http.get(url).success(function(data) {
       if (data != null && data != "" && data != "null") {
        //判断当前是否存在记录
-       $scope.dataLengths = data.list.length > 0;
-       if (data.list != null && data.list.length > 0) {
+       $scope.dataLengths = data.length > 0;
+       if (data != null && data.length > 0) {
 
-        $scope.names = data;
+        $scope.data = data;
         $scope.totalPage = data.page.totalPage;
         $scope.totalRecord = data.page.totalResult;
         //调用生成分页方法
@@ -147,6 +137,32 @@
       $scope.toPageValue = $scope.totalPage;
      }
      pageing($scope.toPageValue, params);
+    }
+
+    //删除项目操作方法
+    $scope.deleteItem = function(id) {
+     var deleteUrl = BasicUrl + "settings/" + id;
+     tool.confirm("提示",
+      "是否确认删除此项目",
+      function() {
+       $http({
+         method: 'DELETE',
+         url: url = deleteUrl,
+         headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+         }
+        })
+        .success(function(data, xhr) {
+         if (xhr == 200) {
+          tool.alert("提示", "删除成功!");　
+         } else {
+          tool.alert("提示", "删除失败,请重试!");
+         }
+        }).error(function(response) {
+         tool.alert("提示", response.errorMessage);
+        });
+      },
+      function() {});
     }
    });
   </script>
