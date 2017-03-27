@@ -543,7 +543,7 @@
       vm.entity.todo = "1";
       $http({
         method: 'PATCH',
-        url: url = "http://60.205.170.209:8080/admin/api/vip/" + urlObj.id,
+        url: url = BasicUrl + "vip/" + urlObj.id,
         data: $('[name="validateForm"]').serialize(),
         headers: {
          'Content-Type': 'application/x-www-form-urlencoded'
