@@ -39,11 +39,7 @@
         <div class="form-group text-left">
           <label class="control-label">会员姓名：</label>
           <select class=" form-control " name="userId" id="userId">
-          <option value="">所有</option>
-          <option value="北京">北京</option>
-          <option value="天津">天津</option>
-          <option value="上海">上海</option>
-          <option value="重庆">重庆</option>
+          <option value="">所有</option> 
       </select>
         </div>
         <div class="form-group text-left">
@@ -145,16 +141,45 @@
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
     $(function() {
       $(".start_end_time").datetimepicker();
-      tool.changeSelect($("#userId"), false);
       tool.changeSelect($("#tag"), false);
       tool.changeSelect($("#viewId"), false);
       tool.changeSelect($("#from"), false);
+      $("#userId").select2({
+        placeholder: '请选择',
+        allowClear: true,
+        ajax: {
+          url: function(params) {
+            return BasicUrl + "vip/name/" + params.term;
+          },
+          dataType: 'json',
+          delay: 250,
+          processResults: function(data, page) {
+            return {
+              results: data
+            };
+          },
+          cache: false
+        },
+        minimumInputLength: 1,
+        minimumResultsForSearch: 1,
+        width: "120px",
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection,
+      });
+
+      function formatRepo(repo) {
+        return repo.realName;
+      }
+
+      function formatRepoSelection(repo) {
+        return repo.realName;
+      }
 
     });
     var params = ""; //全局变量
@@ -216,26 +241,35 @@
       $scope.search = function() {
           //TODO  需要修改部分
           //起始时间时间戳
-          var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
-          //结束时间时间戳
-          var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-          //用户名称
-          var username = $("#txtUserName").val();
-          //会员类型
-          var vipType = $("#sltType").val();
+          // var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+          // //结束时间时间戳
+          // var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+          //用户id
+          var userId = $("#userId").val();
+          //视图id
+          var viewId = $("#viewId").val();
+          // 视图标签id
+          var tag = $("#tag").val();
+          // 来源筛选
+          var from = $("#from").val();
           //校验只有一个搜索条件
-          if (!(minExpiredAt || maxExpiredAt || username || vipType)) {
-            alert("请至少输入一个搜索条件");
+          if (!(userId || viewId || tag || from)) {
+            tool.alert("提示", "请至少输入一个搜索条件");
             return false;
           }
-          //起止日期校验
-          if (minExpiredAt > maxExpiredAt) {
-            alert("活动日期中结束时间不得早于起始时间");
-            return false;
+          params = "";
+          if (userId) {
+            params = "userId=" + userId + "&";
           }
-
-          // vipType=&minExpiredAt=&maxExpiredAt=&keyWord=
-          params = "vipType=" + vipType + "&minExpiredAt=" + minExpiredAt + "&maxExpiredAt=" + maxExpiredAt + "&keyWord=" + username + "&";
+          if (viewId) {
+            params += "viewId=" + viewId + "&";
+          }
+          if (tag) {
+            params = "tag=" + tag + "&";
+          }
+          if (from) {
+            params += "from=" + from + "&";
+          }
           pageing(0, params);
         }
         //跳转至某页方法

@@ -34,9 +34,12 @@
           <label class="">会籍顾问： </label>
           <!--包括 [所有, 体贴型(VIP), 关爱型(MEMBER), 保健型(NORMAL), 已过期, 未激活]-->
           <select class="form-control" name="advisorId" id="advisorId" style="width:130px;"> <option value="">全部</option>
-       <option value="1">未确定</option>
-        <option value="0">未确定2</option>
-         <option value="3">未确定3</option> 
+            <option value="">所有</option>
+            <option value="VIP">体贴型</option>
+            <option value="MEMBER">关爱型</option> 
+            <option value="NORMAL">保健型</option>
+            <option value="已过期">已过期</option> 
+            <option value="未激活">未激活</option> 
          </select>
         </div>
         <div class="form-group text-left">
@@ -51,18 +54,15 @@
           <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
             <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" style="width:150px;" />
             <span class="add-on input-group-addon">
-        <i class="icon-th glyphicon glyphicon-calendar"></i>
-      </span>
+              <i class="icon-th glyphicon glyphicon-calendar"></i>
+            </span>
           </div>
-
           <label class="">至</label>
-
-
           <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
             <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间" style="width:150px;" />
             <span class="add-on input-group-addon">
-                              <i class="icon-th glyphicon glyphicon-calendar"></i>
-                            </span>
+              <i class="icon-th glyphicon glyphicon-calendar"></i>
+            </span>
           </div>
         </div>
         <div class="form-group text-left">
