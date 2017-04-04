@@ -114,12 +114,12 @@
         $scope.totalRecord = data.page.totalResult;
         //调用生成分页方法
         initPageDiv($("#alreadyPage"), //在哪里生成页码
-         pageindex, //当前页
-         data.page.totalPage, //总页数
+         pageindex + 1, //当前页
+         data.totalPages, //总页数
          5, //每次显示多少页
          $("#currentPage"), //隐藏域的值：当前页数
          function() {
-          pageing($("#currentPage").val(), params);
+          pageing($("#currentPage").val() - 1, params);
          });
        } else {
         alert("未获取到数据，请重试");
