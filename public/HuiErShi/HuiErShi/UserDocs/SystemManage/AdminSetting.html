@@ -105,6 +105,7 @@
       var tool = new JSTOOL();
       tool.changeSelect($("#sltDistrict"), false);
     });
+
     //
     //    var params = "vipType=&minExpiredAt=&maxExpiredAt=&keyWord="; //全局变量
     var params = ""; //全局变量
@@ -141,32 +142,35 @@
         }
         //分页方法
       pageing(0, params);
+
       //查询按钮
       $scope.search = function() {
-          //TODO  需要修改部分
-          //参数赋值
-          var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
-          var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-          var keyword = $("#txtKeyWord").val();
-          var district = $("#sltDistrict").val();
-          //用户名称
-          var username = $("#txtUserName").val();
-          //会员类型
-          var vipType = $("#sltType").val();
-          //校验只有一个搜索条件
-          if (!(minExpiredAt || maxExpiredAt || username || vipType)) {
-            alert("请至少输入一个搜索条件");
-            return false;
-          }
-          //起止日期校验
-          if (minExpiredAt > maxExpiredAt) {
-            alert("活动日期中结束时间不得早于起始时间");
-            return false;
-          }
-          params = "minStartAt=" + minExpiredAt + "&maxStartAt=" + maxExpiredAt + "&keyWord=" + keyword + "&District=" + district + "&";
-          pageing(0, params);
+        //TODO  需要修改部分
+        //参数赋值
+        var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+        var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+        var keyword = $("#txtKeyWord").val();
+        var district = $("#sltDistrict").val();
+        //用户名称
+        var username = $("#txtUserName").val();
+        //会员类型
+        var vipType = $("#sltType").val();
+        //校验只有一个搜索条件
+        if (!(minExpiredAt || maxExpiredAt || username || vipType)) {
+          alert("请至少输入一个搜索条件");
+          return false;
         }
-        //跳转至某页方法
+        //起止日期校验
+        if (minExpiredAt > maxExpiredAt) {
+          alert("活动日期中结束时间不得早于起始时间");
+          return false;
+        }
+        params = "minStartAt=" + minExpiredAt + "&maxStartAt=" + maxExpiredAt + "&keyWord=" + keyword + "&District=" + district + "&";
+        pageing(0, params);
+      }
+
+
+      //跳转至某页方法
       $scope.skip = function() {
         if ($scope.toPageValue <= 1) {
           $scope.toPageValue = 1;
@@ -184,21 +188,20 @@
           "是否确认删除此项目",
           function() {
             $http({
-                method: 'DELETE',
-                url: url = deleteUrl,
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
-                }
-              })
-              .success(function(data, xhr) {
-                if (xhr == 200) {
-                  tool.alert("提示", "删除成功!");　
-                } else {
-                  tool.alert("提示", "删除失败,请重试!");
-                }
-              }).error(function(response) {
-                tool.alert("提示", response.errorMessage);
-              });
+              method: 'DELETE',
+              url: url = deleteUrl,
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            }).success(function(data, xhr) {
+              if (xhr == 200) {
+                tool.alert("提示", "删除成功!");　
+              } else {
+                tool.alert("提示", "删除失败,请重试!");
+              }
+            }).error(function(response) {
+              tool.alert("提示", response.errorMessage);
+            });
           },
           function() {});
       }
