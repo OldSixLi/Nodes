@@ -94,12 +94,12 @@
         },
         'FileUploaded': function(up, file, info) {　
           var json = JSON.parse(info);
-          tool.alert("提示", "上传成功");
+          alert("提示", "上传成功");
           //图片压缩处理:限制图片长宽均为200px ,且图片质量为原来75%;
           $("#img").attr("src", domainUrl + json.key + "?imageView2/1/w/200/h/200/q/75|imageslim");
         },
         'Error': function(up, err, errTip) {
-          tool.alert("提示", errTip);
+          alert("提示", errTip);
         },
         'Key': function(up, file) {
           // var key = nowTime + file.name;　

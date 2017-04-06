@@ -13,11 +13,86 @@
 </head>
 
 <body>
-
+  <div class="col-md-3" id="btn-uploader">
+    <img id="img" src='http://usr.im/350x200?text=文字说明' class='img-responsive img-thumbnail' alt='自定义'>
+    <button type="button" class="btn btn-default btn-sm btn-block" id="pickfiles">上传默认日程背景</button>
+    <input type="hidden" name="iconUrl" id="iconUrl" value="">
+  </div>
   <!-- 脚本 -->
   <!-- <script src='http://cdn.bootcss.com/angular.js/1.4.1/angular.js'></script> -->
   <script src='http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js'></script>
-  <script src='http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+  <!--<script src='http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>-->
+  <script src="https://cdn.rawgit.com/OldSixLi/oldSixLi.github.io/master/script/QiniuCloud/plupload.full.min.js"></script>
+  <script src="https://cdn.rawgit.com/OldSixLi/oldSixLi.github.io/master/script/QiniuCloud/moxie.js"></script>
+  <script src="https://cdn.rawgit.com/OldSixLi/oldSixLi.github.io/master/script/QiniuCloud/qiniu.min.js"></script>
+  <script>
+    var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
+    //获取七牛uptoken　
+    uploader = Qiniu.uploader({
+      runtimes: 'html5,flash,html4',
+      browse_button: 'pickfiles', //上传按钮的ID
+      container: 'btn-uploader', //上传按钮的上级元素ID
+      drop_element: 'btn-uploader',
+      max_file_size: '100mb', //最大文件限制　
+      dragdrop: false,
+      chunk_size: '4mb', //分块大小 
+      unique_names: true,
+      save_key: true,
+      uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
+        var token = "";
+        $.ajax({
+          type: "get",
+          url: "http://60.205.170.209:8080/admin/api/qnToken",
+          async: false,
+          dataType: "json",
+          success: function(data) {
+            token = data.upToken;
+          }
+        });
+        return token;
+      },
+      unique_names: false,
+      domain: domainUrl, //自己的七牛云存储空间域名
+      multi_selection: false, //是否允许同时选择多文件
+      //文件类型过滤，这里限制为图片类型
+      filters: {
+        mime_types: [{
+          title: "Image files",
+          extensions: "jpg,jpeg,gif,png"
+        }]
+      },
+      auto_start: true,
+      init: {
+        'FilesAdded': function(up, files) {
+          //do something
+        },
+        'BeforeUpload': function(up, file) {
+          //do something
+        },
+        'UploadProgress': function(up, file) {
+          //可以在这里控制上传进度的显示
+          //可参考七牛的例子
+        },
+        'UploadComplete': function() {
+          //do something
+        },
+        'FileUploaded': function(up, file, info) {　
+          var json = JSON.parse(info);
+          alert("上传成功");
+          //图片压缩处理:限制图片长宽均为200px ,且图片质量为原来75%;
+          var imgSrc = domainUrl + json.key + "?imageView2/1/w/350/h/200/q/100|imageslim";
+          $("#img").attr("src", imgSrc);
+          $("[name='iconUrl']").val(imgSrc);
+        },
+        'Error': function(up, err, errTip) {
+          alert(errTip);
+        },
+        'Key': function(up, file) {
+          return file.name;
+        }
+      }
+    });
+  </script>
 </body>
 
 </html>
