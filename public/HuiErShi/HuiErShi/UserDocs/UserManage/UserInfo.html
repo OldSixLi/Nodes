@@ -140,7 +140,7 @@
             <div class="col-md-3">
               <p>
                 <label class="control-label">会籍顾问：</label>
-                <a id="advisername"><a href="">{{data.adviser.name}}</a></a>
+                <a id="advisername"><a data-toggle="modal" href="#modal">{{data.adviser.name==""?立即设置:data.adviser.name}}</a></a>
               </p>
               <p>
                 <label class="control-label">健康数据：</label>
@@ -250,16 +250,87 @@
       </div>
     </div>
   </div>
+
+  <!--按钮  移动到其他DOM中-->
+
+  <!--按钮END-->
+  <div class="modal fade" id="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title">会籍顾问设置</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <div class="col-sm-2 text-right"><label for="inputEmail3" class="control-label">当前顾问:</label></div>
+              <div class="col-sm-10"><span>{{data.adviser.name}}</span></div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 text-right"><label for="inputPassword3" class="control-label">新顾问</label></div>
+              <div class="col-sm-10">
+                <select name="adviserList" id="adviserList">
+  
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-default" data-dismiss="modal">Close</a>
+          <a class="btn btn-primary">Save changes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!--脚本-->
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <!--自定义脚本部分-->
   <script>
+    $("#modal").modal({　
+      show: false, //默认是否展示
+      backdrop: false, //隐藏背景
+      keyboard: false
+    });
+    $("#adviserList").select2({
+      placeholder: '请选择',
+      allowClear: true,
+      ajax: {
+        url: function(params) {
+          //TODO 此处需修改为会籍顾问列表地址
+          return BasicUrl + "vip/name/" + params.term;
+        },
+        dataType: 'json',
+        delay: 250,
+        processResults: function(data, page) {
+          return {
+            results: data
+          };
+        },
+        cache: false
+      },
+      minimumInputLength: 1,
+      minimumResultsForSearch: 1,
+      width: "120px",
+      templateResult: formatRepo,
+      templateSelection: formatRepoSelection,
+    });
+
+    function formatRepo(repo) {
+      return repo.realName;
+    }
+
+    function formatRepoSelection(repo) {
+      return repo.realName;
+    }
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
       var urlObj = new UrlSearch();
