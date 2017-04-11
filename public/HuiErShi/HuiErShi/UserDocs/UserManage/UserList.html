@@ -77,7 +77,7 @@
             <tr ng-show="dataLengths" ng-repeat="x in names.content|orderBy:title :desc">
               <td> {{x.length=$index+names.page*names.pageNum+1}}</td>
               <td style="text-align: left;"><img src="{{x.iconUrl}}" alt="">
-                <a href="userInfoEdit.html?id={{x.id}}&type=create">{{ x.userName }}</a></td>
+                <a href="UserInfoEdit.html?id={{x.id}}&type=create">{{ x.userName }}</a></td>
               <td>{{ x.gender=="M"?"男":"女" }}</td>
               <td>{{ x.district }}</td>
               <td>{{ x.time=x.createAt| date:"yyyy/MM/dd HH:mm:ss"}}</td>
