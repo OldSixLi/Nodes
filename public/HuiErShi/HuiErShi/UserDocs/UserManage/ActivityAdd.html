@@ -112,7 +112,7 @@
               <div class="col-xs-12">
                 <div class="form-group col-xs-6">
                   <div class="col-sm-4 text-right">
-                    <label for="txtActivityPlace" class="control-label">活动地点：</label>
+                    <label for="txtActivityPlace" class="control-label">活动地点坐标：</label>
                   </div>
                   <div class="col-sm-7">
                     <input type="text" class="form-control" id="location" name="location" required placeholder="活动详细地址" ng-model="vm.entity.location">
@@ -162,24 +162,24 @@
             </div>
             <div class="form-group">
               <div class="col-sm-2 text-right">
-                <label for="isReleased" class="control-label">是否发布：</label>
+                <label for="isReleased" class="control-label">状态：</label>
               </div>
               <div class="col-sm-10">
                 <div class="radio">
                   <label>
-                                        <input type="radio" name="isReleased" id="isReleased1"
-                                               ng-value=false ng-model="vm.entity.isReleased">待发布 (用户不可见)
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                    </label>
+                  <input type="radio" name="isReleased" id="isReleased1"
+                          ng-value=false ng-model="vm.entity.isReleased">待发布 (用户不可见)
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+              </label>
                   <label>
-                                        <input type="radio" name="isReleased" id="isReleased2"
-                                               ng-value=true ng-model="vm.entity.isReleased">
-                                        发布 (用户可见)&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </label>
+                <input type="radio" name="isReleased" id="isReleased2"
+                        ng-value=true ng-model="vm.entity.isReleased">
+                发布 (用户可见)&nbsp;&nbsp;&nbsp;&nbsp;
+            </label>
                   <label>
-                                        <input type="radio" name="allowSignUp" id="allowSignUp1" ng-checked="true"
-                                               ng-value=true ng-model="vm.entity.allowSignUp" checked>发布 (可见不可报名)&nbsp;&nbsp;&nbsp;&nbsp;
-                                    </label>
+                      <input type="radio" name="allowSignUp" id="allowSignUp1" ng-checked="true"
+                              ng-value=true ng-model="vm.entity.allowSignUp" checked>发布 (可见不可报名)&nbsp;&nbsp;&nbsp;&nbsp;
+                  </label>
                 </div>
               </div>
             </div>
@@ -193,13 +193,64 @@
               </div>
               <div class="col-md-6 col-sm-6 text-right" ng-show="{{!isSave}}">
                 <button type="submit" class="btn  btn-success" w5c-form-submit="vm.editInfo($event)">修改活动信息</button>
+                <button type="submit" class="btn btn-danger" ng-click="vm.deleteInfo($event)">删除活动信息</button>
               </div>
               <div class="col-md-6 col-sm-6 text-left">
-                <button type="button" class="btn btn-default" onclick="javascript:history.back(-1)">　　返回　　</button>
+                <button type="button" class="btn btn-default" ng-show="{{isSave}}" onclick="javascript:history.back(-1)">　　返回　　</button>
+
+                <button type="submit" class="btn btn-success" ng-show="{{!isSave}}" ng-click="vm.show($event)">扫码预览</button>
+                <button type="submit" class="btn btn-danger" ng-show="{{!isSave}}" ng-click="vm.notice($event)">群发通知</button>
               </div>
 
             </div>
           </div>
+
+          <!--a.	昵称：显示昵称
+              b.	性别：性别
+              c.	报名时间：显示报名时间，年月日 时分
+              d.	签到时间
+              e.	操作:取消报名。-->
+          <!-- Angularjs 表格相关HTML代码 -->
+          <div class="tab-content container-fluid">
+            <table class="table table-hover">
+              <!-- 表头 -->
+              <thead>
+                <tr>
+                  <th> # </th>
+                  <th> 昵称 </th>
+                  <th> 性别 </th>
+                  <th> 报名时间 </th>
+                  <th> 签到时间 </th>
+                  <th> 操作 </th>
+                </tr>
+              </thead>
+
+              <!--"user": {
+        "id": 1,
+        "userName": "睡个毛起来嗨啊",
+        "iconUrl": "http://wx.qlogo.cn/mmopen/PiajxSqBRaEIbF9Ro3p37M7okINkaiaynzob80ibZNB0L05sJhCziaslFsymib7RKgfPfg5ceiaOonY1ZRkN1KPuicEicA/0",
+        "gender": "M"
+      },
+      "signed": true
+    }-->
+              <tbody id="databody">
+                <tr ng-show="dataLengths" ng-repeat="x in vm.entity.members">
+                  <td>{{ index+1 }}</td>
+                  <td>{{ x.userName }}</td>
+                  <td>{{ x.gender=="M"?"男":"女" }}</td>
+                  <!--报名时间-->
+                  <td>{{ x.TODO}}</td>
+                  <!--签到时间-->
+                  <td>{{ x.TODO}}</td>
+                  <td>{{ x.TODO}}</td>
+                </tr>
+                <tr ng-show="!dataLengths">
+                  <td colspan="100" class="text-center ">没有相关数据</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
         </div>
       </form>
     </div>
@@ -409,6 +460,7 @@
           });
 
         };
+
         //修改按钮操作
         vm.editInfo = function() {
           console.log("表单开始提交");
@@ -452,6 +504,50 @@
           });
 
         }
+
+        //删除活动
+        vm.deleteInfo = function() {
+          var id = urlObj.id;
+          tool.confirm("提示", "确认删除此活动吗?", function() {
+            //删除操作
+            $.ajax({
+              type: "POST",
+              url: "", //TODO  删除活动接口未提供
+              data: {
+                id: id
+              },
+              dataType: "json",
+              success: function(data) {
+                if (data != null && data != "") {
+                  if (data.success) {
+                    tool.alert("提示", "删除成功!");
+                  } else {
+                    tool.alert("提示", "删除失败!");
+                  }
+
+                } else {
+                  tool.alert("提示", "删除失败!");
+                }
+              },
+              error: function(response) {
+                tool.alert("提示", "请求服务失败,请重试!");
+              }
+            });
+
+          }, function() {});
+        }
+
+        //TODO 群发通知
+        vm.notice = function() {
+
+        }
+
+        //TODO 扫码预览
+        vm.show = function() {
+
+        }
+
+
       }]);
 
     })();
