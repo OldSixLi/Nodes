@@ -239,10 +239,12 @@
                   <td>{{ x.userName }}</td>
                   <td>{{ x.gender=="M"?"男":"女" }}</td>
                   <!--报名时间-->
-                  <td>{{ x.TODO}}</td>
+                  <td>{{ "TODO"}}</td>
                   <!--签到时间-->
-                  <td>{{ x.TODO}}</td>
-                  <td>{{ x.TODO}}</td>
+                  <td>{{ "TODO"}}</td>
+                  <td>
+                    <a ng-click=cancelSign({{x.id}})>取消报名</a>
+                  </td>
                 </tr>
                 <tr ng-show="!dataLengths">
                   <td colspan="100" class="text-center ">没有相关数据</td>
@@ -547,7 +549,31 @@
 
         }
 
+        //取消报名
+        vm.cancelSign = function(userid) {
+          var id = urlObj.id, //活动ID
+            userId = userid; //用户ID
+          tool.confirm("提示", "确认取消此用户报名?", function() {
+            //删除操作
+            $http({
+                method: 'DELETE',
+                url: BasicUrl + "activity/" + id + "/member/" + userId,
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                }
+              })
+              .success(function(data, xhr) {
+                if (xhr == 200) {
+                  tool.alert("提示", "取消报名成功!");　
+                } else {
+                  tool.alert("提示", "操作失败,请重试!");
+                }
+              }).error(function(response) {
+                tool.alert("提示", response.errorMessage);
+              });
 
+          }, function() {});
+        }
       }]);
 
     })();
