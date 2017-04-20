@@ -76,32 +76,20 @@
           <!-- 表头 -->
           <thead>
             <tr>
-              <th>
-                序号
-              </th>
-              <th>
-                项目名
-              </th>
-              <th>
-                参考值
-              </th>
-              <th>
-                最后记录
-              </th>
-              <th>
-                最后记录时间 / 来源
-              </th>
-              <th>
-                记录数量
-              </th>
-              <th>
-                关联视图
-              </th>
-
+              <th> 选择 </th>
+              <th> 序号 </th>
+              <th> 项目名 </th>
+              <th> 参考值 </th>
+              <th> 最后记录 </th>
+              <th> 最后记录时间 / 来源 </th>
+              <th> 记录数量 </th>
+              <th> 关联视图 </th>
             </tr>
           </thead>
           <tbody id="databody">
             <tr ng-show="dataLengths" ng-repeat="x in data.content">
+              <td><input type="checkbox" name="peojectDataId" ng-checked="isChecked(x.id)" ng-click="updateSelection($event,x.id)" /></td>
+
               <td>{{ $index+data.page*data.pageNum+1}}</td>
               <td>{{ x.id}}</td>
               <td>{{ x.val}}</td>
