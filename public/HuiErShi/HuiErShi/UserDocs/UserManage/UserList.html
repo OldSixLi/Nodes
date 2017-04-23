@@ -152,6 +152,7 @@
       pageing(0, params);
       //查询按钮
       $scope.search = function() {
+
         //TODO  需要修改部分
         //起始时间时间戳
         var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));

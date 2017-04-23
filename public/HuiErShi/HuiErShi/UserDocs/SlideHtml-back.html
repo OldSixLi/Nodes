@@ -31,13 +31,16 @@
     </dl>
     <dl><dt class="icon_userdata">用户数据
          <span class="contract">　</span></dt>
-      <dd data-link="UserData/ProjectList.html"> 项目列表</dd>
-      <dd data-link="UserData/ProjectData.html">项目数据</dd>
-      <dd data-link="UserData/RecordList.html">记录列表</dd>
-      <dd data-link="UserData/UseDrugRecaod.html">用药记录列表</dd>
-      <dd data-link="UserData/FoodRecord.html">饮食记录</dd>
-      <dd data-link="UserData/SportsRecord.html">运动记录</dd>
-      <dd data-link="UserData/FeedRecord.html">反馈记录</dd>
+      <dd data-link="UserData/ProjectList.html" class="rela"> 项目列表 <span class="second-menu" id="projectList">　</span></dd>
+      <dd data-for="projectList" class="third-menu" data-link="UserData/ViewManage.html">视图管理</dd>
+      <dd data-link="UserData/ProjectData.html" class="rela">项目数据
+        <span class="second-menu" id="projectDataList">　</span></dd>
+      <dd data-for="projectDataList" class="third-menu" data-link="UserData/RecordList.html">记录列表</dd>
+      <dd data-for="projectDataList" class="third-menu" data-link="UserData/UseDrugRecaod.html">用药记录列表</dd>
+      <dd data-for="projectDataList" class="third-menu" data-link="UserData/FoodRecord.html">饮食记录</dd>
+      <dd data-for="projectDataList" class="third-menu" data-link="UserData/SportsRecord.html">运动记录</dd>
+      <dd data-for="projectDataList" class="third-menu" data-link="UserData/FeedRecord.html">反馈记录</dd>
+
     </dl>
     <dl><dt class="icon_report">会员报告<span class="contract">　</span></dt>
       <dd data-link="VipReport/PrescriptionList.html">处方列表</dd>
@@ -104,12 +107,33 @@
           var href = $(this).attr("data-link");
           $("dd").removeClass('action');
           $(this).addClass('action');
+          if ($(this).hasClass('rela')) {
+
+          }
+
           $("#work-frame").attr("src", href);
         });
+      });
+
+
+      $(".second-menu").each(function() {
+        $(this).click(function(e) {
+          e.stopPropagation();
+          if ($(this).hasClass('on')) {
+            $(this).removeClass('on');
+            var id = $(this).attr('id');
+            $("[data-for='" + id + "']").hide();
+          } else {
+            var id = $(this).attr('id');
+            $("[data-for='" + id + "']").show();
+            $(this).addClass('on');
+          }
+        })
       });
     }); // 菜单栏方法
     $("div.menu").find("dl").each(function(index) {
       $(this).find("dt").on("click", function(e) {
+        $("[data-for]").hide();
         if ($(this).parent().hasClass('expand')) {
           $(this).parent().removeClass("expand");
           return false;

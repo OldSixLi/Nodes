@@ -103,6 +103,7 @@
             </tr>
           </tbody>
         </table>
+        {{selected}}
       </div>
     </div>
 
@@ -178,6 +179,14 @@
     var projectObj = new UrlSearch();
 
     app.controller('customersCtrl', function($scope, $http) {
+      var url = BasicUrl + "tag";
+      $http.get(url).success(function(data) {
+        if (data != null && data != "" && data != "null") {
+          $scope.tag = data;
+        }
+      });
+
+
       //分页方法声明
       var pageing = function(pageindex, params) {
         //如果存在项目ID
@@ -269,6 +278,23 @@
         }
         pageing($scope.toPageValue, params);
       }
+      $scope.selected = [];
+      $scope.isChecked = function(x) {
+        return $scope.selected.indexOf(x) >= 0;
+      };
+      $scope.updateSelection = function($event, x) {
+
+        var checkbox = $event.target;
+        var checked = checkbox.checked;
+        if (checked) {
+          $scope.selected.push(x);
+          console.log($scope.selected.join(','));
+        } else {
+          var idx = $scope.selected.indexOf(x);
+          $scope.selected.splice(idx, 1);
+          console.log($scope.selected.join(','));
+        }
+      };
     });
   </script>
 </body>

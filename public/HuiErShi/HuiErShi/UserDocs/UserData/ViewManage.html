@@ -51,7 +51,10 @@
         <div class="form-group col-xs-offset-6 col-xs-6 text-right">
           <label class="control-label">新视图名:</label>
           <input type="text" class="form-control" id="txtKeyWord" placeholder="新视图名"> &nbsp;&nbsp;&nbsp;&nbsp;
-          <a class="btn btn-primary " style="float: right;"><i class=" glyphicon glyphicon-plus"></i>&nbsp;创建新数据视图</a>
+          <a class="btn btn-primary" style="float: right;" ng-click="viewAdd()">
+            <i class="glyphicon glyphicon-plus">
+              </i>&nbsp; 创建新数据视图
+          </a>
         </div>
       </div>
 
@@ -92,7 +95,7 @@
 
         </div>
         <div class="form-group col-xs-2">
-          <a class="btn btn-primary " style="float: right;"><i class=" glyphicon glyphicon-plus"></i>&nbsp;保存视图设置</a>
+          <a class="btn btn-primary " style="float: right;"><i class=" glyphicon glyphicon-plus"></i>&nbsp;保存视图设置　</a>
         </div>
       </div>
     </div>
@@ -106,7 +109,7 @@
           <div style="padding:5px;">
           </div>
           <select name="from" id="multiselect" class="form-control" size="16" multiple="multiple" ng-model="selectedName">
-              <option ng-repeat="x in options"  value="{{x.url}}">{{x.site}}</option>
+              <option ng-repeat="x in options"  value="{{x.id}}">{{x.name}}</option>
               </select>
         </div>
       </div>
@@ -126,16 +129,15 @@
   </div>
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/multiselect.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script type="text/javascript">
     $(document).ready(function($) {
       $('#multiselect').multiselect({
         search: {
           left: '<input type="text" name="q" class="form-control" placeholder="输入值进行搜索" />',
-          // right: '<input type="text" name="q" class="form-control" placeholder="Search..." />',
         },
         fireSearch: function(value) {
           return value.length > 1;
@@ -149,35 +151,69 @@
     });
 
     var app = angular.module('myApp', []);
-    app.controller('myCtrl', function($scope) {
-      $scope.options = [{
-        site: "Google",
-        url: "http://www.go11111ogle.com"
-      }, {
-        site: "Runoob",
-        url: "http://www.r1212unoob.com"
-      }, {
-        site: "Taobao",
-        url: "http://www.t212132432aobao.com"
-      }, {
-        site: "Google",
-        url: "http://www.goo432gle.com"
-      }, {
-        site: "Runoob",
-        url: "http://www.run43234211321321oob.com"
-      }, {
-        site: "Taobao",
-        url: "http://www.taobao32132132131.com"
-      }, {
-        site: "Google",
-        url: "http://www.goo32132141252345gle.com"
-      }, {
-        site: "Runoob",
-        url: "http://www.runo3454354354353ob.com"
-      }, {
-        site: "Taobao",
-        url: "http://www.543543.com"
-      }];
+    app.controller('myCtrl', function($scope, $http) {
+      //获取视图列表
+      var url = BasicUrl + "view";
+      $http.get(url).success(function(data) {
+        if (data != null && data != "" && data != "null") {
+          $scope.options = data;
+        }
+      });
+      //添加新视图操作
+      $scope.viewAdd = function() {
+
+        var arr = [];
+        var $option = $("#multiselect_to").find('option');
+        $option.each(function() {
+          arr.push($(this).val());
+        });
+        var str = arr.join(","); //将用户选择的项目字符串组合
+        var selectVal = $("#sel_menu2").val(); //标签字符串组合  
+        var error = [];
+        var tag = selectVal == null ? "" : selectVal.join(',');
+        if (str == "") {
+          error.push("数据项目不能为空");
+        }
+        if (tag == "") {
+          error.push("视图所属标签不能为空");
+        }
+        if (error.length != 0) {
+          tool.alert("提示", error.join("<br/>"));
+          return false;
+        }
+
+        $.ajax({
+          type: "POST",
+          url: BasicUrl + "view",
+          data: {
+            name: str,
+            tag: tag
+          },
+          dataType: "json",
+          success: function(data, textStatus, request) {
+            if (data.id) {
+              tool.alert("提示", "数据保存成功");
+              window.location.reload();
+            }
+
+          },
+          error: function(response) {
+            if (response && response.errorMessage) {
+              tool.alert("提示", response.errorMessage);
+            }
+          },
+          complete: function(xhr, textStatus) {
+            // console.log(xhr.status);
+            // if (xhr.status == 200 && xhr.statusText == "OK") {
+            //   // $('[name="validateForm"]')[0].reset();
+            //   tool.alert("提示", "数据保存成功");
+            //   window.location.href = "ActivityList.html";
+            // } else {
+            // }
+          }
+        });
+
+      }
     });
   </script>
 </body>
