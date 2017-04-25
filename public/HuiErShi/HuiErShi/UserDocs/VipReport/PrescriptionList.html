@@ -7,7 +7,6 @@
   <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-  <!-- 个人维护样式库 -->
   <link href="../../Styles/common.css" rel="stylesheet">
 
 </head>
@@ -26,16 +25,16 @@
           <label class="control-label">处方类别：</label>
           <select class="form-control" id="prescriptionType" style="width:150px;">
               <option value="">所有</option>
-              <option value="Sport">运动</option>
-              <option value="Nutrition">营养</option> 
+              <option value="Sport">运动处方</option>
+              <option value="Nutrition">营养处方</option> 
           </select>
         </div>
         <div class="form-group text-left">
-          <label class="">&nbsp;&nbsp;关键字： </label><input id="name" name="name" class="form-control" placeholder="处方列表" type="text">
+          <label class="">&nbsp;&nbsp;关键字： </label><input id="name" name="name" class="form-control" placeholder="处方名称或拼音 " type="text">
         </div>
         <!-- 搜索按钮 -->
         <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="" class="btn btn-success pull-right" id="btnAddPrescription"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加处方</a>
+        <a class="btn btn-success pull-right" id="btnAddPrescription" data-toggle="modal" href="#modal"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加处方</a>
       </form>
     </div>
     <!-- 数据显示 -->
@@ -54,13 +53,13 @@
                 处方类别
                 <span class="glyphicon glyphicon-sort"></span>
               </th>
-              <th> 拼音名 </th>
+              <th> 拼音 </th>
             </tr>
           </thead>
           <tbody id="databody">
             <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
               <td>{{ $index+1 }}</td>
-              <td>{{ x.name }}</td>
+              <td><a href="#" ng-click=getEditModel(x.id)>{{ x.name }}</a></td>
               <td>{{ x.prescriptionType=="Sport"?"运动":"营养" }}</td>
               <td>{{ x.spell}}</td>
             </tr>
@@ -88,11 +87,67 @@
     </div>
     <!-- 当前页隐藏域 -->
     <input id="currentPage" name="currentPage" value="1" type="hidden">
+    <!--按钮END-->
+
+    <!--添加处方模态框-->
+    <div class="modal fade" id="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title text-center" ng-show="isSave">添加处方</h4>
+            <h4 class="modal-title text-center" ng-show="!isSave">修改处方</h4>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="id" ng-model="model.id">
+            <form class="form-horizontal " role="form" id="addForm" name="addForm">
+              <div class="form-group">
+                <div class="col-sm-2 text-right "><label for="chufangName" class="control-label">处方名称</label></div>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="chufangName" placeholder="处方名称" ng-model="model.name">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-2 text-right"><label for="spellName" class="control-label">拼音名称</label></div>
+                <div class="col-sm-10"><input type="text" class="form-control" id="spellName" placeholder="拼音名称" ng-model="model.spell"></div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-2 text-right"><label for="spellName" class="control-label">处方类别</label></div>
+                <div class="col-sm-10">
+                  <select class="form-control" id="chufangType" ng-model="model.prescriptionType">
+                  <option value="">请选择</option>
+                  <option value="Nutrition">营养处方</option>
+                  <option value="Sport">运动处方</option>
+                </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="col-sm-2 text-right"><label for="spellName" class="control-label">　　内容</label></div>
+                <div class="col-sm-10">
+                  <textarea rows="5" cols="5" class="form-control" id="chufangContent" placeholder="请输入处方内容" ng-model="model.description"></textarea>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-default" data-dismiss="modal" ng-show="isSave">关闭</a>
+            <a class="btn btn-default" ng-click="deleteItem()" ng-show="!isSave">删除处方</a>
+            <a class="btn btn-primary" id="addNew" ng-click="save()" ng-show="isSave">保存</a>
+            <a class="btn btn-primary" id="btnEdit" ng-click="saveEdit()" ng-show="!isSave">保存修改</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+
+  <script>
+  </script>
   <!--脚本-->
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
   <script type="text/javascript" src="../../Scripts/select2.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
@@ -100,13 +155,17 @@
   <script>
     $(function() {
       $(".start_end_time").datetimepicker();
-      var tool = new JSTOOL();
       tool.changeSelect($("#username"), true);
     });
-
+    $("#modal").modal({　
+      show: false, //默认是否展示
+      backdrop: true, //隐藏背景
+      // keyboard: false
+    });
     var params = ""; //全局变量  请求的参数
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
+      $scope.isSave = true;
       //分页方法声明
       var pageing = function(pageindex, params) {
           //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../prescription?
@@ -172,17 +231,172 @@
 
       //排序方法
       $scope.sort = function(ziduan) {
-          var classname = '';
-          if ($scope.desc) {
-            classname = 'glyphicon glyphicon-arrow-down';
-          } else {
-            classname = 'glyphicon glyphicon-arrow-up';
-          }
-          $("[data-order]").find('span').addClass('glyphicon glyphicon-sort');
-          $("[data-order='" + ziduan + "']").find('span').removeClass().addClass(classname);
-        }
-        //跳转至某页方法
 
+        var classname = '';
+        if ($scope.desc) {
+          classname = 'glyphicon glyphicon-arrow-down';
+        } else {
+          classname = 'glyphicon glyphicon-arrow-up';
+        }
+        $("[data-order]").find('span').addClass('glyphicon glyphicon-sort');
+        $("[data-order='" + ziduan + "']").find('span').removeClass().addClass(classname);
+      }
+
+      // 新增
+      $scope.save = function() {
+        var saveInfo = {
+          //文本框,下拉菜单选择值
+          name: $.trim($("#chufangName").val()),
+          spell: $.trim($("#spellName").val()),
+          prescriptionType: $("#chufangType").val(),
+          description: $.trim($("#chufangContent").val())
+        };
+        var __error = [];
+        if (saveInfo.name == "") {
+          __error.push("请输入处方名！");
+        }
+        if (saveInfo.spell == "") {
+          __error.push("请输入处方拼音名称！");
+        }
+        if (saveInfo.prescriptionType == "") {
+          __error.push("请选择处方类别！");
+        }
+        if (saveInfo.description == "") {
+          __error.push("请输入处方内容！");
+        }
+        if (__error.length > 0) {
+          tool.alert("提示", __error.join("<br />"));
+          return false;
+        }
+        $.ajax({
+          type: "POST",
+          url: BasicUrl + "prescription",
+          data: saveInfo,
+          dataType: "json",
+          success: function(xhr, data) {
+
+          },
+          error: function(response) {
+            if (response && response.errorMessage) {
+              tool.alert("提示", response.errorMessage);
+            }
+          },
+          complete: function(xhr, textStatus) {
+            console.log(xhr.status);
+            if (xhr.status == 200) {
+              $('[name="addForm"]')[0].reset();
+              $('#modal').modal('hide')
+              tool.alert("提示", "数据保存成功");
+            }
+          }
+        });
+      }
+
+      // 修改
+      $scope.saveEdit = function() {
+        var saveInfo = {
+          id: $scope.model.id,
+          //文本框,下拉菜单选择值
+          name: $.trim($("#chufangName").val()),
+          spell: $.trim($("#spellName").val()),
+          prescriptionType: $("#chufangType").val(),
+          description: $.trim($("#chufangContent").val())
+        };
+        var __error = [];
+        if (saveInfo.name == "") {
+          __error.push("请输入处方名！");
+        }
+        if (saveInfo.spell == "") {
+          __error.push("请输入处方拼音名称！");
+        }
+        if (saveInfo.prescriptionType == "") {
+          __error.push("请选择处方类别！");
+        }
+        if (saveInfo.description == "") {
+          __error.push("请输入处方内容！");
+        }
+        if (__error.length > 0) {
+          tool.alert("提示", __error.join("<br />"));
+          return false;
+        }
+        $.ajax({
+          type: "TODO",
+          url: BasicUrl + "prescription",
+          data: saveInfo,
+          dataType: "json",
+          success: function(xhr, data) {
+
+          },
+          error: function(response) {
+            if (response && response.errorMessage) {
+              tool.alert("提示", response.errorMessage);
+            }
+          },
+          complete: function(xhr, textStatus) {
+            console.log(xhr.status);
+            if (xhr.status == 200) {
+              $('[name="addForm"]')[0].reset();
+              $('#modal').modal('hide')
+              tool.alert("提示", "数据保存成功");
+            }
+          }
+        });
+      }
+
+      //点击表格内处方名称链接操作
+      $scope.getEditModel = function(id) {
+        $scope.isSave = false;
+        $('#modal').modal('show');
+        $scope.model = {
+          id: 4,
+          name: "当前后台接口未提供，所以是假数据",
+          prescriptionType: "Sport",
+          description: "sssssssssssssssssssssssssss",
+          spell: "sdajio"
+        }
+
+        // $http.get(BasicUrl + "prescription/" + id)
+        //   .success(function(data) {
+        //     if (data != null && data != "" && data != "null") {
+        //       $scope.model = data;
+        //       //将相关信息存储进INPUT里
+        //       $('#modal').modal('show');
+        //     }
+        //   }).error(function() {
+        //     tool.alert("提示", "获取信息出错，无法编辑此数据！");
+        //     $('#modal').modal('hide');
+        //     $scope.isSave = true;
+        //   });
+      }
+
+      $scope.deleteItem = function() {
+        var id = $scope.model.id;
+        //获取到当前项目
+        // alert(id);
+        var deleteUrl = BasicUrl + "prescription/" + id;
+        tool.confirm("提示",
+          "是否确认删除此项目",
+          function() {
+            $http({
+              method: 'DELETE',
+              url: url = deleteUrl,
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            }).success(function(data, xhr) {
+              if (xhr == 200) {
+                tool.alert("提示", "删除成功!");
+                //刷新当前页面.
+                window.location.reload();　
+              } else {
+                tool.alert("提示", "删除失败,请重试!");
+              }
+            }).error(function(response) {
+              tool.alert("提示", response.errorMessage);
+            });
+          },
+          function() {});
+      }
     });
   </script>
 </body>

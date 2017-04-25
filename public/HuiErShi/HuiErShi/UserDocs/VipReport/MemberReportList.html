@@ -34,34 +34,31 @@
           <label class="">&nbsp;&nbsp;&nbsp;&nbsp;报告状态： </label>
           <select class=" form-control " id="sltStatus" style="width:150px;">
                 <option value="">所有</option>
-                <option value="检查登记">检查登记</option>
-                <option value="专家填写">专家填写</option>
-                <option value="已发布">已发布</option>
+                <option value="0">检查登记</option>
+                <option value="1">专家填写</option>
+                <option value="2">已发布</option>
           </select>
         </div>
         <hr style="margin: 10px 0;" />
         <div class="form-group text-left">
           <label class="">会籍顾问： </label>
-          <select class=" form-control " id="sltAdviser" style="width:150px;">
-                        <option value="">所有</option>
-                        <option value="检查登记">检查登记</option>
-                        <option value="专家填写">专家填写</option>
-                        <option value="已发布">已发布</option>
-                    </select>
+          <select class="form-control" id="sltAdviser" style="width:150px;">
+            <option value="">所有</option>
+          </select>
+
+          <!--<select id="userSlt" class="form-control">  <option></option>
+          </select> &nbsp;&nbsp;&nbsp;-->
         </div>
 
         <div class="form-group text-left">
           <label class="">&nbsp;&nbsp;&nbsp;&nbsp;检查项目： </label>
           <select class=" form-control " id="sltTag" style="width:150px;">
-                        <option value="">所有</option>
-                        <option value="检查登记">检查登记</option>
-                        <option value="专家填写">专家填写</option>
-                        <option value="已发布">已发布</option>
-                    </select>
+          <option value="">所有</option> 
+      </select>
         </div>
         <div class="form-group text-left">
           <label class="control-label">&nbsp;&nbsp;&nbsp;关键字：</label>
-          <input type="text" class="form-control" id="txtKeyWord" placeholder="名称、缩写、拼音名">
+          <input type="text" class="form-control" id="txtKeyWord" placeholder="报告编号、姓名、手机号  ">
         </div>
         <!-- 搜索按钮 -->
         <a ng-click="search()" class="btn btn-primary pull-right" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
@@ -100,9 +97,9 @@
 
             <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
               <td>{{$index+1}}</td>
-              <td><img src="{{x.user.iconUrl}}" /><a href="#?{{x.user.id}}">{{x.user.userName}}</a></td>
+              <td><img src="{{x.user.iconUrl}}" /><a href="MemberReportInfo.html#?id={{x.user.id}}">{{x.user.userName}}</a></td>
               <td>{{ x.gender=="M"?"男":"女"}}</td>
-              <td>{{ x.createAt|date:"yyyy/MM/dd HH:mm:ss"}}</td>
+              <td>{{ x.createAt|date:"yyyy/MM/dd HH:mm:ss"}}&nbsp;&nbsp;{{x.user.vipEntity.adviser.name}}</td>
               <td><a href="MemberReportInfo.html?id={{x.id}}">{{x.id}}</a></td>
               <td>{{ x.status=="Published"?"已发布":"已填写" }}</td>
               <td>
@@ -142,14 +139,81 @@
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
     $(function() {
       $(".start_end_time").datetimepicker();　
       tool.changeSelect($("#username"), true);
+      //会籍顾问 TODO 
+      $("#sltAdviser").select2({
+        placeholder: '请选择',
+        allowClear: true,
+        ajax: {
+          // url: BasicUrl + "vip/name",
+          //TODO  当前会籍顾问下拉列表未提供.
+          url: function(params) {
+            return BasicUrl + "vip/name/" + params.term;
+          },
+          dataType: 'json',
+          delay: 250,
+          processResults: function(data, page) {
+            return {
+              results: data
+            };
+          },
+          cache: false
+        },
+        // escapeMarkup: function(markup) {
+        //   return markup;
+        // },
+        minimumInputLength: 1,
+        minimumResultsForSearch: 1,
+        width: "220px",
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection,
+      });
+      //检查项目  TODO 
+      $("#sltTag").select2({
+        placeholder: '请选择',
+        allowClear: true,
+        ajax: {
+          // url: BasicUrl + "vip/name",
+
+          url: function(params) {
+            return BasicUrl + "vip/name/" + params.term;
+          },
+          dataType: 'json',
+          delay: 250,
+          processResults: function(data, page) {
+            return {
+              results: data
+            };
+          },
+          cache: false
+        },
+        // escapeMarkup: function(markup) {
+        //   return markup;
+        // },
+        minimumInputLength: 1,
+        minimumResultsForSearch: 1,
+        width: "220px",
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection,
+      });
+
+
     });
+
+    function formatRepo(repo) {
+      return repo.realName;
+    }
+
+    function formatRepoSelection(repo) {
+      return repo.realName;
+    }
+
     var params = ""; //全局变量  请求的参数
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {

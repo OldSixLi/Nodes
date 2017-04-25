@@ -28,21 +28,21 @@
           <!--<input name="test" type="hidden" id="userSlt" style="width: 250px" value="上海^漳州" />-->
           <!--日期-->
           <label class="control-label">日期:</label>
-          <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
-            <span class="add-on input-group-addon">
-              <i class="icon-th glyphicon glyphicon-calendar"></i>
-            </span>
-          </div>
+
+          <span class="glyphicon glyphicon-chevron-left cu-pointer" title="前一天" onclick="prevDay()"></span>
+          <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+          <span class="glyphicon glyphicon-chevron-right cu-pointer" title="后一天" onclick="nextDay()"></span>
 
           <a class="btn btn-primary" id="btnSearch" ng-click="search()"><i class="glyphicon glyphicon-search"></i>&nbsp;搜索</a>
         </div>
       </form>
     </div>
-
+    <div id="main" style="width: 80%;height:400px;margin:50px auto;"></div>
     <!-- 数据显示 -->
     <div class="tab-content container-fluid">
-      <h1>{{"TODO 运动数据表格"}}</h1>
+
+      <p>静息心率:{{"TODO后台数据暂时未提供"}}</p>
+
       <div class=" fixed-table-container">
         <table class="table table-hover">
           <!-- 表头 -->
@@ -80,27 +80,9 @@
           </tbody>
         </table>
       </div>
+      <p>备注:{{"TODO后台数据暂时未提供"}}</p>
     </div>
 
-    <!--分页控件-->
-    <div ng-show="dataLengths">
-      <div class="form-group pull-right topage_block">
-        <!-- 跳转至 -->
-        <label>{{totalRecord}}条/{{totalPage}}页</label>
-        <label>跳至</label>
-        <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
-        <label>页</label>
-        <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
-      </div>
-
-      <!-- 分页控件 -->
-      <div class="pull-right">
-        <ul class="pagination" id="alreadyPage"></ul>
-      </div>
-
-      <!-- 当前页隐藏域 -->
-      <input id="currentPage" name="currentPage" value="1" type="hidden">
-    </div>
 
   </div>
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
@@ -109,11 +91,110 @@
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
   <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+  <script type="text/javascript" src="../../Scripts/echarts/echarts.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 【04】指定图表的配置项和数据  
+    var currentDate = "2017-04-25";
+    var option = {
+      title: {
+        text: '运动心率图',
+        subtext: currentDate
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      // legend: {
+      //   data: ['最高气温', '最低气温']
+      // },
+      toolbox: {
+        show: true,
+        feature: {
+          mark: {
+            show: true
+          },
+          dataView: {
+            show: true,
+            readOnly: false
+          },
+          magicType: {
+            show: true,
+            type: ['line', 'bar']
+          },
+          // restore: {
+          //   show: true
+          // },
+          // saveAsImage: {
+          //   show: true
+          // }
+        }
+      },
+      calculable: true,
+      xAxis: [{
+        type: 'category',
+        boundaryGap: false,
+        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+      }],
+      yAxis: [{
+        type: 'value',
+        // axisLabel: {
+        //   formatter: '{value} '
+        // }
+      }],
+      series: [{
+          name: '最大值',
+          type: 'line',
+          data: [11, 11, 15, 13, 12, 13, 10],
+          markPoint: {
+            data: [{
+              type: 'max',
+              name: '最大值'
+            }, {
+              type: 'min',
+              name: '最小值'
+            }]
+          },
+          markLine: {
+            data: [{
+              type: 'average',
+              name: '平均值'
+            }]
+          }
+        }
+        // ,
+        //  {
+        //   name: '最低气温',
+        //   type: 'line',
+        //   data: [1, -2, 2, 5, 3, 2, 0],
+        //   markPoint: {
+        //     data: [{
+        //       name: '周最低',
+        //       value: -2,
+        //       xAxis: 1,
+        //       yAxis: -1.5
+        //     }]
+        //   },
+        //   markLine: {
+        //     data: [{
+        //       type: 'average',
+        //       name: '平均值'
+        //     }]
+        //   }
+        // }
+      ]
+    };
+
+
+    // 【05】使用刚指定的配置项和数据显示图表。  
+    myChart.setOption(option);
     $(function() {
       //日期框初始化
-      $(".start_end_time").datetimepicker();
+      $(".start_end_time").datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+      });
       // 下拉框AJAX获取数据
 
       $("#userSlt").select2({
@@ -143,8 +224,6 @@
         templateSelection: formatRepoSelection,
       });
 
-
-
     });
 
     function formatRepo(repo) {
@@ -153,6 +232,33 @@
 
     function formatRepoSelection(repo) {
       return repo.realName;
+    }
+
+    function getLocalTime(tm) {
+      var tt = new Date(parseInt(tm)).toLocaleString('chinese', {
+        hour12: false
+      }).replace(/\//g, "-");
+      return tt;
+    }
+
+    //前一天
+    function prevDay() {
+      var date = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()));
+
+      date = date - 86400000;
+      var time = getLocalTime(date);
+      $('#txtEndTime').datetimepicker({
+        value: time
+      });
+    }
+
+    function nextDay() {
+      var date = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()));
+      date = date + 86400000;
+      var time = getLocalTime(date);
+      $('#txtEndTime').datetimepicker({
+        value: time
+      });
     }
 
 
@@ -171,7 +277,19 @@
               $scope.data = data;
               $scope.totalPage = data.totalPages;
               $scope.totalRecord = data.totalElements;
-
+              var arr = [],
+                timeArr = [];
+              for (var index = 0; index < data.content.length; index++) {
+                arr.push(data.content[index].heartRate);
+                timeArr.push(getLocalTime(data.content[index].createAt));
+                console.log(getLocalTime(data.content[index].createAt));
+              }
+              var currentTime = getLocalTime(Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()))).substr(0, 9);
+              option.title.subtext = currentTime;
+              option.xAxis[0].data = timeArr;
+              option.series[0].data = arr;
+              // alert(arr);
+              myChart.setOption(option);
               //调用生成分页方法
               initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
                 pageing($("#currentPage").val() - 1, params);

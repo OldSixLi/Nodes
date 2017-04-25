@@ -68,6 +68,7 @@
           <!-- 表头 -->
           <thead>
             <tr>
+              <th>#</th>
               <th>验单照片</th>
               <th class="order" ng-click="title='FP_HM';desc=!desc"> 姓名 </th>
               <th class="order" ng-click="title='FP_HM';desc=!desc"> 上传日期 </th>
@@ -80,16 +81,25 @@
           </thead>
           <tbody id="databody">
             <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
+              <td> {{x.length=$index+data.page*data.pageNum+1}}</td>
               <td>
                 <a ng-repeat="c in x.picUrl" href="CheckInfo.html?id={{x.id}}"><img src="{{c}}" /></a>
               </td>
               <td>{{x.user.userName}}</td>
               <td>{{x.Inspection.createAt | date:"yyyy/MM/dd HH:mm:ss" }}</td>
-              <td>{{x.Inspection.checkAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
-              <td>{{"TODO"}}</td>
-              <td>{{"TODO"}}</td>
-              <td>{{x.name}}</td>
-              <td>{{ x.report.reportNo }}</td>
+              <td>
+                <span ng-show='!x.report.reportNo'> 
+                  {{x.Inspection.checkAt | date:"yyyy/MM/dd HH:mm:ss"}}
+                </span>
+              </td>
+              <td>
+                <span ng-show='x.report.reportNo'> {{"TODO"}}</span></td>
+              <td> <span ng-show='x.report.reportNo'>{{"TODO"}}</span></td>
+              <td> <span ng-show='x.report.reportNo'>{{x.name}}</span></td>
+              <td>
+                <span><a href="#" ng-show='!x.report.reportNo'>创建报告单</a></span>
+                <span ng-show='x.report.reportNo'>{{x.report.reportNo }}</span>
+              </td>
             </tr>
             <tr ng-show="!dataLengths">
               <td colspan="100" class="text-center ">暂无结果</td>

@@ -50,7 +50,7 @@
                 <span></span>
               </th>
               <th class="order" ng-click="title='FP_HM';desc=!desc">
-                实物类别
+                食物类别
                 <span></span>
               </th>
               <th class="order" ng-click="title='FP_HM';desc=!desc">
@@ -159,7 +159,7 @@
           <td></td>
         </tr>
       </table>
-      <table class="table table-bordered table-condensed" style="margin: 20px 0">
+      <!--<table class="table table-bordered table-condensed" style="margin: 20px 0">
         <tr>
           <th style="width: 50px;"></th>
           <th>总能量</th>
@@ -227,7 +227,7 @@
           <td>全天脂肪摄入g数加总 </td>
           <td>全天脂肪摄入g数加总x9/全天食物总能量</td>
         </tr>
-      </table>
+      </table>-->
 
       <p><b>1g碳水化合物产生4kcal热量，1g脂肪产生9kcal热量，1g蛋白质产生4kcal热量</b></p>
 
@@ -314,7 +314,7 @@
           </table>
         </div>
         <!--右侧表格数据-->
-        <div class="col-xs-7 col-xs-offset-1">
+        <!--<div class="col-xs-7 col-xs-offset-1">
           <table class="table table-bordered table-condensed">
             <tr>
               <th>Chart 7</th>
@@ -403,7 +403,7 @@
               <td>水1500-1700ml</td>
             </tr>
           </table>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
@@ -417,9 +417,10 @@
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
     $(function() {
-      $(".start_end_time").datetimepicker();
-      var tool = new JSTOOL();
-      tool.changeSelect($("#username"), true);
+      $(".start_end_time").datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+      });
 
 
       $("#username").select2({
@@ -452,8 +453,6 @@
       function formatRepoSelection(repo) {
         return repo.realName;
       }
-
-
     });
 
     function getLocalTime(tm) {
@@ -535,11 +534,7 @@
             alert("请至少输入一个搜索条件");
             return false;
           }
-          //起止日期校验
-          if (minExpiredAt > maxExpiredAt) {
-            alert("结束时间不得早于起始时间");
-            return false;
-          }
+
           params = "medicineName=" + keyword + "&userId=" + username + "&minCreatedAt=" + minExpiredAt + "&maxCreatedAt=" + maxExpiredAt;
           pageing(0, params);
         }
