@@ -58,7 +58,7 @@
           </thead>
           <tbody id="databody">
             <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
-              <td>{{ $index+1 }}</td>
+              <td>{{ $index+1 }}:{{x.id}}</td>
               <td><a href="#" ng-click=getEditModel(x.id)>{{ x.name }}</a></td>
               <td>{{ x.prescriptionType=="Sport"?"运动":"营养" }}</td>
               <td>{{ x.spell}}</td>
@@ -273,9 +273,6 @@
           url: BasicUrl + "prescription",
           data: saveInfo,
           dataType: "json",
-          success: function(xhr, data) {
-
-          },
           error: function(response) {
             if (response && response.errorMessage) {
               tool.alert("提示", response.errorMessage);
@@ -286,7 +283,15 @@
             if (xhr.status == 200) {
               $('[name="addForm"]')[0].reset();
               $('#modal').modal('hide')
-              tool.alert("提示", "数据保存成功");
+              tool.alert("提示", "数据保存成功", function() {
+                //刷新当前页面.
+                window.location.reload();
+              });
+            } else {
+              if (xhr.responseText) {
+                var json = JSON.parse(xhr.responseText);
+                tool.alert("提示", json.errorMessage);
+              }
             }
           }
         });
@@ -296,7 +301,6 @@
       $scope.saveEdit = function() {
         var saveInfo = {
           id: $scope.model.id,
-          //文本框,下拉菜单选择值
           name: $.trim($("#chufangName").val()),
           spell: $.trim($("#spellName").val()),
           prescriptionType: $("#chufangType").val(),
@@ -320,13 +324,10 @@
           return false;
         }
         $.ajax({
-          type: "TODO",
-          url: BasicUrl + "prescription",
+          type: "PATCH",
+          url: BasicUrl + "prescription/" + $scope.model.id,
           data: saveInfo,
           dataType: "json",
-          success: function(xhr, data) {
-
-          },
           error: function(response) {
             if (response && response.errorMessage) {
               tool.alert("提示", response.errorMessage);
@@ -337,7 +338,15 @@
             if (xhr.status == 200) {
               $('[name="addForm"]')[0].reset();
               $('#modal').modal('hide')
-              tool.alert("提示", "数据保存成功");
+              tool.alert("提示", "数据保存成功", function() {
+                //刷新当前页面.
+                window.location.reload();
+              });
+            } else {
+              if (xhr.responseText) {
+                var json = JSON.parse(xhr.responseText);
+                tool.alert("提示", json.errorMessage);
+              }
             }
           }
         });
@@ -347,59 +356,59 @@
       $scope.getEditModel = function(id) {
         $scope.isSave = false;
         $('#modal').modal('show');
-        $scope.model = {
-          id: 4,
-          name: "当前后台接口未提供，所以是假数据",
-          prescriptionType: "Sport",
-          description: "sssssssssssssssssssssssssss",
-          spell: "sdajio"
-        }
 
-        // $http.get(BasicUrl + "prescription/" + id)
-        //   .success(function(data) {
-        //     if (data != null && data != "" && data != "null") {
-        //       $scope.model = data;
-        //       //将相关信息存储进INPUT里
-        //       $('#modal').modal('show');
-        //     }
-        //   }).error(function() {
-        //     tool.alert("提示", "获取信息出错，无法编辑此数据！");
-        //     $('#modal').modal('hide');
-        //     $scope.isSave = true;
-        //   });
+        var arr = $scope.data.content;
+        arr.forEach(function(element, index, array) {
+          var obj = element;
+          if (element.id == id) {
+            $scope.model = {
+              id: id,
+              name: element.name,
+              spell: element.spell,
+              prescriptionType: element.prescriptionType,
+              description: element.description,
+            };
+          }
+        }, this);
+
       }
 
+
+      //删除项目
       $scope.deleteItem = function() {
         var id = $scope.model.id;
-        //获取到当前项目
-        // alert(id);
-        var deleteUrl = BasicUrl + "prescription/" + id;
-        tool.confirm("提示",
-          "是否确认删除此项目",
-          function() {
-            $http({
-              method: 'DELETE',
-              url: url = deleteUrl,
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-              }
-            }).success(function(data, xhr) {
-              if (xhr == 200) {
-                tool.alert("提示", "删除成功!");
-                //刷新当前页面.
-                window.location.reload();　
-              } else {
-                tool.alert("提示", "删除失败,请重试!");
-              }
-            }).error(function(response) {
-              tool.alert("提示", response.errorMessage);
-            });
-          },
-          function() {});
+        if (id) { //获取到当前项目
+          // alert(id);
+          var deleteUrl = BasicUrl + "prescription/" + id;
+          tool.confirm("提示",
+            "是否确认删除此项目",
+            function() {
+              $http({
+                method: 'DELETE',
+                url: url = deleteUrl,
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                }
+              }).success(function(data, xhr) {
+                if (xhr == 200) {
+                  tool.alert("提示", "删除成功!");
+                  //刷新当前页面.
+                  window.location.reload();　
+                } else {
+                  tool.alert("提示", "删除失败,请重试!");
+                }
+              }).error(function(response) {
+                tool.alert("提示", response.errorMessage);
+              });
+            },
+            function() {}
+          );
+        } else {
+          tool.alert("提示", "获取参数出错，请重试！");
+        }
       }
     });
   </script>
 </body>
-
 
 </html>

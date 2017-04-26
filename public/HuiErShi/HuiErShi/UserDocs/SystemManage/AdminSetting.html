@@ -29,7 +29,7 @@
           <input id="txtKeyWord" name="keyword" class="form-control" placeholder="关键字" type="text">
         </div>
         &nbsp;&nbsp;&nbsp;
-        <a data-toggle="modal" href="#modal" class="btn btn-primary pull-right" id="btnAddActivity"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加管理员</a>
+        <a data-toggle="modal" href="#modal" class="btn btn-primary pull-right" id="btnAddActivity" ng-click="clear()"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加管理员</a>
       </form>
     </div>
 
@@ -45,42 +45,43 @@
             <form class="form-horizontal" role="form" name="addForm">
               <div class="form-group">
                 <div class="col-sm-3 text-right"><label for="inputEmail3" class="control-label" style="line-height:100px">上传照片</label></div>
-                <input type="text" name="iconUrl" class="" id="iconUrl" style="opacity:0;">
+                <input type="text" name="iconUrl" class="" id="iconUrl" style="opacity:0;" ng-model="model.iconUrl">
+                <input type="text" name="id" class="" id="id" style="opacity:0;" ng-model="model.id">
                 <div class="col-sm-8 text-center img-container" id="btn-uploader">
                   <a id="pickfiles">
-                    <img id="img" src='../../images/2.png' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;"></a>
+                    <img id="img" src='{{model.iconUrl ==null?"../../images/upload/upload-alert.png":model.iconUrl}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;"></a>
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-3 text-right"><label for="inputEmail3" class="control-label">姓名</label></div>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="name" name="name" placeholder="请输入姓名"></div>
+                  <input type="text" class="form-control" id="name" name="name" ng-model="model.name" placeholder="请输入姓名"></div>
               </div>
               <div class="form-group">
                 <div class="col-sm-3 text-right"><label for="inputPassword3" class="control-label">职位</label></div>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="job" name="job" placeholder="请输入职位"></div>
+                  <input type="text" class="form-control" id="job" name="job" ng-model="model.job" placeholder="请输入职位"></div>
               </div>
               <div class="form-group">
                 <div class="col-sm-3 text-right"><label for="inputEmail3" class="control-label">手机号码</label></div>
-                <div class="col-sm-8"><input type="text" class="form-control" id="mobile" name="mobile" placeholder="请输入手机号码"></div>
+                <div class="col-sm-8"><input type="text" class="form-control" id="mobile" name="mobile" ng-model="model.mobile" placeholder="请输入手机号码"></div>
               </div>
               <div class="form-group">
                 <div class="col-sm-3 text-right"><label for="inputPassword3" class="control-label">用户名</label></div>
-                <div class="col-sm-8"><input type="text" class="form-control" id="adminNo" name="adminNo" placeholder="请输入用于登陆的用户名"></div>
+                <div class="col-sm-8"><input type="text" class="form-control" id="adminNo" name="adminNo" ng-model="model.adminNo" placeholder="请输入用于登陆的用户名"></div>
               </div>
               <div class="form-group">
                 <div class="col-sm-3 text-right"><label for="inputEmail3" class="control-label">密码</label></div>
-                <div class="col-sm-8"><input type="text" class="form-control" id="password" name="password" placeholder="请输入密码"></div>
+                <div class="col-sm-8"><input type="text" class="form-control" id="password" name="password" placeholder="请输入密码" ng-model="model.password"></div>
               </div>
               <div class="form-group">
                 <div class="col-sm-3 text-right">
                   <label for="inputPassword3" class="control-label">权限</label>
                 </div>
                 <div class="col-sm-8" style="line-height:35px;">
-                  <input type="radio" name="role" id="role" value="1" checked>会籍顾问&nbsp;&nbsp;
-                  <input type="radio" name="role" id="role" value="2">运动专家&nbsp;&nbsp;
-                  <input type="radio" name="role" id="role" value="3">饮食专家&nbsp;&nbsp;
+                  <input type="radio" name="role" ng-model="model.role" value="1">会籍顾问&nbsp;&nbsp;
+                  <input type="radio" name="role" ng-model="model.role" value="2">运动专家&nbsp;&nbsp;
+                  <input type="radio" name="role" ng-model="model.role" value="3">饮食专家&nbsp;&nbsp;
                 </div>
               </div>
             </form>
@@ -115,7 +116,9 @@
           <tbody id="databody">
             <tr ng-show="dataLengths" ng-repeat="x in data  | orderBy : title : desc">
               <td>{{ $index+ 1}}</td>
-              <td> <img src="{{x.iconUrl}}" alt="" />&nbsp;{{ x.name }}</td>
+              <td>
+                <a href="#" ng-click=getEditModel(x.id)><img src="{{x.iconUrl}}" alt="" />&nbsp;{{ x.name }}</a>
+              </td>
               <td>{{ x.adminNo }}</td>
               <td>{{ x.job }}</td>
               <td>{{ x.id}}</td>
@@ -304,8 +307,10 @@
         }
         //分页方法
       pageing(0, params);
-
-      //查询按钮
+      $scope.clear = function() {
+          $scope.model = null;
+        }
+        //查询按钮
       $scope.search = function() {
         //TODO  需要修改部分
         //参数赋值
@@ -346,7 +351,6 @@
       //删除项目操作方法
       $scope.deleteItem = function(id) {
         var deleteUrl = BasicUrl + "settings/" + id;
-        alert(id);
         tool.confirm("提示",
           "是否确认删除此项目",
           function() {
@@ -369,18 +373,32 @@
           function() {});
       }
 
+      //表格内名称点击弹出模态框修改
+      $scope.getEditModel = function(id) {
+        $scope.isSave = false;
+        // $('#modal').modal('show');
+        $http.get(BasicUrl + "admin/" + id)
+          .success(function(data) {
+            if (data != null && data != "" && data != "null") {
+              $scope.model = data;
+              //将相关信息存储进INPUT里
+              $('#modal').modal('show');
+            }
+          }).error(function() {
+            tool.alert("提示", "获取信息出错，无法编辑此数据！");
+            $('#modal').modal('hide');
+            $scope.isSave = true;
+          });
+      }
+
       //新增
       $scope.save = function() {
-
-
-
-
         var saveInfo = {
           //文本框,下拉菜单选择值
           name: $.trim($("#name").val()),
           adminNo: $.trim($("#adminNo").val()),
           job: $.trim($("#job").val()),
-          role: $("[name='role']").val(),
+          role: $('input:radio[name=role]:checked').val(),
           iconUrl: $.trim($("#iconUrl").val()),
           mobile: $.trim($("#mobile").val())
         };
@@ -400,9 +418,6 @@
           url: BasicUrl + "admin",
           data: saveInfo,
           dataType: "json",
-          success: function(xhr, data) {
-
-          },
           error: function(response) {
             if (response && response.errorMessage) {
               tool.alert("提示", response.errorMessage);
@@ -417,6 +432,11 @@
                 //刷新当前页面.
                 window.location.reload();
               });
+            } else {
+              if (xhr.responseText) {
+                var json = JSON.parse(xhr.responseText);
+                tool.alert("提示", json.errorMessage);
+              }
             }
           }
         });
@@ -424,7 +444,54 @@
 
       // 编辑
       $scope.saveEdit = function() {
-
+        var saveInfo = {
+          id: $scope.model.id,
+          //文本框,下拉菜单选择值
+          name: $.trim($("#name").val()),
+          adminNo: $.trim($("#adminNo").val()),
+          job: $.trim($("#job").val()),
+          role: $('input:radio[name=role]:checked').val(),
+          iconUrl: $.trim($("#iconUrl").val()),
+          mobile: $.trim($("#mobile").val())
+        };
+        var __error = [];
+        if (saveInfo.name == "") {
+          __error.push("请输入名称！");
+        }
+        if (saveInfo.adminNo == "") {
+          __error.push("请输入用户名！");
+        }
+        if (__error.length > 0) {
+          tool.alert("提示", __error.join("<br />"));
+          return false;
+        }
+        $.ajax({
+          type: "PATCH",
+          url: BasicUrl + "admin/" + $scope.model.id,
+          data: saveInfo,
+          dataType: "json",
+          error: function(response) {
+            if (response && response.errorMessage) {
+              tool.alert("提示", response.errorMessage);
+            }
+          },
+          complete: function(xhr, textStatus) {
+            console.log(JSON.stringify(xhr));
+            if (xhr.status == 200) {
+              $('[name="addForm"]')[0].reset();
+              $('#modal').modal('hide')
+              tool.alert("提示", "修改成功", function() {
+                //刷新当前页面.
+                window.location.reload();
+              });
+            } else {
+              if (xhr.responseText) {
+                var json = JSON.parse(xhr.responseText);
+                tool.alert("提示", json.errorMessage);
+              }
+            }
+          }
+        });
       }
     });
   </script>

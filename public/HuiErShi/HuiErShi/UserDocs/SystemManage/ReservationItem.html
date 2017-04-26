@@ -35,9 +35,65 @@
           </select>
         </div>
 
+        <a data-toggle="modal" href="#modal" class="btn btn-primary  pull-right"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加</a>
         <!-- 搜索按钮 -->
         <a ng-click="search()" class="btn btn-primary pull-right" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+
       </form>
+    </div>
+
+    <!--按钮END-->
+    <div class="modal fade" id="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title text-center">添加项目</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form" name="addForm">
+              <div class="form-group">
+
+                <!--name:检查项目
+cost:300
+report:化验报告
+remark:xxxxxx-->
+                <div class="col-sm-2 text-right">
+                  <label for="name" class="control-label">项目名称</label></div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="itemname" name="name" ng-model="name" placeholder="项目名称"></div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-2 text-right">
+                  <label for="cost" class="control-label">成本</label></div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="cost" name="cost" ng-model="cost" placeholder="成本"></div>
+              </div>
+              <div class="form-group">
+
+                <!--name:检查项目
+cost:300
+report:化验报告
+remark:xxxxxx-->
+                <div class="col-sm-2 text-right">
+                  <label for="report" class="control-label">报告单</label></div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="report" name="report" ng-model="report" placeholder="报告单"></div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-2 text-right">
+                  <label for="remark" class="control-label">备注</label></div>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" id="remark" name="remark" ng-model="remark" placeholder="备注"></div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-default" data-dismiss="modal">取消</a>
+            <a class="btn btn-primary" ng-click="save()">创建预约项目</a>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- 数据显示 -->
     <div class="ng-scope tab-content container-fluid">
@@ -46,6 +102,7 @@
           <!-- 表头 -->
           <thead>
             <tr>
+              <th>#</th>
               <th>项目名 <span></span> </th>
               <th class="order" ng-click="title='FP_HM';desc=!desc">
                 成本 <span></span> </th>
@@ -57,15 +114,19 @@
             </tr>
           </thead>
           <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in data | orderBy : title : desc">
+
+            <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
+              <td>{{ $index+(data.page+1)*data.pageNum-data.pageNum+1}}</td>
               <td>
                 <a href="{{x.id}}">{{ x.name }}</a> </td>
               <td>{{x.cost}}</td>
               <td>{{x.inspectionName }}</td>
               <td>{{x.remark}}</td>
-              <td>{{x.createBy}}</td>
-              <td>{{x.createBy}}</td>
-              <td><a href="#" ng-click='deleteItem("{{x.id}}")'>操作</a></td>
+              <td>
+                <a href="#?x.createBy.id">
+                {{x.createBy.name}}</a></td>
+              <td>{{x.createAt|date:"yyyy/MM/dd HH:mm:ss"}}</td>
+              <td><a href="#" ng-click='deleteItem(x.id)'>删除</a></td>
             </tr>
             <tr ng-show="!dataLengths">
               <td colspan="100" class="text-center ">暂无结果</td>
@@ -119,7 +180,9 @@
                 //赋值操作
                 $scope.title = 'FP_HM'; //排序字段
                 $scope.desc = 0; //排序方式（默认升序）
-                $scope.data = data.content;
+                $scope.data = data;
+                $scope.totalPage = data.page.totalPage;
+                $scope.totalRecord = data.page.totalResult;
                 // $scope.totalPage = data.page.totalPage;
                 // $scope.totalRecord = data.page.totalResult;
                 //调用生成分页方法
@@ -162,37 +225,123 @@
         }
         //跳转至某页方法
       $scope.skip = function() {
-        if ($scope.toPageValue <= 1) {
-          $scope.toPageValue = 1;
-        } else if ($scope.toPageValue > $scope.totalPage) {
-          $scope.toPageValue = $scope.totalPage;
+          if ($scope.toPageValue <= 1) {
+            $scope.toPageValue = 1;
+          } else if ($scope.toPageValue > $scope.totalPage) {
+            $scope.toPageValue = $scope.totalPage;
+          }
+          pageing($scope.toPageValue - 1, params);
         }
-        pageing($scope.toPageValue - 1, params);
-      }
+        // $scope.deleteItem = function(id) {
+        //   tool.confirm("提示",
+        //     "是否确认删除此项目",
+        //     function() {
+        //       $.ajax({
+        //         type: "DELETE",
+        //         url: BasicUrl + "appointmentItems/" + id,
+        //         data: {
+        //           id: id
+        //         },
+        //         dataType: "json",
+        //         complete: function(xhr, textStatus) {
+        //           console.log(xhr.status);
+        //           if (xhr.status == 200) {
+
+      //             tool.alert("提示", "删除成功", function() {
+      //               //刷新当前页面.
+      //               window.location.reload();
+      //             });
+      //           } else {
+      //             if (xhr.responseText) {
+      //               var json = JSON.parse(xhr.responseText);
+      //               tool.alert("提示", json.errorMessage);
+      //             }
+      //           }
+      //         }
+      //       }).done(function(data) {
+      //         if (data.success) {
+      //           tool.alert("提示", "删除成功");
+      //           if (length == 1 && queryParams.currentPage != 1) {
+      //             $("#currentPage").val(queryParams.currentPage - 1);
+      //           }
+      //           pageing(0, params);
+      //         } else {
+      //           tool.alert("提示", "删除失败");
+      //         }
+      //       });
+      //     },
+      //     function() {});
+      // }
+
+      //删除项目操作方法
       $scope.deleteItem = function(id) {
-        tool.confirm("提示",
-          "是否确认删除此项目",
-          function() {
-            $.ajax({
-              type: "post",
-              url: "地址",
-              data: {
-                id: id
-              },
-              dataType: "json"
-            }).done(function(data) {
-              if (data.success) {
-                tool.alert("提示", "删除成功");
-                if (length == 1 && queryParams.currentPage != 1) {
-                  $("#currentPage").val(queryParams.currentPage - 1);
+          var deleteUrl = BasicUrl + "appointmentItems/" + id;
+
+          tool.confirm("提示",
+            "是否确认删除此项目",
+            function() {
+              $http({
+                method: 'DELETE',
+                url: url = deleteUrl,
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
                 }
-                pageing(0, params);
-              } else {
-                tool.alert("提示", "删除失败");
-              }
-            });
+              }).success(function(data, xhr) {
+                if (xhr == 200) {
+                  tool.alert("提示", "删除成功!");　
+                } else {
+                  tool.alert("提示", "删除失败,请重试!");
+                }
+              }).error(function(response) {
+                tool.alert("提示", response.errorMessage);
+              });
+            },
+            function() {});
+        }
+        //新增
+      $scope.save = function() {
+        var saveInfo = {
+          //文本框,下拉菜单选择值
+          name: $.trim($("#itemname").val()),
+          cost: $.trim($("#cost").val()),
+          report: $.trim($("#report").val()),
+          remark: $.trim($("#remark").val()),
+        };
+        var __error = [];
+        if (saveInfo.name == "") {
+          __error.push("项目名不能为空");
+        }
+        if (__error.length > 0) {
+          tool.alert("提示", __error.join("<br />"));
+          return false;
+        }
+        $.ajax({
+          type: "POST",
+          url: BasicUrl + "appointmentItems",
+          data: saveInfo,
+          dataType: "json",
+          error: function(response) {
+            if (response && response.errorMessage) {
+              tool.alert("提示", response.errorMessage);
+            }
           },
-          function() {});
+          complete: function(xhr, textStatus) {
+            console.log(xhr.status);
+            if (xhr.status == 200) {
+              $('[name="addForm"]')[0].reset();
+              $('#modal').modal('hide')
+              tool.alert("提示", "新增项目成功", function() {
+                //刷新当前页面.
+                window.location.reload();
+              });
+            } else {
+              if (xhr.responseText) {
+                var json = JSON.parse(xhr.responseText);
+                tool.alert("提示", json.errorMessage);
+              }
+            }
+          }
+        });
       }
     });
   </script>

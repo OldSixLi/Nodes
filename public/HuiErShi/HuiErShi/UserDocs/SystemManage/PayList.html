@@ -29,12 +29,12 @@
         </div>
         <div class="form-group text-left">
           <label class="control-label">&nbsp;&nbsp;卡券：</label>
-          <select class=" form-control " id="cards" style="width:150px;">
+          <select class="form-control" id="cardsList" style="width:150px;">
         <option value="">无</option>
       </select>
         </div>
         <div class="form-group text-left">
-          <label class="lbl_search">起止日期：</label>
+          <label class="lbl_search">支付时间：</label>
           <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
           <label class="">至</label>
           <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
@@ -70,10 +70,10 @@
               <td>{{ x.commodity.commodityName }}</td>
               <td>{{ x.commodity.price }}</td>
               <td>
-                <a href="#?id={{x.user.id}}">{{x.user.userName}}</a>
+                <a href="../UserManage/UserInfoEdit.html?id={{x.user.id}}">{{x.user.userName}}</a>
               </td>
               <td>
-                <a href="{{x.vipEntity.id}}">{{x.user.vipEntity.realName}}</a>
+                <a href="../UserManage/UserInfo.html?id={{x.user.vipEntity.id}}">{{x.user.vipEntity.realName}}</a>
               </td>
               <td>{{ x.payment.payAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
               <td>{{ outTradeNo=x.payment.outTradeNo }}</td>
@@ -109,13 +109,48 @@
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
     $(function() {
       $(".start_end_time").datetimepicker();
-      tool.changeSelect($("#cards"), false);
+      // tool.changeSelect($("#cardsList"), false);
+      $("#cardsList").select2({
+        placeholder: '请选择',
+        allowClear: true,
+        ajax: {
+          // url: BasicUrl + "vip/name",
+          //TODO  当前卡券下拉列表未提供.
+          url: function(params) {
+            return BasicUrl + "vip/name/" + params.term;
+          },
+          dataType: 'json',
+          delay: 250,
+          processResults: function(data, page) {
+            return {
+              results: data
+            };
+          },
+          cache: false
+        },
+        // escapeMarkup: function(markup) {
+        //   return markup;
+        // },
+        minimumInputLength: 1,
+        minimumResultsForSearch: 1,
+        width: "220px",
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection,
+      });
+
+      function formatRepo(repo) {
+        return repo.realName;
+      }
+
+      function formatRepoSelection(repo) {
+        return repo.realName;
+      }
     });
     //    var params = "keyWord=&minPayTime=&maxPayTime=";
     var params = "";

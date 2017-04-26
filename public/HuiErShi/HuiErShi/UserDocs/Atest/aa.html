@@ -29,6 +29,13 @@
 
       </div>
     </div>
+    <input type="radio" name="role" ng-model="model.role" value="1">TODO1&nbsp;&nbsp;
+    <input type="radio" name="role" ng-model="model.role" value="2">TODO2&nbsp;&nbsp;
+    <input type="radio" name="role" ng-model="model.role" value="3">TODO3&nbsp;&nbsp;
+    <script>
+      // 取值：
+      var radioVal = $('input:radio[name=TODO]:checked').val();
+    </script>
   </div>
 
   <!-- 脚本 -->

@@ -29,7 +29,7 @@
     <div class="text-right col-xs-12" id="search_block">
       <form class="form-inline" role="form">
         <div class="form-group text-left">
-          <label class="">关键字： </label><input id="txtKeyWord" name="keyword" class="form-control" placeholder="关键字" type="text">
+          <label class="">关键字： </label><input id="txtKeyWord" name="keyword" class="form-control" placeholder="卡券名或缩写" type="text">
 
         </div>
         <div class="form-group text-left">
@@ -44,9 +44,19 @@
           <label class="">至</label>
           <input id="txtEndTime" name="maxExpiredAt1" class="start_end_time form-control" placeholder="截止时间">
         </div>
-        <a ng-click="search()" class="btn btn-primary" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+        <a ng-click="search()" class="btn btn-primary" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;添加</a>
+
       </form>
+
     </div>
+
+    <script>
+      $("#modal").modal({　
+        show: true, //默认是否展示
+        backdrop: false, //隐藏背景
+        keyboard: false
+      });
+    </script>
 
     <!-- 数据显示 -->
     <div class="ng-scope tab-content container-fluid">
@@ -55,28 +65,33 @@
           <!-- 表头 -->
           <thead>
             <tr>
+              <th> # </th>
               <th> 卡券名称 </th>
-              <th> 有效期 </th>
-              <th> 价格 </th>
-              <th> 门诊次数 </th>
-              <th> 类型 </th>
-              <th> 备注 </th>
-              <th> 使用情况 </th>
+              <th> 购买人 </th>
+              <th> 购买时间 </th>
+              <th> 激活人 </th>
+              <th> 激活时间 </th>
               <th> 操作 </th>
             </tr>
           </thead>
           <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in names.list">
+            <tr ng-show="dataLengths" ng-repeat="x in data.content">
+              <td>{{ $index+(data.page+1)*data.pageNum-data.pageNum+1}}</td>
               <td>
-                <a href="#?id={{x.id}}">{{"建设中..."}}</a>
+                <a href="#?id={{x.vipCardEntity.id}}">{{x.vipCardEntity.name+'('+x.vipCardEntity.shortName+')'}}</a>
               </td>
-              <td>{{"建设中..." }}</td>
-              <td>{{"建设中..." }}</td>
-              <td>{{"建设中..." }}</td>
-              <td>{{"建设中..." }}</td>
-              <td>{{"建设中..." }}</td>
-              <td>{{"建设中..." }}</td>
-              <td><a href="#" ng-click='deleteItem("{{x.id}}")'>删除</a></td>
+              <td>
+                <a href="../UserManage/UserInfo.html?id={{x.user.id}}"></a>
+                {{x.user.userName}}</td>
+              <td>{{x.createAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
+              <td href="#?id={{x.activeBy.id}}">{{x.activeBy.name }}</td>
+              <td>{{x.activeAt }}</td>
+              <td>
+                <span ng-show="x.activated">已激活</span>
+                <!--TODO 待确认-->
+                <!--<span ng-show="!x.activated">已退款</span>-->
+                <a href="#" ng-click='deleteItem("{{x.id}}")' ng-show="!x.activated">退款</a>
+              </td>
             </tr>
             <tr ng-show="!dataLengths">
               <td colspan="100" class="text-center">暂无结果</td>
@@ -120,21 +135,21 @@
       tool.changeSelect($("#sltDistrict"), false);
     });
     //
-    var params = "vipType=&minExpiredAt=&maxExpiredAt=&keyWord="; //全局变量
+    var params = ""; //全局变量
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
       //分页方法声明
       var pageing = function(pageindex, params) {
           //请求地址
           //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../activity?
-          var url = "../../JSON/data.json?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+          var url = BasicUrl + "vipCard/delivery?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
           $http.get(url).success(function(data) {
             if (data != null && data != "" && data != "null") {
               //判断当前是否存在记录
-              $scope.dataLengths = data.list.length > 0;
-              if (data.list != null && data.list.length > 0) {
+              $scope.dataLengths = data.content.length > 0;
+              if (data.content != null && data.content.length > 0) {
                 //赋值操作
-                $scope.names = data;
+                $scope.data = data;
                 $scope.totalPage = data.page.totalPage;
                 $scope.totalRecord = data.page.totalResult;
                 //调用生成分页方法
