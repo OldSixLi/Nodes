@@ -44,7 +44,7 @@
         </div>
         <div class="form-group text-left">
           <label class="">会员姓名： </label>
-          <select class="form-control" name="userId" id="userId" style="width:130px;">
+          <select class="form-control" name="userIds" id="userId" style="width:130px;">
           </select>
         </div>
         <hr class="hidden-md hidden-lg" />
@@ -142,9 +142,7 @@
                   <label for="userid" class="control-label">会员姓名：</label>
                 </div>
                 <div class="col-sm-9">
-                  <select name="userId" id="modalUserId" class="form-control" ng-model="vm.data.name" required style="width:100%;">
-              <option value="">请选择</option>
-              <option value="1">张无忌</option>
+                  <select name="userId" id="modalUserId" class="form-control" ng-model="vm.data.name" required style="width:100%;"> 
           </select>
                   <input type="hidden" name="adminId" value="1">
                 </div>
@@ -203,9 +201,7 @@
   <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
   <script>
     $(function() {
-      $(".start_end_time").datetimepicker();
       tool.changeSelect($("#advisorId"), false);
-      // tool.changeSelect($("#userId"), false);
       //添加表单中
       tool.changeSelect($("#modalUserId"), false);
       tool.changeSelect($("#demandWay"), false);
@@ -232,6 +228,30 @@
         templateResult: formatRepo,
         templateSelection: formatRepoSelection,
       });
+
+      $("#modalUserId").select2({
+        placeholder: '请选择',
+        allowClear: true,
+        ajax: {
+          url: function(params) {
+            return BasicUrl + "vip/name/" + params.term;
+          },
+          dataType: 'json',
+          delay: 250,
+          processResults: function(data, page) {
+            return {
+              results: data
+            };
+          },
+          cache: false
+        },
+        minimumInputLength: 1,
+        minimumResultsForSearch: 1,
+        width: "120px",
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection,
+      });
+
 
       function formatRepo(repo) {
         return repo.realName;
@@ -320,7 +340,7 @@
                       pageing($("#currentPage").val() - 1, params);
                     });
                 } else {
-                  tool.alert("提示", "未获取到数据");
+                  // tool.alert("提示", "未获取到数据");
                 }
               }
             });

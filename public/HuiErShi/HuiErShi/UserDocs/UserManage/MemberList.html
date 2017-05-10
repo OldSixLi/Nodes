@@ -13,13 +13,14 @@
 </head>
 
 <body ng-app="myApp">
-  <!--检索项-->
+
   <div ng-controller="customersCtrl" class="container-fluid" ng-clock>
     <!-- 面包屑导航 -->
     <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
       <li><a href="javascript:void(0)">客户管理</a></li>
       <li class="active">会员列表</li>
     </ol>
+    <!--检索项-->
     <div class="text-right col-xs-12" id="search_block">
       <form class="form-inline" role="form">
         <div class="form-group text-left">
@@ -27,15 +28,15 @@
           <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
             <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
             <span class="add-on input-group-addon">
-                              <i class="icon-th glyphicon glyphicon-calendar"></i>
-                        </span>
+                <i class="icon-th glyphicon glyphicon-calendar"></i>
+            </span>
           </div>
           <label class="">至</label>
           <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
             <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
             <span class="add-on input-group-addon">
-                              <i class="icon-th glyphicon glyphicon-calendar"></i>
-                            </span>
+              <i class="icon-th glyphicon glyphicon-calendar"></i>
+            </span>
           </div>
         </div>
         <div class="form-group text-left">
@@ -46,9 +47,7 @@
                             <option value="MEMBER">关爱型</option>
                             <option value="NORMAL">保健型</option>
                             <option value="">已过期</option>
-                            <option value="">未激活</option>
-
-                             <!--[所有, (), (), (), , ]-->
+                            <option value="">未激活</option> 
                         </select>
         </div>
         <div class="form-group text-left">
@@ -63,6 +62,7 @@
     <div class="ng-scope tab-content container-fluid">
       <div class=" fixed-table-container">
         <table class="table table-hover  ">
+
           <!-- 表头 -->
           <thead>
             <tr>
@@ -74,29 +74,31 @@
               </th>
               <th data-order='gender' class="order" ng-click="title='gender';desc=!desc;sort('gender')">
                 性别
+                <span class="glyphicon glyphicon-sort"></span>
               </th>
               <th data-order='nativePlace' class="order" ng-click="title='nativePlace';desc=!desc;sort('nativePlace')">
-                所属
+                所属<span class="glyphicon glyphicon-sort"></span>
               </th>
               <th data-order='type' class="order" ng-click="title='type';desc=!desc;sort('type')">
-                会员类型
+                会员类型<span class="glyphicon glyphicon-sort"></span>
               </th>
-              <th data-order='name' class="order" ng-click="title='adviser.name';desc=!desc;sort('name')">
-                会籍顾问
+              <th data-order='name' class="order" ng-click="title='adv';desc=!desc;sort('name')">
+                会籍顾问<span class="glyphicon glyphicon-sort"></span>
               </th>
               <th data-order='date' class="order" ng-click="title='date';desc=!desc;sort('date')">
-                会员有效期
+                会员有效期<span class="glyphicon glyphicon-sort"></span>
               </th>
             </tr>
           </thead>
+
           <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in names.content">
+            <tr ng-show="dataLengths" ng-repeat="x in names.content|orderBy:title :desc">
               <td>{{ $index+names.page*names.pageNum+1}}</td>
               <td><img src="{{x.iconUrl}}" alt="" /><a href="UserInfo.html?id={{x.id}}">{{x.realName}}</a> </td>
               <td>{{ x.gender=="M"?"男":"女" }}</td>
               <td>{{ x.origin }}</td>
               <td>{{ x.vipCard.vipCardEntity.vipType=="considerate"?"体验型":"关爱型" }}</td>
-              <td>{{ x.adviser.name}}</td>
+              <td>{{ x.adv=x.adviser.name}}</td>
               <td>{{x.date=x.vipCard.expiredAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
             </tr>
             <tr ng-show="!dataLengths">
@@ -133,7 +135,6 @@
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
     $(function() {
-      $(".start_end_time").datetimepicker();
       tool.changeSelect($("#sltType"), false);
     });
     var params = "vipType=considerate&minExpiredAt=1480558560000&maxExpiredAt=1480559560000&keyWord=1"; //全局变量
@@ -148,6 +149,7 @@
               $scope.dataLengths = data.content.length > 0;
               if (data.content != null && data.content.length > 0) {
                 //赋值操作
+                $scope.title = '';
                 $scope.names = data;
                 $scope.totalPage = data.totalPages;
                 $scope.totalRecord = data.totalElements;
@@ -197,16 +199,17 @@
       }
 
       $scope.sort = function(ziduan) {
-          var classname = '';
-          if ($scope.desc) {
-            classname = 'glyphicon glyphicon-arrow-down';
-          } else {
-            classname = 'glyphicon glyphicon-arrow-up';
-          }
-          $("[data-order]").find('span').addClass('glyphicon glyphicon-sort');
-          $("[data-order='" + ziduan + "']").find('span').removeClass().addClass(classname);
+        var classname = '';
+        if ($scope.desc) {
+          classname = 'glyphicon glyphicon-arrow-down';
+        } else {
+          classname = 'glyphicon glyphicon-arrow-up';
         }
-        //跳转至某页方法
+        $("[data-order]").find('span').addClass('glyphicon glyphicon-sort');
+        $("[data-order='" + ziduan + "']").find('span').removeClass().addClass(classname);
+      }
+
+      //跳转至某页方法
       $scope.skip = function() {
         if ($scope.toPageValue <= 1) {
           $scope.toPageValue = 1;

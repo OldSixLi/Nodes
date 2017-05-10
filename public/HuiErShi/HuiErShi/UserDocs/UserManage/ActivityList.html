@@ -118,7 +118,7 @@
 
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
   <script type="text/javascript" src="../../Styles/jquery-confirm/jquery-confirm.min.js"></script>
   <script type="text/javascript" src="../../Scripts/select2.js"></script>
@@ -128,7 +128,7 @@
 
   <script>
     $(function() {
-      $(".start_end_time").datetimepicker();
+      // $(".start_end_time").datetimepicker();
       tool.changeSelect($("#sltDistrict"), false);
     });
     var params = "vipType=&minExpiredAt=&maxExpiredAt=&keyWord="; //全局变量
@@ -157,7 +157,7 @@
                     pageing($("#currentPage").val() - 1, params);
                   });
               } else {
-                tool.alert("提示", "未获取到数据，请重试");
+                // tool.alert("提示", "未获取到数据，请重试");
               }
             }
           });

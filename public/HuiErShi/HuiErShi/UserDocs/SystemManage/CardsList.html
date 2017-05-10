@@ -283,7 +283,7 @@
         show: false, //默认是否展示
         backdrop: true
       });
-      $(".start_end_time").datetimepicker();
+      // $(".start_end_time").datetimepicker();
       var tool = new JSTOOL();
       tool.changeSelect($("#username"), true);
     });
@@ -355,8 +355,10 @@
                 tool.alert("提示", response.errorMessage);
               });
           },
-          function() {});
+          function() {}
+        );
       }
+
 
       //新增
       $scope.save = function() {
