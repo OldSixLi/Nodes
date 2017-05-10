@@ -10,11 +10,6 @@
   <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
   <!-- 个人维护样式库 -->
   <link href="../../Styles/common.css" rel="stylesheet">
-  <style>
-    .form-inline .form-control {
-      /*width: 140px;*/
-    }
-  </style>
 </head>
 
 <body ng-app="myApp">
@@ -24,6 +19,8 @@
       <li><a href="javascript:void(0)">客户管理</a></li>
       <li class="active">预约列表</li>
     </ol>
+
+    <!--搜索-->
     <div class="col-xs-12" id="search_block">
       <form class="form-inline text-right" role="form">
 
@@ -115,6 +112,7 @@
         </table>
       </div>
     </div>
+
     <!--分页控件-->
     <div ng-show="dataLengths">
       <div class="form-group pull-right topage_block">
@@ -175,13 +173,11 @@
                 $scope.data = data;
                 $scope.totalPage = data.totalPages;
                 $scope.totalRecord = data.totalElements;
-                //调用生成分页方法
-                //调用生成分页方法
-                initPageDiv($("#alreadyPage"), //在哪里生成页码
-                  pageindex + 1, //当前页
-                  data.totalPages, //总页数
-                  5, //每次显示多少页
-                  $("#currentPage"), //隐藏域的值：当前页数
+                initPageDiv($("#alreadyPage"),
+                  pageindex + 1,
+                  data.totalPages,
+                  5,
+                  $("#currentPage"),
                   function() {
                     pageing($("#currentPage").val() - 1, params);
                   });

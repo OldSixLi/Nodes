@@ -25,10 +25,16 @@ var BasicUrl = "http://60.205.170.209:8080/admin/api/";
     return serializeObj;
   };
 })(jQuery);
+
+
 $(function() {
+  if ($(".start_end_time")) {
+    $(".start_end_time").datetimepicker();
+  }
   if ($.datetimepicker) {
     $.datetimepicker.setLocale('ch'); //时间选择控件默认设置中文
   }
+
   /// <summary>悬浮于一级菜单时显示二级菜单的内容</summary>
   $("#mainMenu>li>a").each(function(index) {
     $(this).hover(function() {
@@ -41,6 +47,8 @@ $(function() {
     });
   });
 });
+
+
 $(function() {
   /// <summary>表格排序功能</summary>
   var isdesc = false; //定义一个全局变量，用来确定升序还是降序
@@ -87,10 +95,13 @@ $(function() {
     $("tbody").prepend($(tbody).html());
   });
 });
+
+
 //时间比较函数（直接提取数字进行比较）
 function timescompare(a, b) {
   return a.replace(/[^0-9]+/g, "") - b.replace(/[^0-9]+/g, "");
 }
+
 //分隔获取各个参数
 function UrlSearch() {
   var name, value;
@@ -107,6 +118,7 @@ function UrlSearch() {
     }
   }
 }
+
 //分页控件的初始化
 function initPageDiv($dom, now, all, each, $dom2, change) {
   if (parseInt(now) > parseInt(all)) {
@@ -138,7 +150,6 @@ function initPageDiv($dom, now, all, each, $dom2, change) {
   }
   $dom.bootstrapPaginator(options);
 };
-
 
 //判断浏览器版本
 function myBrowser() {
@@ -177,9 +188,8 @@ function myBrowser() {
   }
 };
 
-
-
 var JSTOOL = function() {
+  // 下拉菜单样式
   this.changeSelect = function($dom, hasSearch) {
     var selectNum = 0;
     if (typeof(hasSearch) != 'undefined') {
@@ -194,7 +204,7 @@ var JSTOOL = function() {
         // 最多能够选择的个数
     });
   };
-  /* 弹窗 */
+  // 提示
   this.alert = function(title, content, callback, className) {
     var confirm = callback && typeof callback === "function" ? callback :
       function() {};
@@ -232,6 +242,7 @@ var JSTOOL = function() {
       });
     }
   };
+  // 确认框
   this.confirm = function(title, content, okCallback, cancelCallback) {
     var confirm = okCallback && typeof okCallback === "function" ? okCallback :
       function() {};
@@ -277,6 +288,7 @@ var JSTOOL = function() {
       });
     }
   };
+  // 对话框
   this.dialog = function(title, content) {
     window.top.$.dialog({
       title: title,

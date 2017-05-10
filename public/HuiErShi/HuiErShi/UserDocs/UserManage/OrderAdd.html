@@ -17,6 +17,8 @@
     <li><a href="javascript:history.back(-1)">预约列表</a></li>
     <li class="active">添加预约</li>
   </ol>
+
+  <!--搜索-->
   <div class="text-right col-xs-12" id="search_block">
     <form class="form-inline" role="form">
       <div class="form-group text-left">
@@ -31,8 +33,8 @@
       <a ng-click="search()" class="btn btn-success" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
     </form>
   </div>
-  <!-- 数据显示 -->
 
+  <!-- 数据显示 -->
   <div class="ng-scope tab-content container-fluid">
     <div class=" fixed-table-container">
       <table class="table table-hover table-condensed ">
@@ -73,6 +75,8 @@
     <!-- <p> Selected : {{selected}} </p> -->
 
   </div>
+
+  <!--分页控件-->
   <div class="col-md-12">
     <div ng-show="dataLengths" class="row">
       <div class="form-group pull-right topage_block">
@@ -134,6 +138,7 @@
       </div>
     </form>
   </div>
+
   <!-- 当前页隐藏域 -->
   <input id="currentPage" name="currentPage" value="1" type="hidden">
 

@@ -136,7 +136,8 @@
           </div>
           <div class="modal-footer">
             <a class="btn btn-default" data-dismiss="modal">取消</a>
-            <a class="btn btn-primary" ng-click="save()">添加</a>
+            <a class="btn btn-primary" ng-click="save()" ng-show="isSave">添加</a>
+            <a class="btn btn-primary" id="btnEdit" ng-click="saveEdit()" ng-show="!isSave">保存修改</a>
           </div>
         </div>
       </div>
@@ -290,6 +291,7 @@
     var params = ""; //全局变量  请求的参数
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
+      $scope.isSave = true;
       //分页方法声明
       var pageing = function(pageindex, params) {
         var url = "http://60.205.170.209:8080/admin/api/vipCard?page=0&pageNum=10";

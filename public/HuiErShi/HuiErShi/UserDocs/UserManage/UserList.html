@@ -1,6 +1,5 @@
 <!--活动列表页面-->
 <!DOCTYPE html>
-<!-- 已编辑 -->
 <html>
 
 <head>
@@ -9,7 +8,6 @@
   <title>用户列表</title>
   <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-  <!-- 个人维护样式库 -->
   <link href="../../Styles/common.css" rel="stylesheet">
 </head>
 
@@ -21,6 +19,7 @@
       <li><a href="javascript:void(0)">客户管理</a></li>
       <li class="active">用户列表</li>
     </ol>
+
     <!-- 搜索模块 -->
     <div class="text-right col-xs-12" id="search_block">
       <form class="form-inline" role="form">
@@ -48,6 +47,7 @@
         <a ng-click="search()" class="btn btn-success" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
       </form>
     </div>
+
     <!-- 数据绑定部分 -->
     <div class="ng-scope tab-content container-fluid">
       <div class="fixed-table-container">
@@ -89,6 +89,8 @@
         </table>
       </div>
     </div>
+
+    <!--分页模块-->
     <div ng-show="dataLengths">
       <div class="form-group pull-right topage_block">
         <!-- 跳转至 -->
@@ -103,6 +105,7 @@
         <ul class="pagination" id="alreadyPage"></ul>
       </div>
     </div>
+
     <!-- 当前页隐藏域 -->
     <input id="currentPage" name="currentPage" value="1" type="hidden">
   </div>
@@ -114,7 +117,6 @@
   <script type="text/javascript" src="../../Scripts/select2.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-  <!-- <script type="text/javascript" src="../../Scripts/datalist.js"></script> -->
   <!--自定义脚本部分-->
   <script>
     var params = "userName=&minCreatedAt=&maxCreatedAt="; //全局变量
@@ -122,37 +124,38 @@
     app.controller('customersCtrl', function($scope, $http) {
       //分页方法声明
       var pageing = function(pageindex, params) {
-          //请求地址
-          var url = "http://60.205.170.209:8080/admin/api/user?" + params + "&page=" + pageindex + "&pageNum=10";
-          $http.get(url).success(function(data) {
-            if (data != null && data != "" && data != "null") {
-              //判断当前是否存在记录
-              $scope.dataLengths = data.content.length > 0;
-              if (data.content != null && data.content.length > 0) {
-                //赋值操作
-                $scope.title = 'userName';
-                $scope.desc = 0;
-                $scope.names = data;
-                $scope.totalPage = data.totalPages;
-                $scope.totalRecord = data.totalElements;
-                //调用生成分页方法
-                initPageDiv($("#alreadyPage"), //在哪里生成页码
-                  pageindex + 1, //当前页
-                  data.totalPages, //总页数
-                  5, //每次显示多少页
-                  $("#currentPage"), //隐藏域的值：当前页数
-                  function() {
-                    pageing($("#currentPage").val() - 1, params);
-                  });
-              }
+        //请求地址
+        var url = "http://60.205.170.209:8080/admin/api/user?" + params + "&page=" + pageindex + "&pageNum=10";
+        $http.get(url).success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            //判断当前是否存在记录
+            $scope.dataLengths = data.content.length > 0;
+            if (data.content != null && data.content.length > 0) {
+              //赋值操作
+              $scope.title = 'userName';
+              $scope.desc = 0;
+              $scope.names = data;
+              $scope.totalPage = data.totalPages;
+              $scope.totalRecord = data.totalElements;
+              //调用生成分页方法
+              initPageDiv($("#alreadyPage"), //在哪里生成页码
+                pageindex + 1, //当前页
+                data.totalPages, //总页数
+                5, //每次显示多少页
+                $("#currentPage"), //隐藏域的值：当前页数
+                function() {
+                  pageing($("#currentPage").val() - 1, params);
+                });
             }
-          });
-        }
-        //分页方法
+          }
+        });
+      }
+
+      //分页方法
       pageing(0, params);
+
       //查询按钮
       $scope.search = function() {
-
         //TODO  需要修改部分
         //起始时间时间戳
         var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
@@ -195,10 +198,6 @@
         }
         pageing($scope.toPageValue - 1, params);
       }
-    });
-    $(function() {
-      //日期选择插件
-      $(".start_end_time").datetimepicker();
     });
   </script>
 </body>
