@@ -30,7 +30,14 @@
         <div class="form-group text-left">
           <label class="lbl_search">&nbsp;&nbsp;&nbsp;选择日期：</label>
           <span class="glyphicon glyphicon-chevron-left cu-pointer" title="前一天" onclick="prevDay()"></span>
-          <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+
+          <div class="input-group timeblock">
+            <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" id="btnStarttime">
+                          <span class="glyphicon glyphicon-calendar"></span></button>
+            </div>
+          </div>
           <span class="glyphicon glyphicon-chevron-right cu-pointer" title="后一天" onclick="nextDay()"></span>
         </div>
         <!-- 搜索按钮 -->

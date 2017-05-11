@@ -35,14 +35,34 @@
         </div>
         <div class="form-group text-left">
           <label class="lbl_search">支付时间：</label>
-          <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+
+
+          <div class="input-group timeblock">
+            <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" id="btnStarttime">
+                <span class="glyphicon glyphicon-calendar"></span></button>
+            </div>
+          </div>
+
+
           <label class="">至</label>
-          <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
-          <a ng-click="search()" class="btn btn-primary" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+
+
+          <div class="input-group timeblock">
+            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" id="btnEndtime">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </button>
+            </div>
+          </div>
+
         </div>
 
         <!-- 搜索按钮 -->
         <a href="#" class="btn btn-primary pull-right" id="添加"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加</a>
+        <a ng-click="search()" class="btn btn-primary pull-right" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
       </form>
     </div>
 
