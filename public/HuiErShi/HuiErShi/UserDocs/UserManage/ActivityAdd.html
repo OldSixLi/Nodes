@@ -109,7 +109,7 @@
               <div class="col-xs-12">
                 <div class="form-group col-xs-6">
                   <div class="col-sm-4 text-right">
-                    <label for="txtActivityPlace" class="control-label">活动地点坐标：</label>
+                    <label for="txtActivityPlace" class="control-label">活动地点：</label>
                   </div>
                   <div class="col-sm-7">
                     <input type="text" class="form-control" id="location" name="location" required placeholder="活动详细地址" ng-model="vm.entity.location">
@@ -138,7 +138,7 @@
                 <label for="coordinate" class="control-label">地点坐标：</label>
               </div>
               <div class="col-sm-8 col-md-8">
-                <input type="text" class="form-control" id="coordinate" name="coordinate" placeholder="活动的坐标" ng-model="vm.entity.coordinate" onclick="openMap()">
+                <input type="text" class="form-control" id="coordinate" name="coordinate" placeholder="活动坐标" ng-model="vm.entity.coordinate" onclick="openMap()">
               </div>
             </div>
             <div class="form-group">
@@ -182,21 +182,21 @@
             </div>
           </div>
           <!--提交按钮-->
-          <div class="row">
+          <div class="row" style="margin-bottom: 5px;">
             <!-- 消除外边距 -->
             <div class="col-md-12">
               <div class="col-md-6 col-sm-6 text-right" ng-show="{{isSave}}">
                 <button type="submit" class="btn  btn-success" w5c-form-submit="vm.saveinfo($event)">保存活动信息</button>
               </div>
               <div class="col-md-6 col-sm-6 text-right" ng-show="{{!isSave}}">
-                <button type="submit" class="btn  btn-success" w5c-form-submit="vm.editInfo($event)">修改活动信息</button>
+                <button type="submit" class="btn  btn-primary" style="margin-right:30px;" w5c-form-submit="vm.editInfo($event)">修改活动信息</button>
                 <button type="submit" class="btn btn-danger" ng-click="vm.deleteInfo($event)">删除活动信息</button>
               </div>
               <div class="col-md-6 col-sm-6 text-left">
                 <button type="button" class="btn btn-default" ng-show="{{isSave}}" onclick="javascript:history.back(-1)">　　返回　　</button>
 
-                <button type="submit" class="btn btn-success" ng-show="{{!isSave}}" ng-click="vm.show($event)">扫码预览</button>
-                <button type="submit" class="btn btn-danger" ng-show="{{!isSave}}" ng-click="vm.notice($event)">群发通知</button>
+                <button type="submit" class="btn btn-primary" ng-show="{{!isSave}}" style="margin-right:30px;" ng-click="vm.show($event)">扫码预览</button>
+                <button type="submit" class="btn btn-primary" ng-show="{{!isSave}}" ng-click="vm.notice($event)">群发通知</button>
               </div>
 
             </div>

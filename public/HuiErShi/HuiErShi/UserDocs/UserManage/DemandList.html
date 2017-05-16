@@ -51,18 +51,21 @@
         <div class="form-group text-left">
           <label class="lbl_search">记录日期：</label>
 
-          <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-            <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" style="width:150px;" />
-            <span class="add-on input-group-addon">
-              <i class="icon-th glyphicon glyphicon-calendar"></i>
-            </span>
+
+          <div class="input-group timeblock">
+            <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" />
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" id="btnStarttime">
+                          <span class="glyphicon glyphicon-calendar"></span></button>
+            </div>
           </div>
           <label class="">至</label>
-          <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间" style="width:150px;" />
-            <span class="add-on input-group-addon">
-              <i class="icon-th glyphicon glyphicon-calendar"></i>
-            </span>
+          <div class="input-group timeblock">
+            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间" />
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" id="btnEndtime">
+                          <span class="glyphicon glyphicon-calendar"></span></button>
+            </div>
           </div>
         </div>
         <div class="form-group text-left">
@@ -388,7 +391,7 @@
         vm.saveinfo = function($event) {
           $(":submit").attr("disabled", true);
           $http({
-              method: 'PATCH',
+              method: 'POST',
               url: url = BasicUrl + "demand/",
               data: $('[name="validateForm"]').serialize(),
               headers: {
@@ -398,9 +401,12 @@
             .success(function(data, xhr) {
               if (xhr == 200) {
                 tool.alert("提示", "保存成功!");
+                //刷新当前页面.
+                window.location.reload();
                 $(":submit").attr("disabled", false);
               } else {
                 tool.alert("提示", "保存失败,请重试!");
+
                 $(":submit").attr("disabled", false);
               }
             }).error(function(response) {

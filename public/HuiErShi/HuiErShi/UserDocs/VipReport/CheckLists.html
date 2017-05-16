@@ -53,7 +53,7 @@
         <div class="form-group text-left">
           <label class="">&nbsp;&nbsp;录入： </label>
           <select class=" form-control " id="sltTag" style="width:150px;">
-            <option value="">会员名称</option>
+            <!--<option value="">会员名称</option>-->
              
           </select>
         </div>
@@ -132,13 +132,45 @@
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
     $(function() {
       // $(".start_end_time").datetimepicker();
       tool.changeSelect($("#username"), true);
+
+      $("#sltTag").select2({
+        placeholder: '请选择',
+        allowClear: true,
+        ajax: {
+          url: function(params) {
+            //TODO  改为会籍顾问接口
+            return BasicUrl + "vip/name/" + params.term;
+          },
+          dataType: 'json',
+          delay: 250,
+          processResults: function(data, page) {
+            return {
+              results: data
+            };
+          },
+          cache: false
+        },
+        minimumInputLength: 1,
+        minimumResultsForSearch: 1,
+        width: "150px",
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection,
+      });
+
+      function formatRepo(repo) {
+        return repo.realName;
+      }
+
+      function formatRepoSelection(repo) {
+        return repo.realName;
+      }
     });
     // keyWord=&adviserId=&minCreatedAt=&maxCreatedAt=
     var params = ""; //全局变量  请求的参数

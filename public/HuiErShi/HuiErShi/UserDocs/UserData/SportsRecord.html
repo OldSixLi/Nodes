@@ -18,7 +18,7 @@
       <li><a href="javascript:history.back(-1)">用户数据</a></li>
       <li class="active">运动记录</li>
     </ol>
-    <div class="col-xs-12" id="search_block">
+    <div class="col-xs-12" id="search_block" style="z-index:100;">
       <form class="form-inline text-right" role="form">
         <div class="form-group text-left">
           <label class="control-label">会员姓名:</label>
@@ -30,7 +30,15 @@
           <label class="control-label">日期:</label>
 
           <span class="glyphicon glyphicon-chevron-left cu-pointer" title="前一天" onclick="prevDay()"></span>
-          <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+
+
+          <div class="input-group timeblock">
+            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" id="btnEndtime">
+                <span class="glyphicon glyphicon-calendar"></span></button>
+            </div>
+          </div>
           <span class="glyphicon glyphicon-chevron-right cu-pointer" title="后一天" onclick="nextDay()"></span>
 
           <a class="btn btn-primary" id="btnSearch" ng-click="search()"><i class="glyphicon glyphicon-search"></i>&nbsp;搜索</a>
