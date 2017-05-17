@@ -63,7 +63,7 @@
         <div class="form-group text-left">
           <label class="control-label">来源筛选：</label>
           <select class="form-control" id="from" name="from">
-          <option value="value">所有</option>
+          <option value="所有">所有</option>
           <option value="PC">PC</option>
           <option value="APP">APP</option>
       </select>
@@ -173,6 +173,31 @@
         templateSelection: formatRepoSelection,
       });
 
+
+      $("#itemId").select2({
+        placeholder: '请选择',
+        allowClear: true,
+        ajax: {
+          url: function(params) {
+            //TODO 此处需要根据用户ID 来显示项目名称
+            return BasicUrl + "vip/name/" + params.term;
+          },
+          dataType: 'json',
+          delay: 250,
+          processResults: function(data, page) {
+            return {
+              results: data
+            };
+          },
+          cache: false
+        },
+        minimumInputLength: 1,
+        minimumResultsForSearch: 1,
+        width: "150px",
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection,
+      });
+
       function formatRepo(repo) {
         return repo.realName;
       }
@@ -182,7 +207,7 @@
       }
     });
     //  itemId=&userId=1&from=&minCreatedAt=&maxCreatedAt=&
-    var params = "userId=1&"; //全局变量  请求的参数
+    var params = ""; //全局变量  请求的参数
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
       //分页方法声明
@@ -208,36 +233,54 @@
             }
           }).error(function(data) {
             //处理响应失败
-            // tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+            if (data && data.errorMessage) {
+              tool.alert("提示", data.errorMessage);
+            }
           });
         }
         //分页方法
-      pageing(0, params);
-      //查询按钮
+        // pageing(0, params);
+        //查询按钮
       $scope.search = function() {
-          //TODO  需要修改部分
           //起始时间时间戳
           var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
           //结束时间时间戳
           var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
           //用户名称
-          var userid = $("#sltUserId").val();
+          var userId = $("#userId").val();
           //会员类型
-          var from = $("#sltFromWhere").val();
-          var itemid = $("#sltItemId").val();
+          var from = $("#from").val();
+          var itemId = $("#itemId").val();
 
           //校验只有一个搜索条件
-          if (!(minExpiredAt || maxExpiredAt || userid || from || itemid)) {
-            alert("请至少输入一个搜索条件");
+          if (!(minExpiredAt || maxExpiredAt || userId || from || itemId)) {
+            tool.alert("提示", "请至少输入一个搜索条件");
             return false;
           }
           //起止日期校验
-          if (minExpiredAt > maxExpiredAt) {
-            alert("结束时间不得早于起始时间");
-            return false;
+          if (!minExpiredAt && !maxExpiredAt) {
+            if (minExpiredAt > maxExpiredAt) {
+              tool.alert("提示", "结束时间不得早于起始时间");
+              return false;
+            }
+          }
+          params = "";
+          if (itemId) {
+            params = "itemId=" + itemId + "&";
+          }
+          if (userId) {
+            params += "userId=" + userId + "&";
+          }
+          if (from) {
+            params += "from=" + from + "&";
+          }
+          if (minExpiredAt) {
+            params += "minCreatedAt=" + minExpiredAt + "&";
+          }
+          if (maxExpiredAt) {
+            params += "maxCreatedAt=" + maxExpiredAt + "&";
           }
 
-          params = "itemId=" + itemid + "&userId=" + userid + "&from=" + from + "&minCreatedAt=" + minExpiredAt + "&maxCreatedAt=" + maxExpiredAt;
           pageing(0, params);
         }
         //跳转至某页方法

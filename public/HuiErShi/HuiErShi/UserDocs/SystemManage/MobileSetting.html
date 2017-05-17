@@ -81,7 +81,7 @@
                 <td>{{ x.name }}</td>
                 <td>
                   <a href="#?id={{x.id}}">查看</a>
-                  <a href="#" ng-click=deleteItem({{x.name}})>删除</a></td>
+                  <a href="#" ng-click="deleteItem(x.name)">删除</a></td>
               </tr>
               <tr ng-show="!dataLengths">
                 <td colspan="100" class="text-center ">暂无结果</td>

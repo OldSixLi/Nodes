@@ -126,7 +126,7 @@ remark:xxxxxx-->
                 <a href="#?x.createBy.id">
                 {{x.createBy.name}}</a></td>
               <td>{{x.createAt|date:"yyyy/MM/dd HH:mm:ss"}}</td>
-              <td><a href="#" ng-click='deleteItem(x.id)'>删除</a></td>
+              <td><a href="#" ng-click="deleteItem(x.id)">删除</a></td>
             </tr>
             <tr ng-show="!dataLengths">
               <td colspan="100" class="text-center ">暂无结果</td>
@@ -204,11 +204,8 @@ remark:xxxxxx-->
       pageing(0, params);
       //查询按钮
       $scope.search = function() {
-
-
           var name = $("#name").val();
           var inspectionName = $("#inspectionName").val();
-
           //校验只有一个搜索条件
           if (!(name || inspectionName)) {
             tool.alert("提示", "请至少输入一个搜索条件");

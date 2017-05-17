@@ -105,7 +105,10 @@
               <td>
                 <a ng-repeat="c in x.appointmentItems" href="#?id={{c.id}}">{{c.name}}</a>
               </td>
-              <td>{{x.comment}}</td>
+              <td ng-if="!x.modifyAt"><a href="#" ng-click="menberSignUp(x.id)">{{x.remark}}</a></td>
+              <td ng-if="x.report.reportNo&&x.modifyAt"><span ng-if="x.report.reportNo">  {{x.report.reportNo+' /'}}</span> {{x.comment}}</td>
+
+              <td ng-if="!x.report.reportNo&&x.modifyAt"><a href="#" ng-click="menberSignUp(x.id)">会员签到</a></td>
             </tr>
             <tr ng-show="!dataLengths">
               <td colspan="100" class="text-center">暂无结果</td>
@@ -191,21 +194,55 @@
         }
         //分页方法
       pageing(0, params);
+      //点击变为已完成
+      $scope.menberSignUp = function(id) {
+        tool.confirm(
+          "提示",
+          "是否确认签到？",
+          function() {
+            //用户点击确认按钮时操作
+            $.ajax({
+              type: "PATCH",
+              url: BasicUrl + "appointment/" + id,
+              data: {
+                adminId: 1,
+                id: id
+              },
+              dataType: "json",
+              error: function(response) {
+                if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                  tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+                }
+
+              },
+              complete: function(xhr, textStatus) {
+                if (xhr.status == 200) {
+                  tool.alert("提示", "签到成功！", function() {
+                    //刷新当前页面.
+                    window.location.reload();
+                  });
+                }
+              }
+            });
+          },
+          function() {
+            //用户点击取消按钮时操作
+
+          });
+      }
+
+
       //查询按钮
       $scope.search = function() {
-          //TODO  需要修改部分
-
           //参数赋值
           var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
           var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
           var keyword = $("#txtKeyWord").val();
           var district = $("#sltDistrict").val();
-          //用户名称
-          var username = $("#txtUserName").val();
           //会员类型
           var vipType = $("#sltType").val();
           //校验只有一个搜索条件
-          if (!(minExpiredAt || maxExpiredAt || username || vipType)) {
+          if (!(minExpiredAt || maxExpiredAt || keyword || vipType)) {
             tool.alert("提示", "请至少输入一个搜索条件");
             return false;
           }

@@ -303,6 +303,10 @@
                 pageing($("#currentPage").val() - 1, params);
               });
             } else {
+              option.xAxis[0].data = [];
+              option.series[0].data = [];
+              // alert(arr);
+              myChart.setOption(option);
               $scope.dataLengths = false;
               // tool.alert("提示", "当前条件下未获取到数据");
             }

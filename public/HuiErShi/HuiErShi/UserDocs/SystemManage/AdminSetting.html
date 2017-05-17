@@ -126,7 +126,7 @@
               <td>{{ "TODO权限" }}</td>
               <td>
                 <a href="{{x.FP_HM}}" title="修改操作" ng-click='editItem("{{x.id}}")'><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;
-                <a href="#" title="删除操作" ng-click='deleteItem("{{x.id}}")'><span class="glyphicon glyphicon-trash"></span></a>
+                <a href="#" title="删除操作" ng-click="deleteItem(x.id)"><span class="glyphicon glyphicon-trash"></span></a>
               </td>
             </tr>
             <tr ng-show="!dataLengths">

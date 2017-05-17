@@ -90,7 +90,7 @@
                 <span ng-show="x.activated">已激活</span>
                 <!--TODO 待确认-->
                 <!--<span ng-show="!x.activated">已退款</span>-->
-                <a href="#" ng-click='deleteItem("{{x.id}}")' ng-show="!x.activated">退款</a>
+                <a href="#" ng-click="deleteItem(x.id)" ng-show="!x.activated">退款</a>
               </td>
             </tr>
             <tr ng-show="!dataLengths">
