@@ -276,7 +276,7 @@
               <input type="button" id="btnDelProject" class="btn btn-block btn-primary" value="删除项目" ng-click="vm.deleteProject()">
             </div>
             <div class="col-md-3 col-sm-3">
-              <input type="submit" id="btnSaveProject" class="btn btn-block btn-primary" w5c-form-submit="vm.editinfo($event)" value="保存项目">
+              <button id="btnSaveProject" class="btn btn-block btn-primary" ng-click="vm.editinfo()">保存项目</button>
             </div>
           </div>
         </form>
@@ -333,6 +333,7 @@
         var request = new UrlSearch();
         $scope.projectId = request.id ? request.id : null;
         if ($scope.projectId != null) {
+          vm.show_error = true;
           $scope.isShow = false; //显示修改按钮 
           var url = BasicUrl + "item/" + $scope.projectId;
           $http.get(url).success(function(data) {
@@ -375,18 +376,74 @@
               }
               $(":submit").attr("disabled", false);
             });
+
+
         };
 
         vm.deleteProject = function() {
-          //删除按钮操作
-          console.log("删除操作");
-          $scope.projectId;
-          itemId
+          var id = $scope.projectId;
+          tool.confirm(
+            "提示",
+            "确认删除当前项目？",
+            function() {
+              //用户点击确认按钮时操作
+              $.ajax({
+                type: "DELETE",
+                url: BasicUrl + "item/" + id,
+                dataType: "json",
+                error: function(response) {
+                  if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                    tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+                  }
+                },
+                complete: function(xhr, textStatus) {
+                  if (xhr.status == 200) {
+                    tool.alert("提示", "删除成功", function() {});
+                    window.location.href = "ProjectList.html";
+                  }
+                }
+              });
+            },
+            function() {
+              //用户点击取消按钮时操作
+            });
+
         };
+
         vm.editinfo = function() {
-          //修改按钮操作
-          console.log("修改按钮操作");
-        }
+          var len = $(".w5c-error").length;
+          if (len) {
+            tool.alert("提示", "请修改数据后再进行提交！");
+            return false;
+          }
+          //修改按钮操作 
+          var id = $scope.projectId;
+          $http({
+              method: 'PATCH',
+              url: BasicUrl + "item/" + id,
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              data: $("[name='validateForm']").serialize()
+            })
+            .success(function(data, xhr) {
+              if (xhr == 200) {
+                //成功操作 
+                tool.alert("提示", "已保存修改！", function() {
+                  //刷新当前页面.
+                  window.location.reload();
+                });
+                //回退至上一页面 
+              } else {
+                tool.alert("提示", "修改失败！");
+              }
+            }).error(function(response) {
+              if (response != null && response.errorMessage != null) {
+                tool.alert("提示", response.errorMessage);
+              }
+              $(":submit").attr("disabled", false);
+            });
+        };
       }]);
     })();
   </script>

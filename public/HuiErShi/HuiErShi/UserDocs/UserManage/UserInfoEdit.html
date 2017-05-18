@@ -589,13 +589,17 @@
               if (xhr == 200) {
                 tool.alert("提示", "保存成功!");
                 $(":submit").attr("disabled", false);
+                //刷新当前页面.
+                window.location.reload();
               } else {
                 tool.alert("提示", "保存失败,请重试!");
                 $(":submit").attr("disabled", false);
               }
             }).error(function(response) {
-              tool.alert("提示", response.errorMessage);
-              $(":submit").attr("disabled", false);
+              if (response && response.errorMessage) {
+                tool.alert("提示", response.errorMessage);
+                $(":submit").attr("disabled", false);
+              }
             });
         };
 

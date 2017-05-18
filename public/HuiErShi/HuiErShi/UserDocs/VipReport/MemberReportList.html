@@ -97,11 +97,13 @@
 
             <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
               <td>{{$index+1}}</td>
-              <td><img src="{{x.user.iconUrl}}" /><a href="MemberReportInfo.html#?id={{x.user.id}}">{{x.user.userName}}</a></td>
+              <td><img src="{{x.user.iconUrl}}" /><a href="../UserManage/UserInfo.html?id={{x.user.id}}">{{x.user.userName}}</a></td>
               <td>{{ x.gender=="M"?"男":"女"}}</td>
               <td>{{ x.createAt|date:"yyyy/MM/dd HH:mm:ss"}}&nbsp;&nbsp;{{x.user.vipEntity.adviser.name}}</td>
               <td><a href="MemberReportInfo.html?id={{x.id}}">{{x.id}}</a></td>
-              <td>{{ x.status=="Published"?"已发布":"已填写" }}</td>
+              <td><span ng-if="x.status=='0'">检查注册</span>
+                <span ng-if="x.status=='1'">专家建议已填写</span>
+                <span ng-if="x.status=='2'">已发布</span></td>
               <td>
                 <!--{{"TODO"}}-->
                 <a ng-repeat="v in x.appointment.appointmentItems" href="#?id={{v.id}}">{{ v.name }}</a>
@@ -146,6 +148,7 @@
     $(function() {
       // $(".start_end_time").datetimepicker();　
       tool.changeSelect($("#username"), true);
+      tool.changeSelect($("#sltStatus"), false);
       //会籍顾问 TODO 
       $("#sltAdviser").select2({
         placeholder: '请选择',

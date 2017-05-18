@@ -141,7 +141,15 @@
         },
         fireSearch: function(value) {
           return value.length > 1;
+        },
+        beforeMoveToRight: function($left, $right, $options) {
+          console.log($left);
+          console.log($right);
+          console.log($options);
+          console.log($options.text());
+          return true;
         }
+
       });
       //多选
       $("#sel_menu2").select2({

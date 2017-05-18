@@ -72,7 +72,15 @@
                     <label for="startAt" class="control-label">活动时间：</label>
                   </div>
                   <div class="col-sm-7 text-left">
-                    <input type="text" class="form-control start_end_time" id="startAt" name="startAt" placeholder="请选择时间" required ng-model="vm.entity.startAt">
+
+                    <div class="input-group timeblock">
+                      <input type="text" class="form-control start_end_time" id="txtStartTime" name="startAt" placeholder="请选择时间" required ng-model="vm.entity.startAt">
+                      <div class="input-group-btn" style="vertical-align: top;">
+                        <button type="button" class="btn btn-default" id="btnStarttime">
+                <span class="glyphicon glyphicon-calendar"></span></button>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
                 <div class="form-group col-xs-6">
@@ -80,7 +88,7 @@
                     <label for="lasted" class="control-label">持续：</label>
                   </div>
                   <div class="col-sm-6 col-md-6" style="padding-right: 0;">
-                    <input type="text" class="form-control" id="lasted" name="lasted" placeholder="单位：小时" required ng-model="vm.entity.lastedTime">
+                    <input type="number" class="form-control" id="lasted" name="lasted" placeholder="单位：小时" required ng-model="vm.entity.lastedTime">
                   </div>
                 </div>
               </div>
@@ -92,7 +100,7 @@
                     <label for="signUpCost" class="control-label">报名费：</label>
                   </div>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control" id="signUpCost" name="signUpCost" placeholder="报名费用" required ng-model="vm.entity.signUpCost">
+                    <input type="text" class="form-control vipprices" id="signUpCost" name="signUpCost" placeholder="报名费用" required ng-model="vm.entity.signUpCost">
                   </div>
                 </div>
                 <div class="form-group col-xs-6">
@@ -100,7 +108,7 @@
                     <label for="maxApplyNumber" class="control-label">活动人数：</label>
                   </div>
                   <div class="col-sm-6 col-md-6" style="padding-right: 0;">
-                    <input type="text" class="form-control" id="maxApplyNumber" name="maxApplyNumber" placeholder="单位：人" required ng-model="vm.entity.maxApplyNumber">
+                    <input type="number" class="form-control" id="maxApplyNumber" name="maxApplyNumber" placeholder="单位：人" required ng-model="vm.entity.maxApplyNumber">
                   </div>
                 </div>
               </div>
@@ -189,13 +197,13 @@
                 <button type="submit" class="btn  btn-success" w5c-form-submit="vm.saveinfo($event)">保存活动信息</button>
               </div>
               <div class="col-md-6 col-sm-6 text-right" ng-show="{{!isSave}}">
-                <button type="submit" class="btn  btn-primary" style="margin-right:30px;" w5c-form-submit="vm.editInfo($event)">修改活动信息</button>
+                <button type="submit" class="btn  btn-primary" style="margin-right:30px;" ng-click="vm.editInfo($event)">修改活动信息</button>
                 <button type="submit" class="btn btn-danger" ng-click="vm.deleteInfo($event)">删除活动信息</button>
               </div>
               <div class="col-md-6 col-sm-6 text-left">
                 <button type="button" class="btn btn-default" ng-show="{{isSave}}" onclick="javascript:history.back(-1)">　　返回　　</button>
 
-                <button type="submit" class="btn btn-primary" ng-show="{{!isSave}}" style="margin-right:30px;" ng-click="vm.show($event)">扫码预览</button>
+                <button type="submit" class="btn btn-primary" ng-show="{{!isSave}}" style="margin-right:30px;" ng-click="vm.show($event)">扫码预览（暂未实现）</button>
                 <button type="submit" class="btn btn-primary" ng-show="{{!isSave}}" ng-click="vm.notice($event)">群发通知</button>
               </div>
 
@@ -337,6 +345,23 @@
         }
       }
     });
+
+    $(document).ready(function() {
+      $(".vipprices").keyup(function() {
+        var reg = $(this).val().match(/\d+\.?\d{0,2}/);
+        var txt = '';
+        if (reg != null) {
+          txt = reg[0];
+        }
+        $(this).val(txt);
+      }).change(function() {
+        $(this).keypress();
+        var v = $(this).val();
+        if (/\.$/.test(v)) {
+          $(this).val(v.substr(0, v.length - 1));
+        }
+      });
+    });
     // 七牛云上传图片End 
     (function() {
       var app = angular.module("myApp", ["w5c.validator"]);
@@ -448,10 +473,9 @@
 
             },
             complete: function(xhr, textStatus) {
-              console.log(xhr.status);
-              if (xhr.status == 200 && xhr.statusText == "OK") {
-                // $('[name="validateForm"]')[0].reset();
-                tool.alert("提示", "数据保存成功");
+              console.log(xhr);
+              if (xhr.status == 200) {
+                tool.alert("提示", "数据保存成功", function() {});
                 window.location.href = "ActivityList.html";
               }
             }
@@ -507,8 +531,7 @@
         //删除活动
         vm.deleteInfo = function() {
           var id = urlObj.id;
-
-          var deleteUrl = BasicUrl + "vipCard/" + id;
+          var deleteUrl = BasicUrl + "activity/" + id;
           tool.confirm("提示",
             "是否确认删除此项目",
             function() {
@@ -521,12 +544,9 @@
                 })
                 .success(function(data, xhr) {
                   if (xhr == 200) {
-                    tool.alert("提示", "删除成功!", function() {
-
-                    });　
+                    tool.alert("提示", "删除成功!", function() {});　
                     //刷新当前页面.
                     window.location.href = "ActivityList.html";
-
                   } else {
                     tool.alert("提示", "删除失败,请重试!");
                   }
@@ -540,6 +560,34 @@
 
         //TODO 群发通知
         vm.notice = function() {
+          //点击变为已完成
+          var id = urlObj.id;
+          tool.confirm(
+            "提示",
+            "是否进行群发通知？",
+            function() {
+              //用户点击确认按钮时操作http://60.205.170.209:8080/admin/api/api-docs/../activity/2/notification
+              $.ajax({
+                type: "POST",
+                url: BasicUrl + "activity/" + id + "/notification",
+                dataType: "json",
+                error: function(response) {
+                  if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                    tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+                  }
+                },
+                complete: function(xhr, textStatus) {
+                  if (xhr.status == 200 && xhr.responseJSON && xhr.responseJSON.resultOK) {
+                    tool.alert("提示", "群发消息成功", function() {
+                      window.location.reload();
+                    });
+                  }
+                }
+              });
+            },
+            function() {
+              //用户点击取消按钮时操作
+            });
 
         }
 

@@ -58,7 +58,7 @@
           </thead>
           <tbody id="databody">
             <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
-              <td>{{ $index+1 }}:{{x.id}}</td>
+              <td>{{ $index+1 }}</td>
               <td><a href="#" ng-click=getEditModel(x.id)>{{ x.name }}</a></td>
               <td>{{ x.prescriptionType=="Sport"?"运动":"营养" }}</td>
               <td>{{ x.spell}}</td>
@@ -153,9 +153,11 @@
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
+    var searchindex = 0;
     $(function() {
       // $(".start_end_time").datetimepicker();
       tool.changeSelect($("#username"), true);
+      tool.changeSelect($("#prescriptionType"), false);
     });
     $("#modal").modal({　
       show: false, //默认是否展示
@@ -168,6 +170,8 @@
       $scope.isSave = true;
       //分页方法声明
       var pageing = function(pageindex, params) {
+
+          searchindex++;
           //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../prescription?
           var url = BasicUrl + "prescription?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
           $http.get(url).success(function(data) {
@@ -191,7 +195,7 @@
                     pageing($("#currentPage").val() - 1, params);
                   });
               } else {
-                tool.alert("提示", "当前条件下未获取到信息!");
+                // tool.alert("提示", "当前条件下未获取到信息!");
               }
             }
           });
@@ -201,11 +205,12 @@
 
       //查询按钮
       $scope.search = function() {
+
         var type = $("#prescriptionType").val();
         var name = $("#name").val();
         //校验只有一个搜索条件
         params = ""; //初始化查询条件
-        if (!(name || type)) {
+        if (!(name || type) && searchindex == 1) {
           tool.alert("提示", "请至少输入一个搜索条件");
           return false;
         }
@@ -216,6 +221,7 @@
         if (name) {
           params += "name=" + name + "&";
         }
+
         pageing(0, params);
       }
 
