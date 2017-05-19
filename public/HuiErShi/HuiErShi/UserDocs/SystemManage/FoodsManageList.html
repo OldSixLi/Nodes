@@ -121,7 +121,7 @@
   <!--脚本-->
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
   <script type="text/javascript" src="../../Scripts/select2.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
@@ -148,7 +148,7 @@
                 //赋值操作
                 $scope.title = 'FP_HM'; //排序字段
                 $scope.desc = 0; //排序方式（默认升序）
-                $scope.names = data;
+                $scope.data = data;
                 $scope.totalPage = data.page.totalPage;
                 $scope.totalRecord = data.page.totalResult;
                 //调用生成分页方法
