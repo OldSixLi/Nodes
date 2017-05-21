@@ -34,11 +34,12 @@
       <form class="form-horizontal w5c-form demo-form" w5c-form-validate="vm.validateOptions" novalidate name="validateForm">
         <!--活动图片上传-->
         <div class="col-md-2 col-sm-2">
+          {{vm.entity.iconUrl}}
           <!-- 点击上传图片 -->
           <!--上传图片Begin-->
           <div id="btn-uploader">
             <a id="pickfiles" href="javascript:void 0;">
-              <img src='{{vm.entity.iconUrl == ""? "../../images/upload/upload-alert.png" : vm.entity.iconUrl}}' id="img" class='img-responsive img-thumbnail img-block' alt='自定义'></a>
+              <img src='{{vm.entity.iconUrl == ""?"../../images/upload/upload-alert.png" : vm.entity.iconUrl}}' id="img" class='img-responsive img-thumbnail img-block' alt='自定义'></a>
             <input type="hidden" name="iconUrl" id="iconUrl" />
           </div>
           <!--上传图片End-->
@@ -74,7 +75,7 @@
                   <div class="col-sm-7 text-left">
 
                     <div class="input-group timeblock">
-                      <input type="text" class="form-control start_end_time" id="txtStartTime" name="startAt" placeholder="请选择时间" required ng-model="vm.entity.startAt">
+                      <input type="text" class="form-control start_end_time" id="txtStartTime" name="startAt" placeholder="请选择时间" required value={{vm.entity.startAt | date: 'yyyy/MM/dd HH:mm:ss'}} ng-model="vm.entity.startAt">
                       <div class="input-group-btn" style="vertical-align: top;">
                         <button type="button" class="btn btn-default" id="btnStarttime">
                 <span class="glyphicon glyphicon-calendar"></span></button>
@@ -241,18 +242,19 @@
               <tbody id="databody">
                 <tr ng-show="dataLengths" ng-repeat="x in vm.entity.members">
                   <td>{{ index+1 }}</td>
-                  <td>{{ x.userName }}</td>
-                  <td>{{ x.gender=="M"?"男":"女" }}</td>
+                  <td>{{ x.user.userName }}</td>
+                  <td>{{ x.user.gender=="M"?"男":"女" }}</td>
                   <!--报名时间-->
-                  <td>{{ "TODO"}}</td>
+                  <td>{{ x.createAt | date:"yyyy/MM/dd HH:mm:ss" }}</td>
                   <!--签到时间-->
-                  <td>{{ "TODO"}}</td>
+                  <td><span ng-if="!x.signed">未签到</span>
+                    <span ng-if="x.signed">{{ x.activeAt | date:"yyyy/MM/dd HH:mm:ss" }}</span></td>
                   <td>
-                    <a ng-click=cancelSign(x.id)>取消报名</a>
+                    <a href="#" ng-click="vm.cancelSign(x.user.id)">取消报名</a>
                   </td>
                 </tr>
                 <tr ng-show="!dataLengths">
-                  <td colspan="100" class="text-center ">没有相关数据</td>
+                  <td colspan="100" class="text-center">没有相关数据</td>
                 </tr>
               </tbody>
             </table>
@@ -346,6 +348,10 @@
       }
     });
 
+    function getLocalTime(nS) {
+      return new Date(parseInt(nS)).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+    }
+
     $(document).ready(function() {
       $(".vipprices").keyup(function() {
         var reg = $(this).val().match(/\d+\.?\d{0,2}/);
@@ -430,6 +436,9 @@
             if (data != null && data != "" && data != "null" && data.id) {
               $scope.vm.entity = data;
               $scope.vm.entity.todo = "TODO";
+              // vm.entity.startAt
+              vm.entity.startAt = getLocalTime(vm.entity.startAt);
+              $scope.dataLengths = vm.entity.members;
             } else {
               tool.alert("提示", "当前活动不存在！");
               window.history.back(-1); //回退至上一页面

@@ -213,15 +213,15 @@
             <div class="col-md-3">
               <p>
                 <label class="control-label">饮食记录：</label>
-                <a href=""><span>{{vipInfo.dietRecord}}</span></a>条
+                <a href="../UserData/FoodRecord.html"><span>{{vipInfo.dietRecord?vipInfo.dietRecord:0}}</span></a>条
               </p>
               <p>
                 <label class="control-label">运动记录：</label>
-                <a href=""><span>{{vipInfo.sportRecord}}</span></a>条
+                <a href="../UserData/SportsRecord.html"><span>{{vipInfo.sportRecord?vipInfo.sportRecord:0}}</span></a>条
               </p>
               <p>
                 <label class="control-label">需求记录：</label>
-                <a href=""><span>{{vipInfo.demand}}</span></a>条
+                <a href="DemandList.html"><span>{{vipInfo.demand?vipInfo.demand:0}}</span></a>条
               </p>
             </div>
           </div>
