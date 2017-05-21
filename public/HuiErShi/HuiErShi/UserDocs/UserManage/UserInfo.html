@@ -175,11 +175,11 @@
               </p>
               <p>
                 <label class="control-label">健康数据：</label>
-                <a href="">{{vipInfo.healthData}}</a>项
+                <a href="../UserData/ProjectList.html">{{vipInfo.healthData?vipInfo.healthData:0}}</a>项
               </p>
               <p>
                 <label class="control-label">用药记录：</label>
-                <a href="">{{vipInfo.medicineRecord}}</a>条
+                <a href="../UserData/UseDrugRecaod.html">{{vipInfo.medicineRecord?vipInfo.medicineRecord:0}}</a>条
               </p>
             </div>
             <div class="col-md-3">
@@ -189,7 +189,7 @@
               </p>
               <p>
                 <label class="control-label">验单：</label>
-                <a href=""><span>{{vipInfo.inspection}}</span></a>份
+                <a href="../VipReport/CheckLists.html"><span>{{vipInfo.inspection?vipInfo.inspection:0}}</span></a>份
               </p>
               <p>
                 <label class="control-label">预约日期：</label>
@@ -203,7 +203,7 @@
               </p>
               <p>
                 <label class="control-label">报名活动：</label>
-                <a href="">{{vipInfo.activity.signed+"/"+vipInfo.activity.total}}</a>次
+                <a href="ActivityList.html">{{vipInfo.activity.signed?vipInfo.activity.signed:0}}/{{vipInfo.activity.total?vipInfo.activity.total:0}}</a>次
               </p>
               <p>
                 <label class="control-label">专家团队：</label>
@@ -309,7 +309,7 @@
         </div>
         <div class="modal-footer text-center">
           <div class="row">
-            <div class="col-md-6"> <a class="btn btn-primary pull-right">保存</a></div>
+            <div class="col-md-6"> <a class="btn btn-primary pull-right" ng-click="setAdviser()">保存</a></div>
             <div class="col-md-6"> <a class="btn btn-default pull-left" data-dismiss="modal">取消</a></div>
 
           </div>
@@ -338,7 +338,7 @@
                 <div style="padding:5px;">
                 </div>
                 <select name="from" id="multiselect" class="form-control" size="16" multiple="multiple" ng-model="selectedName">
-              <option ng-repeat="x in options"  value="{{x.id}}">{{x.name+x.id}}</option>
+              <option ng-repeat="x in options"  value="{{x.id}}" data-type="{{x.type}}">{{x.name+x.id}}</option>
               </select>
               </div>
             </div>
@@ -498,10 +498,102 @@
       } else {
         tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
       }
+      //设置会员顾问
+      $scope.setAdviser = function() {
+        var userid = urlObj.id;
+        var adviserId = $("#adviserList").val(); //会籍顾问ID
+        if (!adviserId) {
+          tool.alert("提示", "请选择会籍顾问");
+          return false;
+        }
+        tool.confirm(
+          "提示",
+          "确认设置新会员顾问？",
+          function() {
+            //用户点击确认按钮时操作
+            $.ajax({
+              type: "PATCH",
+              url: BasicUrl + "vip/adviser",
+              data: {
+                id: userid,
+                advisorId: adviserId
+              },
+              dataType: "json",
+              error: function(response) {
+                if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                  tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+                }
 
+              },
+              complete: function(xhr, textStatus) {
+                if (xhr.status == 200) {
+                  tool.alert("提示", "设置成功！", function() {
+                    //刷新当前页面.
+                    window.location.reload();
+                  });
+                }
+              }
+            });
+          },
+          function() {});
+
+      }
 
       $scope.setExpert = function(id) {
         var userid = $scope.userid; //获取当前用户ID
+
+        var $users = $("#multiselect_to").find("option");
+        if ($users.length != 2) {
+          tool.alert("提示", "请至少选择一位饮食专家和一位运动专家");
+          return false;
+        }
+        var expert = {
+          food: null,
+          sport: null
+        };
+        $users.each(function() {
+          //获取饮食专家和运动专家
+          if ($(this).attr("data-type") == "food") {
+            expert.food = $(this).val();
+          }
+          if ($(this).attr("data-type") == "sport") {
+            expert.sport = $(this).val();
+          }
+        });
+
+        var datas = {
+          id: urlObj.id,
+          dietitianExpertId: expert.food,
+          sportExpertId: expert.sport
+        }
+
+        tool.confirm(
+          "提示",
+          "确认设置专家顾问？",
+          function() {
+            //用户点击确认按钮时操作
+            $.ajax({
+              type: "PATCH",
+              url: BasicUrl + "vip/experts",
+              data: datas,
+              dataType: "json",
+              error: function(response) {
+                if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                  tool.alert("提示", "设置失败，请重试！");
+                }
+
+              },
+              complete: function(xhr, textStatus) {
+                if (xhr.status == 200) {
+                  tool.alert("提示", "设置成功！", function() {
+                    //刷新当前页面.
+                    window.location.reload();
+                  });
+                }
+              }
+            });
+          },
+          function() {});
       }
     });
   </script>
