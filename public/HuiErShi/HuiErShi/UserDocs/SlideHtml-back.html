@@ -68,8 +68,8 @@
 
   <!-- 顶部 -->
   <div class="navtop text-right userbar">
-    <span class="glyphicon glyphicon-bell" style="color:white; " aria-hidden="true"></span>
-    <span class="glyphicon glyphicon-log-in" style="color:white;" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-bell" style="color:white;" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-log-in" style="color:white;cursor: pointer;" aria-hidden="true" onclick="logout(event)"></span>
   </div>
   <!-- 显示区域 -->
   <div class="workspace">
@@ -110,10 +110,7 @@
           var href = $(this).attr("data-link");
           $("dd").removeClass('action');
           $(this).addClass('action');
-          if ($(this).hasClass('rela')) {
-
-          }
-
+          if ($(this).hasClass('rela')) {}
           $("#work-frame").attr("src", href);
         });
       });
@@ -133,7 +130,9 @@
           }
         })
       });
-    }); // 菜单栏方法
+    });
+
+    // 菜单栏方法
     $("div.menu").find("dl").each(function(index) {
       $(this).find("dt").on("click", function(e) {
         $("[data-for]").hide();
@@ -148,6 +147,62 @@
         }
       });
     });
+
+    function logout(event) {
+      confirms("提示", "确认退出后台管理系统吗？", function() {
+        location.replace('Login.html');
+        event.returnValue = false;
+      }, function() {
+
+      });
+
+    }
+
+    function confirms(title, content, okCallback, cancelCallback) {
+      var confirm = okCallback && typeof okCallback === "function" ? okCallback :
+        function() {};
+      var cancel = cancelCallback && typeof cancelCallback === "function" ? cancelCallback :
+        function() {};
+      if (myBrowser() == "IE8") {
+        bootbox.confirm({
+          buttons: {
+            confirm: {
+              label: '确认',
+              className: 'btn-primary'
+            },
+            cancel: {
+              label: '取消',
+              className: 'btn-danger'
+            }
+          },
+          message: content,
+          callback: function(result) {
+            if (result) {
+              confirm();
+            } else {
+              cancel();
+            }
+          },
+          title: title,
+        });
+      } else {
+        var confirm = okCallback && typeof okCallback === "function" ? okCallback : function() {};
+        var cancel = cancelCallback && typeof cancelCallback === "function" ? cancelCallback : function() {};
+        $.confirm({
+          title: title,
+          content: content,
+          confirm: confirm,
+          cancel: cancel,
+          confirmButton: '确定',
+          cancelButton: '取消',
+          confirmButtonClass: 'btn-primary',
+          cancelButtonClass: 'btn-danger',
+          backgroundDismiss: false,
+          animation: 'zoom',
+          closeAnimation: 'scale'
+        });
+      }
+    }
   </script>
 </body>
 

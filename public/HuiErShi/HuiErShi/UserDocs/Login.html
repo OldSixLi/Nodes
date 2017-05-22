@@ -20,6 +20,10 @@
           <div class="form-group">
             <input name="password" class="form-control" placeholder="密码" ng-model="vm.data.password" type="password" required>
           </div>
+          <p class="text-center" ng-if="vm.errorMessage!=''">
+            <span class="w5c-error">{{vm.errorMessage}}</span>
+          </p>
+
           <div class="form-group">
             <button type="submit" w5c-form-submit="vm.saveinfo($event)" class="btn btn-primary">登录</button>
           </div>
@@ -59,10 +63,12 @@
           showErrorType: "1",
           showDynamicElement: true,
           dynamicName: "dynamicName",
-          data: {}
+          data: {},
+          errorMessage: ""
         };
 
         vm.saveinfo = function($event) {
+          vm.errorMessage = "";
           $(":submit").attr("disabled", true);
           $http({
               method: 'POST',
@@ -80,10 +86,16 @@
               if (xhr == 200) {
                 //成功操作
                 // TODO  保存COOKIE
+                vm.errorMessage = "";
                 window.location.href = "SlideHtml-back.html";
                 $scope.vm.data = {};
+
               }
             }).error(function(response) {
+              // vm.errorMessage = response.errorMessage;
+              // setTimeout(function() {
+              //   vm.errorMessage = "";
+              // }, 2000);
               alert(response.errorMessage);
               $(":submit").attr("disabled", false);
             });

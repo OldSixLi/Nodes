@@ -34,17 +34,12 @@
       <form class="form-horizontal w5c-form demo-form" w5c-form-validate="vm.validateOptions" novalidate name="validateForm">
         <!--活动图片上传-->
         <div class="col-md-2 col-sm-2">
-          {{vm.entity.iconUrl}}
           <!-- 点击上传图片 -->
-          <!--上传图片Begin-->
           <div id="btn-uploader">
             <a id="pickfiles" href="javascript:void 0;">
               <img src='{{vm.entity.iconUrl == ""?"../../images/upload/upload-alert.png" : vm.entity.iconUrl}}' id="img" class='img-responsive img-thumbnail img-block' alt='自定义'></a>
             <input type="hidden" name="iconUrl" id="iconUrl" />
           </div>
-          <!--上传图片End-->
-          <!-- <input type="file" id="fileUserPhoto" name="fileUserPhoto"> -->
-          <!--<input type="hidden" name="iconUrl" id="iconUrl" value="232" ng-model="vm.entity.iconUrl" />-->
         </div>
 
         <div class="col-md-10 col-sm-10">
