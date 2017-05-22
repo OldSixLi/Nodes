@@ -97,7 +97,7 @@
               <td> <span ng-show='x.report.reportNo'>{{"TODO"}}</span></td>
               <td> <span ng-show='x.report.reportNo'>{{x.name}}</span></td>
               <td>
-                <span><a href="#" ng-show='!x.report.reportNo'>创建报告单</a></span>
+                <span><a href="AddCheck.html?id={{x.id}}" ng-show='!x.report.reportNo'>创建报告单</a></span>
                 <span ng-show='x.report.reportNo'>{{x.report.reportNo }}</span>
               </td>
             </tr>

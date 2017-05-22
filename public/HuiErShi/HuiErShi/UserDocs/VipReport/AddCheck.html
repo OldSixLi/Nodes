@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>验单列表</title>
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+  <!-- 个人维护样式库 -->
+  <link href="../../Styles/common.css" rel="stylesheet">
+
+  <style>
+    .form-inline .form-control {
+      width: auto;
+    }
+  </style>
+</head>
+
+<body ng-app="myApp">
+  <!--检索项-->
+  <div ng-controller="customersCtrl" class="container-fluid">
+    <!-- 面包屑导航 -->
+    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+      <li><a href="javascript:void(0)">会员报告</a></li>
+      <li class="active">验单详情</li>
+    </ol>
+    <div class="row form-inline">
+      <div class="col-md-2"><img src="{{data.picUrl[0]}}" alt="" class="img-responsive img-thumbnail"></div>
+      <div class="col-md-10">
+        <p>会员姓名：{{data.user.vipEntity.realName}}　　　　　　性别：{{data.user.vipEntity.gender=="M"?"男":"女"}}　　　　　　手机：{{data.user.realName}}</p>
+        <p>验单评估：
+          <input type="radio" name="" value="1" checked>有效验单&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="" value="0">无效验单</p>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              验单名称：
+              <input type="text" name="" value="" class="form-control" placeholder="验单名称" ng-model="data.name"></div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              来源名称：<input type="text" name="" value="" class="form-control" placeholder="医院或体检中心名称"></div>
+          </div>
+
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <div class="col-md-4">
+            <div class="form-group">
+              验单日期：
+              <!--<div class="input-group input-append date form_datetime" data-picker-position="bottom-left">-->
+              <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" value="{{data.createAt|date:'yyyy/MM/dd HH:mm:ss'}}">
+              <!--<span class="add-on input-group-addon">
+                <i class="icon-th glyphicon glyphicon-calendar"></i>
+            </span>
+              </div>-->
+            </div>
+          </div>
+
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <div class="col-md-4">
+            <div class="form-group">
+              报告单号：
+              <input type="text" class="form-control" placeholder="报告单号" ng-model="data.report.id"></div>
+          </div>
+          <div class="col-md-4">
+            <button type="button" class="btn btn-primary" ng-click="merge()">合并报告单</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-primary" ng-click="addNew()">新建报告单</button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <hr>
+    <!--脚本-->
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script>
+      $(function() {
+
+
+
+      });
+
+
+
+      // keyWord=&adviserId=&minCreatedAt=&maxCreatedAt=
+      var params = ""; //全局变量  请求的参数
+      var app = angular.module('myApp', []);
+      app.controller('customersCtrl', function($scope, $http) {
+
+        var checkObj = new UrlSearch();
+        if (checkObj.id) {
+          //请求参数
+          var url = BasicUrl + "inspection/" + checkObj.id;
+          $http.get(url).success(function(data) {
+            if (data != null && data != "" && data != "null" && data.id) {
+              $scope.data = data;
+            } else {
+              tool.alert("提示", data.errorMessage);
+            }
+          }).error(function(data, header, config, status) {
+            //处理响应失败
+            tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+            window.location.href = "MemberList.html";
+          });
+        } else {
+          tool.alert("提示", "获取参数出错，请重试！", function() {});
+          window.history.back(-1);
+
+        }
+
+        $scope.merge = function() {
+
+        }
+        $scope.addNew = function() {
+
+        }
+
+      });
+    </script>
+</body>
+
+</html>
