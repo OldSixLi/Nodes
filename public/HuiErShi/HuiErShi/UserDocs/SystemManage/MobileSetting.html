@@ -188,7 +188,7 @@
               if (data.content != null && data.content.length > 0) {
                 $scope.data = data;
               } else {
-                tool.alert("提示", "未获取到数据！");
+                // tool.alert("提示", "未获取到数据！");
               }
             }
           });
@@ -215,6 +215,7 @@
             .success(function(data, xhr) {
               if (xhr == 204) {
                 tool.alert("提示", "保存成功!");　
+                window.location.reload();
               } else {
                 tool.alert("提示", "保存失败,请重试!");
               }
