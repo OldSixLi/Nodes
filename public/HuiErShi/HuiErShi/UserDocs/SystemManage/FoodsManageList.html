@@ -90,11 +90,11 @@
               <td>{{ x.ID }}</td>
               <td>{{ x.KPRQ?x.KPRQ:"2017年2月16日14:04:10" }}</td>
               <td>{{x.FP_HM}}</td>
-              <td><a href="{{x.FP_HM}}" title="修改信息"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;
-                <a href="{{x.FP_HM}}" title="删除信息"><span class="glyphicon glyphicon-trash"></span></a></td>
+              <td><a href="FoodsEdit.html?id={{x.id}}" title="修改信息"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;
+                <a href="#" ng-click="deleteItem(x.id)" title="删除信息"><span class="glyphicon glyphicon-trash"></span></a></td>
             </tr>
             <tr ng-show="!dataLengths">
-              <td colspan="100" class="text-center ">暂无结果</td>
+              <td colspan="100" class="text-center">暂无结果</td>
             </tr>
           </tbody>
         </table>
@@ -175,30 +175,22 @@
           var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
           //结束时间时间戳
           var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-          //用户名称
-          var keyWord = $("#txtKeyWord").val();
+
+          var foodname = $("#foodname").val();
+          var sltTag = $("#sltTag").val();
 
           //校验只有一个搜索条件
-          if (!(minExpiredAt || maxExpiredAt || keyWord)) {
-            alert("请至少输入一个搜索条件");
+          if (!(foodname || sltTag)) {
+            tool.alert("提示", "请至少输入一个搜索条件");
             return false;
           }
-          //起止日期校验
-          if (minExpiredAt > maxExpiredAt) {
-            alert("起止日期中结束时间不得早于起始时间");
-            return false;
+          params = "";
+          if (foodname) {
+            params += "foodname=" + foodname + "&";
           }
-          params = "keyWord=" + keyWord + "&minPayTime=" + minExpiredAt + "&maxPayTime=" + minExpiredAt;
-          var tag = $("#sltFromWhere").val();
-          var name = $("#keyword").val();
-
-          //校验只有一个搜索条件
-          if (!(name || tag)) {
-            alert("请至少输入一个搜索条件");
-            return false;
+          if (sltTag) {
+            params += "sltTag=" + sltTag + "&";
           }
-          //tag=&name=
-          params = "tag=" + tag + "&name=" + name;
           pageing(0, params);
         }
         //跳转至某页方法
@@ -209,6 +201,36 @@
           $scope.toPageValue = $scope.totalPage;
         }
         pageing($scope.toPageValue, params);
+      }
+
+      //删除项目操作方法
+      $scope.deleteItem = function(id) {
+        //TODO   url需要变化
+        var deleteUrl = BasicUrl + "vipCard/";
+        tool.confirm("提示",
+          "是否确认删除？",
+          function() {
+            $http({
+                method: deleteUrl,
+                url: "",
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                }
+              })
+              .success(function(data, xhr) {
+                if (xhr == 200) {
+                  tool.alert("提示", "删除成功!");　
+                  //刷新当前页面.
+                  window.location.reload();
+                } else {
+                  tool.alert("提示", "删除失败,请重试!");
+                }
+              }).error(function(response) {
+                tool.alert("提示", response.errorMessage);
+              });
+          },
+          function() {}
+        );
       }
     });
   </script>

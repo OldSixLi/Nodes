@@ -96,7 +96,7 @@
           <tbody id="databody">
             <tr ng-show="dataLengths" ng-repeat="x in data.content">
               <td>{{$index+data.page*data.pageNum+1}}</td>
-              <td>{{ x.FP_HM }}</td>
+              <td>{{ x.createAt | date:"yyyy/MM/dd HH:mm:ss" }}</td>
               <td>{{ x.user.vipEntity.adviser.name }}</td>
               <td>{{ x.user.vipEntity.realName }}</td>
               <td>{{ x.demandWay=="Telephone"?"电话":"来访"}}</td>

@@ -122,7 +122,8 @@
                 <div class="form-group col-xs-6">
                   <div class="col-sm-3 text-right">
                     <label for="signByUser" class="control-label">自助签到：</label>
-
+                    <input type="radio" name="isReleased" id="isReleased1" ng-checked="true" ng-value="1" ng-model="vm.entity.allowsingup">是
+                    <input type="radio" name="isReleased" id="isReleased1" ng-value="0" ng-model="vm.entity.allowsingup">否
                   </div>
                   <div class="col-sm-6">
                     <div class="radio">
@@ -168,18 +169,18 @@
               <div class="col-sm-10">
                 <div class="radio">
                   <label>
-                  <input type="radio" name="isReleased" id="isReleased1"
-                          ng-value=false ng-model="vm.entity.isReleased">待发布 (用户不可见)
+                  <input type="radio" name="isReleased" id="isReleased1" ng-checked="true"
+                          ng-value="0" ng-model="vm.entity.isReleased">待发布 (用户不可见)
                   &nbsp;&nbsp;&nbsp;&nbsp;
               </label>
                   <label>
                 <input type="radio" name="isReleased" id="isReleased2"
-                        ng-value=true ng-model="vm.entity.isReleased">
+                        ng-value="1" ng-model="vm.entity.isReleased">
                 发布 (用户可见)&nbsp;&nbsp;&nbsp;&nbsp;
             </label>
                   <label>
-                      <input type="radio" name="allowSignUp" id="allowSignUp1" ng-checked="true"
-                              ng-value=true ng-model="vm.entity.allowSignUp" checked>发布 (可见不可报名)&nbsp;&nbsp;&nbsp;&nbsp;
+                      <input type="radio" name="isReleased" id="isReleased3" 
+                              ng-value="2" ng-model="vm.entity.isReleased" checked>发布 (可见不可报名)&nbsp;&nbsp;&nbsp;&nbsp;
                   </label>
                 </div>
               </div>
@@ -448,6 +449,28 @@
         //新增按钮操作
         vm.saveinfo = function($event) {
           console.log("表单开始提交");
+
+
+          var val = vm.entity.isReleased;
+          var obj = {
+            allowSignUp: false,
+            isReleased: false,
+            signByUser: false
+          };
+
+          obj.signByUser = vm.entity.allowsingup != "0";
+          if (val == "0") {
+            obj.allowSignUp = false;
+            obj.isReleased = false;
+          }
+          if (val == "1") {
+            obj.allowSignUp = true;
+            obj.isReleased = true;
+          }
+          if (val == "2") {
+            obj.allowSignUp = false;
+            obj.isReleased = true;
+          }
           $.ajax({
             type: "post",
             url: 'http://60.205.170.209:8080/admin/api/activity',
@@ -464,9 +487,9 @@
               maxApplyNumber: vm.entity.maxApplyNumber,
               description: vm.entity.description,
               location: vm.entity.location,
-              allowSignUp: $("[name='allowSignUp']").val(),
-              isReleased: $("[name='allowSignUp']").val(),
-              signByUser: $("[name='allowSignUp']").val()
+              allowSignUp: obj.allowSignUp,
+              isReleased: obj.isReleased,
+              signByUser: obj.signByUser
             },
 
             dataType: "json",

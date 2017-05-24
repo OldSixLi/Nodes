@@ -85,7 +85,7 @@
                 <span ng-show="x.activated">已激活</span>
                 <!--TODO 待确认-->
                 <!--<span ng-show="!x.activated">已退款</span>-->
-                <a href="#" ng-click="deleteItem(x.id)" ng-show="!x.activated">退款</a>
+                <a href="#" ng-click="tuikuan(x.id)" ng-show="!x.activated">退款</a>
               </td>
             </tr>
             <tr ng-show="!dataLengths">
@@ -220,6 +220,33 @@
           $scope.toPageValue = $scope.totalPage;
         }
         pageing($scope.toPageValue - 1, params);
+      }
+
+      //退款
+      //删除项目操作方法
+      $scope.tuikuan = function(id) {
+        // /vipCard/delivery/1
+        var deleteUrl = BasicUrl + "vipCard/delivery" + id;
+        tool.confirm("提示",
+          "是否确认退款",
+          function() {
+            $http({
+              method: 'PATCH',
+              url: url = deleteUrl,
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            }).success(function(data, xhr) {
+              if (xhr == 200) {
+                tool.alert("提示", "退款成功!");　
+              } else {
+                tool.alert("提示", "退款失败,请重试!");
+              }
+            }).error(function(response) {
+              tool.alert("提示", response.errorMessage);
+            });
+          },
+          function() {});
       }
     });
   </script>

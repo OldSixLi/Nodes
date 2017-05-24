@@ -167,9 +167,9 @@
               <td><a href="#" ng-click=getEditModel(x.id)>{{x.name}}</a></td>
               <td>{{ x.expiredAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
               <td>{{ x.price +"元"}}</td>
-              <td>{{ x.outpatientCount }}</td>
+              <td>{{ x.outpatient_count }}</td>
               <td>{{x.vipType=="considerate"?"体验型":"关爱型"}}</td>
-              <td> {{"TODO备注"}}</td>
+              <td> {{x.remark}}</td>
               <td> {{"TODO使用情况"}}</td>
               <td> <a ng-click="deleteItem(x.id)"><span class="glyphicon glyphicon-trash"></span></a></td>
             </tr>
