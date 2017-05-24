@@ -294,7 +294,7 @@
       $scope.isSave = true;
       //分页方法声明
       var pageing = function(pageindex, params) {
-        var url = "http://60.205.170.209:8080/admin/api/vipCard?page=0&pageNum=10";
+        var url = BasicUrl + "vipCard?page=" + pageindex + "&pageNum=10";
         $http.get(url).success(function(data) {
           if (data != null && data != "" && data != "null") {
             //判断当前是否存在记录
@@ -327,7 +327,7 @@
         } else if ($scope.toPageValue > $scope.totalPage) {
           $scope.toPageValue = $scope.totalPage;
         }
-        pageing($scope.toPageValue, params);
+        pageing($scope.toPageValue - 1, params);
       }
 
       //删除项目操作方法

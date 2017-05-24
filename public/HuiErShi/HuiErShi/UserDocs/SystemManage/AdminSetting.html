@@ -30,6 +30,7 @@
         </div>
         &nbsp;&nbsp;&nbsp;
         <a data-toggle="modal" href="#modal" class="btn btn-primary pull-right" id="btnAddActivity" ng-click="clear()"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加管理员</a>
+        <a class="btn btn-primary pull-right" id="btnAddActivity" ng-click="search()" style="margin-right: 10px;"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
       </form>
     </div>
 
@@ -125,7 +126,7 @@
               <td>{{ x.mobile }}</td>
               <td>{{ "TODO权限" }}</td>
               <td>
-                <a href="{{x.FP_HM}}" title="修改操作" ng-click='editItem("{{x.id}}")'><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;
+                <a href="#" title="修改操作" ng-click='getEditModel(x.id)'><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;
                 <a href="#" title="删除操作" ng-click="deleteItem(x.id)"><span class="glyphicon glyphicon-trash"></span></a>
               </td>
             </tr>
@@ -238,8 +239,6 @@
         show: false, //默认是否展示
         backdrop: true, //隐藏背景 
       });
-      // $(".start_end_time").datetimepicker();
-      tool.changeSelect($("#sltDistrict"), false);
       $("#sltName").select2({
         placeholder: '请选择',
         allowClear: true,
@@ -263,6 +262,7 @@
         templateSelection: formatRepoSelection,
       });
 
+
       function formatRepo(repo) {
         return repo.realName;
       }
@@ -282,26 +282,17 @@
           //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../activity?
           var url = BasicUrl + "admin?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
           $http.get(url).success(function(data) {
-            if (data != null && data != "" && data != "null") {
+            if (data.length > 0) {
               //判断当前是否存在记录
               $scope.dataLengths = data.length > 0;
               if (data != null && data.length > 0) {
                 //赋值操作
                 $scope.data = data;
-                // $scope.totalPage = data.page.totalPage;
-                // $scope.totalRecord = data.page.totalResult;
-                //调用生成分页方法
-                initPageDiv($("#alreadyPage"), //在哪里生成页码
-                  pageindex, //当前页
-                  data.page.totalPage, //总页数
-                  5, //每次显示多少页
-                  $("#currentPage"), //隐藏域的值：当前页数
-                  function() {
-                    pageing($("#currentPage").val(), params);
-                  });
               } else {
                 alert("未获取到数据，请重试");
               }
+            } else {
+              $scope.dataLengths = data.length > 0;
             }
           });
         }
@@ -313,26 +304,23 @@
         //查询按钮
       $scope.search = function() {
         //TODO  需要修改部分
-        //参数赋值
-        var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
-        var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-        var keyword = $("#txtKeyWord").val();
-        var district = $("#sltDistrict").val();
+
         //用户名称
-        var username = $("#txtUserName").val();
-        //会员类型
-        var vipType = $("#sltType").val();
+        var username = $("#sltName").find('option:selected').text();
+        //工作
+        var txtKeyWord = $("#txtKeyWord").val();
         //校验只有一个搜索条件
-        if (!(minExpiredAt || maxExpiredAt || username || vipType)) {
+        if (!(username || txtKeyWord)) {
           alert("请至少输入一个搜索条件");
           return false;
         }
-        //起止日期校验
-        if (minExpiredAt > maxExpiredAt) {
-          alert("活动日期中结束时间不得早于起始时间");
-          return false;
+        params = '';
+        if (username) {
+          params += 'name=' + username + '&';
         }
-        params = "minStartAt=" + minExpiredAt + "&maxStartAt=" + maxExpiredAt + "&keyWord=" + keyword + "&District=" + district + "&";
+        if (txtKeyWord) {
+          params += 'job=' + txtKeyWord + '&';
+        }
         pageing(0, params);
       }
 
@@ -350,7 +338,7 @@
 
       //删除项目操作方法
       $scope.deleteItem = function(id) {
-        var deleteUrl = BasicUrl + "settings/" + id;
+        var deleteUrl = BasicUrl + "admin/" + id;
         tool.confirm("提示",
           "是否确认删除此项目",
           function() {

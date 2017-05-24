@@ -45,14 +45,14 @@
         <div class="form-group text-left">
           <label class="">视图标签： </label>
           <select class=" form-control " name="tag" id="tag">
-        <option value="请选择">请选择</option>
+        <option value="">请选择</option>
         <option ng-repeat="x in tag">{{x}}</option>      
       </select>
         </div>
         <div class="form-group text-left">
           <label class="">数据视图： </label>
           <select class="form-control" name="viewId" id="viewId">
-        <option value="请选择">请选择</option>
+        <option value="">请选择</option>
         <option ng-repeat="x in views" value="{{x.id}}">{{x.name}}</option>      
       </select>
         </div>
@@ -60,7 +60,7 @@
           <label class="">来源筛选： </label>
           <select class=" form-control " name="from" id="from">
         , 、
-        <option  value="所有">所有</option>  
+        <option  value="">所有</option>  
         <option  value="PC">PC</option>  
         <option  value="APP">APP</option>  
       </select>
@@ -88,10 +88,10 @@
           </thead>
           <tbody id="databody">
             <tr ng-show="dataLengths" ng-repeat="x in data.content">
-              <td><input type="checkbox" name="peojectDataId" ng-checked="isChecked(x.id)" ng-click="updateSelection($event,x.id)" /></td>
+              <td><input type="checkbox" name="peojectDataId" checked="{{checked}}" ng-checked="isChecked(x.id)" ng-click="updateSelection($event,x.id)" /></td>
 
               <td>{{ $index+data.page*data.pageNum+1}}</td>
-              <td>{{ x.id}}</td>
+              <td>{{ x.itemId}}</td>
               <td>{{ x.val}}</td>
               <td>{{"TODO"}}</td>
               <td>{{ x.createAt|date:"yyyy-MM-dd HH:mm:ss" +"　/　"+x.fromWhere}}</td>
@@ -103,12 +103,15 @@
             </tr>
           </tbody>
         </table>
-        {{selected}}
       </div>
+
     </div>
 
     <!--分页控件-->
     <div ng-show="dataLengths">
+      <div class="topage_block pull-left">
+        {{selected.length+"/10"}}
+        <button type="button" class="btn btn-primary" ng-click="compare()">比较变化情况</button></div>
       <div class="form-group pull-right topage_block">
         <!-- 跳转至 -->
         <label>{{totalRecord}}条/{{totalPage}}页</label>
@@ -122,18 +125,133 @@
         <ul class="pagination" id="alreadyPage"></ul>
       </div>
     </div>
+    <div id="main" ng-show="showTable" style="width: 80%;height:400px;margin:50px auto;"></div>
     <!-- 当前页隐藏域 -->
     <input id="currentPage" name="currentPage" value="1" type="hidden">
   </div>
   <!--脚本-->
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
   <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <script type="text/javascript" src="../../Scripts/echarts/echarts.js"></script>
   <script>
+    // 　　　　　　　　　　　　　　　　　　　　　　　　　
+    // 　◆◆◆◆◆◆◆◆◆◆◆　　　　　　◆　　　　　　
+    // 　◆　　　◆　　　　　◆　　　　　　◆　　　　　　
+    // 　◆　　◆◆◆◆◆　　◆　　◆◆◆◆◆◆◆◆◆　　
+    // 　◆　◆◆　　　◆　　◆　　　　　　◆　　　　　　
+    // 　◆　　　◆◆◆　　　◆　　　◆◆◆◆◆◆◆　　　
+    // 　◆◆◆◆　　　◆◆◆◆　　　　　　◆　　　　　　
+    // 　◆　　　◆◆　　　　◆　◆◆◆◆◆◆◆◆◆◆◆　
+    // 　◆　　　　　◆　　　◆　　　　　◆　◆　　　　　
+    // 　◆　　◆◆　　　　　◆　　　　◆　　◆　　　◆　
+    // 　◆　　　　◆◆　　　◆　　　◆◆　　　◆　◆　　
+    // 　◆◆◆◆◆◆◆◆◆◆◆　◆◆　◆　◆　　◆　　　
+    // 　◆　　　　　　　　　◆　　　　◆◆　　　　◆◆　
+
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 【04】指定图表的配置项和数据  
+    var currentDate = "2017-04-25";
+    var option = {
+      title: {
+        text: '项目数据图',
+        subtext: currentDate
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      // legend: {
+      //   data: ['最高气温', '最低气温']
+      // },
+      toolbox: {
+        show: true,
+        feature: {
+          mark: {
+            show: true
+          },
+          dataView: {
+            show: true,
+            readOnly: false
+          },
+          magicType: {
+            show: true,
+            type: ['line', 'bar']
+          }
+        }
+      },
+      calculable: true,
+      xAxis: [{
+        type: 'category',
+        boundaryGap: false,
+        data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+      }],
+      yAxis: [{
+        type: 'value',
+      }],
+      series: [{
+          name: '最大值',
+          type: 'line',
+          data: [11, 11, 15, 13, 12, 13, 10],
+
+          markPoint: {
+            data: [{
+              type: 'max',
+              name: '最大值'
+            }, {
+              type: 'min',
+              name: '最小值'
+            }]
+          },
+          markLine: {
+            data: [{
+              type: 'average',
+              name: '平均值'
+            }]
+          }
+        }
+        // , {
+        // name: '最大值',
+        // type: 'line',
+        // data: [132, 132, 112, 11, 122, 11, 19],
+
+        // markPoint: {
+        //   data: [{
+        //     type: 'max',
+        //     name: '最大值'
+        //   }, {
+        //     type: 'min',
+        //     name: '最小值'
+        //   }]
+        // },
+        // markLine: {
+        //   data: [{
+        //     type: 'average',
+        //     name: '平均值'
+        //   }]
+        // }
+        // }
+      ]
+    };
+
+    myChart.setOption(option);
+
+    // ****************************************
+    // 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+    // 　　◆◆◆◆◆　◆◆◆　　◆◆　　◆◆◆◆◆◆◆　◆◆◆◆　　◆◆　◆◆　
+    // 　　　　◆　　◆　　　◆　　◆　　◆　　◆　　◆　　◆　　◆　　◆　◆　　
+    // 　　　　◆　　◆　　　◆　　◆　　◆　　◆　◆　　　◆　　◆　　◆　◆　　
+    // 　　　　◆　　◆　　　◆　　◆　　◆　　◆◆◆　　　◆◆◆　　　◆　◆　　
+    // 　　　　◆　　◆　　　◆　　◆　　◆　　◆　◆　　　◆　◆　　　　◆　　　
+    // 　　　　◆　　◆◆◆　◆　　◆　　◆　　◆　　　　　◆　　◆　　　◆　　　
+    // 　　　　◆　　◆　　◆◆　　◆　　◆　　◆　　◆　　◆　　◆　　　◆　　　
+    // 　　　　◆　　　◆◆◆　　　　◆◆　　◆◆◆◆◆　◆◆◆　◆◆　◆◆◆　　
+    // 　◆　　◆　　　　　◆◆　　　　　　　　　　　　　　　　　　　　　　　　　
+    // 　◆◆◆　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
     $(function() {
       // $(".start_end_time").datetimepicker();
       tool.changeSelect($("#tag"), false);
@@ -171,6 +289,22 @@
       }
 
     });
+
+    //     　　　　　　　　　　　　　　　　　　　　　　
+    // 　　　　　◆◆◆　　　　◆◆◆　　　◆◆◆　
+    // 　　　　◆◆◆◆　　　　◆◆◆◆　　◆◆◆　
+    // 　　　　◆◆◆◆　　　　◆◆◆◆　　◆◆◆　
+    // 　　　　◆◆◆◆◆　　　◆◆◆◆◆　◆◆◆　
+    // 　　　◆◆◆◆◆◆　　　◆◆◆◆◆　◆◆◆　
+    // 　　　◆◆◆◆◆◆　　　◆◆◆◆◆　◆◆◆　
+    // 　　　◆◆◆◆◆◆◆　　◆◆◆◆◆◆◆◆◆　
+    // 　　　◆◆◆　◆◆◆　　◆◆◆◆◆◆◆◆◆　
+    // 　　◆◆◆◆◆◆◆◆　　◆◆◆　◆◆◆◆◆　
+    // 　　◆◆◆　　◆◆◆◆　◆◆◆　◆◆◆◆◆　
+    // 　　◆◆◆　　◆◆◆◆　◆◆◆　◆◆◆◆◆　
+    // 　◆◆◆◆　　　◆◆◆　◆◆◆　　◆◆◆◆　
+    // 　◆◆◆　　　　◆◆◆　◆◆◆　　◆◆◆◆　
+    // 　◆◆◆　　　　◆◆◆◆◆◆◆　　　◆◆◆　
     var params = ""; //全局变量
     var basicUrl = "http://60.205.170.209:8080/admin/api/"; //统一接口地址
     //  
@@ -179,6 +313,7 @@
     var projectObj = new UrlSearch();
 
     app.controller('customersCtrl', function($scope, $http) {
+      $scope.showTable = false;
       var url = BasicUrl + "tag";
       $http.get(url).success(function(data) {
         if (data != null && data != "" && data != "null") {
@@ -221,6 +356,7 @@
           tool.alert("提示", "当前项目数据参数错误!");
         }
       }
+
       $http.get(BasicUrl + "tag").success(function(data) {
         if (data != null && data != "" && data != "null") {
           $scope.tag = data;
@@ -234,6 +370,16 @@
       });
       //分页方法
       pageing(0, params);
+      $scope.compare = function() {
+
+        if ($scope.selected.length != 0) {
+          $scope.showTable = true;
+        } else {
+          $scope.showTable = false;
+          tool.alert("提示", "请选择数据后再进行比较");
+        }
+      }
+
       //查询按钮
       $scope.search = function() {
           //TODO  需要修改部分
@@ -283,7 +429,6 @@
         return $scope.selected.indexOf(x) >= 0;
       };
       $scope.updateSelection = function($event, x) {
-
         var checkbox = $event.target;
         var checked = checkbox.checked;
         if (checked) {

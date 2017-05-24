@@ -40,23 +40,17 @@
         </div>
         <div class="form-group text-left">
           <label class="lbl_search">&nbsp;&nbsp;激活时间：</label>
-          <input id="txtStartTime" name="minExpiredAt1" class="start_end_time form-control" placeholder="开始时间">
+          <input id="txtStartTime1" name="minExpiredAt1" class="start_end_time form-control" placeholder="开始时间">
           <label class="">至</label>
-          <input id="txtEndTime" name="maxExpiredAt1" class="start_end_time form-control" placeholder="截止时间">
+          <input id="txtEndTime1" name="maxExpiredAt1" class="start_end_time form-control" placeholder="截止时间">
         </div>
-        <a ng-click="search()" class="btn btn-primary" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;添加</a>
+        <a ng-click="search()" class="btn btn-primary" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
 
       </form>
 
     </div>
 
-    <script>
-      $("#modal").modal({　
-        show: true, //默认是否展示
-        backdrop: false, //隐藏背景
-        keyboard: false
-      });
-    </script>
+
 
     <!-- 数据显示 -->
     <div class="ng-scope tab-content container-fluid">
@@ -81,10 +75,11 @@
                 <a href="#?id={{x.vipCardEntity.id}}">{{x.vipCardEntity.name+'('+x.vipCardEntity.shortName+')'}}</a>
               </td>
               <td>
-                <a href="../UserManage/UserInfo.html?id={{x.user.id}}"></a>
-                {{x.user.userName}}</td>
+                <a href="../UserManage/UserInfoEdit.html?id={{x.user.id}}"> {{x.user.userName}}</a>
+              </td>
               <td>{{x.createAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
-              <td href="#?id={{x.activeBy.id}}">{{x.activeBy.name }}</td>
+              <td><a href="../UserManage/UserInfo.html?id={{x.activeBy.id}}">{{x.activeBy.name }}</a>
+              </td>
               <td>{{x.activeAt }}</td>
               <td>
                 <span ng-show="x.activated">已激活</span>
@@ -141,7 +136,9 @@
       //分页方法声明
       var pageing = function(pageindex, params) {
           //请求地址
-          //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../activity?
+          //TODO  需要修改部分
+          // vipCard/delivery?
+          // http://60.205.170.209:8080/admin/api/api-docs/../activity?
           var url = BasicUrl + "vipCard/delivery?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
           $http.get(url).success(function(data) {
             if (data != null && data != "" && data != "null") {
@@ -162,7 +159,7 @@
                     pageing($("#currentPage").val() - 1, params);
                   });
               } else {
-                alert("未获取到数据，请重试");
+                // alert("未获取到数据，请重试");
               }
             }
           });
@@ -173,26 +170,46 @@
       $scope.search = function() {
           //TODO  需要修改部分
 
-          //参数赋值
+          //发放时间
           var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
           var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+          //激活时间
+          var minExpiredAt1 = Date.parse(new Date($("#txtStartTime1").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime1").val()));
+          var maxExpiredAt1 = Date.parse(new Date($("#txtEndTime1").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime1").val()));
           var keyword = $("#txtKeyWord").val();
-          var district = $("#sltDistrict").val();
-          //用户名称
-          var username = $("#txtUserName").val();
-          //会员类型
-          var vipType = $("#sltType").val();
+
           //校验只有一个搜索条件
-          if (!(minExpiredAt || maxExpiredAt || username || vipType)) {
-            alert("请至少输入一个搜索条件");
+          if (!(keyword || maxExpiredAt || minExpiredAt || minExpiredAt1 || maxExpiredAt1)) {
+            tool.alert("提示", "请至少输入一个搜索条件");
             return false;
           }
           //起止日期校验
-          if (minExpiredAt > maxExpiredAt) {
-            alert("活动日期中结束时间不得早于起始时间");
+          if (minExpiredAt && maxExpiredAt && minExpiredAt > maxExpiredAt) {
+            tool.alert("提示", "发放时间中结束时间不得早于起始时间");
             return false;
           }
-          params = "minStartAt=" + minExpiredAt + "&maxStartAt=" + maxExpiredAt + "&keyWord=" + keyword + "&District=" + district;
+          if (minExpiredAt1 && maxExpiredAt1 && minExpiredAt1 > maxExpiredAt1) {
+            tool.alert("提示", "激活日期中结束时间不得早于起始时间");
+            return false;
+          }
+          params = '';
+          // keyWord=0&minDeliverAt=0&maxDeliverAt=0&minActiveAt=0&maxActiveAt=0&page=0&pageNum=10
+          // (keyword || maxExpiredAt || minExpiredAt || minExpiredAt1 || maxExpiredAt1)
+          if (keyword) {
+            params += 'keyWord=' + keyword + '&';
+          }
+          if (minExpiredAt) {
+            params += 'minDeliverAt=' + minExpiredAt + '&';
+          }
+          if (maxExpiredAt) {
+            params += 'maxDeliverAt=' + maxExpiredAt + '&';
+          }
+          if (minExpiredAt1) {
+            params += 'minActiveAt=' + minExpiredAt1 + '&';
+          }
+          if (maxExpiredAt1) {
+            params += 'maxActiveAt=' + maxExpiredAt1 + '&';
+          }
           pageing(0, params);
         }
         //跳转至某页方法
