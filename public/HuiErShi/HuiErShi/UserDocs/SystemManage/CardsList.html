@@ -165,12 +165,12 @@
             <tr ng-show="dataLengths" ng-repeat="x in data.content">
               <td>{{ $index+(data.page+1)*data.pageNum-data.pageNum+1}}</td>
               <td><a href="#" ng-click=getEditModel(x.id)>{{x.name}}</a></td>
-              <td>{{ x.expiredAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
+              <td>{{ x.validity_period }}</td>
               <td>{{ x.price +"元"}}</td>
               <td>{{ x.outpatient_count }}</td>
               <td>{{x.vipType=="considerate"?"体验型":"关爱型"}}</td>
               <td> {{x.remark}}</td>
-              <td> {{"TODO使用情况"}}</td>
+              <td> {{x.actived_count+'/'+x.total_count}}</td>
               <td> <a ng-click="deleteItem(x.id)"><span class="glyphicon glyphicon-trash"></span></a></td>
             </tr>
             <tr ng-show="!dataLengths">

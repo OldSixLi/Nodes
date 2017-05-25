@@ -67,7 +67,7 @@ remark:xxxxxx-->
                 <div class="col-sm-2 text-right">
                   <label for="cost" class="control-label">成本</label></div>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="cost" name="cost" ng-model="cost" placeholder="成本"></div>
+                  <input type="text" class="form-control vipprices" id="cost" name="cost" ng-model="cost" placeholder="成本（请输入数字，单位：元）"></div>
               </div>
               <div class="form-group">
 
@@ -167,7 +167,22 @@ remark:xxxxxx-->
       var tool = new JSTOOL();
       tool.changeSelect($("#username"), true);
     });
-
+    $(document).ready(function() {
+      $(".vipprices").keyup(function() {
+        var reg = $(this).val().match(/\d+\.?\d{0,2}/);
+        var txt = '';
+        if (reg != null) {
+          txt = reg[0];
+        }
+        $(this).val(txt);
+      }).change(function() {
+        $(this).keypress();
+        var v = $(this).val();
+        if (/\.$/.test(v)) {
+          $(this).val(v.substr(0, v.length - 1));
+        }
+      });
+    });
     var params = "";　
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {　

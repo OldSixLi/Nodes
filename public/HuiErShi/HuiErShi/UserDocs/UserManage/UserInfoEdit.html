@@ -392,7 +392,7 @@
                     <a href="#?{{vm.entity.vipEntity.adviser.id}}"><img src='{{vm.entity.vipEntity.adviser.iconUrl}}' alt='会籍顾问'>{{vm.entity.vipEntity.adviser.name}}</a>
                   </td>
 
-                  <td><a href="#" ng-show="!x.activated">激活</a><span ng-show="x.activated">已激活</span></td>
+                  <td><a href="#" ng-show="!x.activated" ng-click="activeCard(x.vipCardEntity.id)">激活</a><span ng-show="x.activated">已激活</span></td>
                 </tr>
                 <tr ng-show="!vm.dataLengths">
                   <td colspan="100" class="text-center ">暂无结果</td>
@@ -421,6 +421,10 @@
 
 
   <script>
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
     var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
     //获取七牛uptoken　
     uploader = Qiniu.uploader({
@@ -487,7 +491,10 @@
         }
       }
     });　
-
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
     (function() {
       var app = angular.module("myApp", ["w5c.validator"]);
       window.app = app;
@@ -526,7 +533,10 @@
           }
         });
       }]);
-
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
       // 控制器
       //TODO：饮食习惯、运动习惯、压力状况 没有相关的接口。编号，所属不确定
       app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
@@ -602,6 +612,39 @@
               }
             });
         };
+        //点击变为已完成
+        $scope.activeCard = function(id) {
+          tool.confirm(
+            "提示",
+            "确认激活此会员卡？",
+            function() {
+              $.ajax({
+                type: "POST",
+                url: BasicUrl + "user/" + urlObj.id + '/vipCard/' + id + '/activation',
+                data: {
+                  adminId: 1,
+                  id: id
+                },
+                dataType: "json",
+                error: function(response) {
+                  if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                    tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+                  }
+                },
+                complete: function(xhr, textStatus) {
+                  if (xhr.status == 200) {
+                    tool.alert("提示", "激活成功", function() {
+                      //刷新当前页面.
+                      window.location.reload();
+                    });
+                  }
+                }
+              });
+            },
+            function() {
+              //用户点击取消按钮时操作
+            });
+        }
 
       }]);
     })();

@@ -459,10 +459,8 @@
         };
         var foodObj = new UrlSearch();
         if (foodObj.id) {
-          var foodid = foodObj.id; //获取当前用户的ID
-          // 会员信息展示
-          // var url = "http://60.205.170.209:8080/admin/api/vip/" + userid;
-          $http.get(BasicUrl + "vip/" + foodid).success(function(data) {
+          var foodid = foodObj.id; //获取当前用户的ID 
+          $http.get(BasicUrl + "diet/" + foodid).success(function(data) {
             if (data != null && data != "" && data != "null" && data.id) {
               $scope.vm.entity.vipEntity = data;
               $scope.vm.entity.todo = "TODO";

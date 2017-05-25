@@ -81,15 +81,15 @@
             </tr>
           </thead>
           <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in data.list">
+            <tr ng-show="dataLengths" ng-repeat="x in data.content">
               <td>{{ $index+1}}</td>
-              <td>{{ x.FP_HM }}</td>
-              <td>{{ x.FP_HM }}</td>
-              <td><a href="{{x.FP_HM}}">操作</a></td>
-              <td><a href="{{x.FP_HM}}">操作</a></td>
-              <td>{{ x.ID }}</td>
-              <td>{{ x.KPRQ?x.KPRQ:"2017年2月16日14:04:10" }}</td>
-              <td>{{x.FP_HM}}</td>
+              <td>{{ x.name }}</td>
+              <td>{{ x.name }}</td>
+              <td><a href="{{x.name}}">操作</a></td>
+              <td><a href="{{x.name}}">操作</a></td>
+              <td>{{ x.name }}</td>
+              <td>{{ x.name?x.name:"2017年2月16日14:04:10" }}</td>
+              <td>{{x.name}}</td>
               <td><a href="FoodsEdit.html?id={{x.id}}" title="修改信息"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;
                 <a href="#" ng-click="deleteItem(x.id)" title="删除信息"><span class="glyphicon glyphicon-trash"></span></a></td>
             </tr>
@@ -133,35 +133,33 @@
       tool.changeSelect($("#username"), true);
     });
     //
-    var params = "keyWord=&minPayTime=&maxPayTime="; //全局变量  请求的参数
+    var params = ""; //全局变量  请求的参数
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
       //分页方法声明
       var pageing = function(pageindex, params) {
-          //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../payment?
-          var url = "../../JSON/data.json?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+          var url = BasicUrl + "diet?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
           $http.get(url).success(function(data) {
             if (data != null && data != "" && data != "null") {
               //判断当前是否存在记录
-              $scope.dataLengths = data.list.length > 0;
-              if (data.list != null && data.list.length > 0) {
-                //赋值操作
-                $scope.title = 'FP_HM'; //排序字段
-                $scope.desc = 0; //排序方式（默认升序）
+              $scope.dataLengths = data.content.length > 0;
+              if (data.content != null && data.content.length > 0) {
+                //赋值操作 
                 $scope.data = data;
-                $scope.totalPage = data.page.totalPage;
-                $scope.totalRecord = data.page.totalResult;
+                $scope.totalPage = data.totalPages;
+                $scope.totalRecord = data.totalElements;
                 //调用生成分页方法
                 initPageDiv($("#alreadyPage"), //在哪里生成页码
-                  pageindex, //当前页
-                  data.page.totalPage, //总页数
+                  pageindex + 1, //当前页
+                  data.totalPages, //总页数
                   5, //每次显示多少页
                   $("#currentPage"), //隐藏域的值：当前页数
                   function() {
-                    pageing($("#currentPage").val(), params);
+                    pageing($("#currentPage").val() - 1, params);
                   });
               } else {
-                alert("未获取到数据，请重试");
+                $scope.dataLengths = false;
+                // alert("未获取到数据，请重试");
               }
             }
           });
@@ -206,13 +204,13 @@
       //删除项目操作方法
       $scope.deleteItem = function(id) {
         //TODO   url需要变化
-        var deleteUrl = BasicUrl + "vipCard/";
+        var deleteUrl = BasicUrl + "diet/" + id;
         tool.confirm("提示",
           "是否确认删除？",
           function() {
             $http({
-                method: deleteUrl,
-                url: "",
+                method: 'DELETE',
+                url: deleteUrl,
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'
                 }
@@ -220,7 +218,7 @@
               .success(function(data, xhr) {
                 if (xhr == 200) {
                   tool.alert("提示", "删除成功!");　
-                  //刷新当前页面.
+                  //刷新当前页面
                   window.location.reload();
                 } else {
                   tool.alert("提示", "删除失败,请重试!");

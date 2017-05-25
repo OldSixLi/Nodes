@@ -4,7 +4,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>处方列表</title>
+  <title>咨询列表</title>
   <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
@@ -37,7 +37,7 @@
 
         <div class="form-group text-left">
           <label class="control-label">专家顾问：</label>
-          <select id="expertList" class=" form-control"> </select>
+          <select id="expertList" class=" form-control"> <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option> </select>
         </div>
         <div class="form-group text-left">
           <label class="control-label">关键字：</label>
@@ -102,8 +102,8 @@
               <td>{{ x.reportDate| date:"yyyy/MM/dd HH:mm:ss" }}</td>
               <td>
                 <a href="MemberReportInfo.html?id={{x.reportId}}"> 
-                {{ x.reportId}}</a></td>
-              <td>{{ x.ID }}</td>
+                {{ x.reportNo}}</a></td>
+              <td>{{ x.experts }}</td>
               <td><a href="{{'TODO'}}">{{'TODO'}}</a></td>
             </tr>
             <tr ng-show="!dataLengths">
@@ -144,31 +144,33 @@
       //TODO 获取全部视图的数据 
       // $(".start_end_time").datetimepicker();
       //专家列表  TODO 
-      $("#expertList").select2({
-        placeholder: '请选择',
-        allowClear: true,
-        ajax: {
-          url: function(params) {
-            return BasicUrl + "admin/experts/" + params.term;
-          },
-          dataType: 'json',
-          delay: 250,
-          processResults: function(data, page) {
-            return {
-              results: data
-            };
-          },
-          cache: false
-        },
-        // escapeMarkup: function(markup) {
-        //   return markup;
-        // },
-        minimumInputLength: 1,
-        minimumResultsForSearch: 1,
-        width: "220px",
-        templateResult: formatRepo,
-        templateSelection: formatRepoSelection,
-      });
+      // $("#expertList").select2({
+      //   placeholder: '请选择',
+      //   allowClear: true,
+      //   ajax: {
+      //     url: function(params) {
+      //       return BasicUrl + "admin/experts/" + params.term;
+      //     },
+      //     dataType: 'json',
+      //     delay: 250,
+      //     processResults: function(data, page) {
+      //       return {
+      //         results: data
+      //       };
+      //     },
+      //     cache: false
+      //   },
+      //   // escapeMarkup: function(markup) {
+      //   //   return markup;
+      //   // },
+      //   minimumInputLength: 1,
+      //   minimumResultsForSearch: 1,
+      //   width: "220px",
+      //   templateResult: formatRepo,
+      //   templateSelection: formatRepoSelection,
+      // });
+
+      tool.changeSelect($("#expertList"), true);
     });
 
     function formatRepo(repo) {
@@ -183,6 +185,13 @@
     var params = ""; //全局变量
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
+      var url = BasicUrl + "admin/advisers";
+      $http.get(url).success(function(data) {
+        if (data != null && data != "" && data != "null") {
+          $scope.options = data;
+        }
+      });
+
       //分页方法声明
       var pageing = function(pageindex, params) {
           //请求地址 
@@ -194,20 +203,11 @@
               if (data != null && data.length > 0) {
                 //赋值操作 
                 $scope.data = data;
-                // $scope.totalPage = data.page.totalPage;
-                // $scope.totalRecord = data.page.totalResult;
-                //调用生成分页方法
-                // initPageDiv($("#alreadyPage"), //在哪里生成页码
-                //   pageindex + 1, //当前页
-                //   data.page.totalPage, //总页数
-                //   5, //每次显示多少页
-                //   $("#currentPage"), //隐藏域的值：当前页数
-                //   function() {
-                //     pageing($("#currentPage").val() - 1, params);
-                //   });
               } else {
-                alert("未获取到数据，请重试");
+                $scope.dataLengths = false;
               }
+            } else {
+              $scope.dataLengths = false;
             }
           });
         }
@@ -215,15 +215,42 @@
       pageing(0, params);
       //查询按钮
       $scope.search = function() {
-          var keyword = $("#txtKeyWord").val();
-          var viewId = $("#sltViewList").val();
+          //起始时间时间戳
+          var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+          //结束时间时间戳
+          var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+          //用户名称
+          var keyWord = $("#txtKeyWord").val();
+          //会员类型
+          var status = $("#sltViewList").val();
+          var expertId = $("#expertList").val();
 
-          //校验至少有一个搜索条件
-          if (!(keyword || viewId)) {
-            alert("请至少输入一个搜索条件");
+          //校验只有一个搜索条件
+          if (!(minExpiredAt || maxExpiredAt || keyWord || status || expertId)) {　　　
+            tool.alert("提示", "请至少输入一个搜索条件!");
             return false;
           }
-          params = "keyWord=" + keyword + "&viewId=" + viewId;
+          //起止日期校验
+          if (minExpiredAt && maxExpiredAt && minExpiredAt > maxExpiredAt) {　
+            tool.alert("提示", "报告日期中结束时间不得早于起始时间!");
+            return false;
+          }
+          params = '';
+          if (keyWord) {
+            params += 'keyWord=' + keyWord + '&';
+          }
+          if (expertId) {
+            params += 'expertId=' + expertId + '&';
+          }
+          if (status) {
+            params += 'status=' + status + '&';
+          }
+          if (minExpiredAt) {
+            params += 'minStartAt=' + minExpiredAt + '&';
+          }
+          if (maxExpiredAt) {
+            params += 'maxStartAt=' + maxExpiredAt + '&';
+          }　
           pageing(0, params);
         }
         //跳转至某页方法

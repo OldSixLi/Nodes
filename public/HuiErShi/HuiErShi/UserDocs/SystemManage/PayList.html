@@ -30,13 +30,12 @@
         <div class="form-group text-left">
           <label class="control-label">&nbsp;&nbsp;卡券：</label>
           <select class="form-control" id="cardsList" style="width:150px;">
-        <option value="">无</option>
+        <option value="">请选择</option>
+         <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option>
       </select>
         </div>
         <div class="form-group text-left">
           <label class="lbl_search">支付时间：</label>
-
-
           <div class="input-group timeblock">
             <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
             <div class="input-group-btn">
@@ -61,8 +60,8 @@
         </div>
 
         <!-- 搜索按钮 -->
-        <a href="#" class="btn btn-primary pull-right" id="添加"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加</a>
-        <a ng-click="search()" class="btn btn-primary pull-right" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+        <a data-toggle="modal" href="#modal" class="btn btn-primary pull-right" id="添加"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加</a>
+        <a ng-click="search()" class="btn btn-primary pull-right" id="btnSearch" style="margin-right: 5px;"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
       </form>
     </div>
 
@@ -71,13 +70,13 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title text-center">添加管理员</h4>
+            <h4 class="modal-title text-center">添加支付</h4>
           </div>
           <div class="modal-body">
 
             <!--功能点四：添加支付  
 根据昵称搜索用户，列表展示用户昵称、头像、性别。勾选用户，选择用户，填写会员卡类型和金额。        -->
-            <form class="form-horizontal" role="form" name="addForm">
+            <!--<form class="form-horizontal" role="form" name="addForm">
               <div class="form-group">
                 <div class="col-sm-3 text-right"><label for="inputEmail3" class="control-label" style="line-height:100px">上传照片</label></div>
                 <input type="text" name="iconUrl" class="" id="iconUrl" style="opacity:0;" ng-model="model.iconUrl">
@@ -119,7 +118,7 @@
                   <input type="radio" name="role" ng-model="model.role" value="3">饮食专家&nbsp;&nbsp;
                 </div>
               </div>
-            </form>
+            </form>-->
           </div>
           <div class="modal-footer">
             <a class="btn btn-default" data-dismiss="modal">取消</a>
@@ -239,6 +238,12 @@
     var params = "";
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
+      var url = BasicUrl + "vipCard/type";
+      $http.get(url).success(function(data) {
+        if (data != null && data != "" && data != "null") {
+          $scope.options = data;
+        }
+      });
       var pageing = function(pageindex, params) {
 
           // params + 
@@ -260,16 +265,22 @@
                   5,
                   $("#currentPage"),
                   function() {
+
                     pageing($("#currentPage").val() - 1, params);
                   });
               } else {
-                tool.alert("提示", "未获取到数据!");
+                $scope.dataLengths = false;
+                // tool.alert("提示", "未获取到数据!");
               }
             }
           });
         }
         //分页方法
       pageing(0, params);
+
+      // vipCard/type
+
+
       //查询按钮
       $scope.search = function() {
 
@@ -279,28 +290,31 @@
           var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
           //用户名称
           var keyWord = $("#txtKeyWord").val();
+          var cardsList = $("#cardsList").val();
 
           //校验只有一个搜索条件
-          if (!(minExpiredAt || maxExpiredAt || keyWord)) {
-            alert("请至少输入一个搜索条件");
+          if (!(minExpiredAt || maxExpiredAt || keyWord || cardsList)) {
+            tool.alert("提示", "请至少输入一个搜索条件");
             return false;
           }
           //起止日期校验
-          if (minExpiredAt > maxExpiredAt) {
-            alert("起止日期中结束时间不得早于起始时间");
+          if (minExpiredAt && maxExpiredAt && minExpiredAt > maxExpiredAt) {
+            tool.alert("提示", "起止日期中结束时间不得早于起始时间");
             return false;
           }
-          params = "keyWord=" + keyWord + "&minPayTime=" + minExpiredAt + "&maxPayTime=" + minExpiredAt;
-          var tag = $("#sltFromWhere").val();
-          var name = $("#keyword").val();
-
-          //校验只有一个搜索条件
-          if (!(name || tag)) {
-            alert("请至少输入一个搜索条件");
-            return false;
+          params = '';
+          if (keyWord) {
+            params += 'keyWord=' + keyWord + '&';
           }
-          //tag=&name=
-          params = "tag=" + tag + "&name=" + name + "&";
+          if (cardsList) {
+            params += 'cardType=' + cardsList + '&';
+          }
+          if (minExpiredAt) {
+            params += 'minPayTime=' + minExpiredAt + '&';
+          }
+          if (maxExpiredAt) {
+            params += 'maxPayTime=' + maxExpiredAt + '&';
+          }
           pageing(0, params);
         }
         //跳转至某页方法

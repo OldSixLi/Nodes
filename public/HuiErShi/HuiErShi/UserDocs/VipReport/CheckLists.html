@@ -37,7 +37,7 @@
 
         <div class="form-group text-left">
           <label class="control-label">&nbsp;&nbsp;姓名：</label>
-          <input type="text" class="form-control" id="txtKeyWord" placeholder="名称、缩写、拼音名">
+          <select name="" id="txtKeyWord"></select>
         </div>
         <div class="form-group text-left">
           <label class="">&nbsp;&nbsp;类型： </label>
@@ -53,7 +53,8 @@
         <div class="form-group text-left">
           <label class="">&nbsp;&nbsp;录入： </label>
           <select class=" form-control " id="sltTag" style="width:150px;">
-            <!--<option value="">会员名称</option>-->
+             <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option>
+     
              
           </select>
         </div>
@@ -94,7 +95,7 @@
               </td>
               <td>
                 <span ng-show='x.report.reportNo'> {{"TODO"}}</span></td>
-              <td> <span ng-show='x.report.reportNo'>{{"TODO"}}</span></td>
+              <td> <span ng-show='x.report.reportNo'>{{x.createAt| date:"yyyy/MM/dd HH:mm:ss"}}</span></td>
               <td> <span ng-show='x.report.reportNo'>{{x.name}}</span></td>
               <td>
                 <span><a href="AddCheck.html?id={{x.id}}" ng-show='!x.report.reportNo'>创建报告单</a></span>
@@ -137,15 +138,14 @@
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
     $(function() {
-      // $(".start_end_time").datetimepicker();
-      tool.changeSelect($("#username"), true);
 
-      $("#sltTag").select2({
+      tool.changeSelect($("#sltTag"), true);
+
+      $("#txtKeyWord").select2({
         placeholder: '请选择',
         allowClear: true,
         ajax: {
           url: function(params) {
-            //TODO  改为会籍顾问接口
             return BasicUrl + "vip/name/" + params.term;
           },
           dataType: 'json',
@@ -172,11 +172,21 @@
         return repo.realName;
       }
     });
+
+
+
     // keyWord=&adviserId=&minCreatedAt=&maxCreatedAt=
     var params = ""; //全局变量  请求的参数
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
-      //分页方法声明
+      //分页方法声明 
+      var url = BasicUrl + "admin/advisers";
+      $http.get(url).success(function(data) {
+        if (data != null && data != "" && data != "null") {
+          $scope.options = data;
+        }
+      });
+
       var pageing = function(pageindex, params) {
           var url = BasicUrl + "inspection?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
           $http.get(url).success(function(data) {
@@ -200,7 +210,8 @@
                     pageing($("#currentPage").val() - 1, params);
                   });
               } else {
-                tool.alert("提示", "未获取到数据！");
+                $scope.dataLengths = false;
+                // tool.alert("提示", "未获取到数据！");
               }
             }
           });
@@ -217,11 +228,11 @@
           //用户名称
           var keyWord = $("#txtKeyWord").val();
           //会员类型
-          var adviserId = $("#sltAdviser").val();
-          var status = $("#sltStatus").val();
+          var type = $("#sltAdviser").val();
+          var adviserId = $("#sltTag").val();
 
           //校验只有一个搜索条件
-          if (!(minExpiredAt || maxExpiredAt || keyWord || adviserId || status)) {　　　
+          if (!(minExpiredAt || maxExpiredAt || keyWord || type || type)) {　　　
             tool.alert("提示", "请至少输入一个搜索条件!");
             return false;
           }
@@ -231,8 +242,22 @@
 
             return false;
           }
-          //tag=&name=
-          params = "keyWord=" + keyWord + "&adviserId=" + adviserId + "&minCreatedAt=" + minExpiredAt + "&maxCreatedAt=" + maxExpiredAt;
+          params = '';
+          if (keyWord) {
+            params += 'keyWord=' + keyWord + '&';
+          }
+          if (adviserId) {
+            params += 'adviserId=' + adviserId + '&';
+          }
+          if (type) {
+            params += 'type=' + type + '&';
+          }
+          if (minExpiredAt) {
+            params += 'minCreatedAt=' + minExpiredAt + '&';
+          }
+          if (maxExpiredAt) {
+            params += 'maxCreatedAt=' + maxExpiredAt + '&';
+          }　
           pageing(0, params);
         }
         //跳转至某页方法

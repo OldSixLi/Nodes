@@ -7,7 +7,6 @@
   <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-  <!-- 个人维护样式库 -->
   <link href="../../Styles/common.css" rel="stylesheet">
 </head>
 
@@ -124,7 +123,10 @@
               <td>{{ x.job }}</td>
               <td>{{ x.id}}</td>
               <td>{{ x.mobile }}</td>
-              <td>{{ "TODO权限" }}</td>
+              <td>
+                <span ng-if="x.role=='1'">会籍顾问</span>
+                <span ng-if="x.role=='2'">运动专家</span>
+                <span ng-if="x.role=='3'">饮食专家</span></td>
               <td>
                 <a href="#" title="修改操作" ng-click='getEditModel(x.id)'><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;
                 <a href="#" title="删除操作" ng-click="deleteItem(x.id)"><span class="glyphicon glyphicon-trash"></span></a>
