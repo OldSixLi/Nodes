@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-<!--备注：当前页面没有相关接口-->
 <html>
 
 <head>
@@ -73,52 +72,25 @@
             <h4 class="modal-title text-center">添加支付</h4>
           </div>
           <div class="modal-body">
-
-            <!--功能点四：添加支付  
-根据昵称搜索用户，列表展示用户昵称、头像、性别。勾选用户，选择用户，填写会员卡类型和金额。        -->
-            <!--<form class="form-horizontal" role="form" name="addForm">
+            <form class="form-horizontal" role="form" name="addForm">
               <div class="form-group">
-                <div class="col-sm-3 text-right"><label for="inputEmail3" class="control-label" style="line-height:100px">上传照片</label></div>
-                <input type="text" name="iconUrl" class="" id="iconUrl" style="opacity:0;" ng-model="model.iconUrl">
-                <input type="text" name="id" class="" id="id" style="opacity:0;" ng-model="model.id">
-                <div class="col-sm-8 text-left img-container" id="btn-uploader">
-                  <a id="pickfiles">
-                    <img id="img" src='{{model.iconUrl ==null?"../../images/upload/upload-alert.png":model.iconUrl}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;"></a>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-3 text-right"><label for="inputEmail3" class="control-label">姓名</label></div>
+                <div class="col-sm-3 text-right"><label for="userId" class="control-label">会员名称</label></div>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="name" name="name" ng-model="model.name" placeholder="请输入姓名"></div>
+                  <select class="form-control" name="userId" id="userId"></select>
+                </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-3 text-right"><label for="inputPassword3" class="control-label">职位</label></div>
+                <div class="col-sm-3 text-right"><label for="modalCardsList" class="control-label">会员卡名</label></div>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="job" name="job" ng-model="model.job" placeholder="请输入职位"></div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-3 text-right"><label for="inputEmail3" class="control-label">手机号码</label></div>
-                <div class="col-sm-8"><input type="text" class="form-control" id="mobile" name="mobile" ng-model="model.mobile" placeholder="请输入手机号码"></div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-3 text-right"><label for="inputPassword3" class="control-label">用户名</label></div>
-                <div class="col-sm-8"><input type="text" class="form-control" id="adminNo" name="adminNo" ng-model="model.adminNo" placeholder="请输入用于登陆的用户名"></div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-3 text-right"><label for="inputEmail3" class="control-label">密码</label></div>
-                <div class="col-sm-8"><input type="text" class="form-control" id="password" name="password" placeholder="请输入密码" ng-model="model.password"></div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-3 text-right">
-                  <label for="inputPassword3" class="control-label">权限</label>
-                </div>
-                <div class="col-sm-8" style="line-height:35px;">
-                  <input type="radio" name="role" ng-model="model.role" value="1">会籍顾问&nbsp;&nbsp;
-                  <input type="radio" name="role" ng-model="model.role" value="2">运动专家&nbsp;&nbsp;
-                  <input type="radio" name="role" ng-model="model.role" value="3">饮食专家&nbsp;&nbsp;
+                  <select class="form-control" name="modalCardsList" id="modalCardsList"></select>
                 </div>
               </div>
-            </form>-->
+              <div class="form-group">
+                <div class="col-sm-3 text-right"><label for="cardFee" class="control-label">　　金额</label></div>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="cardFee" name="cardFee" ng-model="model.cardFee" placeholder="请输入金额"></div>
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
             <a class="btn btn-default" data-dismiss="modal">取消</a>
@@ -195,9 +167,61 @@
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
     $(function() {
-      // $(".start_end_time").datetimepicker();
-      // tool.changeSelect($("#cardsList"), false);
+      $("#userId").select2({
+        placeholder: '请选择',
+        allowClear: true,
+        ajax: {
+          url: function(params) {
+            return BasicUrl + "vip/name/" + params.term;
+          },
+          dataType: 'json',
+          delay: 250,
+          processResults: function(data, page) {
+            return {
+              results: data
+            };
+          },
+          cache: false
+        },
+        minimumInputLength: 1,
+        minimumResultsForSearch: 1,
+        width: "100%",
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection,
+      });
+
+      $("#modalCardsList").select2({
+        placeholder: '请选择',
+        allowClear: true,
+        ajax: {
+          // url: BasicUrl + "vip/name",
+          //TODO  当前卡券下拉列表未提供.
+          url: function(params) {
+            return BasicUrl + "vip/name/" + params.term;
+          },
+          dataType: 'json',
+          delay: 250,
+          processResults: function(data, page) {
+            return {
+              results: data
+            };
+          },
+          cache: false
+        },
+        // escapeMarkup: function(markup) {
+        //   return markup;
+        // },
+        minimumInputLength: 1,
+        minimumResultsForSearch: 1,
+        width: "100%",
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection,
+      });
       $("#cardsList").select2({
         placeholder: '请选择',
         allowClear: true,
@@ -234,16 +258,22 @@
         return repo.realName;
       }
     });
-    //    var params = "keyWord=&minPayTime=&maxPayTime=";
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 
     var params = "";
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
+      //请求会员卡下拉菜单列表
+      $scope.isSave = true;
       var url = BasicUrl + "vipCard/type";
       $http.get(url).success(function(data) {
         if (data != null && data != "" && data != "null") {
           $scope.options = data;
         }
       });
+      //分页
       var pageing = function(pageindex, params) {
 
           // params + 
@@ -259,18 +289,12 @@
                 $scope.data = data;
                 $scope.totalPage = data.totalPages;
                 $scope.totalRecord = data.totalElements;
-                initPageDiv($("#alreadyPage"),
-                  pageindex + 1,
-                  data.totalPages,
-                  5,
-                  $("#currentPage"),
+                initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"),
                   function() {
-
                     pageing($("#currentPage").val() - 1, params);
                   });
               } else {
                 $scope.dataLengths = false;
-                // tool.alert("提示", "未获取到数据!");
               }
             }
           });
@@ -278,46 +302,43 @@
         //分页方法
       pageing(0, params);
 
-      // vipCard/type
-
-
       //查询按钮
       $scope.search = function() {
+        //起始时间时间戳
+        var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+        //结束时间时间戳
+        var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+        //用户名称
+        var keyWord = $("#txtKeyWord").val();
+        var cardsList = $("#cardsList").val();
 
-          //起始时间时间戳
-          var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
-          //结束时间时间戳
-          var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-          //用户名称
-          var keyWord = $("#txtKeyWord").val();
-          var cardsList = $("#cardsList").val();
-
-          //校验只有一个搜索条件
-          if (!(minExpiredAt || maxExpiredAt || keyWord || cardsList)) {
-            tool.alert("提示", "请至少输入一个搜索条件");
-            return false;
-          }
-          //起止日期校验
-          if (minExpiredAt && maxExpiredAt && minExpiredAt > maxExpiredAt) {
-            tool.alert("提示", "起止日期中结束时间不得早于起始时间");
-            return false;
-          }
-          params = '';
-          if (keyWord) {
-            params += 'keyWord=' + keyWord + '&';
-          }
-          if (cardsList) {
-            params += 'cardType=' + cardsList + '&';
-          }
-          if (minExpiredAt) {
-            params += 'minPayTime=' + minExpiredAt + '&';
-          }
-          if (maxExpiredAt) {
-            params += 'maxPayTime=' + maxExpiredAt + '&';
-          }
-          pageing(0, params);
+        //校验只有一个搜索条件
+        if (!(minExpiredAt || maxExpiredAt || keyWord || cardsList)) {
+          tool.alert("提示", "请至少输入一个搜索条件");
+          return false;
         }
-        //跳转至某页方法
+        //起止日期校验
+        if (minExpiredAt && maxExpiredAt && minExpiredAt > maxExpiredAt) {
+          tool.alert("提示", "起止日期中结束时间不得早于起始时间");
+          return false;
+        }
+        params = '';
+        if (keyWord) {
+          params += 'keyWord=' + keyWord + '&';
+        }
+        if (cardsList) {
+          params += 'cardType=' + cardsList + '&';
+        }
+        if (minExpiredAt) {
+          params += 'minPayTime=' + minExpiredAt + '&';
+        }
+        if (maxExpiredAt) {
+          params += 'maxPayTime=' + maxExpiredAt + '&';
+        }
+        pageing(0, params);
+      }
+
+      //跳转至某页方法
       $scope.skip = function() {
         if ($scope.toPageValue <= 1) {
           $scope.toPageValue = 1;
@@ -325,6 +346,33 @@
           $scope.toPageValue = $scope.totalPage;
         }
         pageing($scope.toPageValue, params);
+      }
+
+      //添加支付
+      $scope.save = function() {
+        var data = {
+          userId: 0,
+          id: 0,
+          totalFee: $("#cardFee").val()
+        }
+        $http({
+            method: 'POST',
+            url: deleteUrl,
+            data: data,
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          })
+          .success(function(data, xhr) {
+            if (xhr == 200) {
+              tool.alert("提示", "删除成功!");　
+            } else {
+              tool.alert("提示", "删除失败,请重试!");
+            }
+          }).error(function(response) {
+            tool.alert("提示", response.errorMessage);
+          });
+
       }
     });
   </script>

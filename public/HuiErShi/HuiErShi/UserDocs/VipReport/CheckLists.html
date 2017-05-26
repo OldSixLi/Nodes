@@ -94,7 +94,7 @@
                 </span>
               </td>
               <td>
-                <span ng-show='x.report.reportNo'> {{"TODO"}}</span></td>
+                <span ng-show='x.report.reportNo'> {{x.loadBy.name}}</span></td>
               <td> <span ng-show='x.report.reportNo'>{{x.createAt| date:"yyyy/MM/dd HH:mm:ss"}}</span></td>
               <td> <span ng-show='x.report.reportNo'>{{x.name}}</span></td>
               <td>
@@ -220,7 +220,6 @@
       pageing(0, params);
       //查询按钮
       $scope.search = function() {
-
           //起始时间时间戳
           var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
           //结束时间时间戳
@@ -230,7 +229,6 @@
           //会员类型
           var type = $("#sltAdviser").val();
           var adviserId = $("#sltTag").val();
-
           //校验只有一个搜索条件
           if (!(minExpiredAt || maxExpiredAt || keyWord || type || type)) {　　　
             tool.alert("提示", "请至少输入一个搜索条件!");
@@ -239,7 +237,6 @@
           //起止日期校验
           if (minExpiredAt > maxExpiredAt) {　
             tool.alert("提示", "活动日期中结束时间不得早于起始时间!");
-
             return false;
           }
           params = '';
