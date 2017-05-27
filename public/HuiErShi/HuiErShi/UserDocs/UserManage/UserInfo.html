@@ -338,7 +338,16 @@
                 <div style="padding:5px;">
                 </div>
                 <select name="from" id="multiselect" class="form-control" size="16" multiple="multiple" ng-model="selectedName">
-              <option ng-repeat="x in options"  value="{{x.id}}" data-type="{{x.type}}">{{x.name+x.id}}</option>
+              <option ng-repeat="x in options"  value="{{x.id}}" data-type="{{x.role}}" ng-if="x.role==2">
+               {{x.name+"(运动专家)"}}
+                                </option>
+                                 <option ng-repeat="x in options"  value="{{x.id}}" data-type="{{x.role}}" ng-if="x.role==3">
+               {{x.name+"(饮食专家)"}}　
+             
+                                </option>
+
+
+                                　
               </select>
               </div>
             </div>
@@ -378,22 +387,29 @@
       //设置类型为soprt和food两种类型，每次移动前判断是否存在此类型
       $('#multiselect').multiselect({
         beforeMoveToRight: function($left, $right, $options) {
+          if ($options.length > 1) {
+            // tool.alert("提示", "每次仅可选择一个专家");
+            if ($right.find("option").length > 0) {
+              tool.alert("提示", "每人最多选择两位专家进行咨询！");
+              return false;
+            }
+          }
           var str = [];
           var obj = {};
-          var type = "sport"; //从$option获取当前类型
+          var type = $options.attr('data-type'); //从$option获取当前类型
           if ($right.find("option").length > 0) {
             $right.find("option").each(function() {
               str.push($(this).text());
-              obj[$(this).text()] = true;
+              obj[$(this).attr('data-type')] = true;
             });
             if (str.length == 2) {
               tool.alert("提示", "每人最多选择两位专家进行咨询！");
               return false;
             } else {
-              if (obj[type] && type == "sports") {
+              if (obj[type] && type == "2") {
                 tool.alert("提示", "每人只能选择一位运动专家进行咨询！");
                 return false;
-              } else if (obj[type] && type == "food") {
+              } else if (obj[type] && type == "3") {
                 tool.alert("提示", "每人只能选择一位饮食专家进行咨询！");
                 return false;
               } else {
@@ -458,7 +474,7 @@
     app.controller('customersCtrl', function($scope, $http) {
 
       //TODO  获取专家列表
-      var url = BasicUrl + "view";
+      var url = BasicUrl + "admin/experts";
       $http.get(url).success(function(data) {
         if (data != null && data != "" && data != "null") {
           $scope.options = data;
@@ -553,10 +569,10 @@
         };
         $users.each(function() {
           //获取饮食专家和运动专家
-          if ($(this).attr("data-type") == "food") {
+          if ($(this).attr("data-type") == "3") {
             expert.food = $(this).val();
           }
-          if ($(this).attr("data-type") == "sport") {
+          if ($(this).attr("data-type") == "2") {
             expert.sport = $(this).val();
           }
         });
