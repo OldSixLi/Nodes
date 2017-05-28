@@ -41,7 +41,10 @@
         </div>
         <div class="col-md-2">
           <p><b>年龄:</b><span>18</span></p>
-          <p><b>状态:</b><span>{{data.status}}</span></p>
+          <p><b>状态:</b>
+            <span ng-if="data.status=='0'">检查登记</span>
+            <span ng-if="data.status=='1'">专家填写</span>
+            <span ng-if="data.status=='2'">待发布</span><span ng-if="data.status=='3'">已发布</span></p>
           <!--检查注册-0， 专家建议已填写-1， 已发布-2-->
         </div>
         <div class="col-md-3">
@@ -58,16 +61,22 @@
       <hr>
       <div class="row">
         <!-- 消除外边距 -->
-        <div class="col-md-2"><img src='{{data.user.iconUrl==""?"http://usr.im/100x100?text=暂无图片":data.user.iconUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'></div>
-        <div class="col-md-10">
-          <p><b>报告分析:</b> {{data.consults.analysis}}(<a href="#?">修改</a>)</p>
-        </div>
-        <div class="col-md-10 col-md-offset-2"><b>专家建议:</b>
-          <ul ng-repeat="x in infos">{{data.consults.advice }}
-          </ul>
+        <div class="col-md-2"><img src='{{data.user.iconUrl==""?"http://usr.im/100x100?text=暂无图片":data.user.iconUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
 
+          <button type="button" class="btn btn-primary" ng-click="addChufang()" style="margin-top:10px;">确认提交</button>
+        </div>
+        <div class="col-md-10">
+          <p><b>报告分析:</b> {{data.consults.analysis}}(<a href="#?" ng-click="editReport(data.consults.analysis)">修改</a>)</p>
         </div>
         <div class="col-md-10 col-md-offset-2">
+          <p><b>专家建议:</b>{{data.consults.advice}}(<a href="#?" ng-click="editAdvice(data.consults.advice)">修改</a>)</p>
+
+
+        </div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-primary pull-right" ng-click="addChufang()">添加处方</button>
+        </div>
+        <div class="col-md-10">
           <table class="table  table-hover table-bordered">
             <!-- 表头 -->
             <thead>
@@ -148,6 +157,39 @@
         });
       } else {
         tool.alert("提示", "参数错误,当前无法获取数据!");
+      }
+
+      //添加处方功能
+      $scope.editReport = function(content) {
+        if (content) {
+          htmlstr = '<textarea id="editReport" class="form-control" placeholder="请输入修改内容">' + content + '</textarea>'
+        } else {
+          htmlstr = '<textarea class="form-control" id="editReport" placeholder="请输入修改内容">' + '</textarea>'
+        }
+
+        tool.confirm("请修改内容", htmlstr, function() {
+          var vals = window.top.$("#editReport").val();
+          $scope.data.consults.analysis = vals;
+          $scope.$apply();
+        }, function() {
+
+        })
+      }
+
+      $scope.editAdvice = function(content) {
+        if (content) {
+          htmlstr = '<textarea id="adviceContent" class="form-control" placeholder="请输入修改内容">' + content + '</textarea>'
+        } else {
+          htmlstr = '<textarea class="form-control" id="adviceContent" placeholder="请输入修改内容">' + '</textarea>'
+        }
+
+        tool.confirm("请修改内容", htmlstr, function() {
+          var val = window.top.$("#adviceContent").val();
+          $scope.data.consults.advice = val;
+          $scope.$apply();
+        }, function() {
+
+        })
       }
 
     });

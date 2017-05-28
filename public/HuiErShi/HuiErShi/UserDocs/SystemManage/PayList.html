@@ -28,8 +28,7 @@
         </div>
         <div class="form-group text-left">
           <label class="control-label">&nbsp;&nbsp;卡券：</label>
-          <select class="form-control" id="cardsList" style="width:150px;">
-        <option value="">请选择</option>
+          <select class="form-control" id="cardsList" style="width:150px;"> 
          <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option>
       </select>
         </div>
@@ -82,13 +81,16 @@
               <div class="form-group">
                 <div class="col-sm-3 text-right"><label for="modalCardsList" class="control-label">会员卡名</label></div>
                 <div class="col-sm-8">
-                  <select class="form-control" name="modalCardsList" id="modalCardsList"></select>
+                  <select class="form-control" name="modalCardsList" id="modalCardsList" style="width:100%;">
+<option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option>
+                    
+                  </select>
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-3 text-right"><label for="cardFee" class="control-label">　　金额</label></div>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="cardFee" name="cardFee" ng-model="model.cardFee" placeholder="请输入金额"></div>
+                  <input type="text" class="form-control vipprices" id="cardFee" name="cardFee" ng-model="model.cardFee" placeholder="请输入金额"></div>
               </div>
             </form>
           </div>
@@ -172,6 +174,22 @@
     // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
     // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
     $(function() {
+
+      $(".vipprices").keyup(function() {
+        var reg = $(this).val().match(/\d+\.?\d{0,2}/);
+        var txt = '';
+        if (reg != null) {
+          txt = reg[0];
+        }
+        $(this).val(txt);
+      }).change(function() {
+        $(this).keypress();
+        var v = $(this).val();
+        if (/\.$/.test(v)) {
+          $(this).val(v.substr(0, v.length - 1));
+        }
+      });
+
       $("#userId").select2({
         placeholder: '请选择',
         allowClear: true,
@@ -195,61 +213,6 @@
         templateSelection: formatRepoSelection,
       });
 
-      $("#modalCardsList").select2({
-        placeholder: '请选择',
-        allowClear: true,
-        ajax: {
-          // url: BasicUrl + "vip/name",
-          //TODO  当前卡券下拉列表未提供.
-          url: function(params) {
-            return BasicUrl + "vip/name/" + params.term;
-          },
-          dataType: 'json',
-          delay: 250,
-          processResults: function(data, page) {
-            return {
-              results: data
-            };
-          },
-          cache: false
-        },
-        // escapeMarkup: function(markup) {
-        //   return markup;
-        // },
-        minimumInputLength: 1,
-        minimumResultsForSearch: 1,
-        width: "100%",
-        templateResult: formatRepo,
-        templateSelection: formatRepoSelection,
-      });
-      $("#cardsList").select2({
-        placeholder: '请选择',
-        allowClear: true,
-        ajax: {
-          // url: BasicUrl + "vip/name",
-          //TODO  当前卡券下拉列表未提供.
-          url: function(params) {
-            return BasicUrl + "vip/name/" + params.term;
-          },
-          dataType: 'json',
-          delay: 250,
-          processResults: function(data, page) {
-            return {
-              results: data
-            };
-          },
-          cache: false
-        },
-        // escapeMarkup: function(markup) {
-        //   return markup;
-        // },
-        minimumInputLength: 1,
-        minimumResultsForSearch: 1,
-        width: "220px",
-        templateResult: formatRepo,
-        templateSelection: formatRepoSelection,
-      });
-
       function formatRepo(repo) {
         return repo.realName;
       }
@@ -267,12 +230,16 @@
     app.controller('customersCtrl', function($scope, $http) {
       //请求会员卡下拉菜单列表
       $scope.isSave = true;
-      var url = BasicUrl + "vipCard/type";
+      var url = BasicUrl + "vipCard?page=0&pageNum=10";
       $http.get(url).success(function(data) {
         if (data != null && data != "" && data != "null") {
-          $scope.options = data;
+          $scope.options = data.content;
         }
       });
+
+
+      tool.changeSelect($("#cardsList"), true);
+      tool.changeSelect($("#modalCardsList"), true);
       //分页
       var pageing = function(pageindex, params) {
 
@@ -351,13 +318,14 @@
       //添加支付
       $scope.save = function() {
         var data = {
-          userId: 0,
-          id: 0,
+          userId: $("#userId").val(),
+          id: $("#modalCardsList").val(),
           totalFee: $("#cardFee").val()
         }
+        var url = BasicUrl + "payment";
         $http({
             method: 'POST',
-            url: deleteUrl,
+            url: url,
             data: data,
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded'
@@ -365,9 +333,10 @@
           })
           .success(function(data, xhr) {
             if (xhr == 200) {
-              tool.alert("提示", "删除成功!");　
+              tool.alert("提示", "添加成功!");　
+              window.location.reload();
             } else {
-              tool.alert("提示", "删除失败,请重试!");
+              tool.alert("提示", "添加失败,请重试!");
             }
           }).error(function(response) {
             tool.alert("提示", response.errorMessage);

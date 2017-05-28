@@ -227,6 +227,10 @@ body {
   display: none;
 }
 
+.jconfirm.white .jconfirm-box .buttons .btn-default {
+  border: 1px solid #ccc;
+}
+
 
 /*nt url('../images/person_dot.png') no-repeat 6px center;
 

@@ -216,6 +216,14 @@ remark:xxxxxx-->
           });
         }
         //分页方法
+
+
+      var obj = new UrlSearch();
+      if (obj.name) {
+        params = "name=" + obj.name + "&";
+      } else {
+        params = "";
+      }
       pageing(0, params);
       //查询按钮
       $scope.search = function() {

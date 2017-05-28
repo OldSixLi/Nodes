@@ -29,7 +29,8 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title text-center">新增卡券</h4>
+            <h4 class="modal-title text-center" ng-if="isSave">新增卡券</h4>
+            <h4 class="modal-title text-center" ng-if="!isSave">编辑卡券</h4>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -167,7 +168,8 @@
               <td>{{ x.outpatient_count }}</td>
               <td>{{x.vipType=="considerate"?"体验型":"关爱型"}}</td>
               <td> {{x.remark}}</td>
-              <td> {{x.actived_count+'/'+x.total_count}}</td>
+              <td>
+                <a href="IssueDetails.html?id={{x.id}}">{{x.actived_count+'/'+x.total_count}}</a> </td>
               <td> <a ng-click="deleteItem(x.id)"><span class="glyphicon glyphicon-trash"></span></a></td>
             </tr>
             <tr ng-show="!dataLengths">

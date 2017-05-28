@@ -106,7 +106,7 @@
                 <span ng-if="x.status=='2'">已发布</span></td>
               <td>
                 <!--{{"TODO"}}-->
-                <a ng-repeat="v in x.appointment.appointmentItems" href="#?id={{v.id}}">{{ v.name }}</a>
+                <a ng-repeat="v in x.appointment.appointmentItems" href="../SystemManage/ReservationItem.html?name={{v.name}}">{{ v.name }}</a>
               </td>
             </tr>
             <tr ng-show="!dataLengths">
