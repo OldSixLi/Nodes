@@ -21,8 +21,8 @@
       <form class="form-inline" role="form">
         <div class="form-group text-left">
           <label class="">姓名： </label>
-          <select class="form-control" name="sltName" id="sltName">
-           
+          <select class="form-control" name="sltName" id="sltName" style="width:180px;">
+            <option ng-repeat="x in options" value="{{x.name}}">{{x.name}}</option>
           </select>
           <label class="">&nbsp;&nbsp;&nbsp;&nbsp;职位： </label>
           <input id="txtKeyWord" name="keyword" class="form-control" placeholder="关键字" type="text">
@@ -68,7 +68,10 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-3 text-right"><label for="inputPassword3" class="control-label">用户名</label></div>
-                <div class="col-sm-8"><input type="text" class="form-control" id="adminNo" name="adminNo" ng-model="model.adminNo" placeholder="请输入用于登陆的用户名"></div>
+                <div class="col-sm-8">
+
+
+                  <input type="text" class="form-control" id="adminNo" name="adminNo" ng-model="model.adminNo" placeholder="请输入用于登陆的用户名"></div>
               </div>
               <div class="form-group">
                 <div class="col-sm-3 text-right"><label for="inputEmail3" class="control-label">密码</label></div>
@@ -114,7 +117,7 @@
             </tr>
           </thead>
           <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in data  | orderBy : title : desc">
+            <tr ng-repeat="x in data  | orderBy : title : desc">
               <td>{{ $index+ 1}}</td>
               <td>
                 <a href="#" ng-click=getEditModel(x.id)><img src="{{x.iconUrl}}" alt="" />&nbsp;{{ x.name }}</a>
@@ -140,7 +143,7 @@
       </div>
     </div>
     <!--分页控件-->
-    <div ng-show="dataLengths">
+    <div ng-show="false">
       <div class="form-group pull-right topage_block">
         <!-- 跳转至 -->
         <label>{{totalRecord}}条/{{totalPage}}页</label>
@@ -241,28 +244,30 @@
         show: false, //默认是否展示
         backdrop: true, //隐藏背景 
       });
-      $("#sltName").select2({
-        placeholder: '请选择',
-        allowClear: true,
-        ajax: {
-          url: function(params) {
-            return BasicUrl + "vip/name/" + params.term;
-          },
-          dataType: 'json',
-          delay: 250,
-          processResults: function(data, page) {
-            return {
-              results: data
-            };
-          },
-          cache: false
-        },
-        minimumInputLength: 1,
-        minimumResultsForSearch: 1,
-        width: "120px",
-        templateResult: formatRepo,
-        templateSelection: formatRepoSelection,
-      });
+
+      tool.changeSelect($("#sltName"), true);
+      // $("#sltName").select2({
+      //   placeholder: '请选择',
+      //   allowClear: true,
+      //   ajax: {
+      //     url: function(params) {
+      //       return BasicUrl + "vip/name/" + params.term;
+      //     },
+      //     dataType: 'json',
+      //     delay: 250,
+      //     processResults: function(data, page) {
+      //       return {
+      //         results: data
+      //       };
+      //     },
+      //     cache: false
+      //   },
+      //   minimumInputLength: 1,
+      //   minimumResultsForSearch: 1,
+      //   width: "120px",
+      //   templateResult: formatRepo,
+      //   templateSelection: formatRepoSelection,
+      // });
 
 
       function formatRepo(repo) {
@@ -278,6 +283,13 @@
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
       $scope.isSave = true;
+      var urllist = BasicUrl + "admin";
+      $http.get(urllist).success(function(data) {
+        if (data != null && data != "" && data != "null") {
+          $scope.options = data;
+        }
+      });
+
       //分页方法声明
       var pageing = function(pageindex, params) {
           //请求地址
@@ -294,7 +306,7 @@
                 alert("未获取到数据，请重试");
               }
             } else {
-              $scope.dataLengths = data.length > 0;
+              $scope.dataLengths = false;
             }
           });
         }
@@ -342,7 +354,7 @@
       $scope.deleteItem = function(id) {
         var deleteUrl = BasicUrl + "admin/" + id;
         tool.confirm("提示",
-          "是否确认删除此项目",
+          "是否确认删除此用户吗？",
           function() {
             $http({
               method: 'DELETE',
@@ -353,6 +365,8 @@
             }).success(function(data, xhr) {
               if (xhr == 200) {
                 tool.alert("提示", "删除成功!");　
+                //刷新当前页面.
+                window.location.reload();
               } else {
                 tool.alert("提示", "删除失败,请重试!");
               }

@@ -37,7 +37,7 @@
 
         <a data-toggle="modal" href="#modal" class="btn btn-primary  pull-right"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加</a>
         <!-- 搜索按钮 -->
-        <a ng-click="search()" class="btn btn-primary pull-right" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+        <a ng-click="search()" class="btn btn-primary pull-right" id="btnSearch" style="margin:0 5px;"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
 
       </form>
     </div>
@@ -118,7 +118,8 @@ remark:xxxxxx-->
             <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
               <td>{{ $index+(data.page+1)*data.pageNum-data.pageNum+1}}</td>
               <td>
-                <a href="{{x.id}}">{{ x.name }}</a> </td>
+                <!--<a href="{{x.id}}">{{ x.name }}</a>-->{{ x.name }}
+              </td>
               <td>{{x.cost}}</td>
               <td>{{x.inspectionName }}</td>
               <td>{{x.remark}}</td>
