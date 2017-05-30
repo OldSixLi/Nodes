@@ -65,12 +65,12 @@
           <button type="button" class="btn btn-primary" ng-click="addConsult('food')" style="margin-top:10px;">确认提交</button>
         </div>
         <div class="col-md-10">
-          <p><b>报告分析:</b>(<a href="#?" ng-click="editReport(expertData.foodReport,'food')">修改</a>)
+          <p><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.foodReport,'food')">修改</a>)
             <br>
             <span>　　</span> <span>{{expertData.foodReport}}
              </span>
           </p>
-          <p><b>专家建议:</b>(<a href="#?" ng-click="editAdvice(expertData.foodAdvice,'food')">修改</a>)
+          <p><b>专家建议:</b>(<a href="" ng-click="editAdvice(expertData.foodAdvice,'food')">修改</a>)
             <br>
             <span>　　</span> <span>{{expertData.foodAdvice}}</span>
           </p>
@@ -124,12 +124,12 @@
           <button type="button" class="btn btn-primary" ng-click="addConsult('sport')" style="margin-top:10px;">确认提交</button>
         </div>
         <div class="col-md-10">
-          <p id="sportReport"><b>报告分析:</b>(<a href="#?" ng-click="editReport(expertData.sportReport,'sport')">修改</a>)
+          <p id="sportReport"><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.sportReport,'sport')">修改</a>)
             <br>
             <span>　　</span> <span class="content">{{expertData.sportReport}}
              </span>
           </p>
-          <p id="sportAdvice"><b>专家建议:</b>(<a href="#?" ng-click="editAdvice(expertData.sportAdvice,'sport')">修改</a>)
+          <p id="sportAdvice"><b>专家建议:</b>(<a href="" ng-click="editAdvice(expertData.sportAdvice,'sport')">修改</a>)
             <br>
             <span>　　</span> <span class="content">{{expertData.sportAdvice}}</span>
           </p>
@@ -544,39 +544,72 @@
             "提示",
             "确认添加建议？",
             function() {
-              $.ajax({
-                type: "POST",
-                url: BasicUrl + "report/" + $scope.reportId + "/consult",
-                data: {
-                  reportId: $scope.reportId - 0,
-                  adminId: adminId, //TODO  修改
-                  analysis: $scope.expertData[type + 'Report'],
-                  advice: $scope.expertData[type + 'Advice'],
-                  prescriptions: chufang.join(','), //处方
-                  attach: "" //附件
-                },
-                dataType: "json",
-                error: function(response) {
-                  if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-                    tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-                  }
-                },
-                success: function(data) {
+              // $.ajax({
+              //   type: "POST",
+              //   url: BasicUrl + "report/" + $scope.reportId + "/consult",
+              //   data: {
+              //     reportId: $scope.reportId - 0,
+              //     adminId: adminId, //TODO  修改
+              //     analysis: $scope.expertData[type + 'Report'],
+              //     advice: $scope.expertData[type + 'Advice'],
+              //     prescriptions: chufang.join(','), //处方
+              //     attach: "" //附件
+              //   },
+              //   dataType: "json",
+              //   error: function(response) {
+              //     if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+              //       tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+              //     }
+              //   },
+              //   success: function(data) {
 
-                },
-                complete: function(xhr, textStatus) {
-                  if (xhr.status == 200) {
-                    if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
-                      tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
-                    } else {
-                      tool.alert("提示", "发布成功", function() {
-                        //刷新当前页面.
-                        window.location.reload();
-                      });
-                    }
+              //   },
+              //   complete: function(xhr, textStatus) {
+              //     if (xhr.status == 200) {
+              //       if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
+              //         tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
+              //       } else {
+              //         tool.alert("提示", "发布成功", function() {
+              //           //刷新当前页面.
+              //           window.location.reload();
+              //         });
+              //       }
+              //     }
+              //   }
+              // });
+
+
+              $http({
+                  method: 'POST',
+                  url: BasicUrl + "report/" + $scope.reportId + "/consult",
+                  data: {
+                    reportId: $scope.reportId - 0,
+                    adminId: adminId, //TODO  修改
+                    analysis: $scope.expertData[type + 'Report'],
+                    advice: $scope.expertData[type + 'Advice'],
+                    prescriptions: chufang.join(','), //处方
+                    attach: "" //附件
+                  },
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
                   }
-                }
-              });
+                })
+                .success(function(data, xhr) {
+                  if (xhr == 200) {
+                    if (data.errorMessage) {
+                      tool.alert("提示", data.errorMessage);
+                    } else {
+                      tool.alert("提示", "保存成功!");　
+                      window.location.reload();
+                    }　
+                  } else {
+                    tool.alert("提示", "保存失败,请重试!");
+                  }
+                }).error(function(response) {
+                  if (response && response.errorMessage) {
+                    tool.alert("提示", response.errorMessage);
+                  }
+                });
 
             },
             function() {
