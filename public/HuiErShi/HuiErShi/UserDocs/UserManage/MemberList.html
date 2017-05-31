@@ -137,12 +137,12 @@
     $(function() {
       tool.changeSelect($("#sltType"), false);
     });
-    var params = "vipType=considerate&minExpiredAt=1480558560000&maxExpiredAt=1480559560000&keyWord=1"; //全局变量
+    var params = " "; //全局变量
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
       //分页方法声明
       var pageing = function(pageindex, params) {
-          var url = BasicUrl + "vip?" + params + "&page=" + pageindex + "&pageNum=10";
+          var url = BasicUrl + "vip?" + params + "page=" + pageindex + "&pageNum=10";
           $http.get(url).success(function(data) {
             if (data != null && data != "" && data != "null") {
               //判断当前是否存在记录
@@ -188,13 +188,24 @@
           return false;
         }
         //起止日期校验
-        if (minExpiredAt > maxExpiredAt) {
-          tool.alert("提示", "活动日期中结束时间不得早于起始时间");
+        if (minExpiredAt && maxExpiredAt && minExpiredAt > maxExpiredAt) {
+          tool.alert("提示", "结束时间不得早于起始时间");
           return false;
         }
 
-        // vipType=&minExpiredAt=&maxExpiredAt=&keyWord=
-        params = "vipType=" + vipType + "&minExpiredAt=" + minExpiredAt + "&maxExpiredAt=" + maxExpiredAt + "&keyWord=" + username;
+        params = '';
+        if (minExpiredAt) {
+          params += "minExpiredAt=" + minExpiredAt + '&';;
+        }
+        if (maxExpiredAt) {
+          params += "maxExpiredAt=" + maxExpiredAt + '&';
+        }
+        if (vipType) {
+          params += "vipType=" + vipType + '&';
+        }
+        if (username) {
+          params += "keyWord=" + username + '&';
+        }
         pageing(0, params);
       }
 

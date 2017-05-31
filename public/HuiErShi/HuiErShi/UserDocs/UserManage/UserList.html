@@ -119,13 +119,13 @@
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <!--自定义脚本部分-->
   <script>
-    var params = "userName=&minCreatedAt=&maxCreatedAt="; //全局变量
+    var params = ""; //全局变量
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
       //分页方法声明
       var pageing = function(pageindex, params) {
         //请求地址
-        var url = "http://60.205.170.209:8080/admin/api/user?" + params + "&page=" + pageindex + "&pageNum=10";
+        var url = "http://60.205.170.209:8080/admin/api/user?" + params + "page=" + pageindex + "&pageNum=10";
         $http.get(url).success(function(data) {
           if (data != null && data != "" && data != "null") {
             //判断当前是否存在记录
@@ -169,11 +169,21 @@
           return false;
         }
         //起止日期校验
-        if (minExpiredAt > maxExpiredAt) {
-          tool.alert("提示", "活动日期中结束时间不得早于起始时间");
+        if (minExpiredAt && maxExpiredAt && minExpiredAt > maxExpiredAt) {
+          tool.alert("提示", "结束时间不得早于起始时间");
           return false;
         }
-        params = "userName=" + username + "&minCreatedAt=" + minExpiredAt + "&maxExpiredAt=" + maxExpiredAt;
+
+        params = '';
+        if (minExpiredAt) {
+          params += "minCreatedAt=" + minExpiredAt + '&';;
+        }
+        if (maxExpiredAt) {
+          params += "maxCreatedAt=" + maxExpiredAt + '&';
+        }
+        if (username) {
+          params += "userName=" + username + '&';
+        }
         pageing(0, params);
       }
 

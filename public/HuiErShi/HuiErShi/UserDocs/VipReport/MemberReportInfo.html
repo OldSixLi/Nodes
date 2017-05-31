@@ -108,10 +108,15 @@
               </tr>
             </tbody>
           </table>
+
+          <div id="btn-uploader1">
+            <a id="pickfiles1">
+
+              <button type="button" class="btn btn-primary">上传PDF附件</button>
+            </a> <input type="text" name="foodiconUrl" style="opacity:0;width:0;height:0;">
+          </div>
         </div>
         <div class="col-md-10 col-md-offset-2">
-          <!--//TODO 上传文件功能未做-->
-          <!--<p><b>上传文件:</b> <input type="file" name="" value=""></p>-->
         </div>
       </div>
       <hr>
@@ -167,6 +172,14 @@
               </tr>
             </tbody>
           </table>
+          <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
+          <div id="btn-uploader">
+            <a id="pickfiles">
+              <!--<img id="img" src='{{model.imageUrl ==null?"../../images/upload/upload-alert.png":model.imageUrl}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;">-->
+              <button type="button" class="btn btn-primary">上传PDF附件</button>
+            </a> <input type="text" name="sporticonUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-model="model.iconUrl">
+            <!---->
+          </div>
         </div>
         <div class="col-md-10 col-md-offset-2">
           <!--//TODO 上传文件功能未做-->
@@ -226,10 +239,147 @@
   <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
   <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <!--自定义脚本部分-->
   <script>
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
+    uploader = Qiniu.uploader({
+      runtimes: 'html5,flash,html4',
+      browse_button: 'pickfiles', //上传按钮的ID
+      container: 'btn-uploader', //上传按钮的上级元素ID
+      drop_element: 'btn-uploader',
+      max_file_size: '100mb', //最大文件限制　
+      dragdrop: false,
+      chunk_size: '4mb', //分块大小 
+      unique_names: true,
+      save_key: true,
+      uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
+        var token = "";
+        $.ajax({
+          type: "get",
+          url: "http://60.205.170.209:8080/admin/api/qnToken",
+          async: false,
+          dataType: "json",
+          success: function(data) {
+            token = data.upToken;
+          }
+        });
+        return token;
+      },
+      unique_names: false,
+      domain: domainUrl, //自己的七牛云存储空间域名
+      multi_selection: false, //是否允许同时选择多文件
+      //文件类型过滤，这里限制为图片类型
+      filters: {
+        mime_types: [{
+          title: "PDF files",
+          extensions: "pdf"
+        }]
+      },
+      auto_start: true,
+      init: {
+        'FilesAdded': function(up, files) {
+          //do something
+        },
+        'BeforeUpload': function(up, file) {
+          //do something
+        },
+        'UploadProgress': function(up, file) {
+          //可以在这里控制上传进度的显示
+          //可参考七牛的例子
+        },
+        'UploadComplete': function() {
+          //do something
+        },
+        'FileUploaded': function(up, file, info) {　
+          var json = JSON.parse(info);
+          tool.alert("提示", "上传成功");
+          var imgSrc = domainUrl + json.key;
+          $("[name='sporticonUrl']").val(imgSrc);
+        },
+        'Error': function(up, err, errTip) {
+          tool.alert("提示", errTip);
+        },
+        'Key': function(up, file) {
+          return file.name;
+        }
+      }
+    });
+    uploader1 = Qiniu.uploader({
+      runtimes: 'html5,flash,html4',
+      browse_button: 'pickfiles1', //上传按钮的ID
+      container: 'btn-uploader1', //上传按钮的上级元素ID
+      drop_element: 'btn-uploader1',
+      max_file_size: '100mb', //最大文件限制　
+      dragdrop: false,
+      chunk_size: '4mb', //分块大小 
+      unique_names: true,
+      save_key: true,
+      uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
+        var token = "";
+        $.ajax({
+          type: "get",
+          url: "http://60.205.170.209:8080/admin/api/qnToken",
+          async: false,
+          dataType: "json",
+          success: function(data) {
+            token = data.upToken;
+          }
+        });
+        return token;
+      },
+      unique_names: false,
+      domain: domainUrl, //自己的七牛云存储空间域名
+      multi_selection: false, //是否允许同时选择多文件
+      //文件类型过滤，这里限制为图片类型
+      filters: {
+        mime_types: [{
+          title: "PDF files",
+          extensions: "pdf"
+        }]
+      },
+      auto_start: true,
+      init: {
+        'FilesAdded': function(up, files) {
+          //do something
+        },
+        'BeforeUpload': function(up, file) {
+          //do something
+        },
+        'UploadProgress': function(up, file) {
+          //可以在这里控制上传进度的显示
+          //可参考七牛的例子
+        },
+        'UploadComplete': function() {
+          //do something
+        },
+        'FileUploaded': function(up, file, info) {　
+          var json = JSON.parse(info);
+          tool.alert("提示", "上传成功");
+          var imgSrc = domainUrl + json.key;
+          $("[name='foodiconUrl']").val(imgSrc);
+        },
+        'Error': function(up, err, errTip) {
+          tool.alert("提示", errTip);
+        },
+        'Key': function(up, file) {
+          return file.name;
+        }
+      }
+    });
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
       //获取处方下拉菜单

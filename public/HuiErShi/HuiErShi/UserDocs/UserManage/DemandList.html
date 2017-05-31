@@ -369,7 +369,6 @@
             tool.alert("提示", "活动日期中结束时间不得早于起始时间");
             return false;
           }
-          // "advisorId=&userId=&minCreateAt=&maxCreateAt=&"
           params = "minStartAt=" + minExpiredAt + "&maxStartAt=" + maxExpiredAt + "&advisorId=" + advisorId + "&userId=" + userId + "&";
           pageing(0, params);
         }
