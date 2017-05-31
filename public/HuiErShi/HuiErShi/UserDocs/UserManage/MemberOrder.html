@@ -54,9 +54,9 @@
 
         <div class="form-group text-left">
           <label class="">　预约项目：</label>
-          <select class="form-control" name="sltItem" id="sltItem" 　>
+          <select class="form-control" name="sltItem" id="sltItem" style="width:130px;" 　>
               <option value="">所有</option>
-              <option value="1">项目TODO</option> 
+             <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option>
           </select>
         </div>&nbsp;&nbsp;
         <div class="form-group text-left">
@@ -157,18 +157,18 @@
                 <div class="col-md-5">
                   <p>　　姓名：<span>{{models.name }}</span></p>
                   <p>　　手机：<span>{{models.mobile}}</span></p>
-                  <p>有效日期：<span>{{"TODO" }}</span></p>
-                  <p>　　地址：<span>{{"TODO" }}</span></p>
+                  <p>有效日期：<span>{{"2017年12月31日17:40:30" }}</span></p>
+                  <p>　　地址：<span>{{"天津" }}</span></p>
                 </div>
                 <div class="col-md-4">
                   <p>编号：<span>{{models.adminNo }}</span></p>
-                  <p>城市：<span>{{"TODO" }}</span></p>
+                  <p>城市：<span>{{"天津" }}</span></p>
                 </div>
               </div>
               <div class="row">
                 <!-- 消除外边距 -->
                 <div class="col-md-6">
-                  <p style="line-height: 38px;">　　预约日期： {{"TODO"}} </p>
+                  <p style="line-height: 38px;">　　预约日期： {{"2017年5月31日17:40:39"}} </p>
                 </div>
                 <div class="col-md-6 form-group">确认日期：
                   <div class="input-group timeblock">
@@ -212,7 +212,7 @@
   </div>
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
   <script type="text/javascript" src="../../Scripts/select2.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
@@ -220,19 +220,29 @@
   <script>
     $(function() {
       tool.changeSelect($("#sltDistrict"), false);
-      tool.changeSelect($("#sltItem"), false);
+      // tool.changeSelect($("#sltItem"), false);
     });　
 
     var params = ""; //全局变量
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
       $scope.starttime = "";
-      $scope.$watch('starttime', function() {
-        console.log($scope.starttime);
+      // $scope.$watch('starttime', function() {
+      //   console.log($scope.starttime);
+      // });
+
+
+      $http.get(BasicUrl + "appointmentItems/All").success(function(data) {
+        if (data != null && data != "" && data != "null") {
+          $scope.options = data;
+        }
+        tool.changeSelect($("#sltItem"), false);
       });
 
       //分页方法声明
       var pageing = function(pageindex, params) {
+
+        // /appointmentItems/All
         //请求地址 
         var url = BasicUrl + "appointment?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
         $http.get(url).success(function(data) {
@@ -303,21 +313,37 @@
         var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
         var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
         var keyword = $("#txtKeyWord").val();
-        var district = $("#sltDistrict").val();
+        var status = $("#sltDistrict").val();
         //会员类型
-        var vipType = $("#sltType").val();
+        var sltItem = $("#sltItem").val();
         //校验只有一个搜索条件
-        if (!(minExpiredAt || maxExpiredAt || keyword || vipType)) {
+        if (!(minExpiredAt || maxExpiredAt || keyword || status || sltItem)) {
           tool.alert("提示", "请至少输入一个搜索条件");
           return false;
         }
         //起止日期校验
-        if (minExpiredAt > maxExpiredAt) {
+        if (minExpiredAt && maxExpiredAt && (minExpiredAt > maxExpiredAt)) {
           tool.alert("提示", "活动日期中结束时间不得早于起始时间");
           return false;
         }
-        params = "minStartAt=" + minExpiredAt + "&maxStartAt=" + maxExpiredAt + "&keyWord=" + keyword + "&District=" + district + "&";
+        params = '';
+        if (minExpiredAt) {
+          params += "minAppointAt=" + minExpiredAt + '&';;
+        }
+        if (maxExpiredAt) {
+          params += "maxAppointAt=" + maxExpiredAt + '&';
+        }
+        if (status) {
+          params += "status=" + status + '&';
+        }
+        if (sltItem) {
+          params += "item=" + sltItem + '&';
+        }
+        if (keyword) {
+          params += "keyword=" + keyword + '&';
+        }
         pageing(0, params);
+
       }
 
       // $scope.sort = function(ziduan) {

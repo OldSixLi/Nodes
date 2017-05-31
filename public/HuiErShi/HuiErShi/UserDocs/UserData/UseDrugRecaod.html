@@ -23,8 +23,8 @@
       <form class="form-inline" role="form">
         <div class="form-group text-left">
           <label class="control-label">会员姓名：</label>
-          <select class=" form-control " name="userId" id="userId" style="width:150px;">
-          <option value="">请选择</option>
+          <select class=" form-control " name="userId" id="userId">
+          <!--<option value="">请选择</option>-->
       </select>
         </div>
         <div class="form-group text-left">
@@ -116,16 +116,48 @@
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
   <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <script>
     $(function() {
       // $(".start_end_time").datetimepicker();
-      var tool = new JSTOOL();
-      tool.changeSelect($("#userId"), true);
+      // var tool = new JSTOOL();
+      // tool.changeSelect($("#userId"), true);
+
+      $("#userId").select2({
+        placeholder: '请选择',
+        allowClear: true,
+        ajax: {
+
+          url: function(params) {
+            return BasicUrl + "vip/name/" + params.term;
+          },
+          dataType: 'json',
+          delay: 250,
+          processResults: function(data, page) {
+            return {
+              results: data
+            };
+          },
+          cache: false
+        },
+        minimumInputLength: 1,
+        minimumResultsForSearch: 1,
+        width: "150px", //宽度设置
+        templateResult: formatRepo,
+        templateSelection: formatRepoSelection,
+      });
+
+      function formatRepo(repo) {
+        return repo.realName;
+      }
+
+      function formatRepoSelection(repo) {
+        return repo.realName;
+      }
     });
-    var params = "medicineName=&userId=&minCreatedAt=&maxCreatedAt="; //全局变量
+    var params = ""; //全局变量
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
       //分页方法声明
@@ -133,15 +165,15 @@
           //请求地址
           ////&page=0&pageNum=10
           //TODO  需要修改部分 
-          //   var url = "http://60.205.170.209:8080/admin/api/medicine?" + params + "&page=" + pageindex + "pageNum=10"
-          var url = BasicUrl + "medicine?" + "userId=1&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+
+          var url = BasicUrl + "medicine?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
           $http.get(url).success(function(data) {
             if (data != null && data != "" && data != "null") {
               //判断当前是否存在记录
               $scope.dataLengths = data.content.length > 0;
               if (data.content != null && data.content.length > 0) {
                 //赋值操作
-                $scope.title = 'FP_HM'; //排序字段
+                // $scope.title = 'FP_HM'; //排序字段
                 $scope.desc = 0; //排序方式（默认升序）
                 $scope.data = data;
                 $scope.username = $("#userId").find("option:selected").text();
@@ -167,20 +199,33 @@
           //结束时间时间戳
           var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
           //用户名称
-          var username = $("#username").val();
+          var username = $("#userId").val();
           //会员类型
-          var keyword = $("#keyword").val();
+          var keyword = $("#txtUserName").val();
           //校验只有一个搜索条件
           if (!(minExpiredAt || maxExpiredAt || username || keyword)) {
-            alert("请至少输入一个搜索条件");
+            tool.alert("提示", "请至少输入一个搜索条件！");
             return false;
           }
+
           //起止日期校验
-          if (minExpiredAt > maxExpiredAt) {
-            alert("结束时间不得早于起始时间");
+          if (minExpiredAt && maxExpiredAt && (minExpiredAt > maxExpiredAt)) {
+            tool.alert("提示", "结束时间不得早于起始时间！");
             return false;
           }
-          params = "medicineName=" + keyword + "&userId=" + username + "&minCreatedAt=" + minExpiredAt + "&maxCreatedAt=" + maxExpiredAt;
+          params = '';
+          if (minExpiredAt) {
+            params += "minCreatedAt=" + minExpiredAt + '&';;
+          }
+          if (maxExpiredAt) {
+            params += "maxCreatedAt=" + maxExpiredAt + '&';
+          }
+          if (keyword) {
+            params += "medicineName=" + keyword + '&';
+          }
+          if (username) {
+            params += "userId=" + username + '&';
+          }
           pageing(0, params);
         }
         //跳转至某页方法

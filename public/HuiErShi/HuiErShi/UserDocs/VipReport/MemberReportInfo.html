@@ -543,8 +543,6 @@
                     tool.alert("提示", response.errorMessage);
                   }
                 });
-              // http://60.205.170.209:8080/admin/api/report/15/consult/6
-              // http: //60.205.170.209:8080/admin/api/api-docs/../report/15/consult/6
 
             },
             function() {
@@ -563,7 +561,6 @@
                   adminId: adminId, //TODO  修改
                   analysis: $scope.expertData[type + 'Report'],
                   advice: $scope.expertData[type + 'Advice'],
-                  prescriptions: chufang.join(','), //处方
                   attach: "http://www.baidu.com/" //附件
                 },
                 headers: {
