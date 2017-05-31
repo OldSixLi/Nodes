@@ -87,8 +87,12 @@
                             <label class="control-label">类型</label>
                           </div>
                           <div class="col-sm-8">
+                            <!--0: 无类型，1: : 关爱型-->
+                            <input type="radio" name="cardType" id="cardType" checked ng-model="model.cardType" value="1">体验型&nbsp;&nbsp;
+                            <input type="radio" name="cardType" id="cardType" ng-model="model.cardType" value="2">关爱型&nbsp;&nbsp;
+                            <!--
 
-                            <label class="control-label" style="font-weight:normal;">会员卡</label>
+                            <label class="control-label" style="font-weight:normal;">会员卡</label>-->
                           </div>
                         </div>
                         <div class="form-group">
@@ -166,7 +170,7 @@
               <td>{{ x.validity_period }}</td>
               <td>{{ x.price +"元"}}</td>
               <td>{{ x.outpatient_count }}</td>
-              <td>{{x.vipType=="considerate"?"体验型":"关爱型"}}</td>
+              <td>{{x.vip_type=="considerate"?"体验型":"关爱型"}}</td>
               <td> {{x.remark}}</td>
               <td>
                 <a href="IssueDetails.html?id={{x.id}}">{{x.actived_count+'/'+x.total_count}}</a> </td>
@@ -364,7 +368,7 @@
         var saveInfo = {
           //文本框,下拉菜单选择值
           name: $.trim($("#name").val()),
-          type: 1, //类型
+          type: $scope.model.cardType, //类型
           remark: $.trim($("#remark").val()),
           price: $.trim($("#price").val()),
           validityPeriod: $.trim($("#validityPeriod").val()),

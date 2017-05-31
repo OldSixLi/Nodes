@@ -122,14 +122,14 @@
               <td>
                 <a href="#" ng-click=getEditModel(x.id)><img src="{{x.iconUrl}}" alt="" />&nbsp;{{ x.name }}</a>
               </td>
-              <td>{{ x.adminNo }}</td>
+              <td>{{ x.id }}</td>
               <td>{{ x.job }}</td>
-              <td>{{ x.id}}</td>
+              <td>{{ x.adminNo}}</td>
               <td>{{ x.mobile }}</td>
               <td>
                 <span ng-if="x.role=='1'">会籍顾问</span>
                 <span ng-if="x.role=='2'">运动专家</span>
-                <span ng-if="x.role=='3'">饮食专家</span></td>
+                <span ng-if="x.role=='3'">营养专家</span></td>
               <td>
                 <a href="#" title="修改操作" ng-click='getEditModel(x.id)'><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;
                 <a href="#" title="删除操作" ng-click="deleteItem(x.id)"><span class="glyphicon glyphicon-trash"></span></a>

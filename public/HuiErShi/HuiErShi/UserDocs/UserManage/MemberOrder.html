@@ -97,10 +97,10 @@
             <tr ng-show="dataLengths" ng-repeat="x in data.content">
               <td>{{ $index+data.page*data.pageNum+1}}</td>
               <td>{{ x.user.userName }}</td>
-              <td>{{ x.user.gender=="M"?"女":"男" }}</td>
+              <td>{{ x.user.gender=="M"?"男":"女" }}</td>
               <td>{{ x.date= x.appointmentTime |date:"yyyy/MM/dd HH:mm:ss"}}</td>
               <td>
-                <a ng-click='getEditModel(x.id)' href="#">{{"确认预约"}}</a></td>
+                <a ng-click='getEditModel(x.id)' href="">{{"确认预约"}}</a></td>
               <td>
                 <a ng-repeat="c in x.appointmentItems" href="#?id={{c.id}}">{{c.name}}</a>
               </td>
@@ -152,16 +152,16 @@
               <div class="row">
                 <!-- 消除外边距 -->
                 <div class="col-md-3">
-                  <img src='http://iph.href.lu/200x200?text=文字说明' class='img-responsive img-thumbnail' alt='用户头像'>
+                  <img src='{{models.iconUrl?models.iconUrl:"http://iph.href.lu/200x200?text=用户头像"}}' class='img-responsive img-thumbnail' alt='用户头像'>
                 </div>
                 <div class="col-md-5">
-                  <p>　　姓名：<span>{{"TODO" }}</span></p>
-                  <p>　　手机：<span>{{"TODO"}}</span></p>
+                  <p>　　姓名：<span>{{models.name }}</span></p>
+                  <p>　　手机：<span>{{models.mobile}}</span></p>
                   <p>有效日期：<span>{{"TODO" }}</span></p>
                   <p>　　地址：<span>{{"TODO" }}</span></p>
                 </div>
                 <div class="col-md-4">
-                  <p>编号：<span>{{"TODO" }}</span></p>
+                  <p>编号：<span>{{models.adminNo }}</span></p>
                   <p>城市：<span>{{"TODO" }}</span></p>
                 </div>
               </div>
@@ -352,7 +352,7 @@
         $http.get(BasicUrl + "admin/" + id)
           .success(function(data) {
             if (data != null && data != "" && data != "null") {
-              $scope.model = data;
+              $scope.models = data;
 
               $('#modal').modal('show');
             }

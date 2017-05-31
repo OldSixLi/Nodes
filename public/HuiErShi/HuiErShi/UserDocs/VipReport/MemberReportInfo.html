@@ -464,7 +464,7 @@
             function() {
               // $.ajax({
               //   type: "PATCH",
-              //   url: BasicUrl + "api-docs/../report/" + $scope.reportId + "/consult/" + $scope.expertData[type + 'Id'],
+              //   url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData[type + 'Id'],
               //   data: {
               //     reportId: $scope.reportId - 0,
               //     consultId: $scope.expertData[type + 'Id'] - 0,
@@ -473,6 +473,9 @@
               //     advice: $scope.expertData[type + 'Advice'],
               //     prescriptions: chufang.join(','), //处方
               //     attach: "" //附件
+              //   },
+              //   headers: {
+              //     'Content-Type': 'application/x-www-form-urlencoded'
               //   },
               //   dataType: "json",
               //   error: function(response) {
@@ -496,21 +499,31 @@
               //     }
               //   }
               // });
+              var data = {
+                reportId: $scope.reportId,
+                consultId: $scope.expertData[type + 'Id'] - 0,
+                adminId: adminId, //TODO  修改
+                analysis: $scope.expertData[type + 'Report'],
+                advice: $scope.expertData[type + 'Advice'],
+                prescriptions: chufang.join(','), //处方
+                attach: "http://www.baidu.com/" //附件
+              }　　
+
+
               $http({
                   method: 'PATCH',
                   url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData[type + 'Id'],
-                  data: {
-                    reportId: $scope.reportId - 0,
-                    consultId: $scope.expertData[type + 'Id'] - 0,
-                    adminId: adminId, //TODO  修改
-                    analysis: $scope.expertData[type + 'Report'],
-                    advice: $scope.expertData[type + 'Advice'],
-                    prescriptions: chufang.join(','), //处方
-                    attach: "" //附件
+                  data: data,
+                  transformRequest: function(obj) {
+                    var str = [];
+                    for (var p in obj) {
+                      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
+                    return str.join("&");
                   },
                   headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
-                  }
+                  },
                 })
                 .success(function(data, xhr) {
                   if (xhr == 200) {
@@ -522,8 +535,6 @@
                       window.location.reload();
                     }
 
-                    //刷新当前页面.
-                    // window.location.reload();
                   } else {
                     tool.alert("提示", "保存失败,请重试!");
                   }
@@ -544,72 +555,75 @@
             "提示",
             "确认添加建议？",
             function() {
-              // $.ajax({
-              //   type: "POST",
-              //   url: BasicUrl + "report/" + $scope.reportId + "/consult",
-              //   data: {
-              //     reportId: $scope.reportId - 0,
-              //     adminId: adminId, //TODO  修改
-              //     analysis: $scope.expertData[type + 'Report'],
-              //     advice: $scope.expertData[type + 'Advice'],
-              //     prescriptions: chufang.join(','), //处方
-              //     attach: "" //附件
-              //   },
-              //   dataType: "json",
-              //   error: function(response) {
-              //     if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-              //       tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-              //     }
-              //   },
-              //   success: function(data) {
-
-              //   },
-              //   complete: function(xhr, textStatus) {
-              //     if (xhr.status == 200) {
-              //       if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
-              //         tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
-              //       } else {
-              //         tool.alert("提示", "发布成功", function() {
-              //           //刷新当前页面.
-              //           window.location.reload();
-              //         });
-              //       }
-              //     }
-              //   }
-              // });
-
-
-              $http({
-                  method: 'POST',
-                  url: BasicUrl + "report/" + $scope.reportId + "/consult",
-                  data: {
-                    reportId: $scope.reportId - 0,
-                    adminId: adminId, //TODO  修改
-                    analysis: $scope.expertData[type + 'Report'],
-                    advice: $scope.expertData[type + 'Advice'],
-                    prescriptions: chufang.join(','), //处方
-                    attach: "" //附件
-                  },
-                  headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+              $.ajax({
+                type: "POST",
+                url: BasicUrl + "report/" + $scope.reportId + "/consult",
+                data: {
+                  reportId: $scope.reportId - 0,
+                  adminId: adminId, //TODO  修改
+                  analysis: $scope.expertData[type + 'Report'],
+                  advice: $scope.expertData[type + 'Advice'],
+                  prescriptions: chufang.join(','), //处方
+                  attach: "http://www.baidu.com/" //附件
+                },
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                dataType: "json",
+                error: function(response) {
+                  if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                    tool.alert("提示", JSON.parse(response.responseText).errorMessage);
                   }
-                })
-                .success(function(data, xhr) {
-                  if (xhr == 200) {
-                    if (data.errorMessage) {
-                      tool.alert("提示", data.errorMessage);
+                },
+                success: function(data) {
+
+                },
+                complete: function(xhr, textStatus) {
+                  if (xhr.status == 200) {
+                    if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
+                      tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
                     } else {
-                      tool.alert("提示", "保存成功!");　
-                      window.location.reload();
-                    }　
-                  } else {
-                    tool.alert("提示", "保存失败,请重试!");
+                      tool.alert("提示", "发布成功", function() {
+                        //刷新当前页面.
+                        window.location.reload();
+                      });
+                    }
                   }
-                }).error(function(response) {
-                  if (response && response.errorMessage) {
-                    tool.alert("提示", response.errorMessage);
-                  }
-                });
+                }
+              });
+
+              // var churuData = {
+              //   reportId: $scope.reportId - 0,
+              //   adminId: adminId, //TODO  修改
+              //   analysis: $scope.expertData[type + 'Report'],
+              //   advice: $scope.expertData[type + 'Advice'],
+              //   prescriptions: chufang.join(','), //处方
+              //   attach: "" //附件
+              // }
+              // $http({
+              //     method: 'POST',
+              //     url: BasicUrl + "report/" + $scope.reportId + "/consult",
+              //     data: churuData,
+              //     headers: {
+              //       'Content-Type': 'application/x-www-form-urlencoded'
+              //     }
+              //   })
+              //   .success(function(data, xhr) {
+              //     if (xhr == 200) {
+              //       if (data.errorMessage) {
+              //         tool.alert("提示", data.errorMessage);
+              //       } else {
+              //         tool.alert("提示", "保存成功!");　
+              //         window.location.reload();
+              //       }　
+              //     } else {
+              //       tool.alert("提示", "保存失败,请重试!");
+              //     }
+              //   }).error(function(response) {
+              //     if (response && response.errorMessage) {
+              //       tool.alert("提示", response.errorMessage);
+              //     }
+              //   });
 
             },
             function() {

@@ -41,7 +41,7 @@
       </div>
       <div class="userinfo">
         <div class="col-md-2">昵称：<span id="top_userName">{{userData.userName}}</span></div>
-        <div class="col-md-2">性别：<span id="top_gender">{{userData.gender=="M"?"女":"男"}}</span></div>
+        <div class="col-md-2">性别：<span id="top_gender">{{userData.gender=="M"?"男":"女"}}</span></div>
         <div class="col-md-6">地区：<span id="top_nativePlace">{{userData.district}}</span></div>
       </div>
     </div>
@@ -577,7 +577,6 @@
               // tool.alert("提示", "不存在此用户！");
             }
           }).error(function(data, header, config, status) {
-            //处理响应失败
             // tool.alert("提示", "获取用户数据出错111！");
             // window.history.back(-1); //回退至上一页面
           });
@@ -602,7 +601,6 @@
               if (xhr == 200) {
                 tool.alert("提示", "保存成功!");
                 $(":submit").attr("disabled", false);
-                //刷新当前页面.
                 window.location.reload();
               } else {
                 tool.alert("提示", "保存失败,请重试!");
@@ -622,8 +620,8 @@
             "确认激活此会员卡？",
             function() {
               $.ajax({
-                type: "POST", //   /..user/13/activation
-                url: BasicUrl + "user/" + id + '/activation',
+                type: "POST",
+                url: BasicUrl + "user/" + urlObj.id + "/vipCard/" + id + '/activation',
                 data: {
                   adminId: 1,
                   userVipCardId: id
@@ -637,16 +635,13 @@
                 complete: function(xhr, textStatus) {
                   if (xhr.status == 200) {
                     tool.alert("提示", "激活成功", function() {
-                      //刷新当前页面.
                       window.location.reload();
                     });
                   }
                 }
               });
             },
-            function() {
-              //用户点击取消按钮时操作
-            });
+            function() {});
         }
       }]);
     })();
