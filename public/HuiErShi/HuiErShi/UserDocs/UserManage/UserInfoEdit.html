@@ -554,6 +554,7 @@
               // $scope.vm.vipcards = data.vipcards;
               // $scope.vm.dataLengths = data.vipcards.length;
             } else {
+              // $scope.vm.dataLengths = false;
               // tool.alert("提示", "不存在此用户！");
             }
           }).error(function(data, header, config, status) {
@@ -567,9 +568,12 @@
           $http.get(BasicUrl + "user/" + userid).success(function(data) {
             if (data != null && data != "" && data != "null" && data.id) {
               $scope.userData = data;
-              $scope.vm.entity.vipcards = data.vipcards
+              $scope.vm.entity.vipcards = data.vipcards;
+              // $scope.vm.vipcards = data.vipcards;
+              $scope.vm.dataLengths = data.vipcards.length;
 
             } else {
+              $scope.vm.dataLengths = false;
               // tool.alert("提示", "不存在此用户！");
             }
           }).error(function(data, header, config, status) {
