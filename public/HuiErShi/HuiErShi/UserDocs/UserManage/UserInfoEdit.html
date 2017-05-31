@@ -622,11 +622,11 @@
             "确认激活此会员卡？",
             function() {
               $.ajax({
-                type: "POST",
-                url: BasicUrl + "user/" + urlObj.id + '/vipCard/' + id + '/activation',
+                type: "POST", //   /..user/13/activation
+                url: BasicUrl + "user/" + id + '/activation',
                 data: {
                   adminId: 1,
-                  id: id
+                  userVipCardId: id
                 },
                 dataType: "json",
                 error: function(response) {
