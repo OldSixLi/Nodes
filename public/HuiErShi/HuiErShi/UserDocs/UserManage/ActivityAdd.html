@@ -38,7 +38,7 @@
           <div id="btn-uploader">
             <a id="pickfiles" href="javascript:void 0;">
               <img src='{{vm.entity.iconUrl == ""?"../../images/upload/upload-alert.png" : vm.entity.iconUrl}}' id="img" class='img-responsive img-thumbnail img-block' alt='自定义'></a>
-            <input type="hidden" name="iconUrl" id="iconUrl" />
+            <input type="hidden" name="iconUrl" id="iconUrl" ng-value="vm.entity.iconUrl" />
           </div>
         </div>
 
@@ -542,6 +542,8 @@
             type: "PATCH",
             url: BasicUrl + 'activity/' + $scope.activityId,
             data: {
+              id: $scope.activityId,
+              adminId: 1,
               name: vm.entity.name,
               sponsorName: vm.entity.sponsorName,
               iconUrl: $("#iconUrl").val(),
@@ -565,13 +567,18 @@
               }
 
             },
+            error: function(response) {
+              if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+              }
+            },
             complete: function(xhr, textStatus) {
               console.log(xhr.status);
-              if (xhr.status == 200 && xhr.statusText == "OK") {
+              if (xhr.status == 200) {
                 tool.alert("提示", "数据保存成功");
                 window.location.href = "ActivityList.html";
               } else {
-                tool.alert("提示", "操作失败!");
+                // tool.alert("提示", "操作失败!");
               }
             }
 
