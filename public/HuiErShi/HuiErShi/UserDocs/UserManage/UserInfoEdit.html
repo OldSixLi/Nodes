@@ -621,7 +621,8 @@
             function() {
               $.ajax({
                 type: "POST",
-                url: BasicUrl + "user/" + urlObj.id + "/vipCard/" + id + '/activation',
+                // user/1/activation
+                url: BasicUrl + "user/" + id + '/activation',
                 data: {
                   adminId: 1,
                   userVipCardId: id
@@ -634,9 +635,15 @@
                 },
                 complete: function(xhr, textStatus) {
                   if (xhr.status == 200) {
-                    tool.alert("提示", "激活成功", function() {
-                      window.location.reload();
-                    });
+
+                    if (xhr.responseText && JSON.parse(xhr.responseText).errorMessage) {
+                      tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
+                    } else {
+
+                      tool.alert("提示", "激活成功", function() {
+                        window.location.reload();
+                      });
+                    }
                   }
                 }
               });

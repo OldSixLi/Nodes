@@ -265,7 +265,17 @@
           function() {
             $http({
               method: 'PATCH',
-              url: url = deleteUrl,
+              url: deleteUrl,
+              data: {
+                id: id
+              },
+              transformRequest: function(obj) {
+                var str = [];
+                for (var p in obj) {
+                  str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+                return str.join("&");
+              },
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
               }

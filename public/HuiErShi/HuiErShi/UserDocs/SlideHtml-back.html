@@ -120,12 +120,14 @@
         $(this).click(function(e) {
           e.stopPropagation();
           if ($(this).hasClass('on')) {
-            $(this).removeClass('on');
+            $(".second-menu").removeClass('on');
             var id = $(this).attr('id');
             $("[data-for='" + id + "']").hide();
           } else {
             var id = $(this).attr('id');
+            $("[data-for]").hide();
             $("[data-for='" + id + "']").show();
+            $(".second-menu").removeClass('on');
             $(this).addClass('on');
           }
         })
@@ -145,6 +147,7 @@
           $(".menu dl.expand").removeClass("expand");
           $(this).parent().addClass("expand");
         }
+        $(".second-menu").removeClass('on');
       });
     });
 

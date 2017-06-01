@@ -87,7 +87,8 @@
               <td>
                 <a ng-repeat="v in x.views" href="#?id={{v.id}}">{{ v.name }}</a>
               </td>
-              <td>{{ x.description }}</td>
+              <td title="{{x.description}}">{{x.description.length>15?x.description.substr(0,15)+'...':x.description }}</td>
+              <!--x.description.length>15? :x.description.length>15-->
             </tr>
             <tr ng-show="!dataLengths">
               <td colspan="100" class="text-center">暂无结果</td>

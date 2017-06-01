@@ -87,7 +87,7 @@
             <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
               <td> {{x.length=$index+data.page*data.pageNum+1}}</td>
               <td>
-                <a ng-repeat="c in x.picUrl" href="CheckInfo.html?id={{x.id}}"><img src="{{c}}" /></a>
+                <a ng-repeat="c in x.picUrl" href="AddCheck.html?id={{x.id}}"><img src="{{c}}" /></a>
               </td>
               <td>{{x.user.userName}}</td>
               <td>{{x.Inspection.createAt | date:"yyyy/MM/dd HH:mm:ss" }}</td>
