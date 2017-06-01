@@ -28,6 +28,7 @@
     <div class="row">
       <!--表单-->
       <form role="form" name="validateForm">
+        <input type="text" id="id" name="id" style="opacity:0;width:0;height:0;" ng-model="data.id" placeholder="能量">
         <!--图片上传-->
         <div class="col-md-12">
           <div class="col-md-2  col-md-offset-5 col-sm-4  col-sm-offset-4 text-center img-container" id="btn-uploader">
@@ -35,6 +36,7 @@
               <img id="img" src='{{data.iconURL?data.iconURL:"../../images/upload/upload-alert.png"}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;"></a>
 
             <input type="text" name="iconUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-model="data.iconURL">
+
           </div>
         </div>
         <!--分割线-->
@@ -49,13 +51,13 @@
             </div>
             <div class="col-sm-6 col-md-7">
               <select class="form-control" name="announcement" ng-model="data.announcement">
-            <option value="volvo">谷薯类</option>
-            <option value="volvo">豆奶类</option>
+            <option value="谷薯类">谷薯类</option>
+            <option value="豆奶类">豆奶类</option>
             
-            <option value="saab">蔬菜水果类</option>
-            <option value="mercedes">鸡鱼肉蛋类</option>
-            <option value="audi">坚果油脂类</option>
-            <option value="audi">其他类</option>
+            <option value="蔬菜水果类">蔬菜水果类</option>
+            <option value="鸡鱼肉蛋类">鸡鱼肉蛋类</option>
+            <option value="坚果油脂类">坚果油脂类</option>
+            <option value="其他类">其他类</option>
         </select>
             </div>
           </div>
@@ -183,7 +185,7 @@
               <label for="description" class="control-label">食物描述：</label>
             </div>
             <div class="col-sm-6 col-md-7">
-              <textarea class="form-control" id="description" name="description" ng-model="data.dietNutrition.description" rows="5" placeholder="请输入食物描述"></textarea>
+              <textarea class="form-control" id="description" name="description" ng-model="data.description" rows="5" placeholder="请输入食物描述">{{data.description}}</textarea>
             </div>
           </div>
         </div>
@@ -293,12 +295,22 @@
               <input type="text" class="form-control" id="copper" name="copper" ng-model="data.dietNutrition.copper" placeholder="铜含量">
             </div>
           </div>
-          <div class="form-group">
+          <!--<div class="form-group">
             <div class="col-sm-6 col-md-4">
               <label for="txtUserPressure" class="control-label">锰（mg）：</label>
             </div>
             <div class="col-sm-6 col-md-7">
               <input type="text" class="form-control" id="txtMg" placeholder="锰含量">
+            </div>
+          </div>-->
+
+          <!---->
+          <div class="form-group">
+            <div class="col-sm-6 col-md-4">
+              <label for="txtUserPressure" class="control-label">酸（mg）：</label>
+            </div>
+            <div class="col-sm-6 col-md-7">
+              <input type="text" class="form-control" id="manganese" name="manganese" ng-model="data.dietNutrition.manganese" placeholder="酸含量">
             </div>
           </div>
           <div class="form-group">
@@ -338,6 +350,10 @@
 
 
   <script>
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
     var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
     //获取七牛uptoken　
     uploader = Qiniu.uploader({
@@ -404,7 +420,10 @@
         }
       }
     });
-
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
     $(function() {
       // $(".start_end_time").datetimepicker();
     });
@@ -453,7 +472,6 @@
 
 
         $scope.saveInfo = function() {
-          //   $(":submit").attr("disabled", true); 
           //添加操作
           if (foodObj.id) {
             $http({
@@ -470,7 +488,7 @@
                     tool.alert("提示", data.errorMessage);
                   } else {
                     tool.alert("提示", "保存成功!", function() {
-                      window.location.href = "FoodsManageList.html";
+                      window.location.href = "SystemManage/FoodsManageList.html";
                     });
                   }
                 } else {
@@ -497,7 +515,7 @@
                     tool.alert("提示", data.errorMessage);
                   } else {
                     tool.alert("提示", "保存成功!", function() {
-                      window.location.href = "FoodsManageList.html";
+                      window.location.href = "SystemManage/FoodsManageList.html";
                     });
                   }
                 } else {
