@@ -78,7 +78,7 @@
         <div class="col-md-10 col-md-offset-2">
         </div>
         <div class="col-md-2">
-          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.foodId,'food')" style="position:relative;right:-27px;">添加处方</a>
+          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.foodId,'food')" style="position:relative;right:-27px;" ng-disabled="expertData.foodId>0">添加处方</a>
         </div>
         <div class="col-md-10">
           <table class="table  table-hover table-bordered">
@@ -656,7 +656,7 @@
                 analysis: $scope.expertData[type + 'Report'],
                 advice: $scope.expertData[type + 'Advice'],
                 prescriptions: chufang.join(','), //处方
-                attach: "http://www.baidu.com/" //附件
+                attach: $("[name='" + type + "iconUrl']").val() //附件
               }　　
 
 
@@ -711,7 +711,7 @@
                   adminId: adminId, //TODO  修改
                   analysis: $scope.expertData[type + 'Report'],
                   advice: $scope.expertData[type + 'Advice'],
-                  attach: "http://www.baidu.com/" //附件
+                  attach: $("[name='" + type + "iconUrl']").val() //附件
                 },
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'
@@ -859,6 +859,9 @@
       }
     });
   </script>
+</body>
+
+</html>ipt>
 </body>
 
 </html>

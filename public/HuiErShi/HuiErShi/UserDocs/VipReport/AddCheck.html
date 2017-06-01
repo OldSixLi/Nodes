@@ -26,9 +26,9 @@
       <li class="active">验单详情</li>
     </ol>
     <div class="row form-inline">
-      <div class="col-md-2"><img src="{{data.picUrl[0]}}" alt="" class="img-responsive img-thumbnail"></div>
+      <div class="col-md-2"><img src="{{data.picUrl[0]}}" alt="" class="img-responsive img-thumbnail" ng-click="seeDetail(data.picUrl[0])"></div>
       <div class="col-md-10">
-        <p>会员姓名：{{data.user.vipEntity.realName}}　　　　　　性别：{{data.user.vipEntity.gender=="M"?"男":"女"}}　　　　　　手机：{{data.user.realName}}</p>
+        <p>会员姓名：{{data.user.userName}}　　　　　　性别：{{data.user.gender=="M"?"男":"女"}}　　　　　　手机：{{data.user.realName}}</p>
         <p>验单评估：
           <input type="radio" name="isValid" value="1" checked ng-model="isuse">有效验单&nbsp;&nbsp;&nbsp;&nbsp;
           <input type="radio" name="isValid" value="0" ng-model="isuse">无效验单</p>
@@ -61,7 +61,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 报告单号：
-                <input type="text" class="form-control" placeholder="报告单号" id="inspectionNo" ng-model="data.report.id"></div>
+                <input type="text" class="form-control" placeholder="报告单号" id="inspectionNo" ng-model="data.inspectionNo"></div>
             </div>
             <div class="col-md-4">
               <button type="button" class="btn btn-primary" ng-click="merge()">合并报告单</button>&nbsp;&nbsp;
@@ -169,7 +169,7 @@
               var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
               $.ajax({
                 type: "PATCH",
-                url: BasicUrl + 'inspection',
+                url: BasicUrl + 'inspection/'+checkObj.id,
                 data: {
                   id: checkObj.id,
                   isValid: true,
@@ -177,7 +177,7 @@
                   name: $scope.data.name,
                   reportFrom: $("#reportFrom").val(),
                   checkAt: minExpiredAt,
-                  invalidReason: ""
+                  invalidReason: "无"
                 },
                 dataType: "json",
                 error: function(response) {
@@ -189,7 +189,7 @@
 
                 },
                 complete: function(xhr, textStatus) {
-                  if (xhr.status == 204) {
+                  if (xhr.status == 204||xhr.status == 200) {
                     if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
                       tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
                     } else {
@@ -209,6 +209,9 @@
 
         }
 
+$scope.seeDetail = function(url) {
+        tool.alert("图片详情", "<img src='" + url + "' class='img-responsive img-thumbnail' style='width:100%;height:auto;'/>", function() {}, 'col-md-6 col-md-offset-3');
+      }
         //新建
         $scope.addNew = function() {
 
