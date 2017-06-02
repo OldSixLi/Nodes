@@ -14,6 +14,10 @@
     .form-inline .form-control {
       width: auto;
     }
+    
+    .inputlabel {
+      line-height: 30px;
+    }
   </style>
 </head>
 
@@ -26,6 +30,8 @@
       <li class="active">验单详情</li>
     </ol>
     <div class="row form-inline">
+
+      <h1>{{picNum}}</h1>
       <div class="col-md-2"><img src="{{data.picUrl[0]}}" alt="" class="img-responsive img-thumbnail" ng-click="seeDetail(data.picUrl[0])"></div>
       <div class="col-md-10">
         <p>会员姓名：{{data.user.userName}}　　　　　　性别：{{data.user.gender=="M"?"男":"女"}}　　　　　　手机：{{data.user.vipEntity.mobile}}</p>
@@ -84,6 +90,91 @@
       </div>
     </div>
     <hr>
+    <!--　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　◆　　　　　　◆　　　　　　　◆　　　　　
+　　◆◆◆◆◆　◆◆◆　　◆◆◆　◆◆◆◆◆◆　　
+　　　　　　　　◆　　　　　　◆　　　◆　　◆　　
+　　◆　　　◆　◆　　　　　◆　◆◆◆◆◆◆◆◆　
+　　　◆　◆　　◆◆◆◆　◆　　　　　◆　　◆　　
+　◆◆◆◆◆◆　◆　◆　　◆◆◆　◆◆◆◆◆◆　　
+　　　　◆　　　◆　◆　　　　◆　　　◆　　　　　
+　　◆◆◆◆◆　◆　◆　　　　◆　◆◆◆◆◆◆　　
+　　　　◆　　　◆　◆　　◆　◆　　　◆　　　　　
+　　◆　◆　◆　◆　◆　　　◆　◆◆◆◆◆◆◆◆　
+　◆　　◆　　◆　　◆　　　◆◆　　　◆　　　　　
+　　　◆◆　◆　　　◆　　◆　　◆◆◆◆◆◆◆◆　新建报告单-->
+    <div class="row">
+      <!-- 左边 -->
+      <div class="col-md-2 text-right">
+        <label for="" class="control-label" style="line-height:30px;">数据视图:</label> </div>
+      <div class="col-md-2">
+        <select class="form-control" id="dataView"> 
+          <option ng-repeat="x in options"  value="{{x.id}}">{{x.name}}</option>
+          </select>
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-primary" ng-click="viewItemAdd()">多项导入数据视图</button>
+      </div>
+      <!--右边-->
+      <div class="col-md-2 text-right">
+        <label for="" class="control-label" style="line-height:30px;">项目名称：</label>
+      </div>
+      <div class="col-md-2">
+        <select id="allItem" class="form-control">
+          
+          <option ng-repeat="y in Itemoptions"  value="{{y.itemId}}">{{y.name}}</option>
+          </select>
+
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-primary" ng-click="getSingleItemDetail()">单项导入数据视图</button>
+      </div>
+    </div>
+    <!--第二层-->
+    <!--A.	新建报告单：点击“新建报告单”按钮，弹出报告单数据录入界面。
+i.	数据视图：下拉列出所有的数据视图，选择某一视图，点击“多项导入数据视图”。编辑页面显示该视图的数据项。
+ii.	项目名称：下拉列出所有的项目名称，选择某一项目，点击“单项导入数据项目”。编辑页面添加该项目。
+iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数值（有则显示，没有不显示），以及输入数值或图片上传或文字描述。-->
+
+    <div class="row">
+      <div class="col-md-5 col-md-offset-1">
+        <div class="panel panel-default">
+          <div class="panel-heading">报告单号：{{data.inspectionNo}}</div>
+          <div class="panel-body">
+            <ul>
+              <li ng-repeat="x in itemList" data-id="{{x.id}}" ng-click="getItemDetail(x.id)">{{x.name}} </li>
+            </ul>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-4 text-right"><label for="" class="inputlabel">数据名称:</label></div>
+          <div class="col-md-4"><span>{{itemDetail.name}}</span></div>
+          <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 text-right"><label for="" class="inputlabel">参考数值:</label></div>
+          <div class="col-md-4"><span>{{ itemDetail.minReference +"~"+itemDetail.maxReference}}</span></div>
+          <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 text-right"><label for="" class="inputlabel">数值:</label></div>
+          <div class="col-md-4"><input class="form-control" type="text" name="" ng-model="itemDetail.value" placeholder="数值"></div>
+          <div class="col-md-4"></div>
+        </div>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4" style="margin-top:10px">
+            <button type="button" class="btn btn-primary btn-block" ng-click="saveItem()" ng-disabled="(itemDetail.value==null||itemDetail.value=='')||!itemDetail.itemId">保存项目</button>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+      </div>
+    </div>
     <!--脚本-->
     <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
     <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
@@ -93,12 +184,37 @@
     <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
     <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
     <script>
-      $(function() {});
+      $(function() {
+
+      });
       // keyWord=&adviserId=&minCreatedAt=&maxCreatedAt=
       var params = ""; //全局变量  请求的参数
       var app = angular.module('myApp', []);
       app.controller('customersCtrl', function($scope, $http) {
         $scope.isuse = "1";
+        $scope.itemDetail = {}
+
+        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
+        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+        $http.get(BasicUrl + "view").success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            $scope.options = data;
+            tool.changeSelect($("#dataView"), true);
+          }
+        });
+
+        $http.get(BasicUrl + "item?page=0&pageNum=1000").success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            $scope.Itemoptions = data.content;
+            tool.changeSelect($("#allItem"), true);
+          }
+        });
+        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
+        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
         var checkObj = new UrlSearch();
         if (checkObj.id) {
           //请求参数
@@ -106,6 +222,7 @@
           $http.get(url).success(function(data) {
             if (data != null && data != "" && data != "null" && data.id) {
               $scope.data = data;
+              $scope.picNum = data.picUrl.length;
             } else {
               tool.alert("提示", data.errorMessage);
             }
@@ -117,7 +234,6 @@
         } else {
           tool.alert("提示", "获取参数出错，请重试！", function() {});
           window.history.back(-1);
-
         }
 
         //无效
@@ -210,11 +326,95 @@
         }
 
         $scope.seeDetail = function(url) {
-            tool.alert("图片详情", "<img src='" + url + "' class='img-responsive img-thumbnail' style='width:100%;height:auto;'/>", function() {}, 'col-md-6 col-md-offset-3');
-          }
-          //新建
+          tool.alert("图片详情", "<img src='" + url + "' class='img-responsive img-thumbnail' style='width:100%;height:auto;'/>", function() {}, 'col-md-6 col-md-offset-3');
+        }
+
+        //新建报告单
         $scope.addNew = function() {
 
+          var dataInfo = {
+
+          };
+        }
+
+        //多项导入
+        $scope.viewItemAdd = function() {
+          var viewID = $("#dataView").val();
+          $http.get(BasicUrl + "view/" + viewID).success(function(data) {
+            if (data != null && data != "" && data != "null") {
+              //数据不为空
+              $scope.itemList = data; //TODO 修改
+            }
+          });
+        }
+
+        //获取视图下  某个数据项目的详情
+        $scope.getItemDetail = function(id) {
+          $http.get(BasicUrl + "item/" + id).success(function(data) {
+            if (data != null && data != "" && data != "null") {
+              //数据不为空
+              $scope.itemDetail = data; //TODO 修改
+            }
+          }).error(function() {
+            tool.alert("提示", "获取数据出错！");
+          });
+        }
+
+        //获取右侧单项数据项目详情
+        $scope.getSingleItemDetail = function() {
+          var id = $("#allItem").val();
+          $http.get(BasicUrl + "item/" + id).success(function(data) {
+            if (data != null && data != "" && data != "null") {
+              //数据不为空
+              $scope.itemDetail = data; //TODO 修改
+            }
+          }).error(function() {
+            tool.alert("提示", "获取数据出错！");
+          });
+        }
+
+        //保存单个项目
+        $scope.saveItem = function() {
+          var checkId = checkObj.id;
+          var itemId = $scope.itemDetail.itemId;
+          var val = $scope.itemDetail.value;
+          var dataInfo = {
+            id: checkId,
+            itemId: itemId,
+            val: val
+          }
+          $http({
+              method: 'POST', //inspection/2/data
+              url: BasicUrl + "inspection/" + checkId + "/data",
+              data: dataInfo,
+              transformRequest: function(obj) {
+                var str = [];
+                for (var p in obj) {
+                  str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+                return str.join("&");
+              },
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+            })
+            .success(function(data, xhr) {
+              if (xhr == 200) {
+                if (data.errorMessage) {
+                  tool.alert("提示", data.errorMessage);
+                } else {
+                  tool.alert("提示", "保存成功!");
+                  $scope.itemDetail.value = "";
+                }
+
+              } else {
+                tool.alert("提示", "保存失败,请重试!");
+              }
+            }).error(function(response) {
+              if (response && response.errorMessage) {
+                tool.alert("提示", response.errorMessage);
+              }
+            });
         }
 
       });

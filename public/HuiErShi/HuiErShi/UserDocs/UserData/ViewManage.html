@@ -109,7 +109,7 @@
           <div style="padding:5px;">
           </div>
           <select name="from" id="multiselect" class="form-control" size="16" multiple="multiple" ng-model="selectedName">
-              <option ng-repeat="x in options"  value="{{x.id}}">{{x.name}}</option>
+              <option ng-repeat="x in options"  value="{{x.itemId}}">{{x.name}}</option>
               </select>
         </div>
       </div>
@@ -161,10 +161,10 @@
     var app = angular.module('myApp', []);
     app.controller('myCtrl', function($scope, $http) {
       //获取视图列表
-      var url = BasicUrl + "view";
+      var url = BasicUrl + "item?page=0&pageNum=1000";
       $http.get(url).success(function(data) {
         if (data != null && data != "" && data != "null") {
-          $scope.options = data;
+          $scope.options = data.content;
         }
       });
       //添加新视图操作

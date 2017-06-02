@@ -43,7 +43,7 @@
         </div>
         <div class="form-group text-left">
           <label class="">&nbsp;&nbsp;类型： </label>
-          <select class=" form-control " id="sltAdviser" style="width:150px;">
+          <select class="form-control" id="sltTag" style="width:150px;">
             <option value="">全部</option>
             <option value="0">待录入</option>
             <option value="1">已录入</option>
@@ -54,7 +54,7 @@
 
         <div class="form-group text-left">
           <label class="">&nbsp;&nbsp;录入： </label>
-          <select class=" form-control " id="sltTag" style="width:150px;">
+          <select class=" form-control " id="sltAdviser" style="width:150px;">
             <option value="">请选择</option>
              <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option>
      
@@ -142,8 +142,8 @@
   <script>
     $(function() {
 
-      tool.changeSelect($("#sltTag"), true);
-      tool.changeSelect($("#sltAdviser"), false);
+
+
 
 
       // $("#txtKeyWord").select2({
@@ -179,7 +179,7 @@
     });
 
 
-
+    tool.changeSelect($("#sltTag"), false);
     // keyWord=&adviserId=&minCreatedAt=&maxCreatedAt=
     var params = ""; //全局变量  请求的参数
     var app = angular.module('myApp', []);
@@ -189,11 +189,12 @@
       $http.get(url).success(function(data) {
         if (data != null && data != "" && data != "null") {
           $scope.options = data;
+          tool.changeSelect($("#sltAdviser"), true);
         }
       });
 
       var pageing = function(pageindex, params) {
-          var url = BasicUrl + "inspection?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+          var url = BasicUrl + "inspection?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
           $http.get(url).success(function(data) {
             if (data != null && data != "" && data != "null") {
               //判断当前是否存在记录
@@ -232,10 +233,10 @@
           //用户名称
           var keyWord = $("#txtKeyWord").val();
           //会员类型
-          var type = $("#sltAdviser").val();
-          var adviserId = $("#sltTag").val();
+          var type = $("#sltTag").val();
+          var adviserId = $("#sltAdviser").val();
           //校验只有一个搜索条件
-          if (!(minExpiredAt || maxExpiredAt || keyWord || type || type)) {　　　
+          if (!(minExpiredAt || maxExpiredAt || keyWord || type || adviserId)) {　　　
             tool.alert("提示", "请至少输入一个搜索条件!");
             return false;
           }

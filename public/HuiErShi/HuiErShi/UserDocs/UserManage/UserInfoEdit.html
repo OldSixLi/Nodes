@@ -383,15 +383,15 @@
               <tbody>
                 <tr ng-show="vm.dataLengths" ng-repeat="x in vm.entity.vipcards">
                   <td>{{$index+1}}</td>
-                  <td>{{x.vipCardEntity.id}}</td>
+                  <td>{{x.id}}</td>
                   <td>{{x.vipCardEntity.vipType=="considerate"?"体验型":"关爱型"}}</td>
-                  <td>{{x.vipCardEntity.validityPeriod}}天</td>
-                  <td>{{x.expiredAt|date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                  <td>{{x.vipCardEntity.validityPeriod}}月</td>
+                  <td><span ng-show="x.activated">{{x.expiredAt|date:"yyyy/MM/dd HH:mm:ss"}}</span></td>
                   <td>
                     <a href="#?{{vm.entity.vipEntity.adviser.id}}"><img src='{{vm.entity.vipEntity.adviser.iconUrl}}' alt='会籍顾问'>{{vm.entity.vipEntity.adviser.name}}</a>
                   </td>
 
-                  <td><a href="#" ng-show="!x.activated" ng-click="activeCard(x.vipCardEntity.id)">激活</a><span ng-show="x.activated">已激活</span></td>
+                  <td><a href="#" ng-show="!x.activated" ng-click="activeCard(x.id)">激活</a><span ng-show="x.activated">已激活</span></td>
                 </tr>
                 <tr ng-show="!vm.dataLengths">
                   <td colspan="100" class="text-center ">暂无结果</td>
@@ -568,9 +568,27 @@
           $http.get(BasicUrl + "user/" + userid).success(function(data) {
             if (data != null && data != "" && data != "null" && data.id) {
               $scope.userData = data;
-              $scope.vm.entity.vipcards = data.vipcards;
+              // $scope.vm.entity.vipcards = data.vipcards;
               // $scope.vm.vipcards = data.vipcards;
-              $scope.vm.dataLengths = data.vipcards.length;
+              // $scope.vm.dataLengths = data.vipcards.length;
+
+            } else {
+              // $scope.vm.dataLengths = false;
+              // tool.alert("提示", "不存在此用户！");
+            }
+          }).error(function(data, header, config, status) {
+            // tool.alert("提示", "获取用户数据出错111！");
+            // window.history.back(-1); //回退至上一页面
+          });
+
+          // /vip/20/vipCard
+
+          $http.get(BasicUrl + "vip/" + userid + "/vipCard").success(function(data) {
+            if (data != null && data != "" && data != "null") {
+              // $scope.userData = data;
+              $scope.vm.entity.vipcards = data;
+              // $scope.vm.vipcards = data.vipcards;
+              $scope.vm.dataLengths = data.length;
 
             } else {
               $scope.vm.dataLengths = false;
