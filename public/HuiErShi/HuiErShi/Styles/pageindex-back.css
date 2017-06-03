@@ -231,6 +231,10 @@ body {
   border: 1px solid #ccc;
 }
 
+.imgContent {
+  text-align: center;
+}
+
 
 /*nt url('../images/person_dot.png') no-repeat 6px center;
 

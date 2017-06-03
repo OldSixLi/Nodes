@@ -210,22 +210,25 @@
         }
         //分页方法
       pageing(0, params);
+
       //查询按钮
       $scope.search = function() {
-          // alert('a');
-          //用户名称
-          var username = $("#keyword").val();
-          //会员类型
-          var phone = $("#phone").val();
-          //校验只有一个搜索条件
-          if (!(phone || username)) {
-            tool.alert("提示", "请至少输入一个搜索条件");
-            return false;
-          }　　
-          params = "name=" + username + "&phone=" + phone;
-          pageing(0, params);
-        }
-        //跳转至某页方法
+        // alert('a');
+        //用户名称
+        var username = $("#keyword").val();
+        //会员类型
+        var phone = $("#phone").val();
+        //校验只有一个搜索条件
+        if (!(phone || username)) {
+          tool.alert("提示", "请至少输入一个搜索条件");
+          return false;
+        }　　
+        params = "name=" + username + "&phone=" + phone;
+        pageing(0, params);
+      }
+
+
+      //跳转至某页方法
       $scope.skip = function() {
         if ($scope.toPageValue <= 1) {
           $scope.toPageValue = 1;
@@ -234,10 +237,12 @@
         }
         pageing($scope.toPageValue - 1, params);
       }
+
+
       $scope.save = function() {
-        console.log("当前项目ID:" + $scope.itemId);
+        console.log(parseInt($("input[type='radio']:checked").val()))
         var saveInfo = {
-          userId: parseInt($("[name='userId']").val()),
+          userId: parseInt($("input[type='radio']:checked").val()),
           appointmentTime: Date.parse(new Date($("#date").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#date").val())),
           itemId: $("#hidden-items").val(),
           comment: $scope.notes
@@ -248,7 +253,6 @@
             $('#orderForm')[0].reset();
           } else {
             tool.alert('提示', '保存失败');
-            $('#orderForm')[0].reset();
           }
         });
       }

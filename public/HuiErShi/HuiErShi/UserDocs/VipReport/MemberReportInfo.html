@@ -58,6 +58,10 @@
         </div>
       </div>
       <hr>
+      <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+          // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+          // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+          // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
       <div class="row">
         <!-- 消除外边距 -->
         <div class="col-md-2"><img src='{{expertData.foodUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.foodUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
@@ -78,7 +82,7 @@
         <div class="col-md-10 col-md-offset-2">
         </div>
         <div class="col-md-2">
-          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.foodId,'food')" style="position:relative;right:-27px;" ng-disabled="expertData.foodId>0">添加处方</a>
+          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.foodId,'food')" style="position:relative;right:-27px;" ng-disabled="expertData.foodId<=0">添加处方</a>
         </div>
         <div class="col-md-10">
           <table class="table  table-hover table-bordered">
@@ -93,6 +97,7 @@
             </thead>
             <tbody id="databody">
               <tr ng-show="foodChufangArr.length>0" ng-repeat="x in foodChufangArr">
+                <!--FjBH7Um6yox9qExN6-YkrO-bWdet-->
                 <td>{{ x.name }}</td>
                 <td>
                   <span ng-if="x.prescriptionType ==''">处方类别</span>
@@ -113,14 +118,19 @@
             <a id="pickfiles1">
 
               <button type="button" class="btn btn-primary">上传PDF附件</button>
-            </a> <input type="text" name="foodiconUrl" style="opacity:0;width:0;height:0;">
+            </a> <input type="text" name="foodiconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.foodAttach">
+
+            <a href="{{expertData.foodAttach}}" download="fujian.pdf">报告附件</a>
           </div>
         </div>
         <div class="col-md-10 col-md-offset-2">
         </div>
       </div>
       <hr>
-
+      <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
       <div class="row">
         <!-- 消除外边距 -->
         <div class="col-md-2">
@@ -142,7 +152,7 @@
         <div class="col-md-10 col-md-offset-2">
         </div>
         <div class="col-md-2">
-          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.sportId,'sport')" style="position:relative;right:-27px;">添加处方</a>
+          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.sportId,'sport')" style="position:relative;right:-27px;" ng-disabled="expertData.sportId<=0">添加处方</a>
         </div>
         <div class="col-md-10">
           <table class="table  table-hover table-bordered">
@@ -177,7 +187,8 @@
             <a id="pickfiles">
               <!--<img id="img" src='{{model.imageUrl ==null?"../../images/upload/upload-alert.png":model.imageUrl}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;">-->
               <button type="button" class="btn btn-primary">上传PDF附件</button>
-            </a> <input type="text" name="sporticonUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-model="model.iconUrl">
+            </a> <input type="text" name="sporticonUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.sportAttach">
+            <a href="{{expertData.sportAttach}}" download="fujian.pdf">报告附件</a>
             <!---->
           </div>
         </div>
@@ -259,9 +270,8 @@
       drop_element: 'btn-uploader',
       max_file_size: '100mb', //最大文件限制　
       dragdrop: false,
-      chunk_size: '4mb', //分块大小 
-      unique_names: true,
-      save_key: true,
+      chunk_size: '4mb', //分块大小  
+
       uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
         var token = "";
         $.ajax({
@@ -275,7 +285,9 @@
         });
         return token;
       },
-      unique_names: false,
+      save_key: true,
+      unique_names: true,
+
       domain: domainUrl, //自己的七牛云存储空间域名
       multi_selection: false, //是否允许同时选择多文件
       //文件类型过滤，这里限制为图片类型
@@ -310,7 +322,10 @@
           tool.alert("提示", errTip);
         },
         'Key': function(up, file) {
-          return file.name;
+          var key = '';
+          var timestamp = (new Date()).valueOf();
+          key = timestamp + "_hes.pdf";
+          return key;
         }
       }
     });
@@ -322,7 +337,7 @@
       max_file_size: '100mb', //最大文件限制　
       dragdrop: false,
       chunk_size: '4mb', //分块大小 
-      unique_names: true,
+      // unique_names: true,
       save_key: true,
       uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
         var token = "";
@@ -421,6 +436,7 @@
                   $scope.expertData.sportUrl = element.admin.iconUrl;
                   $scope.expertData.sportId = element.id;
                   $scope.sportChufangArr = element.prescriptions;
+                  $scope.expertData.sportAttach = element.attach;
                 }
                 if (element.admin.role == 3) {
                   $scope.expertData.foodReport = element.analysis;
@@ -428,6 +444,7 @@
                   $scope.expertData.foodUrl = element.admin.iconUrl;
                   $scope.expertData.foodId = element.id;
                   $scope.foodChufangArr = element.prescriptions;
+                  $scope.expertData.foodAttach = element.attach;
                 }
               }
 
@@ -703,6 +720,12 @@
             "提示",
             "确认添加建议？",
             function() {
+
+              var attachUrl = $("[name='" + type + "iconUrl']").val();
+              if (!attachUrl) {
+                tool.alert("提示", "请上传附件！");
+                return false;
+              }
               $.ajax({
                 type: "POST",
                 url: BasicUrl + "report/" + $scope.reportId + "/consult",
@@ -711,7 +734,7 @@
                   adminId: adminId, //TODO  修改
                   analysis: $scope.expertData[type + 'Report'],
                   advice: $scope.expertData[type + 'Advice'],
-                  attach: $("[name='" + type + "iconUrl']").val() //附件
+                  attach: attachUrl //附件
                 },
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'

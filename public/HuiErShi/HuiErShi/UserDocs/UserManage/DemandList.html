@@ -33,13 +33,10 @@
         <div class="form-group text-left">
           <label class="">会籍顾问： </label>
           <!--包括 [所有, 体贴型(VIP), 关爱型(MEMBER), 保健型(NORMAL), 已过期, 未激活]-->
-          <select class="form-control" name="advisorId" id="advisorId" style="width:130px;"> <option value="">全部</option>
-            <option value="">所有</option>
-            <option value="VIP">体贴型</option>
-            <option value="MEMBER">关爱型</option> 
-            <option value="NORMAL">保健型</option>
-            <option value="已过期">已过期</option> 
-            <option value="未激活">未激活</option> 
+          <select class="form-control" name="advisorId" id="advisorId" style="width:130px;"> 
+           
+         <option value="">请选择</option>
+             <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option>
          </select>
         </div>
         <div class="form-group text-left">
@@ -205,10 +202,8 @@
   <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
   <script>
     $(function() {
-      tool.changeSelect($("#advisorId"), false);
-      //添加表单中
-      tool.changeSelect($("#modalUserId"), false);
-      tool.changeSelect($("#demandWay"), false);
+      // tool.changeSelect($("#modalUserId"), false);
+      // tool.changeSelect($("#demandWay"), false);
 
       $("#userId").select2({
         placeholder: '请选择',
@@ -251,7 +246,7 @@
         },
         minimumInputLength: 1,
         minimumResultsForSearch: 1,
-        width: "120px",
+        width: "100%",
         templateResult: formatRepo,
         templateSelection: formatRepoSelection,
       });
@@ -265,28 +260,6 @@
         return repo.realName;
       }
 
-      $("#modalUserId").select2({
-        placeholder: '请选择',
-        allowClear: true,
-        ajax: {
-          url: function(params) {
-            return BasicUrl + "vip/name/" + params.term;
-          },
-          dataType: 'json',
-          delay: 250,
-          processResults: function(data, page) {
-            return {
-              results: data
-            };
-          },
-          cache: false
-        },
-        minimumInputLength: 1,
-        minimumResultsForSearch: 1,
-        width: "100%",
-        templateResult: formatRepo,
-        templateSelection: formatRepoSelection,
-      });
     });
 
     var params = "advisorId=&userId=&minCreateAt=&maxCreateAt=&"; //全局变量 
@@ -320,6 +293,15 @@
         });
       }]);
       app.controller("customersCtrl", ["$scope", "$http", function($scope, $http) {
+
+
+
+        $http.get(BasicUrl + "admin/advisers").success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            $scope.options = data;
+            tool.changeSelect($("#advisorId"), true);
+          }
+        });
         //分页方法声明
         var pageing = function(pageindex, params) {
             //请求地址 

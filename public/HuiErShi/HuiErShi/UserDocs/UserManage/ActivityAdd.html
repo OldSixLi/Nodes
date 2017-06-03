@@ -127,8 +127,8 @@
                   <div class="col-sm-6">
                     <div class="radio">
 
-                      <label> <input type="radio" name="isReleased" id="isReleased1" ng-checked="true" ng-value="1" ng-model="vm.entity.allowsingup">是</label>
-                      <label> <input type="radio" name="isReleased" id="isReleased1" ng-value="0" ng-model="vm.entity.allowsingup">否</label>
+                      <label> <input type="radio" name="signByUser" id="isReleased1" ng-checked="true" ng-value="true" ng-model="vm.entity.signByUser">是</label>
+                      <label> <input type="radio" name="signByUser" id="isReleased2" ng-value="false" ng-model="vm.entity.signByUser">否</label>
                       <!--<label>
                                                 <input type="radio" name="signByUser" ng-model="vm.entity.signByUser" ng-value=true ng-checked="true">开
                                             </label>
@@ -437,6 +437,27 @@
               // vm.entity.startAt
               vm.entity.startAt = getLocalTime(vm.entity.startAt);
               $scope.dataLengths = vm.entity.members;
+
+              // $scope.vm.entity.signByUser = data.signByUser;
+
+              // if (data.signByUser) {
+              //   $("#isReleased1").attr('checked', 'checked');
+              // } else {
+              //   $("#isReleased2").attr('checked', 'checked');
+              // }
+
+
+              if (!data.released) {
+                $scope.vm.entity.isReleased = 0;
+              }
+
+              if (data.released && data.allowSignUp) {
+                $scope.vm.entity.isReleased = 1;
+              }
+              if (data.released && !data.allowSignUp) {
+                $scope.vm.entity.isReleased = 2;
+              }
+
             } else {
               tool.alert("提示", "当前活动不存在！");
               window.history.back(-1); //回退至上一页面
@@ -524,7 +545,7 @@
             signByUser: false //是否允许用户自主签到
           };
 
-          obj.signByUser = vm.entity.allowsingup != "0";
+          obj.signByUser = vm.entity.signByUser;
           // 待发布(用户不可见)
           if (val == "0") {
             obj.allowSignUp = false;
@@ -663,12 +684,25 @@
             $http({
                 method: 'DELETE',
                 url: BasicUrl + "activity/" + id + "/member/" + userId,
+                data: {
+                  id: id,
+                  userId: userId
+                },
+                transformRequest: function(obj) {
+                  var str = [];
+                  for (var p in obj) {
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                  }
+                  return str.join("&");
+                },
                 headers: {
                   'Content-Type': 'application/x-www-form-urlencoded'
                 }
               })
               .success(function(data, xhr) {
                 if (xhr == 200) {
+
+
                   tool.alert("提示", "取消报名成功!");　
                 } else {
                   tool.alert("提示", "操作失败,请重试!");

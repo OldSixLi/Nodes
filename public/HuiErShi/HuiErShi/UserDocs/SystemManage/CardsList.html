@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>卡券列表</title>
-  <link href="../../Styles/bootstrap-3.3.4--backup.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/common.css" rel="stylesheet">
@@ -128,7 +128,7 @@
 
                   <a id="pickfiles">
                     <img id="img" src='{{model.imageUrl ==null?"../../images/upload/upload-alert.png":model.imageUrl}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;"></a>
-                  <input type="text" name="iconUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-value="model.imageUrl" ng-model="model.imageUrl">
+                  <input type="text" name="iconUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-model="model.iconUrl">
                   <input type="text" name="id" class="" id="id" style="opacity:0;width:0;height:0;" ng-model="model.id">
 
                 </div>
@@ -477,7 +477,7 @@
         }
         $.ajax({
           type: "PATCH",
-          url: BasicUrl + "vipCard/" + $scope.model.id,
+          url: BasicUrl + "prescription/" + $scope.model.id,
           data: saveInfo,
           dataType: "json",
           error: function(response) {

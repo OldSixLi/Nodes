@@ -5,7 +5,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>食物列表</title>
-  <link href="../../Styles/bootstrap.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
   <!-- 个人维护样式库 -->
@@ -85,11 +85,11 @@
               <td>{{ $index+1}}</td>
               <td>{{ x.name }}</td>
               <td>{{ x.name }}</td>
-              <td><a href="{{x.name}}">操作</a></td>
-              <td><a href="{{x.name}}">操作</a></td>
-              <td>{{ x.name }}</td>
-              <td>{{ x.name?x.name:"2017年2月16日14:04:10" }}</td>
-              <td>{{x.name}}</td>
+              <td> {{x.subcategories}} </td>
+              <td> {{x.dietNutrition.energy}} </td>
+              <td>{{ x.dietNutrition.protein }}</td>
+              <td>{{ x.dietNutrition.carbohydrate }}</td>
+              <td>{{x.dietNutrition.fat}}</td>
               <td><a href="FoodsEdit.html?id={{x.id}}" title="修改信息"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;
                 <a href="#" ng-click="deleteItem(x.id)" title="删除信息"><span class="glyphicon glyphicon-trash"></span></a></td>
             </tr>

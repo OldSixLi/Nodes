@@ -18,6 +18,10 @@
     .inputlabel {
       line-height: 30px;
     }
+    
+    .btn.btn-link {
+      padding: 0;
+    }
   </style>
 </head>
 
@@ -31,8 +35,13 @@
     </ol>
     <div class="row form-inline">
 
-      <h1>{{picNum}}</h1>
-      <div class="col-md-2"><img src="{{data.picUrl[0]}}" alt="" class="img-responsive img-thumbnail" ng-click="seeDetail(data.picUrl[0])"></div>
+
+      <div class="col-md-2 text-center">
+        <img src="{{data.picUrl[picIndex]}}" alt="" class="img-responsive img-thumbnail" ng-click="seeDetail(data.picUrl[picIndex])">
+        <a class="btn btn-link pull-left" ng-click="prevImage()" ng-show="picIndex>0">上一张</a>
+        <span class="btn btn-link" style="color:black;">{{(picIndex+1)+'/'+picNum}}</span>
+        <a class="btn btn-link pull-right" ng-click="nextImage()" ng-show="picIndex<(picNum-1)">下一张</a>
+      </div>
       <div class="col-md-10">
         <p>会员姓名：{{data.user.userName}}　　　　　　性别：{{data.user.gender=="M"?"男":"女"}}　　　　　　手机：{{data.user.vipEntity.mobile}}</p>
         <p>验单评估：
@@ -211,10 +220,7 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
             tool.changeSelect($("#allItem"), true);
           }
         });
-        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
-        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+
         var checkObj = new UrlSearch();
         if (checkObj.id) {
           //请求参数
@@ -223,6 +229,7 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
             if (data != null && data != "" && data != "null" && data.id) {
               $scope.data = data;
               $scope.picNum = data.picUrl.length;
+              $scope.picIndex = 0;
             } else {
               tool.alert("提示", data.errorMessage);
             }
@@ -234,6 +241,25 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
         } else {
           tool.alert("提示", "获取参数出错，请重试！", function() {});
           window.history.back(-1);
+        }
+        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
+        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+        // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+        $scope.nextImage = function() {
+          if ($scope.picIndex < $scope.picNum - 1) {
+            $scope.picIndex++;
+          } else {
+            $scope.picIndex = $scope.picNum - 1;
+          }
+        }
+
+        $scope.prevImage = function() {
+          if ($scope.picIndex > 0) {
+            $scope.picIndex--;
+          } else {
+            $scope.picIndex = 0;
+          }
         }
 
         //无效
@@ -318,23 +344,60 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
                 }
               });
             },
-            function() {
-              //用户点击取消按钮时操作
-
-            });
+            function() {});
 
         }
 
         $scope.seeDetail = function(url) {
-          tool.alert("图片详情", "<img src='" + url + "' class='img-responsive img-thumbnail' style='width:100%;height:auto;'/>", function() {}, 'col-md-6 col-md-offset-3');
+          tool.alert("图片详情", "<img src='" + url + "' class='img-responsive img-thumbnail' style='max-width:800px;width:auto;height:auto;margin:0 auto;'/>", function() {}, 'col-md-10 col-md-offset-1 imgContent');
         }
 
         //新建报告单
         $scope.addNew = function() {
-
+          var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+          // var checkId = checkObj.id;
+          // var itemId = $scope.itemDetail.itemId;
+          // var val = $scope.itemDetail.value;
           var dataInfo = {
+            isValid: true,
+            inspectionNo: $("#inspectionNo").val(),
+            name: $scope.data.name,
+            reportFrom: $("#reportFrom").val(),
+            checkAt: minExpiredAt,
+            picUrls: $scope.data.picUrl.join(',')
+          }
+          $http({
+              method: 'POST',
+              url: BasicUrl + "inspection",
+              data: dataInfo,
+              transformRequest: function(obj) {
+                var str = [];
+                for (var p in obj) {
+                  str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+                return str.join("&");
+              },
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+            })
+            .success(function(data, xhr) {
+              if (xhr == 200 || xhr == 204) {
+                if (data.errorMessage) {
+                  tool.alert("提示", data.errorMessage);
+                } else {
+                  tool.alert("提示", "新建报告单成功!");
+                  $scope.itemDetail.value = "";
+                }
 
-          };
+              } else {
+                tool.alert("提示", "保存失败,请重试!");
+              }
+            }).error(function(response) {
+              if (response && response.errorMessage) {
+                tool.alert("提示", response.errorMessage);
+              }
+            });
         }
 
         //多项导入
