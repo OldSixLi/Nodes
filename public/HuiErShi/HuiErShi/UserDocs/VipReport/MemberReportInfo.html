@@ -14,6 +14,10 @@
       max-width: 100px;
       height: 100px;
     }
+    
+    .button-file:hover {
+      text-decoration: none;
+    }
   </style>
 </head>
 
@@ -115,12 +119,12 @@
           </table>
 
           <div id="btn-uploader1">
-            <a id="pickfiles1">
+            <a id="pickfiles1" class="button-file">
 
               <button type="button" class="btn btn-primary">上传PDF附件</button>
             </a> <input type="text" name="foodiconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.foodAttach">
 
-            <a href="{{expertData.foodAttach}}" download="fujian.pdf">报告附件</a>
+            <a href="{{expertData.foodAttach}}" id="foodLink" download="fujian.pdf" class="pdf btn btn-link ">下载附件</a>
           </div>
         </div>
         <div class="col-md-10 col-md-offset-2">
@@ -184,11 +188,12 @@
           </table>
           <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
           <div id="btn-uploader">
-            <a id="pickfiles">
+            <a id="pickfiles" class="button-file">
               <!--<img id="img" src='{{model.imageUrl ==null?"../../images/upload/upload-alert.png":model.imageUrl}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;">-->
               <button type="button" class="btn btn-primary">上传PDF附件</button>
             </a> <input type="text" name="sporticonUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.sportAttach">
-            <a href="{{expertData.sportAttach}}" download="fujian.pdf">报告附件</a>
+            <!--<a href="{{expertData.sportAttach}}" id="sportLink" target="_blank" class="pdf btn btn-link">查看附件</a>-->
+            <a href="{{expertData.sportAttach}}" id="sportLink" download="fujian.pdf" class="pdf btn btn-link">下载附件</a>
             <!---->
           </div>
         </div>
@@ -285,7 +290,7 @@
         });
         return token;
       },
-      save_key: true,
+      // save_key: true,
       unique_names: true,
 
       domain: domainUrl, //自己的七牛云存储空间域名
@@ -317,6 +322,8 @@
           tool.alert("提示", "上传成功");
           var imgSrc = domainUrl + json.key;
           $("[name='sporticonUrl']").val(imgSrc);
+          $("#sportLink").attr("href", imgSrc);
+          changeFileDisable();
         },
         'Error': function(up, err, errTip) {
           tool.alert("提示", errTip);
@@ -338,7 +345,7 @@
       dragdrop: false,
       chunk_size: '4mb', //分块大小 
       // unique_names: true,
-      save_key: true,
+      // save_key: false,
       uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
         var token = "";
         $.ajax({
@@ -382,21 +389,39 @@
           tool.alert("提示", "上传成功");
           var imgSrc = domainUrl + json.key;
           $("[name='foodiconUrl']").val(imgSrc);
+          $("#foodLink").attr("href", imgSrc);
+          changeFileDisable();
         },
         'Error': function(up, err, errTip) {
           tool.alert("提示", errTip);
         },
         'Key': function(up, file) {
-          return file.name;
+          var key = '';
+          var timestamp = (new Date()).valueOf();
+          key = timestamp + "_hes.pdf";
+          return key;
         }
       }
     });
+
+
+
+
+    function changeFileDisable() {
+      $(".pdf").each(function() {
+        if ($(this).attr('href') == "") {
+          $(this).addClass('disabled');
+        } else {
+          $(this).removeClass('disabled');
+        }
+      })
+    }
     // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
     // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
     // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
     // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
     var app = angular.module('myApp', []);
-    app.controller('customersCtrl', function($scope, $http) {
+    app.controller('customersCtrl', function($scope, $http, $timeout) {
       //获取处方下拉菜单
       var chufangurl = BasicUrl + "prescription?page=0&pageNum=10";
       $http.get(chufangurl).success(function(data) {
@@ -450,6 +475,14 @@
 
             }
 
+            if (!$scope.expertData.foodAttach) {
+              $("#foodLink").addClass('disabled');
+            }
+
+            if (!$scope.expertData.sportAttach) {
+              $("#sportLink").addClass('disabled');
+            }
+
           } else {
             tool.alert("提示", data.errorMessage);
           }
@@ -457,11 +490,15 @@
           tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
           window.location.href = "MemberReportList.html";
         });
+
       } else {
         tool.alert("提示", "参数错误,当前无法获取数据!");
         window.location.href = "MemberReportList.html";
       }
-
+      // $timeout(changeFileDisable(), 4000);
+      // setTimeout(changeFileDisable(), 2000);
+      // $scope.$apply();
+      // changeFileDisable();
       //修改报告分析
       $scope.editReport = function(content, type) {
         if (content) {
@@ -884,7 +921,7 @@
   </script>
 </body>
 
-</html>ipt>
+</html>
 </body>
 
 </html>

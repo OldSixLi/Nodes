@@ -22,6 +22,32 @@
     .btn.btn-link {
       padding: 0;
     }
+    
+    .item-class {
+      margin: 0;
+      padding: 0 10px;
+      line-height: 30px;
+    }
+    
+    .item-class:hover {
+      background-color: #ddd;
+      color: black;
+    }
+    
+    .item-active {
+      background-color: #1E90FF;
+      color: white;
+    }
+    
+    .item-active:hover {
+      background-color: #1E90FF;
+      color: white;
+    }
+    
+    .item-list>li {
+      margin: 0;
+      padding: 0 10px;
+    }
   </style>
 </head>
 
@@ -34,8 +60,6 @@
       <li class="active">验单详情</li>
     </ol>
     <div class="row form-inline">
-
-
       <div class="col-md-2 text-center">
         <img src="{{data.picUrl[picIndex]}}" alt="" class="img-responsive img-thumbnail" ng-click="seeDetail(data.picUrl[picIndex])">
         <a class="btn btn-link pull-left" ng-click="prevImage()" ng-show="picIndex>0">上一张</a>
@@ -118,6 +142,7 @@
         <label for="" class="control-label" style="line-height:30px;">数据视图:</label> </div>
       <div class="col-md-2">
         <select class="form-control" id="dataView"> 
+          <option value="">请选择</option>
           <option ng-repeat="x in options"  value="{{x.id}}">{{x.name}}</option>
           </select>
       </div>
@@ -151,8 +176,8 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
         <div class="panel panel-default">
           <div class="panel-heading">报告单号：{{data.inspectionNo}}</div>
           <div class="panel-body">
-            <ul>
-              <li ng-repeat="x in itemList" data-id="{{x.id}}" ng-click="getItemDetail(x.id)">{{x.name}} </li>
+            <ul class="item-list" style="padding:0;">
+              <li class="item-class" ng-repeat="x in itemList" data-id="{{x.itemId}}" ng-click="getItemDetail(x.itemId)" ng-class="itemClassItemId==x.itemId?'item-active':''" style="display:block;list-style: none;  height: 30px;">{{x.name}} </li>
             </ul>
 
           </div>
@@ -162,18 +187,20 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
       <div class="col-md-6">
         <div class="row">
           <div class="col-md-4 text-right"><label for="" class="inputlabel">数据名称:</label></div>
-          <div class="col-md-4"><span>{{itemDetail.name}}</span></div>
+          <div class="col-md-4"><span class="inputlabel">{{itemDetail.name}}</span></div>
           <div class="col-md-4"></div>
         </div>
         <div class="row">
           <div class="col-md-4 text-right"><label for="" class="inputlabel">参考数值:</label></div>
-          <div class="col-md-4"><span>{{ itemDetail.minReference +"~"+itemDetail.maxReference}}</span></div>
+          <div class="col-md-4"><span class="inputlabel">{{ itemDetail.minReference}} <span  ng-if="itemDetail.minReference&&itemDetail.maxReference">~</span>{{itemDetail.maxReference}}
+            <span ng-if="itemDetail.minReference||itemDetail.maxReference">{{itemDetail.unit}}</span> </span>
+          </div>
           <div class="col-md-4"></div>
         </div>
         <div class="row">
           <div class="col-md-4 text-right"><label for="" class="inputlabel">数值:</label></div>
           <div class="col-md-4"><input class="form-control" type="text" name="" ng-model="itemDetail.value" placeholder="数值"></div>
-          <div class="col-md-4"></div>
+          <div class="col-md-4"><span class="inputlabel">{{itemDetail.unit}}</span> </div>
         </div>
         <div class="row">
           <div class="col-md-4"></div>
@@ -220,7 +247,7 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
             tool.changeSelect($("#allItem"), true);
           }
         });
-
+        $scope.itemClassItemId = '';
         var checkObj = new UrlSearch();
         if (checkObj.id) {
           //请求参数
@@ -402,17 +429,26 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
 
         //多项导入
         $scope.viewItemAdd = function() {
+          $scope.itemDetail = null;
           var viewID = $("#dataView").val();
+          if (!viewID) {
+            tool.alert("提示", "请选择数据视图后再进行操作");
+            return false;
+          }
           $http.get(BasicUrl + "view/" + viewID).success(function(data) {
             if (data != null && data != "" && data != "null") {
               //数据不为空
-              $scope.itemList = data; //TODO 修改
+              $scope.itemList = data.items; //TODO 修改
             }
           });
+
+
+          ItemClick();
         }
 
         //获取视图下  某个数据项目的详情
         $scope.getItemDetail = function(id) {
+          $scope.itemClassItemId = id;
           $http.get(BasicUrl + "item/" + id).success(function(data) {
             if (data != null && data != "" && data != "null") {
               //数据不为空
@@ -481,6 +517,15 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
         }
 
       });
+
+      function ItemClick() {
+        $(".item-list li").each(function() {
+          $(this).click(function() {
+            $(".item-list li").removeClass('item-active');
+            $(this).addClass('item-active');
+          })
+        })
+      }
     </script>
 </body>
 
