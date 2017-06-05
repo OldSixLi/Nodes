@@ -44,7 +44,7 @@
 
 <body ng-app="myApp">
 
-  <div ng-controller="validateCtrl" class="container-fluid">
+  <div ng-controller="validateCtrl" class="container-fluid myload">
     <!-- 面包屑导航 -->
     <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
       <li><a href="javascript:void(0)">用户数据</a></li>
@@ -261,7 +261,7 @@
                     <input id="txtTime" name="time" class="start_end_time form-control" placeholder="请选择时间" ng-disabled='!(type=="6")'>
                   </div>
                 </div>
-                <p ng-show="{{!isShow}}">最后修改: {{lastUpdate_userName}}　{{lastUpdate_time}}</p>
+                <p ng-show="{{!isShow}}">最后修改: {{lastUpdate_userName}}　{{vm.data.modifyAt|date:"yyyy/MM/dd HH:mm:ss" }}</p>
               </fieldset>
             </div>
           </div>
@@ -444,6 +444,11 @@
               $(":submit").attr("disabled", false);
             });
         };
+
+        //加载完毕后再显示 
+        $scope.$watch("viewContentLoaded", function() {
+          angular.element(".myload").removeClass("myload");
+        });
       }]);
     })();
   </script>

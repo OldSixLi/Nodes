@@ -28,7 +28,7 @@
 
 <body ng-app="myApp">
   <!--检索项-->
-  <div ng-controller="customersCtrl" class="container-fluid">
+  <div ng-controller="customersCtrl" class="container-fluid myload">
     <!-- 面包屑导航 -->
     <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
       <li><a href="javascript:void(0)">用户数据</a></li>
@@ -440,6 +440,11 @@
           console.log($scope.selected.join(','));
         }
       };
+
+      //加载完毕后再显示 
+      $scope.$watch("viewContentLoaded", function() {
+        angular.element(".myload").removeClass("myload");
+      });
     });
   </script>
 </body>

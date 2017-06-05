@@ -299,9 +299,10 @@
           function() {});
       }
 
+      //加载完毕后再显示 
       $scope.$watch("viewContentLoaded", function() {
         angular.element(".myload").removeClass("myload");
-      })
+      });
     });
   </script>
 

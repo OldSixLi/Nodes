@@ -59,7 +59,7 @@
   </style>
 </head>
 
-<body ng-app="myApp" ng-controller="customersCtrl">
+<body ng-app="myApp" ng-controller="customersCtrl" class="myload">
   <!-- 面包屑导航 -->
   <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
     <li><a href="javascript:void(0)">客户管理</a></li>
@@ -590,6 +590,7 @@
 
       }
 
+      //设置专家
       $scope.setExpert = function(id) {
         var userid = $scope.userid; //获取当前用户ID
 
@@ -646,6 +647,11 @@
           },
           function() {});
       }
+
+      //加载完毕后再显示 
+      $scope.$watch("viewContentLoaded", function() {
+        angular.element(".myload").removeClass("myload");
+      });
     });
   </script>
 </body>

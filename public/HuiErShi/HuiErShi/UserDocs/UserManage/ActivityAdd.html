@@ -27,7 +27,7 @@
     </div>
   </div>
   <!--页面主体-->
-  <div class="container-fluid" ng-app="myApp" ng-controller="validateCtrl">
+  <div class="container-fluid myload" ng-app="myApp" ng-controller="validateCtrl">
     <div class="row">
 
       <!--表单元素-->
@@ -713,6 +713,11 @@
 
           }, function() {});
         }
+
+        //加载完毕后再显示 
+        $scope.$watch("viewContentLoaded", function() {
+          angular.element(".myload").removeClass("myload");
+        });
       }]);
 
     })();

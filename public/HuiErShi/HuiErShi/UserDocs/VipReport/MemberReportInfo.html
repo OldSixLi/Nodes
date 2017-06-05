@@ -21,7 +21,7 @@
   </style>
 </head>
 
-<body ng-app="myApp" ng-controller="customersCtrl">
+<body ng-app="myApp" ng-controller="customersCtrl" class="myload">
   <!-- 面包屑导航 -->
   <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
     <li><a href="javascript:void(0)">会员报告</a></li>
@@ -917,6 +917,11 @@
         }
         return newObj;
       }
+
+      //加载完毕后再显示 
+      $scope.$watch("viewContentLoaded", function() {
+        angular.element(".myload").removeClass("myload");
+      });
     });
   </script>
 </body>

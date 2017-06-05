@@ -13,7 +13,7 @@
 
 <body ng-app="myApp">
   <!--检索项-->
-  <div ng-controller="customersCtrl" class="container-fluid">
+  <div ng-controller="customersCtrl" class="container-fluid myload">
     <!-- 面包屑导航 -->
     <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
       <li><a href="javascript:void(0)">会员报告</a></li>
@@ -416,6 +416,11 @@
           tool.alert("提示", "获取参数出错，请重试！");
         }
       }
+
+      //加载完毕后再显示 
+      $scope.$watch("viewContentLoaded", function() {
+        angular.element(".myload").removeClass("myload");
+      });
     });
   </script>
 </body>

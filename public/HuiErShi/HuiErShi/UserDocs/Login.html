@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <title>登录</title>
-  <!-- 登录样式 -->
   <link rel="stylesheet" href="../Styles/login.css" />
 </head>
 
@@ -87,15 +86,11 @@
                 //成功操作
                 // TODO  保存COOKIE
                 vm.errorMessage = "";
-                window.location.href = "SlideHtml-back.html";
+                window.location.href = "HuiErShi.html";
                 $scope.vm.data = {};
 
               }
             }).error(function(response) {
-              // vm.errorMessage = response.errorMessage;
-              // setTimeout(function() {
-              //   vm.errorMessage = "";
-              // }, 2000);
               alert(response.errorMessage);
               $(":submit").attr("disabled", false);
             });

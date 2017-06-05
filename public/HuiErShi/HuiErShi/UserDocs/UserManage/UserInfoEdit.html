@@ -25,7 +25,7 @@
   </style>
 </head>
 
-<body ng-app="myApp" ng-controller="validateCtrl">
+<body ng-app="myApp" ng-controller="validateCtrl" class="myload">
   <!-- 面包屑导航 -->
   <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
     <li><a href="javascript:void(0)">客户管理</a></li>
@@ -669,6 +669,12 @@
             },
             function() {});
         }
+
+
+        //加载完毕后再显示 
+        $scope.$watch("viewContentLoaded", function() {
+          angular.element(".myload").removeClass("myload");
+        });
       }]);
     })();
   </script>

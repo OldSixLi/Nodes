@@ -14,7 +14,7 @@
 
 <body ng-app="myApp">
 
-  <div ng-controller="customersCtrl" class="container-fluid" ng-clock>
+  <div ng-controller="customersCtrl" class="container-fluid myload">
     <!-- 面包屑导航 -->
     <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
       <li><a href="javascript:void(0)">客户管理</a></li>
@@ -229,6 +229,11 @@
         }
         pageing($scope.toPageValue - 1, params);
       }
+
+      //加载完毕后再显示 
+      $scope.$watch("viewContentLoaded", function() {
+        angular.element(".myload").removeClass("myload");
+      });
     });
   </script>
 </body>

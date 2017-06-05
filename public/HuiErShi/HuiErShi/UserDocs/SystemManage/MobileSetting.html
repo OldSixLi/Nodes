@@ -27,7 +27,7 @@
   </style>
 </head>
 
-<body ng-app="myApp" ng-controller="customersCtrl">
+<body ng-app="myApp" ng-controller="customersCtrl" class="myload">
   <!-- 面包屑导航 -->
   <div class=" row container">
     <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
@@ -279,6 +279,11 @@
       $scope.seeDetail = function(url) {
         tool.alert("图片详情", "<img src='" + url + "' class='img-responsive img-thumbnail' style='width:100%;height:auto;'/>", function() {}, 'col-md-6 col-md-offset-3');
       }
+
+      //加载完毕后再显示 
+      $scope.$watch("viewContentLoaded", function() {
+        angular.element(".myload").removeClass("myload");
+      });
     });
   </script>
 </body>

@@ -41,7 +41,7 @@
   </style>
 </head>
 
-<body ng-app="myApp" ng-controller="myCtrl">
+<body ng-app="myApp" ng-controller="myCtrl" class="myload">
   <!--新视图-->
   <!--TODO  后期重新布局-->
   <div class="container">
@@ -310,6 +310,11 @@
           }
         });
       }
+
+      //加载完毕后再显示 
+      $scope.$watch("viewContentLoaded", function() {
+        angular.element(".myload").removeClass("myload");
+      });
     });
   </script>
 </body>
