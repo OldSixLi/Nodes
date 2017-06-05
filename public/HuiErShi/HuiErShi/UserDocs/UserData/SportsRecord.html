@@ -7,7 +7,6 @@
   <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
   <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-  <!-- 个人维护样式库 -->
   <link href="../../Styles/common.css" rel="stylesheet">
 </head>
 
@@ -25,13 +24,9 @@
           <!--下拉菜单-->
           <select id="userSlt" class="form-control">  <option></option>
           </select> &nbsp;&nbsp;&nbsp;
-          <!--<input name="test" type="hidden" id="userSlt" style="width: 250px" value="上海^漳州" />-->
           <!--日期-->
           <label class="control-label">日期:</label>
-
           <span class="glyphicon glyphicon-chevron-left cu-pointer" title="前一天" onclick="prevDay()"></span>
-
-
           <div class="input-group timeblock">
             <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="开始时间">
             <div class="input-group-btn">
@@ -40,7 +35,6 @@
             </div>
           </div>
           <span class="glyphicon glyphicon-chevron-right cu-pointer" title="后一天" onclick="nextDay()"></span>
-
           <a class="btn btn-primary" id="btnSearch" ng-click="search()"><i class="glyphicon glyphicon-search"></i>&nbsp;搜索</a>
         </div>
       </form>
@@ -81,7 +75,6 @@
               <td>{{ x.heartRate}}</td>
               <td>{{ x.rpe}}</td>
             </tr>
-
             <tr ng-show="!dataLengths">
               <td colspan="100" class="text-center ">暂无结果</td>
             </tr>
@@ -113,9 +106,6 @@
       tooltip: {
         trigger: 'axis'
       },
-      // legend: {
-      //   data: ['最高气温', '最低气温']
-      // },
       toolbox: {
         show: true,
         feature: {
@@ -245,66 +235,61 @@
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
       // 分页方法
-      var pageing = function(pageindex, params) {
-          //TODO  需要修改部分
-          var url = BasicUrl + "sport?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
-          $http.get(url).success(function(data) {
-            if (data != null && data != "" && data != "null") {
-              $scope.dataLengths = data.content.length > 0; //判断当前是否存在记录
-              if (data.content != null && data.content.length > 0) {
-                //赋值操作
-                $scope.data = data;
-                $scope.totalPage = data.totalPages;
-                $scope.totalRecord = data.totalElements;
-                var arr = [],
-                  timeArr = [];
-                for (var index = 0; index < data.content.length; index++) {
-                  arr.push(data.content[index].heartRate);
-                  timeArr.push(getLocalTime(data.content[index].createAt));
-                  console.log(getLocalTime(data.content[index].createAt));
-                }
-                var currentTime = getLocalTime(Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()))).substr(0, 9);
-                option.title.subtext = currentTime;
-                option.xAxis[0].data = timeArr;
-                option.series[0].data = arr;
-                // alert(arr);
-                myChart.setOption(option);
-                //调用生成分页方法
-                initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
-                  pageing($("#currentPage").val() - 1, params);
-                });
-              } else {
-                $scope.dataLengths = false;
-                // tool.alert("提示", "当前条件下未获取到数据");
+      var pageing = function(pageindex, params) {　
+        var url = BasicUrl + "sport?" + params + "page=" + pageindex + "&pageNum=10";　
+        $http.get(url).success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            $scope.dataLengths = data.content.length > 0;　
+            if (data.content != null && data.content.length > 0) {
+              $scope.data = data;
+              $scope.totalPage = data.totalPages;
+              $scope.totalRecord = data.totalElements;
+              var arr = [],
+                timeArr = [];
+              for (var index = 0; index < data.content.length; index++) {
+                arr.push(data.content[index].heartRate);
+                timeArr.push(getLocalTime(data.content[index].createAt));
+                console.log(getLocalTime(data.content[index].createAt));
               }
+              var currentTime = getLocalTime(Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()))).substr(0, 9);
+              option.title.subtext = currentTime;
+              option.xAxis[0].data = timeArr;
+              option.series[0].data = arr;　
+              myChart.setOption(option);
+              //调用生成分页方法
+              initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
+                pageing($("#currentPage").val() - 1, params);
+              });
+            } else {
+              $scope.dataLengths = false;
+              tool.alert("提示", "当前条件下未获取到数据");
             }
-          }).error(function(data) {
-            $scope.dataLengths = false;
-            //处理响应失败
-            // tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
-          });
-        }
-        //分页方法
+          }
+        }).error(function(data) {
+          $scope.dataLengths = false;
+        });
+      }　
 
       // pageing(0, params);
       $scope.search = function() {
-          console.log("值:" + $("#userSlt").val());
-          var userid = $("#userSlt").val();
-          var time = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-          if (!(userid || time)) {
-            tool.alert("提示", "请选择用户和日期！");
-            return false;
-          }
-          params = ""
-          if (userid) {
-            params += "userId=" + userid + "&";
-          }
-          if (time != 0) {
-            params += "minCreatedAt=" + time + "&";
-          }
-          pageing(0, params);
+        console.log("值:" + $("#userSlt").val());
+        var userid = $("#userSlt").val();
+        var time = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+        if (!(userid || time)) {
+          tool.alert("提示", "请选择用户和日期！");
+          return false;
         }
-        //跳转至某页方法
+        params = ""
+        if (userid) {
+          params += "userId=" + userid + "&";
+        }
+        if (time != 0) {
+          params += "minCreatedAt=" + time + "&";
+        }
+        pageing(0, params);
+      }
+
+      //跳转至某页方法
       $scope.skip = function() {
         if ($scope.toPageValue <= 1) {
           $scope.toPageValue = 1;

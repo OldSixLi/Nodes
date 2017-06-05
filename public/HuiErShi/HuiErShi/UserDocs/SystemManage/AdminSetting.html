@@ -12,11 +12,11 @@
 
 <body ng-app="myApp">
   <div ng-controller="customersCtrl" class="container-fluid myload">
-    <!-- 面包屑导航 -->
     <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
       <li><a href="javascript:void(0)">系统管理</a></li>
       <li class="active">管理员设置</li>
     </ol>
+
     <div class="text-right col-xs-12" id="search_block">
       <form class="form-inline" role="form">
         <div class="form-group text-left">
@@ -140,6 +140,7 @@
         </table>
       </div>
     </div>
+
     <!--分页控件-->
     <div ng-show="false">
       <div class="form-group pull-right topage_block">
@@ -157,6 +158,7 @@
       <!-- 当前页隐藏域 -->
       <input id="currentPage" name="currentPage" value="1" type="hidden">
     </div>
+
   </div>
   <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
   <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
@@ -174,15 +176,15 @@
     //获取七牛uptoken　
     uploader = Qiniu.uploader({
       runtimes: 'html5,flash,html4',
-      browse_button: 'pickfiles', //上传按钮的ID
-      container: 'btn-uploader', //上传按钮的上级元素ID
+      browse_button: 'pickfiles',
+      container: 'btn-uploader',
       drop_element: 'btn-uploader',
-      max_file_size: '100mb', //最大文件限制　
+      max_file_size: '100mb',
       dragdrop: false,
-      chunk_size: '4mb', //分块大小 
+      chunk_size: '4mb',
       unique_names: true,
       save_key: true,
-      uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
+      uptoken_func: function() {　
         var token = "";
         $.ajax({
           type: "get",
@@ -196,9 +198,8 @@
         return token;
       },
       unique_names: false,
-      domain: domainUrl, //自己的七牛云存储空间域名
-      multi_selection: false, //是否允许同时选择多文件
-      //文件类型过滤，这里限制为图片类型
+      domain: domainUrl,
+      multi_selection: false,
       filters: {
         mime_types: [{
           title: "Image files",
@@ -207,19 +208,10 @@
       },
       auto_start: true,
       init: {
-        'FilesAdded': function(up, files) {
-          //do something
-        },
-        'BeforeUpload': function(up, file) {
-          //do something
-        },
-        'UploadProgress': function(up, file) {
-          //可以在这里控制上传进度的显示
-          //可参考七牛的例子
-        },
-        'UploadComplete': function() {
-          //do something
-        },
+        'FilesAdded': function(up, files) {},
+        'BeforeUpload': function(up, file) {},
+        'UploadProgress': function(up, file) {},
+        'UploadComplete': function() {},
         'FileUploaded': function(up, file, info) {　
           var json = JSON.parse(info);
           tool.alert("提示", "上传成功");
@@ -267,42 +259,37 @@
 
       //分页方法声明
       var pageing = function(pageindex, params) {
-          //请求地址
-          //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../activity?
-          var url = BasicUrl + "admin?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
-          $http.get(url).success(function(data) {
-            if (data.length > 0) {
-              //判断当前是否存在记录
-              $scope.dataLengths = data.length > 0;
-              if (data != null && data.length > 0) {
-                //赋值操作
-                // $timeout(function() {
-                $scope.data = data;
-                // }, 5000);
-              } else {
-                alert("未获取到数据，请重试");
-              }
+        var url = BasicUrl + "admin?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+        $http.get(url).success(function(data) {
+          if (data.length > 0) {
+            //判断当前是否存在记录
+            $scope.dataLengths = data.length > 0;
+            if (data != null && data.length > 0) {
+              //赋值操作
+              // $timeout(function() {
+              $scope.data = data;
+              // }, 5000);
             } else {
-              $scope.dataLengths = false;
+              alert("未获取到数据，请重试");
             }
-          });
-        }
-        //分页方法
+          } else {
+            $scope.dataLengths = false;
+          }
+        });
+      }
+
+      //分页方法
       pageing(0, params);
       $scope.clear = function() {
-          $scope.model = null;
-        }
-        //查询按钮
-      $scope.search = function() {
-        //TODO  需要修改部分
+        $scope.model = null;
+      }
 
-        //用户名称
-        var username = $("#sltName").find('option:selected').text();
-        //工作
-        var txtKeyWord = $("#txtKeyWord").val();
-        //校验只有一个搜索条件
+      //查询按钮
+      $scope.search = function() {　
+        var username = $("#sltName").find('option:selected').text();　
+        var txtKeyWord = $("#txtKeyWord").val();　
         if (!(username || txtKeyWord)) {
-          alert("请至少输入一个搜索条件");
+          tool.alert("提示", "请至少输入一个搜索条件");
           return false;
         }
         params = '';
@@ -315,7 +302,6 @@
         pageing(0, params);
       }
 
-
       //跳转至某页方法
       $scope.skip = function() {
         if ($scope.toPageValue <= 1) {
@@ -325,7 +311,6 @@
         }
         pageing($scope.toPageValue, params);
       }
-
 
       //删除项目操作方法
       $scope.deleteItem = function(id) {
@@ -357,12 +342,10 @@
       //表格内名称点击弹出模态框修改
       $scope.getEditModel = function(id) {
         $scope.isSave = false;
-        // $('#modal').modal('show');
         $http.get(BasicUrl + "admin/" + id)
           .success(function(data) {
             if (data != null && data != "" && data != "null") {
               $scope.model = data;
-              //将相关信息存储进INPUT里
               $('#modal').modal('show');
             }
           }).error(function() {
@@ -375,7 +358,6 @@
       //新增
       $scope.save = function() {
         var saveInfo = {
-          //文本框,下拉菜单选择值
           name: $.trim($("#name").val()),
           adminNo: $.trim($("#adminNo").val()),
           job: $.trim($("#job").val()),
@@ -410,7 +392,6 @@
               $('[name="addForm"]')[0].reset();
               $('#modal').modal('hide')
               tool.alert("提示", "新增管理员成功", function() {
-                //刷新当前页面.
                 window.location.reload();
               });
             } else {
@@ -427,7 +408,6 @@
       $scope.saveEdit = function() {
         var saveInfo = {
           id: $scope.model.id,
-          //文本框,下拉菜单选择值
           name: $.trim($("#name").val()),
           adminNo: $.trim($("#adminNo").val()),
           job: $.trim($("#job").val()),
@@ -462,7 +442,6 @@
               $('[name="addForm"]')[0].reset();
               $('#modal').modal('hide')
               tool.alert("提示", "修改成功", function() {
-                //刷新当前页面.
                 window.location.reload();
               });
             } else {
@@ -475,7 +454,7 @@
         });
       }
 
-
+      //加载完毕后执行
       $scope.$watch("$viewContentLoaded", function() {
         angular.element(".myload").removeClass("myload");
       })

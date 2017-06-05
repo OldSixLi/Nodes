@@ -62,10 +62,6 @@
         </div>
       </div>
       <hr>
-      <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-          // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-          // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-          // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
       <div class="row">
         <!-- 消除外边距 -->
         <div class="col-md-2"><img src='{{expertData.foodUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.foodUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
@@ -101,7 +97,6 @@
             </thead>
             <tbody id="databody">
               <tr ng-show="foodChufangArr.length>0" ng-repeat="x in foodChufangArr">
-                <!--FjBH7Um6yox9qExN6-YkrO-bWdet-->
                 <td>{{ x.name }}</td>
                 <td>
                   <span ng-if="x.prescriptionType ==''">处方类别</span>
@@ -131,10 +126,6 @@
         </div>
       </div>
       <hr>
-      <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
       <div class="row">
         <!-- 消除外边距 -->
         <div class="col-md-2">
@@ -186,7 +177,7 @@
               </tr>
             </tbody>
           </table>
-          <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
+
           <div id="btn-uploader">
             <a id="pickfiles" class="button-file">
               <!--<img id="img" src='{{model.imageUrl ==null?"../../images/upload/upload-alert.png":model.imageUrl}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;">-->
@@ -198,23 +189,10 @@
           </div>
         </div>
         <div class="col-md-10 col-md-offset-2">
-          <!--//TODO 上传文件功能未做-->
-          <!--<p><b>上传文件:</b> <input type="file" name="" value=""></p>-->
+
         </div>
       </div>
-      <!--<div class="row">
-        <div class="col-md-2"><img src='http://usr.im/100x100?text=文字说明' class='img-responsive img-thumbnail' alt='自定义'></div>
-        <div class="col-md-10">
-          <p>
-            <b>报告分析:</b>{{x.Consult.analysis }}
-            <a href="#?">(修改)</a>
-          </p>
-          <p>
-            <b>报告分析:</b>
-            <a href="#?">(修改)</a>
-          </p>
-        </div>
-      </div>-->
+
     </div>
   </div>
 
@@ -263,10 +241,6 @@
   <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
   <!--自定义脚本部分-->
   <script>
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
     var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
     uploader = Qiniu.uploader({
       runtimes: 'html5,flash,html4',
@@ -404,9 +378,6 @@
       }
     });
 
-
-
-
     function changeFileDisable() {
       $(".pdf").each(function() {
         if ($(this).attr('href') == "") {
@@ -448,7 +419,6 @@
               foodUrl: "",
               foodId: 0
             };
-
             $scope.foodChufangArr = [];
             $scope.sportChufangArr = [];
 
@@ -472,9 +442,7 @@
                   $scope.expertData.foodAttach = element.attach;
                 }
               }
-
             }
-
             if (!$scope.expertData.foodAttach) {
               $("#foodLink").addClass('disabled');
             }
@@ -494,11 +462,7 @@
       } else {
         tool.alert("提示", "参数错误,当前无法获取数据!");
         window.location.href = "MemberReportList.html";
-      }
-      // $timeout(changeFileDisable(), 4000);
-      // setTimeout(changeFileDisable(), 2000);
-      // $scope.$apply();
-      // changeFileDisable();
+      }　
       //修改报告分析
       $scope.editReport = function(content, type) {
         if (content) {
@@ -512,9 +476,7 @@
           // $scope.data.consults.analysis = vals;
           $scope.expertData[type + 'Report'] = vals;
           $scope.$apply();
-        }, function() {
-
-        })
+        }, function() {})
       }
 
       //修改建议
@@ -529,10 +491,7 @@
           var val = window.top.$("#adviceContent").val();
           $scope.expertData[type + 'Advice'] = val;
           $scope.$apply();
-        }, function() {
-
-        })
-
+        }, function() {})
       }
 
       //添加处方时改变相关ID
@@ -543,9 +502,7 @@
 
       //添加处方确定操作
       $scope.addChufangObj = function() {
-
         var chufangID = $("#chufanglist").val();
-
         if (!chufangID) {
           tool.alert("提示", "您还未选择处方！");
           return falsel
@@ -565,9 +522,7 @@
               tool.alert("提示", JSON.parse(response.responseText).errorMessage);
             }
           },
-          success: function(data) {
-
-          },
+          success: function(data) {},
           complete: function(xhr, textStatus) {
             if (xhr.status == 200) {
               if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
@@ -586,15 +541,12 @@
                     $scope.$apply();
                     $("#chufanglist").val('');
                     $('#modal').modal('hide');
-
                   }
                 });
               }
             }
           }
         });
-
-
       }
 
       //发布报告（手机端可见）
@@ -631,8 +583,6 @@
                       window.location.reload();
                     });
                   }
-
-
                 }
               }
             });
@@ -644,7 +594,7 @@
 
       //专家添加建议
       $scope.addConsult = function(type) {
-        var adminId = 0; // TODO以后修改
+        var adminId = 0;　
         var chufang = [];
         if (type == 'food') {
           adminId = 10;
@@ -666,43 +616,7 @@
             "提示",
             "确认添加建议？",
             function() {
-              // $.ajax({
-              //   type: "PATCH",
-              //   url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData[type + 'Id'],
-              //   data: {
-              //     reportId: $scope.reportId - 0,
-              //     consultId: $scope.expertData[type + 'Id'] - 0,
-              //     adminId: adminId, //TODO  修改
-              //     analysis: $scope.expertData[type + 'Report'],
-              //     advice: $scope.expertData[type + 'Advice'],
-              //     prescriptions: chufang.join(','), //处方
-              //     attach: "" //附件
-              //   },
-              //   headers: {
-              //     'Content-Type': 'application/x-www-form-urlencoded'
-              //   },
-              //   dataType: "json",
-              //   error: function(response) {
-              //     if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-              //       tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-              //     }
-              //   },
-              //   success: function(data) {
 
-              //   },
-              //   complete: function(xhr, textStatus) {
-              //     if (xhr.status == 200) {
-              //       if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
-              //         tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
-              //       } else {
-              //         tool.alert("提示", "发布成功", function() {
-              //           //刷新当前页面.
-              //           window.location.reload();
-              //         });
-              //       }
-              //     }
-              //   }
-              // });
               var data = {
                 reportId: $scope.reportId,
                 consultId: $scope.expertData[type + 'Id'] - 0,
@@ -738,7 +652,6 @@
                       //刷新当前页面.
                       window.location.reload();
                     }
-
                   } else {
                     tool.alert("提示", "保存失败,请重试!");
                   }
@@ -747,7 +660,6 @@
                     tool.alert("提示", response.errorMessage);
                   }
                 });
-
             },
             function() {
 
@@ -798,40 +710,6 @@
                   }
                 }
               });
-
-              // var churuData = {
-              //   reportId: $scope.reportId - 0,
-              //   adminId: adminId, //TODO  修改
-              //   analysis: $scope.expertData[type + 'Report'],
-              //   advice: $scope.expertData[type + 'Advice'],
-              //   prescriptions: chufang.join(','), //处方
-              //   attach: "" //附件
-              // }
-              // $http({
-              //     method: 'POST',
-              //     url: BasicUrl + "report/" + $scope.reportId + "/consult",
-              //     data: churuData,
-              //     headers: {
-              //       'Content-Type': 'application/x-www-form-urlencoded'
-              //     }
-              //   })
-              //   .success(function(data, xhr) {
-              //     if (xhr == 200) {
-              //       if (data.errorMessage) {
-              //         tool.alert("提示", data.errorMessage);
-              //       } else {
-              //         tool.alert("提示", "保存成功!");　
-              //         window.location.reload();
-              //       }　
-              //     } else {
-              //       tool.alert("提示", "保存失败,请重试!");
-              //     }
-              //   }).error(function(response) {
-              //     if (response && response.errorMessage) {
-              //       tool.alert("提示", response.errorMessage);
-              //     }
-              //   });
-
             },
             function() {
 
