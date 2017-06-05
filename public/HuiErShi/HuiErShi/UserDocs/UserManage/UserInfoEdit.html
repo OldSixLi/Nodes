@@ -386,7 +386,7 @@
                   <td>{{x.id}}</td>
                   <td>{{x.vipCardEntity.vipType=="considerate"?"体验型":"关爱型"}}</td>
                   <td>{{x.vipCardEntity.validityPeriod}}月</td>
-                  <td><span ng-show="x.activated">{{x.expiredAt|date:"yyyy/MM/dd HH:mm:ss"}}</span></td>
+                  <td><span ng-show="x.activated">{{x.activeAt|date:"yyyy/MM/dd HH:mm:ss"}}</span></td>
                   <td>
                     <a href="#?{{vm.entity.vipEntity.adviser.id}}"><img src='{{vm.entity.vipEntity.adviser.iconUrl}}' alt='会籍顾问'>{{vm.entity.vipEntity.adviser.name}}</a>
                   </td>
