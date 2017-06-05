@@ -183,12 +183,17 @@
               <div class="row">
                 <!-- 消除外边距 -->
                 <div class="col-md-12">　　预约项目：
+
+                  <label ng-repeat="x in options">
+              <input type="checkbox" name="orderItem" value="{{x.id}}" /><span>{{x.name}}&nbsp;&nbsp;</span></label>
+
+                  <!--
                   <input type="checkbox" value="1" name="orderItem" id="orderItem1"><span>肝功能检查　　　</span>
                   <input type="checkbox" value="2" name="orderItem" id="orderItem2"><span>专家: 艾美丽　　</span>
                   <input type="checkbox" value="3" name="orderItem" id="orderItem3"><span>专家: 慕容厦　　</span><br>
                   <span>　　　　　　　</span>
                   <input type="checkbox" value="4" name="orderItem" id="orderItem4"><span>会员建档　　　　</span>
-                  <input type="checkbox" value="5" name="orderItem" id="orderItem5"><span>体格检查　　　　</span>
+                  <input type="checkbox" value="5" name="orderItem" id="orderItem5"><span>体格检查　　　　</span>-->
                 </div>
               </div>
               <div class="row" style="margin-top: 15px;">

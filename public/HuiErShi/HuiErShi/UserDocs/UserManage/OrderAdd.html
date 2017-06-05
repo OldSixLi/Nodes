@@ -112,11 +112,9 @@
           <div class="col-md-3 col-sm-3 col-xs-3 text-right ">
             <label>预约项目:</label></div>
           <div class="col-md-9 col-sm-9 col-xs-9">
-            <input type="checkbox" name="orderItems" value="1" />肝功能检查&nbsp;&nbsp;
-            <input type="checkbox" name="orderItems" value="2" />专家: 艾美丽&nbsp;&nbsp;
-            <input type="checkbox" name="orderItems" value="3" />专家: 慕容厦&nbsp;&nbsp;
-            <input type="checkbox" name="orderItems" value="4" />会员建档&nbsp;&nbsp;
-            <input type="checkbox" name="orderItems" value="5" />体格检查&nbsp;&nbsp;
+            <label ng-repeat="x in options">
+              <input type="checkbox" name="orderItems" value="{{x.id}}" />{{x.name}}&nbsp;&nbsp;</label>
+
           </div>
           <!-- 用于存放当前用户选择的项目ID -->
           <input type="hidden" name="itemId" id="hidden-items" />
@@ -154,11 +152,7 @@
   <script>
     $(function() {
       // $(".start_end_time").datetimepicker();
-      $('form input[type=checkbox]').change(function() {
-        $('#hidden-items').val($('form input[type=checkbox]:checked').map(function() {
-          return this.value
-        }).get().join(','));
-      });
+
     });
     var params = "vipType=&minExpiredAt=&maxExpiredAt=&keyWord="; //全局变量
     var app = angular.module('myApp', []);
@@ -167,6 +161,14 @@
       $scope.isChecked = function(x) {
         return $scope.selected.indexOf(x) >= 0;
       };
+
+
+      $http.get(BasicUrl + "appointmentItems/All").success(function(data) {
+        if (data != null && data != "" && data != "null") {
+          $scope.options = data;
+        }
+        tool.changeSelect($("#sltItem"), false);
+      });
       $scope.updateSelection = function($event, x) {
 
         var checkbox = $event.target;
@@ -238,13 +240,37 @@
         pageing($scope.toPageValue - 1, params);
       }
 
+      /**
+       * 获取多选框（CheckBox）的值 
+       * @param {any} name 控件名称
+       * @returns 
+       */
+      function getCheckBoxValue(name) {
+        var obj = document.getElementsByName(name);
+        var s = [];
+        for (var i = 0; i < obj.length; i++) {
+          if (obj[i].checked) {
+            s.push(obj[i].value);
+          }
+        }
+        return s.join(',');
+      }
 
       $scope.save = function() {
-        console.log(parseInt($("input[type='radio']:checked").val()))
+        if (!$("input[type='radio']:checked").val()) {
+          tool.alert("提示", "请选择会员进行预约");
+          return false;
+        }
+
+        if (!getCheckBoxValue('orderItems')) {
+          tool.alert("提示", "请选择预约项目");
+          return false;
+        }
+
         var saveInfo = {
           userId: parseInt($("input[type='radio']:checked").val()),
           appointmentTime: Date.parse(new Date($("#date").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#date").val())),
-          itemId: $("#hidden-items").val(),
+          itemId: getCheckBoxValue('orderItems'),
           comment: $scope.notes
         }
         $.post(BasicUrl + 'appointment', saveInfo, function(data, status, jqXHR) {

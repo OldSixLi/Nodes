@@ -479,3 +479,15 @@ th.order {
 .jconfirm.white .jconfirm-box .buttons .btn-default {
     border: 1px;
 }
+
+.my-cloak {
+    display: none;
+}
+
+.myload {
+    display: none;
+}
+
+.mycloak {
+    display: none;
+}

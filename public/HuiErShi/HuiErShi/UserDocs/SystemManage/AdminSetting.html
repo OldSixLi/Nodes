@@ -11,7 +11,7 @@
 </head>
 
 <body ng-app="myApp">
-  <div ng-controller="customersCtrl" class="container-fluid">
+  <div ng-controller="customersCtrl" class="container-fluid myload">
     <!-- 面包屑导航 -->
     <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
       <li><a href="javascript:void(0)">系统管理</a></li>
@@ -256,7 +256,7 @@
 
     var params = ""; //全局变量
     var app = angular.module('myApp', []);
-    app.controller('customersCtrl', function($scope, $http) {
+    app.controller('customersCtrl', function($scope, $http, $timeout) {
       $scope.isSave = true;
       var urllist = BasicUrl + "admin";
       $http.get(urllist).success(function(data) {
@@ -276,7 +276,9 @@
               $scope.dataLengths = data.length > 0;
               if (data != null && data.length > 0) {
                 //赋值操作
+                // $timeout(function() {
                 $scope.data = data;
+                // }, 5000);
               } else {
                 alert("未获取到数据，请重试");
               }
@@ -472,6 +474,11 @@
           }
         });
       }
+
+
+      $scope.$watch("$viewContentLoaded", function() {
+        angular.element(".myload").removeClass("myload");
+      })
     });
   </script>
 </body>
