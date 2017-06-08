@@ -1,103 +1,102 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8">
-  <title>登录</title>
-  <link rel="stylesheet" href="../Styles/login.css" />
-</head>
+  <head>
+    <meta charset="utf-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="../Styles/login.css" />
+  </head>
 
-<body>
-  <div class="section" ng-app="myApp" ng-controller="validateCtrl">
-    <div class="page-container">
-      <div class="row">
-        <h1>惠尔仕用户登录</h1>
-        <form class="form-horizontal w5c-form demo-form" w5c-form-validate="vm.validateOptions" novalidate name="validateForm">
-          <div class="form-group">
-            <input name="username" class="form-control" placeholder="用户名" ng-model="vm.data.username" type="text" required>
-          </div>
-          <div class="form-group">
-            <input name="password" class="form-control" placeholder="密码" ng-model="vm.data.password" type="password" required>
-          </div>
-          <p class="text-center" ng-if="vm.errorMessage!=''">
-            <span class="w5c-error">{{vm.errorMessage}}</span>
-          </p>
+  <body>
+    <div class="section" ng-app="myApp" ng-controller="validateCtrl">
+      <div class="page-container">
+        <div class="row">
+          <h1>惠尔仕用户登录</h1>
+          <form class="form-horizontal w5c-form demo-form" w5c-form-validate="vm.validateOptions" novalidate name="validateForm">
+            <div class="form-group">
+              <input name="username" class="form-control" placeholder="用户名" ng-model="vm.data.username" type="text" required>
+            </div>
+            <div class="form-group">
+              <input name="password" class="form-control" placeholder="密码" ng-model="vm.data.password" type="password" required>
+            </div>
+            <p class="text-center" ng-if="vm.errorMessage!=''">
+              <span class="w5c-error">{{vm.errorMessage}}</span>
+            </p>
 
-          <div class="form-group">
-            <button type="submit" w5c-form-submit="vm.saveinfo($event)" class="btn btn-primary">登录</button>
-          </div>
-        </form>
+            <div class="form-group">
+              <button type="submit" w5c-form-submit="vm.saveinfo($event)" class="btn btn-primary">登录</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-  <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
-  <!--<script type="text/javascript" src="../Scripts/md5.js"></script>-->
-  <script type="text/javascript" src="../Scripts/angular.min.js"></script>
-  <script type="text/javascript" src="../Scripts/w5cValidator.js"></script>
-  <!-- 脚本 -->
-  <script>
-    (function() {
-      var app = angular.module("myApp", ["w5c.validator"]);
-      window.app = app;
-      app.config(["w5cValidatorProvider", function(w5cValidatorProvider) {
-        // 全局配置
-        w5cValidatorProvider.config({
-          blurTrig: true,
-          showError: true,
-          removeError: true
-        });
+    <script type="text/javascript" src="../Scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="../Scripts/md5.js"></script>
+    <script type="text/javascript" src="../Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="../Scripts/w5cValidator.js"></script>
+    <!-- 脚本 -->
+    <script>
+      (function() {
+        var app = angular.module("myApp", ["w5c.validator"]);
+        window.app = app;
+        app.config(["w5cValidatorProvider", function(w5cValidatorProvider) {
+          // 全局配置
+          w5cValidatorProvider.config({
+            blurTrig: true,
+            showError: true,
+            removeError: true
+          });
 
-        w5cValidatorProvider.setRules({
-          username: {
-            required: "用户名称不能为空"
-          },
-          password: {
-            required: "密码不能为空"
-          }
-        });
-      }]);
+          w5cValidatorProvider.setRules({
+            username: {
+              required: "用户名称不能为空"
+            },
+            password: {
+              required: "密码不能为空"
+            }
+          });
+        }]);
 
-      app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
-        var vm = $scope.vm = {
-          showErrorType: "1",
-          showDynamicElement: true,
-          dynamicName: "dynamicName",
-          data: {},
-          errorMessage: ""
-        };
+        app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
+          var vm = $scope.vm = {
+            showErrorType: "1",
+            showDynamicElement: true,
+            dynamicName: "dynamicName",
+            data: {},
+            errorMessage: ""
+          };
 
-        vm.saveinfo = function($event) {
-          vm.errorMessage = "";
-          $(":submit").attr("disabled", true);
-          $http({
-              method: 'POST',
-              url: 'http://60.205.170.209:8080/admin/api/token',
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-              },
-              data: $.param({
-                name: $scope.vm.data.username,
-                pwd: $scope.vm.data.password
-                  //  pwd: hex_md5($scope.vm.data.password)
+          vm.saveinfo = function($event) {
+            vm.errorMessage = "";
+            $(":submit").attr("disabled", true);
+            $http({
+                method: 'POST',
+                url: 'http://60.205.170.209:8080/admin/api/token',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $.param({
+                  name: $scope.vm.data.username,
+                  pwd: $scope.vm.data.password
+                    // pwd: hex_md5($scope.vm.data.password)
+                })
               })
-            })
-            .success(function(data, xhr) {
-              if (xhr == 200) {
-                //成功操作
-                // TODO  保存COOKIE
-                vm.errorMessage = "";
-                window.location.href = "HuiErShi.html";
-                $scope.vm.data = {};
-
-              }
-            }).error(function(response) {
-              alert(response.errorMessage);
-              $(":submit").attr("disabled", false);
-            });
-        };
-      }]);
-    })();
-  </script>
-</body>
+              .success(function(data, xhr) {
+                if (xhr == 200) {
+                  //成功操作
+                  // TODO  保存COOKIE
+                  vm.errorMessage = "";
+                  // window.location.href = "HuiErShi.html";
+                  $scope.vm.data = {};
+                }
+              }).error(function(response) {
+                alert(response.errorMessage);
+                $(":submit").attr("disabled", false);
+              });
+          };
+        }]);
+      })();
+    </script>
+  </body>
 
 </html>

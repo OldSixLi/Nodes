@@ -2,367 +2,367 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>会员详情</title>
-  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
-  <link href="../../Styles/common.css" rel="stylesheet">
-  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css" rel="stylesheet" />
-  <style>
-    .datalist option {
-      height: 30px;
-      font-size: 15px;
-    }
-    
-    .a {
-      background-color: #ddd;
-      background-image: url('../a.png');
-      background-repeat: repeat;
-      /*如何重复背景图像*/
-      background-size: 60% 50%;
-      /*背景图片的尺寸*/
-      background-attachment: scroll;
-      /*设置背景图像是否固定或者随着页面的其余部分滚动*/
-      background-position: center;
-      /*规定背景图像的位置。*/
-      background-origin: padding-box;
-      /*规定背景图片的定位区域。*/
-      background-clip: border-box;
-      /*规定背景的绘制区域。*/
-      /*background:bg-color bg-image position/bg-size bg-repeat bg-origin bg-clip bg-attachment initial|inherit;*/
-    }
-    
-    .datalist select {
-      border: none;
-      border-radius: 0;
-      width: 115%;
-    }
-    
-    .panel-select {
-      height: 300px;
-      overflow-y: scroll;
-      overflow-x: hidden;
-    }
-    
-    .div_search {
-      margin: 0;
-    }
-    
-    .viewSearch {
-      margin: 10px -15px 10px;
-    }
-    
-    .control-label {
-      line-height: 34px;
-    }
-  </style>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>会员详情</title>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
+    <link href="../../Styles/common.css" rel="stylesheet">
+    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css" rel="stylesheet" />
+    <style>
+      .datalist option {
+        height: 30px;
+        font-size: 15px;
+      }
+      
+      .a {
+        background-color: #ddd;
+        background-image: url('../a.png');
+        background-repeat: repeat;
+        /*如何重复背景图像*/
+        background-size: 60% 50%;
+        /*背景图片的尺寸*/
+        background-attachment: scroll;
+        /*设置背景图像是否固定或者随着页面的其余部分滚动*/
+        background-position: center;
+        /*规定背景图像的位置。*/
+        background-origin: padding-box;
+        /*规定背景图片的定位区域。*/
+        background-clip: border-box;
+        /*规定背景的绘制区域。*/
+        /*background:bg-color bg-image position/bg-size bg-repeat bg-origin bg-clip bg-attachment initial|inherit;*/
+      }
+      
+      .datalist select {
+        border: none;
+        border-radius: 0;
+        width: 115%;
+      }
+      
+      .panel-select {
+        height: 300px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+      }
+      
+      .div_search {
+        margin: 0;
+      }
+      
+      .viewSearch {
+        margin: 10px -15px 10px;
+      }
+      
+      .control-label {
+        line-height: 34px;
+      }
+    </style>
+  </head>
 
-<body ng-app="myApp" ng-controller="customersCtrl" class="myload">
-  <!-- 面包屑导航 -->
-  <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-    <li><a href="javascript:void(0)">客户管理</a></li>
-    <li><a href="javascript:history.back(-1);">会员列表</a></li>
-    <li class="active">{{data.realName}}</li>
-  </ol>
-  <!--会员详情-->
-  <div class="section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-9 col-sm-12">
-          <div class="row">
-            <div class="col-md-4">
-              <p>
-                <label class="control-label">姓名：</label>
-                <span id="realName">{{data.realName}}</span>
-              </p>
-              <p>
-                <label class="control-label">手机：</label>
-                <span id="mobile">{{data.mobile}}</span>
-              </p>
-              <p>
-                <label class="control-label">编号：</label>
-                <span>{{data.vipNo}}</span>
-              </p>
-              <p>
-                <label class="control-label">地址：</label>
-                <span id="contactAddress"> {{data.contactAddress}}</span>
-              </p>
+  <body ng-app="myApp" ng-controller="customersCtrl" class="myload">
+    <!-- 面包屑导航 -->
+    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+      <li><a href="javascript:void(0)">客户管理</a></li>
+      <li><a href="javascript:history.back(-1);">会员列表</a></li>
+      <li class="active">{{data.realName}}</li>
+    </ol>
+    <!--会员详情-->
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9 col-sm-12">
+            <div class="row">
+              <div class="col-md-4">
+                <p>
+                  <label class="control-label">姓名：</label>
+                  <span id="realName">{{data.realName}}</span>
+                </p>
+                <p>
+                  <label class="control-label">手机：</label>
+                  <span id="mobile">{{data.mobile}}</span>
+                </p>
+                <p>
+                  <label class="control-label">编号：</label>
+                  <span>{{data.vipNo}}</span>
+                </p>
+                <p>
+                  <label class="control-label">地址：</label>
+                  <span id="contactAddress"> {{data.contactAddress}}</span>
+                </p>
+              </div>
+              <div class="col-md-4">
+                <p>
+                  <label class="control-label">职业：</label>
+                  <span id="job">{{data.job}}</span>
+                </p>
+                <p>
+                  <label class="control-label">所属：</label>
+                  <span id="">{{data.origin}}</span>
+                </p>
+                <p>
+                  <label class="control-label">身份证：</label>
+                  <span id="idNo">{{data.idNo}}</span>
+                </p>
+                <p>
+                  <label class="control-label">编号：</label>
+                  <span id="">{{data.vipNo}}</span>
+                </p>
+              </div>
+              <div class="col-md-4">
+                <p>
+                  <label class="control-label">性别：</label>
+                  <span id="gender">{{data.gender=="M"?"男":"女"}}</span>
+                </p>
+                <p>
+                  <label class="control-label">年龄：</label>
+                  <span>{{'TODO'}}</span>
+                </p>
+                <p>
+                  <label class="control-label">籍贯：</label>
+                  <span id="nativePlace">{{data.nationality}}</span>
+                </p>
+                <p>
+                  <label class="control-label">民族：</label>
+                  <span id="nationality">{{data.nativePlace}}</span>
+                </p>
+              </div>
             </div>
-            <div class="col-md-4">
-              <p>
-                <label class="control-label">职业：</label>
-                <span id="job">{{data.job}}</span>
-              </p>
-              <p>
-                <label class="control-label">所属：</label>
-                <span id="">{{data.origin}}</span>
-              </p>
-              <p>
-                <label class="control-label">身份证：</label>
-                <span id="idNo">{{data.idNo}}</span>
-              </p>
-              <p>
-                <label class="control-label">编号：</label>
-                <span id="">{{data.vipNo}}</span>
-              </p>
-            </div>
-            <div class="col-md-4">
-              <p>
-                <label class="control-label">性别：</label>
-                <span id="gender">{{data.gender=="M"?"男":"女"}}</span>
-              </p>
-              <p>
-                <label class="control-label">年龄：</label>
-                <span>{{'TODO'}}</span>
-              </p>
-              <p>
-                <label class="control-label">籍贯：</label>
-                <span id="nativePlace">{{data.nationality}}</span>
-              </p>
-              <p>
-                <label class="control-label">民族：</label>
-                <span id="nationality">{{data.nativePlace}}</span>
-              </p>
+            <div class="div_border"></div>
+            <div class="row">
+              <div class="col-md-4 ">
+                <p>
+                  <label class="control-label">家族史：</label>
+                  <span id="familyMedicalHistory">{{data.familyMedicalHistory}}</span>
+                </p>
+                <p>
+                  <label class="control-label">既往史：</label>
+                  <span id="medicalHistory">{{data.medicalHistory}}</span>
+                </p>
+                <p>
+                  <label class="control-label">月经生育史：</label>
+                  <span id="fertility">{{data.fertility}}</span>
+                </p>
+              </div>
+              <div class="col-md-4">
+                <p>
+                  <label class="control-label">睡眠情况：</label>
+                  <span id="sleepSituation">{{data.sleepSituation}}</span>
+                </p>
+                <p>
+                  <label class="control-label">饮酒情况：</label>
+                  <span id="drinkingSituation">{{data.drinkingSituation}}</span>
+                </p>
+                <p>
+                  <label class="control-label">吸烟情况：</label>
+                  <span id="smokingSituation">{{data.smokingSituation}}</span>
+                </p>
+              </div>
+              <div class="col-md-4">
+                <p>
+                  <label class="control-label">过敏史：</label>
+                  <span id="allergic">{{data.allergic}}</span>
+                </p>
+                <p>
+                  <label class="control-label">饮食习惯：</label>
+                  <span>{{data.dietHabits}}</span>
+                </p>
+                <p>
+                  <label class="control-label">运动习惯：</label>
+                  <span>{{data.sportHabits}}</span>
+                </p>
+                <p>
+                  <label class="control-label">压力状况：</label>
+                  <span>{{data.pressureCondition}}</span>
+                </p>
+              </div>
             </div>
           </div>
-          <div class="div_border"></div>
-          <div class="row">
-            <div class="col-md-4 ">
-              <p>
-                <label class="control-label">家族史：</label>
-                <span id="familyMedicalHistory">{{data.familyMedicalHistory}}</span>
-              </p>
-              <p>
-                <label class="control-label">既往史：</label>
-                <span id="medicalHistory">{{data.medicalHistory}}</span>
-              </p>
-              <p>
-                <label class="control-label">月经生育史：</label>
-                <span id="fertility">{{data.fertility}}</span>
-              </p>
-            </div>
-            <div class="col-md-4">
-              <p>
-                <label class="control-label">睡眠情况：</label>
-                <span id="sleepSituation">{{data.sleepSituation}}</span>
-              </p>
-              <p>
-                <label class="control-label">饮酒情况：</label>
-                <span id="drinkingSituation">{{data.drinkingSituation}}</span>
-              </p>
-              <p>
-                <label class="control-label">吸烟情况：</label>
-                <span id="smokingSituation">{{data.smokingSituation}}</span>
-              </p>
-            </div>
-            <div class="col-md-4">
-              <p>
-                <label class="control-label">过敏史：</label>
-                <span id="allergic">{{data.allergic}}</span>
-              </p>
-              <p>
-                <label class="control-label">饮食习惯：</label>
-                <span>{{data.dietHabits}}</span>
-              </p>
-              <p>
-                <label class="control-label">运动习惯：</label>
-                <span>{{data.sportHabits}}</span>
-              </p>
-              <p>
-                <label class="control-label">压力状况：</label>
-                <span>{{data.pressureCondition}}</span>
-              </p>
-            </div>
+          <div class="col-md-2 col-md-12">
+            <img id="userPhoto" src="{{data.iconUrl}}" class="img-responsive img-thumbnail">
+            <a id="linkEdit" href="UserInfoEdit.html?id={{userid}}" class="btn btn-block btn-success" style="margin-top:10px;">编辑会员资料&nbsp;<i class="glyphicon glyphicon-pencil hidden-xs"></i></a>
           </div>
         </div>
-        <div class="col-md-2 col-md-12">
-          <img id="userPhoto" src="{{data.iconUrl}}" class="img-responsive img-thumbnail">
-          <a id="linkEdit" href="UserInfoEdit.html?id={{userid}}" class="btn btn-block btn-success" style="margin-top:10px;">编辑会员资料&nbsp;<i class="glyphicon glyphicon-pencil hidden-xs"></i></a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="div_border"></div>
-          <div class="row">
-            <div class="col-md-3">
-              <p>
-                <label class="control-label">会籍顾问：</label>
-                <a id="advisername"><a data-toggle="modal" href="#modal">{{data.adviser.name==""?"立即设置":data.adviser.name}}</a></a>
-              </p>
-              <p>
-                <label class="control-label">健康数据：</label>
-                <a href="../UserData/ProjectList.html">{{vipInfo.healthData?vipInfo.healthData:0}}</a>项
-              </p>
-              <p>
-                <label class="control-label">用药记录：</label>
-                <a href="../UserData/UseDrugRecaod.html">{{vipInfo.medicineRecord?vipInfo.medicineRecord:0}}</a>条
-              </p>
-            </div>
-            <div class="col-md-3">
-              <p>
-                <label class="control-label">会员类型：</label>
-                <span>{{ data.vipEntity.vipCard.vipCardEntity.vipType=="considerate"?"体验型":"关爱型"}}</span>
-              </p>
-              <p>
-                <label class="control-label">验单：</label>
-                <a href="../VipReport/CheckLists.html"><span>{{vipInfo.inspection?vipInfo.inspection:0}}</span></a>份
-              </p>
-              <p>
-                <label class="control-label">预约日期：</label>
-                <a href="">{{vipInfo.appointmentTime| date:"yyyy/MM/dd"}}</a>
-              </p>
-            </div>
-            <div class="col-md-3">
-              <p>
-                <label class="control-label">有效日期：</label>
-                <span>{{data.vipCard.expiredAt|date:"yyyy/MM/dd"}} </span>
-              </p>
-              <p>
-                <label class="control-label">报名活动：</label>
-                <a href="ActivityList.html">{{vipInfo.activity.signed?vipInfo.activity.signed:0}}/{{vipInfo.activity.total?vipInfo.activity.total:0}}</a>次
-              </p>
-              <p>
-                <label class="control-label">专家团队：</label>
-                <a data-toggle="modal" href="#zhuanjiaModel"><span>立即设置</a></span>
-              </p>
-            </div>
-            <div class="col-md-3">
-              <p>
-                <label class="control-label">饮食记录：</label>
-                <a href="../UserData/FoodRecord.html"><span>{{vipInfo.dietRecord?vipInfo.dietRecord:0}}</span></a>条
-              </p>
-              <p>
-                <label class="control-label">运动记录：</label>
-                <a href="../UserData/SportsRecord.html"><span>{{vipInfo.sportRecord?vipInfo.sportRecord:0}}</span></a>条
-              </p>
-              <p>
-                <label class="control-label">需求记录：</label>
-                <a href="DemandList.html"><span>{{vipInfo.demand?vipInfo.demand:0}}</span></a>条
-              </p>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="div_border"></div>
+            <div class="row">
+              <div class="col-md-3">
+                <p>
+                  <label class="control-label">会籍顾问：</label>
+                  <a id="advisername"><a data-toggle="modal" href="#modal">{{data.adviser.name==""?"立即设置":data.adviser.name}}</a></a>
+                </p>
+                <p>
+                  <label class="control-label">健康数据：</label>
+                  <a href="../UserData/ProjectList.html">{{vipInfo.healthData?vipInfo.healthData:0}}</a>项
+                </p>
+                <p>
+                  <label class="control-label">用药记录：</label>
+                  <a href="../UserData/UseDrugRecaod.html">{{vipInfo.medicineRecord?vipInfo.medicineRecord:0}}</a>条
+                </p>
+              </div>
+              <div class="col-md-3">
+                <p>
+                  <label class="control-label">会员类型：</label>
+                  <span>{{ data.vipEntity.vipCard.vipCardEntity.vipType=="considerate"?"体验型":"关爱型"}}</span>
+                </p>
+                <p>
+                  <label class="control-label">验单：</label>
+                  <a href="../VipReport/CheckLists.html"><span>{{vipInfo.inspection?vipInfo.inspection:0}}</span></a>份
+                </p>
+                <p>
+                  <label class="control-label">预约日期：</label>
+                  <a href="">{{vipInfo.appointmentTime| date:"yyyy/MM/dd"}}</a>
+                </p>
+              </div>
+              <div class="col-md-3">
+                <p>
+                  <label class="control-label">有效日期：</label>
+                  <span>{{data.vipCard.expiredAt|date:"yyyy/MM/dd"}} </span>
+                </p>
+                <p>
+                  <label class="control-label">报名活动：</label>
+                  <a href="ActivityList.html">{{vipInfo.activity.signed?vipInfo.activity.signed:0}}/{{vipInfo.activity.total?vipInfo.activity.total:0}}</a>次
+                </p>
+                <p>
+                  <label class="control-label">专家团队：</label>
+                  <a data-toggle="modal" href="#zhuanjiaModel"><span>立即设置</a></span>
+                </p>
+              </div>
+              <div class="col-md-3">
+                <p>
+                  <label class="control-label">饮食记录：</label>
+                  <a href="../UserData/FoodRecord.html"><span>{{vipInfo.dietRecord?vipInfo.dietRecord:0}}</span></a>条
+                </p>
+                <p>
+                  <label class="control-label">运动记录：</label>
+                  <a href="../UserData/SportsRecord.html"><span>{{vipInfo.sportRecord?vipInfo.sportRecord:0}}</span></a>条
+                </p>
+                <p>
+                  <label class="control-label">需求记录：</label>
+                  <a href="DemandList.html"><span>{{vipInfo.demand?vipInfo.demand:0}}</span></a>条
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <!--会员表格-->
-  <div class="table_data">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class=" fixed-table-container">
-            <table class="table table-hover">
-              <!-- 表头 -->
-              <thead>
-                <tr>
-                  <th>
-                    诊断日期
-                  </th>
-                  <th>
-                    报告编号
-                  </th>
-                  <th>
-                    交流
-                  </th>
-                  <th>
-                    报告顾问
-                  </th>
-                </tr>
-              </thead>
-              <!--数据部分 -->
-              <!--'TODO'  此部分不知道从哪获取接口，后期补充完成-->
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>16356254585</td>
-                  <td>年卡</td>
-                  <td>李惠利</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>16356254585</td>
-                  <td>年卡</td>
-                  <td>李惠利</td>
-                </tr>
-                <tr>
-                  <td>1</td>
-                  <td>16356254585</td>
-                  <td>年卡</td>
-                  <td>李惠利</td>
-                </tr>
-              </tbody>
-            </table>
+    <!--会员表格-->
+    <div class="table_data">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class=" fixed-table-container">
+              <table class="table table-hover">
+                <!-- 表头 -->
+                <thead>
+                  <tr>
+                    <th>
+                      诊断日期
+                    </th>
+                    <th>
+                      报告编号
+                    </th>
+                    <th>
+                      交流
+                    </th>
+                    <th>
+                      报告顾问
+                    </th>
+                  </tr>
+                </thead>
+                <!--数据部分 -->
+                <!--'TODO'  此部分不知道从哪获取接口，后期补充完成-->
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>16356254585</td>
+                    <td>年卡</td>
+                    <td>李惠利</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>16356254585</td>
+                    <td>年卡</td>
+                    <td>李惠利</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>16356254585</td>
+                    <td>年卡</td>
+                    <td>李惠利</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!--按钮  移动到其他DOM中-->
+    <!--按钮  移动到其他DOM中-->
 
-  <!--按钮END-->
-  <div class="modal fade " id="modal">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title text-center">会籍顾问设置</h4>
-        </div>
-        <div class="modal-body">
-          <form class="form-horizontal" role="form">
-            <div class="form-group">
-              <div class="col-sm-4 text-right">
-                <label for="inputEmail3" class="control-label">当前顾问:</label>
+    <!--按钮END-->
+    <div class="modal fade " id="modal">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title text-center">会籍顾问设置</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+                <div class="col-sm-4 text-right">
+                  <label for="inputEmail3" class="control-label">当前顾问:</label>
+                </div>
+                <div class="col-sm-8">
+                  <span style="line-height: 32px;">{{data.adviser.name}}</span>
+                </div>
               </div>
-              <div class="col-sm-8">
-                <span style="line-height: 32px;">{{data.adviser.name}}</span>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-4 text-right"><label for="inputPassword3" class="control-label">新顾问:</label></div>
-              <div class="col-sm-8">
-                <select class="form-control" name="adviserList" id="adviserList">
+              <div class="form-group">
+                <div class="col-sm-4 text-right"><label for="inputPassword3" class="control-label">新顾问:</label></div>
+                <div class="col-sm-8">
+                  <select class="form-control" name="adviserList" id="adviserList">
                   <!---->
                   <option value="">请选择</option>
                     <option ng-repeat="x in adviseOptions"  value="{{x.id}}">{{x.name}}</option>
                 </select>
+                </div>
               </div>
+            </form>
+          </div>
+          <div class="modal-footer text-center">
+            <div class="row">
+              <div class="col-md-6"> <a class="btn btn-primary pull-right" ng-click="setAdviser()">保存</a></div>
+              <div class="col-md-6"> <a class="btn btn-default pull-left" data-dismiss="modal">取消</a></div>
+
             </div>
-          </form>
-        </div>
-        <div class="modal-footer text-center">
-          <div class="row">
-            <div class="col-md-6"> <a class="btn btn-primary pull-right" ng-click="setAdviser()">保存</a></div>
-            <div class="col-md-6"> <a class="btn btn-default pull-left" data-dismiss="modal">取消</a></div>
+
 
           </div>
-
-
         </div>
       </div>
     </div>
-  </div>
 
-  <!--按钮END-->
-  <div class="modal fade" id="zhuanjiaModel">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title">专家团队设置</h4>
-        </div>
-        <div class="modal-body">
+    <!--按钮END-->
+    <div class="modal fade" id="zhuanjiaModel">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">专家团队设置</h4>
+          </div>
+          <div class="modal-body">
 
-          <div class="row datalist">
-            <div class="col-md-5 col-sm-5 col-xs-5">
-              <div class="panel panel-default panel-select">
-                <div class="panel-heading" style="text-align: right"><b>专家列表</b>
-                </div>
-                <div style="padding:5px;">
-                </div>
-                <select name="from" id="multiselect" class="form-control" size="16" multiple="multiple" ng-model="selectedName">
+            <div class="row datalist">
+              <div class="col-md-5 col-sm-5 col-xs-5">
+                <div class="panel panel-default panel-select">
+                  <div class="panel-heading" style="text-align: right"><b>专家列表</b>
+                  </div>
+                  <div style="padding:5px;">
+                  </div>
+                  <select name="from" id="multiselect" class="form-control" size="16" multiple="multiple" ng-model="selectedName">
               <option ng-repeat="x in options"  value="{{x.id}}" data-type="{{x.role}}" ng-if="x.role==2">
                {{x.name+"(运动专家)"}}
                                 </option>
@@ -374,286 +374,286 @@
 
                                 　
               </select>
+                </div>
               </div>
-            </div>
-            <div class="col-md-2 col-sm-2  col-xs-2" style="padding-top:100px;">
-              <button type="button" id="multiselect_rightSelected" class="btn btn-block btn-primary"><i class="glyphicon glyphicon-chevron-right"></i></button>
-              <button type="button" id="multiselect_leftSelected" class="btn btn-block "><i class="glyphicon glyphicon-chevron-left"></i></button>
-            </div>
-            <div class="col-md-5 col-sm-5 col-xs-5">
-              <div class="panel panel-default panel-select">
-                <div class="panel-heading" style="text-align: right"><b>已选专家列表</b></div>
-                <select name="to" id="multiselect_to" class="form-control" size="16" multiple="multiple"></select>
+              <div class="col-md-2 col-sm-2  col-xs-2" style="padding-top:100px;">
+                <button type="button" id="multiselect_rightSelected" class="btn btn-block btn-primary"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                <button type="button" id="multiselect_leftSelected" class="btn btn-block "><i class="glyphicon glyphicon-chevron-left"></i></button>
+              </div>
+              <div class="col-md-5 col-sm-5 col-xs-5">
+                <div class="panel panel-default panel-select">
+                  <div class="panel-heading" style="text-align: right"><b>已选专家列表</b></div>
+                  <select name="to" id="multiselect_to" class="form-control" size="16" multiple="multiple"></select>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <a class="btn btn-default" data-dismiss="modal">取消</a>
-          <a class="btn btn-primary" ng-click="setExpert()">确定</a>
+          <div class="modal-footer">
+            <a class="btn btn-default" data-dismiss="modal">取消</a>
+            <a class="btn btn-primary" ng-click="setExpert()">确定</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <script>
-  </script>
-  <!--脚本-->
-  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/multiselect.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-  <!--自定义脚本部分-->
-  <script>
-    $(function() {
-      //设置类型为soprt和food两种类型，每次移动前判断是否存在此类型
-      $('#multiselect').multiselect({
-        beforeMoveToRight: function($left, $right, $options) {
-          if ($options.length > 1) {
-            // tool.alert("提示", "每次仅可选择一个专家");
-            if ($right.find("option").length > 0) {
-              tool.alert("提示", "每人最多选择两位专家进行咨询！");
-              return false;
-            }
-          }
-          var str = [];
-          var obj = {};
-          var type = $options.attr('data-type'); //从$option获取当前类型
-          if ($right.find("option").length > 0) {
-            $right.find("option").each(function() {
-              str.push($(this).text());
-              obj[$(this).attr('data-type')] = true;
-            });
-            if (str.length == 2) {
-              tool.alert("提示", "每人最多选择两位专家进行咨询！");
-              return false;
-            } else {
-              if (obj[type] && type == "2") {
-                tool.alert("提示", "每人只能选择一位运动专家进行咨询！");
+    <script>
+    </script>
+    <!--脚本-->
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Scripts/multiselect.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <!--自定义脚本部分-->
+    <script>
+      $(function() {
+        //设置类型为soprt和food两种类型，每次移动前判断是否存在此类型
+        $('#multiselect').multiselect({
+          beforeMoveToRight: function($left, $right, $options) {
+            if ($options.length > 1) {
+              // tool.alert("提示", "每次仅可选择一个专家");
+              if ($right.find("option").length > 0) {
+                tool.alert("提示", "每人最多选择两位专家进行咨询！");
                 return false;
-              } else if (obj[type] && type == "3") {
-                tool.alert("提示", "每人只能选择一位饮食专家进行咨询！");
+              }
+            }
+            var str = [];
+            var obj = {};
+            var type = $options.attr('data-type'); //从$option获取当前类型
+            if ($right.find("option").length > 0) {
+              $right.find("option").each(function() {
+                str.push($(this).text());
+                obj[$(this).attr('data-type')] = true;
+              });
+              if (str.length == 2) {
+                tool.alert("提示", "每人最多选择两位专家进行咨询！");
                 return false;
               } else {
-                return true;
+                if (obj[type] && type == "2") {
+                  tool.alert("提示", "每人只能选择一位运动专家进行咨询！");
+                  return false;
+                } else if (obj[type] && type == "3") {
+                  tool.alert("提示", "每人只能选择一位饮食专家进行咨询！");
+                  return false;
+                } else {
+                  return true;
+                }
               }
+            } else {
+              return true;
             }
-          } else {
-            return true;
+
+            // console.log($left);
+            // var rightoptions = $right.find("option").length;
+            // alert(rightoptions);
+            // // console.log($right.find("option")[0].text() + "______" + $right.find("option")[1].text());
+            // // console.log($options);
+            // console.log($options.text());
+            // return true;
           }
 
-          // console.log($left);
-          // var rightoptions = $right.find("option").length;
-          // alert(rightoptions);
-          // // console.log($right.find("option")[0].text() + "______" + $right.find("option")[1].text());
-          // // console.log($options);
-          // console.log($options.text());
-          // return true;
-        }
-
-      });
-    });
-
-    $("#modal").modal({　
-      show: false, //默认是否展示
-      backdrop: false, //隐藏背景
-      keyboard: false
-    });
-
-
-
-
-    // $("#adviserList").select2({
-    //   placeholder: '请选择',
-    //   allowClear: true,
-    //   ajax: {
-    //     url: function(params) {
-    //       //TODO  改为会籍顾问接口
-    //       return BasicUrl + "vip/name/" + params.term;
-    //     },
-    //     dataType: 'json',
-    //     delay: 250,
-    //     processResults: function(data, page) {
-    //       return {
-    //         results: data
-    //       };
-    //     },
-    //     cache: false
-    //   },
-    //   minimumInputLength: 1,
-    //   minimumResultsForSearch: 1,
-    //   width: "100%",
-    //   templateResult: formatRepo,
-    //   templateSelection: formatRepoSelection,
-    // });
-
-    function formatRepo(repo) {
-      return repo.realName;
-    }
-
-    function formatRepoSelection(repo) {
-      return repo.realName;
-    }
-    var app = angular.module('myApp', []);
-    app.controller('customersCtrl', function($scope, $http) {
-
-      //TODO  获取会籍顾问
-      $http.get(BasicUrl + "admin/advisers").success(function(data) {
-        if (data != null && data != "" && data != "null") {
-          $scope.adviseOptions = data;
-          tool.changeSelect($("#adviserList"), true);
-        }
-      });
-      //TODO  获取专家列表
-      var url = BasicUrl + "admin/experts";
-      $http.get(url).success(function(data) {
-        if (data != null && data != "" && data != "null") {
-          $scope.options = data;
-        }
+        });
       });
 
-      var urlObj = new UrlSearch();
-      if (urlObj.id) {
-        $scope.userid = urlObj.id;
-        var url = "http://60.205.170.209:8080/admin/api/vip/" + urlObj.id;
-        //获取当前用户的具体信息
+      $("#modal").modal({　
+        show: false, //默认是否展示
+        backdrop: false, //隐藏背景
+        keyboard: false
+      });
+
+
+
+
+      // $("#adviserList").select2({
+      //   placeholder: '请选择',
+      //   allowClear: true,
+      //   ajax: {
+      //     url: function(params) {
+      //       //TODO  改为会籍顾问接口
+      //       return BasicUrl + "vip/name/" + params.term;
+      //     },
+      //     dataType: 'json',
+      //     delay: 250,
+      //     processResults: function(data, page) {
+      //       return {
+      //         results: data
+      //       };
+      //     },
+      //     cache: false
+      //   },
+      //   minimumInputLength: 1,
+      //   minimumResultsForSearch: 1,
+      //   width: "100%",
+      //   templateResult: formatRepo,
+      //   templateSelection: formatRepoSelection,
+      // });
+
+      function formatRepo(repo) {
+        return repo.realName;
+      }
+
+      function formatRepoSelection(repo) {
+        return repo.realName;
+      }
+      var app = angular.module('myApp', []);
+      app.controller('customersCtrl', function($scope, $http) {
+
+        //TODO  获取会籍顾问
+        $http.get(BasicUrl + "admin/advisers").success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            $scope.adviseOptions = data;
+            tool.changeSelect($("#adviserList"), true);
+          }
+        });
+        //TODO  获取专家列表
+        var url = BasicUrl + "admin/experts";
         $http.get(url).success(function(data) {
-          if (data != null && data != "" && data != "null" && data.id) {
-            $scope.data = data;
-          } else {
-            tool.alert("提示", data.errorMessage);
+          if (data != null && data != "" && data != "null") {
+            $scope.options = data;
           }
-        }).error(function(data, header, config, status) {
-          //处理响应失败
+        });
+
+        var urlObj = new UrlSearch();
+        if (urlObj.id) {
+          $scope.userid = urlObj.id;
+          var url = "http://60.205.170.209:8080/admin/api/vip/" + urlObj.id;
+          //获取当前用户的具体信息
+          $http.get(url).success(function(data) {
+            if (data != null && data != "" && data != "null" && data.id) {
+              $scope.data = data;
+            } else {
+              tool.alert("提示", data.errorMessage);
+            }
+          }).error(function(data, header, config, status) {
+            //处理响应失败
+            tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+            window.location.href = "MemberList.html";
+          });
+          //获取当前用户汇总信息
+          var infoUrl = "http://60.205.170.209:8080/admin/api/vip/" + urlObj.id + "/summary"
+          $http.get(infoUrl).success(function(healthyData) {
+            if (healthyData != null && healthyData != "" && healthyData != "null") {
+              $scope.vipInfo = healthyData;
+            } else {
+              tool.alert("提示", healthyData.errorMessage);
+            }
+          }).error(function(data) {
+            //处理响应失败
+            tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+            window.location.href = "MemberList.html";
+          });
+
+        } else {
           tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
-          window.location.href = "MemberList.html";
-        });
-        //获取当前用户汇总信息
-        var infoUrl = "http://60.205.170.209:8080/admin/api/vip/" + urlObj.id + "/summary"
-        $http.get(infoUrl).success(function(healthyData) {
-          if (healthyData != null && healthyData != "" && healthyData != "null") {
-            $scope.vipInfo = healthyData;
-          } else {
-            tool.alert("提示", healthyData.errorMessage);
-          }
-        }).error(function(data) {
-          //处理响应失败
-          tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
-          window.location.href = "MemberList.html";
-        });
-
-      } else {
-        tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
-      }
-      //设置会员顾问
-      $scope.setAdviser = function() {
-        var userid = urlObj.id;
-        var adviserId = $("#adviserList").val(); //会籍顾问ID
-        if (!adviserId) {
-          tool.alert("提示", "请选择会籍顾问");
-          return false;
         }
-        tool.confirm(
-          "提示",
-          "确认设置新会员顾问？",
-          function() {
-            //用户点击确认按钮时操作
-            $.ajax({
-              type: "PATCH",
-              url: BasicUrl + "vip/adviser",
-              data: {
-                id: userid,
-                advisorId: adviserId
-              },
-              dataType: "json",
-              error: function(response) {
-                if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-                  tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-                }
-
-              },
-              complete: function(xhr, textStatus) {
-                if (xhr.status == 200) {
-
-                  tool.alert("提示", "设置成功！", function() {
-                    //刷新当前页面.
-                    window.location.reload();
-                  });
-                }
-              }
-            });
-          },
-          function() {});
-
-      }
-
-      //设置专家
-      $scope.setExpert = function(id) {
-        var userid = $scope.userid; //获取当前用户ID
-
-        var $users = $("#multiselect_to").find("option");
-        if ($users.length != 2) {
-          tool.alert("提示", "请至少选择一位饮食专家和一位运动专家");
-          return false;
-        }
-        var expert = {
-          food: null,
-          sport: null
-        };
-        $users.each(function() {
-          //获取饮食专家和运动专家
-          if ($(this).attr("data-type") == "3") {
-            expert.food = $(this).val();
+        //设置会员顾问
+        $scope.setAdviser = function() {
+          var userid = urlObj.id;
+          var adviserId = $("#adviserList").val(); //会籍顾问ID
+          if (!adviserId) {
+            tool.alert("提示", "请选择会籍顾问");
+            return false;
           }
-          if ($(this).attr("data-type") == "2") {
-            expert.sport = $(this).val();
-          }
-        });
+          tool.confirm(
+            "提示",
+            "确认设置新会员顾问？",
+            function() {
+              //用户点击确认按钮时操作
+              $.ajax({
+                type: "PATCH",
+                url: BasicUrl + "vip/adviser",
+                data: {
+                  id: userid,
+                  advisorId: adviserId
+                },
+                dataType: "json",
+                error: function(response) {
+                  if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                    tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+                  }
 
-        var datas = {
-          id: urlObj.id,
-          dietitianExpertId: expert.food,
-          sportExpertId: expert.sport
+                },
+                complete: function(xhr, textStatus) {
+                  if (xhr.status == 200) {
+
+                    tool.alert("提示", "设置成功！", function() {
+                      //刷新当前页面.
+                      window.location.reload();
+                    });
+                  }
+                }
+              });
+            },
+            function() {});
+
         }
 
-        tool.confirm(
-          "提示",
-          "确认设置专家顾问？",
-          function() {
-            //用户点击确认按钮时操作
-            $.ajax({
-              type: "PATCH",
-              url: BasicUrl + "vip/experts",
-              data: datas,
-              dataType: "json",
-              error: function(response) {
-                if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-                  tool.alert("提示", "设置失败，请重试！");
-                }
+        //设置专家
+        $scope.setExpert = function(id) {
+          var userid = $scope.userid; //获取当前用户ID
 
-              },
-              complete: function(xhr, textStatus) {
-                if (xhr.status == 200) {
-                  tool.alert("提示", "设置成功！", function() {
-                    //刷新当前页面.
-                    window.location.reload();
-                  });
-                }
-              }
-            });
-          },
-          function() {});
-      }
+          var $users = $("#multiselect_to").find("option");
+          if ($users.length != 2) {
+            tool.alert("提示", "请至少选择一位饮食专家和一位运动专家");
+            return false;
+          }
+          var expert = {
+            food: null,
+            sport: null
+          };
+          $users.each(function() {
+            //获取饮食专家和运动专家
+            if ($(this).attr("data-type") == "3") {
+              expert.food = $(this).val();
+            }
+            if ($(this).attr("data-type") == "2") {
+              expert.sport = $(this).val();
+            }
+          });
 
-      //加载完毕后再显示 
-      $scope.$watch("viewContentLoaded", function() {
-        angular.element(".myload").removeClass("myload");
+          var datas = {
+            id: urlObj.id,
+            dietitianExpertId: expert.food,
+            sportExpertId: expert.sport
+          }
+
+          tool.confirm(
+            "提示",
+            "确认设置专家顾问？",
+            function() {
+              //用户点击确认按钮时操作
+              $.ajax({
+                type: "PATCH",
+                url: BasicUrl + "vip/experts",
+                data: datas,
+                dataType: "json",
+                error: function(response) {
+                  if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                    tool.alert("提示", "设置失败，请重试！");
+                  }
+
+                },
+                complete: function(xhr, textStatus) {
+                  if (xhr.status == 200) {
+                    tool.alert("提示", "设置成功！", function() {
+                      //刷新当前页面.
+                      window.location.reload();
+                    });
+                  }
+                }
+              });
+            },
+            function() {});
+        }
+
+        //加载完毕后再显示 
+        $scope.$watch("viewContentLoaded", function() {
+          angular.element(".myload").removeClass("myload");
+        });
       });
-    });
-  </script>
-</body>
+    </script>
+  </body>
 
 </html>
