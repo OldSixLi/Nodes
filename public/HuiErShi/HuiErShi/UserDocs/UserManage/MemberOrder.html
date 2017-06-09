@@ -96,7 +96,8 @@
             <tbody id="databody">
               <tr ng-show="dataLengths" ng-repeat="x in data.content">
                 <td>{{ $index+data.page*data.pageNum+1}}</td>
-                <td>{{ x.user.userName }}</td>
+                <td>
+                  <a href="UserInfo.html?id={{ x.user.id}}">{{ x.user.userName }}</a></td>
                 <td>{{ x.user.gender=="M"?"男":"女" }}</td>
                 <td>{{ x.date= x.appointmentTime |date:"yyyy/MM/dd HH:mm:ss"}}</td>
                 <td>
@@ -152,10 +153,10 @@
                 <div class="row">
                   <!-- 消除外边距 -->
                   <div class="col-md-3">
-                    <img src='{{models.user.iconUrl?models.user.iconUrl:"http://iph.href.lu/200x200?text=用户头像"}}' class='img-responsive img-thumbnail' alt='用户头像'>
+                    <img src='{{userData.iconUrl?userData.iconUrl:"http://iph.href.lu/200x200?text=用户头像"}}' class='img-responsive img-thumbnail' alt='用户头像'>
                   </div>
                   <div class="col-md-5">
-                    <p>　　姓名：<span>{{models.user.userName }}</span></p>
+                    <p>　　姓名：<span>{{userData.realName }}</span></p>
                     <p>　　手机：<span>{{userData.mobile}}</span></p>
                     <p>有效日期：<span>{{userData.vipCard.expiredAt | date:"yyyy/MM/dd HH:mm:ss"}}</span></p>
                     <p>　　地址：<span>{{userData.contactAddress }}</span></p>

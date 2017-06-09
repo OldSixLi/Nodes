@@ -177,6 +177,8 @@
 
                 }
               }
+            }).error(function(msg) {
+              tool.alert("提示", msg.errorMessage);
             });
           }
           //分页方法

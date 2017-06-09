@@ -72,14 +72,34 @@
               </tr>
             </thead>
             <tbody id="databody">
-              <tr ng-show="dataLengths" ng-repeat="x in data ">
-                <td>{{ x["用餐类型"]}}</td>
-                <td>{{ x.FP_HM }}</td>
-                <td>{{ x.ID }}</td>
-                <td>{{ x.ID }}</td>
-                <td>{{ x.KPRQ?x.KPRQ:"2017年2月16日14:04:10" }}</td>
+
+
+              <!--{
+        "id": 418,
+        "type": 4,
+        "quantity": 2,
+        "dietEntity": {
+            "id": 18,
+            "categories": "蔬菜水果类",
+            "subcategories": "水果",
+            "name": "苹果"
+        },
+        "unitWeight": 100,
+        "date": "2017-06-08"
+    }-->
+              <tr ng-show="foodRecordDataLengths" ng-repeat="x in foodRecordData ">
+                <td ng-switch='x.type'>
+                  <span ng-switch-when="1">早餐</span>
+                  <span ng-switch-when="2">午餐</span>
+                  <span ng-switch-when="3">晚餐</span>
+                  <span ng-switch-when="4">零食</span>
+                </td>
+                <td>{{ x.dietEntity.categories }}</td>
+                <td>{{ x.dietEntity.subcategories }}</td>
+                <td>{{ x.dietEntity.name }}</td>
+                <td>{{ x.unitWeight }}</td>
               </tr>
-              <tr ng-show="!dataLengths">
+              <tr ng-show="!foodRecordDataLengths">
                 <td colspan="100" class="text-center ">暂无结果</td>
               </tr>
             </tbody>
@@ -112,7 +132,7 @@
             </tr>
             <tbody>
               <tr ng-show="dataLengths" ng-repeat="x in data ">
-                <td>{{ x["用餐类型"]}}</td>
+                <td> {{ x["用餐类型"]}}</td>
                 <td> {{x["脂肪cal"]}}</td>
                 <td>{{ x["用餐类型"]}}</td>
                 <td> {{x["碳水化合物"]}}</td>
@@ -491,6 +511,17 @@
                   $scope.fenleiData = data;
                 } else {
                   $scope.fenleidataLengths = false;
+                }
+              }
+            });
+            $http.get(BasicUrl + "dietRecord?" + params).success(function(data) {
+              if (data != null && data != "" && data != "null") {
+                //判断当前是否存在记录
+                $scope.foodRecordDataLengths = data.length > 0;
+                if (data != null && data.length > 0) {
+                  $scope.foodRecordData = data;
+                } else {
+                  $scope.foodRecordDataLengths = false;
                 }
               }
             });

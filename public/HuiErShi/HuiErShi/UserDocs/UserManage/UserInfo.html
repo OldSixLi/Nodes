@@ -225,7 +225,12 @@
                 </p>
                 <p>
                   <label class="control-label">专家团队：</label>
-                  <a data-toggle="modal" href="#zhuanjiaModel"><span>立即设置</a></span>
+                  <span ng-if="!data.experts"> <a data-toggle="modal" href="#zhuanjiaModel"><span>立即设置</span></a>
+                  </span>
+
+                  <span ng-if="data.experts">
+                    {{data.experts.DietitianExpert.name+"("+data.experts.DietitianExpert.job.substr(0,2)+")"}}&nbsp; 
+                    {{data.experts.SportExpert.name+"("+data.experts.SportExpert.job.substr(0,2)+")"}}</span>
                 </p>
               </div>
               <div class="col-md-3">
@@ -463,7 +468,10 @@
         keyboard: false
       });
 
-
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
 
 
       // $("#adviserList").select2({

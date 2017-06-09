@@ -88,11 +88,11 @@
                             </div>
                             <div class="col-sm-8">
                               <!--0: 无类型，1: : 关爱型-->
-                              <input type="radio" name="cardType" id="cardType" checked ng-model="model.cardType" value="1">体验型&nbsp;&nbsp;
-                              <input type="radio" name="cardType" id="cardType" ng-model="model.cardType" value="2">关爱型&nbsp;&nbsp;
-                              <!--
+                              <!--<input type="radio" name="cardType" id="cardType" checked ng-model="model.vipType" value="considerate">体验型&nbsp;&nbsp;
+                              <input type="radio" name="cardType" id="cardType" ng-model="model.vipType" value="caring">关爱型&nbsp;&nbsp;-->
 
-                            <label class="control-label" style="font-weight:normal;">会员卡</label>-->
+
+                              <label class="control-label" style="font-weight:normal;">会员卡</label>
                             </div>
                           </div>
                           <div class="form-group">
@@ -128,7 +128,7 @@
 
                     <a id="pickfiles">
                       <img id="img" src='{{model.imageUrl ==null?"../../images/upload/upload-alert.png":model.imageUrl}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;"></a>
-                    <input type="text" name="iconUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-model="model.iconUrl">
+                    <input type="text" name="iconUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-model="model.imageUrl">
                     <input type="text" name="id" class="" id="id" style="opacity:0;width:0;height:0;" ng-model="model.id">
 
                   </div>
@@ -369,7 +369,8 @@
           var saveInfo = {
             //文本框,下拉菜单选择值
             name: $.trim($("#name").val()),
-            type: $scope.model.cardType, //类型
+            // type: $scope.model.vipType, //类型
+            type: "1", //类型
             remark: $.trim($("#remark").val()),
             price: $.trim($("#price").val()),
             validityPeriod: $.trim($("#validityPeriod").val()),
@@ -434,13 +435,28 @@
           });
         }
 
+
+
+        // id:32
+        // name:月卡12
+        // type:considerate
+        // remark:此卡为体验卡，有效期为一个月，有两次门诊次数
+        // price:0.01
+        // validityPeriod:1
+        // imageUrl:http://omsss06f1.bkt.clouddn.com/Fh2rnYHB-0l_wQcc2Lk9NH7Yeegl?imageView2/1/w/350/h/200/q/100|imageslim
+        // shortName:yk
+        // outpatientCount:2
+        // canConsult:true
+
         // 修改
+
         $scope.saveEdit = function() {
           var saveInfo = {
             id: $scope.model.id,
             //文本框,下拉菜单选择值
             name: $.trim($("#name").val()),
-            type: 1, //类型
+            // type: $scope.model.vipType, //类型
+            type: "1", //类型
             remark: $.trim($("#remark").val()),
             price: $.trim($("#price").val()),
             validityPeriod: $.trim($("#validityPeriod").val()),
