@@ -1,108 +1,108 @@
 <!--会员详情页面-->
 <!DOCTYPE html>
 <html>
-  <!--当前页面很多接口无法确定-->
+<!--当前页面很多接口无法确定-->
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>验单详情</title>
-    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
-    <link href="../../Styles/common.css" rel="stylesheet">
-    <style>
-      .user-icon {
-        max-width: 100px;
-        height: auto;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>验单详情</title>
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
+  <link href="../../Styles/common.css" rel="stylesheet">
+  <style>
+    .user-icon {
+      max-width: 100px;
+      height: auto;
+    }
+  </style>
+</head>
 
-  <body ng-app="myApp" ng-controller="customersCtrl" class="myload">
-    <!-- 面包屑导航 -->
-    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-      <li><a href="javascript:void(0)">会员报告</a></li>
-      <li><a href="javascript:history.back(-1);">验单列表</a></li>
-      <li class="active">{{"验单详情"}}</li>
+<body ng-app="myApp" ng-controller="customersCtrl" class="myload">
+  <!-- 面包屑导航 -->
+  <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+    <li><a href="javascript:void(0)">会员报告</a></li>
+    <li><a href="javascript:history.back(-1);">验单列表</a></li>
+    <li class="active">{{"验单详情"}}</li>
 
-    </ol>
-    <!--会员详情-->
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <!-- 消除外边距 -->
-          <div class="col-md-2">
-            <img src='{{data.user.iconUrl==""?"http://usr.im/100x100?text=暂无图片":data.user.iconUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'></div>
-          <div class="col-md-3">
-            <p><b>　　姓名:</b><span>{{data.user.userName}}</span></p>
-            <p><b>报告单号:</b><span>{{data.reportNo}}</span></p>
-          </div>
-          <div class="col-md-2">
-            <p><b>性别:</b><span>女</span></p>
-            <p><b>日期:</b><span>{{data.createAt|date:"yyyy/MM/dd" }}</span></p>
-          </div>
-          <div class="col-md-2">
-            <p><b>年龄:</b><span>18</span></p>
-            <p><b>状态:</b><span>{{data.status}}</span></p>
-            <!--检查注册-0， 专家建议已填写-1， 已发布-2-->
-          </div>
-          <div class="col-md-3">
-            <button type="button" class="btn btn-primary pull-right">发布报告</button>
-          </div>
-          <div class="col-md-2"> </div>
-          <div class="col-md-6 ">
-            <p><b>　　验单:</b>
-              <a ng-repeat="x in data.inspections" href="#?id={{x.id}}">{{x.name+" "}}</a>
-
-            </p>
-          </div>
+  </ol>
+  <!--会员详情-->
+  <div class="section">
+    <div class="container">
+      <div class="row">
+        <!-- 消除外边距 -->
+        <div class="col-md-2">
+          <img src='{{data.user.iconUrl==""?"http://usr.im/100x100?text=暂无图片":data.user.iconUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'></div>
+        <div class="col-md-3">
+          <p><b>　　姓名:</b><span>{{data.user.userName}}</span></p>
+          <p><b>报告单号:</b><span>{{data.reportNo}}</span></p>
         </div>
-        <hr>
-        <div class="row">
-          <!-- 消除外边距 -->
-          <div class="col-md-2"><img src='{{data.user.iconUrl==""?"http://usr.im/100x100?text=暂无图片":data.user.iconUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'></div>
-          <div class="col-md-10">
-            <p><b>报告分析:</b> {{data.consults.analysis}}(<a href="#?">修改</a>)</p>
-          </div>
-          <div class="col-md-10 col-md-offset-2"><b>专家建议:</b>
-            <ul ng-repeat="x in infos">{{data.consults.advice }}
-            </ul>
-
-          </div>
-          <div class="col-md-10 col-md-offset-2">
-            <table class="table  table-hover table-bordered">
-              <!-- 表头 -->
-              <thead>
-                <tr>
-                  <th> 处方名称 </th>
-                  <th> 处方类别 </th>
-                  <th> 拼音名 </th>
-                  <th> 操作 </th>
-                </tr>
-              </thead>
-              <tbody id="databody">
-                <tr ng-show="dataLengths" ng-repeat="x in data.Prescription">
-                  <td>{{ x.name }}</td>
-                  <td>
-                    <span ng-if="x.prescriptionType ==''">处方类别</span>
-                    <span ng-if="x.prescriptionType =='Sport'">运动</span>
-                    <span ng-if="x.prescriptionType =='Nutrition'">营养</span>
-                  </td>
-                  <td>{{ x.spell }}</td>
-                  <td>
-                    <a href="#?id={{x.id}}">删除</a></td>
-                </tr>
-                <tr ng-show="!dataLengths">
-                  <td colspan="100" class="text-center ">暂无结果</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="col-md-10 col-md-offset-2">
-            <p><b>上传文件:</b> <input type="file" name="" value=""></p>
-          </div>
+        <div class="col-md-2">
+          <p><b>性别:</b><span>女</span></p>
+          <p><b>日期:</b><span>{{data.createAt|date:"yyyy/MM/dd" }}</span></p>
         </div>
-        <hr>
-        <!--<div class="row">
+        <div class="col-md-2">
+          <p><b>年龄:</b><span>18</span></p>
+          <p><b>状态:</b><span>{{data.status}}</span></p>
+          <!--检查注册-0， 专家建议已填写-1， 已发布-2-->
+        </div>
+        <div class="col-md-3">
+          <button type="button" class="btn btn-primary pull-right">发布报告</button>
+        </div>
+        <div class="col-md-2"> </div>
+        <div class="col-md-6 ">
+          <p><b>　　验单:</b>
+            <a ng-repeat="x in data.inspections" href="#?id={{x.id}}">{{x.name+" "}}</a>
+
+          </p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <!-- 消除外边距 -->
+        <div class="col-md-2"><img src='{{data.user.iconUrl==""?"http://usr.im/100x100?text=暂无图片":data.user.iconUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'></div>
+        <div class="col-md-10">
+          <p><b>报告分析:</b> {{data.consults.analysis}}(<a href="#?">修改</a>)</p>
+        </div>
+        <div class="col-md-10 col-md-offset-2"><b>专家建议:</b>
+          <ul ng-repeat="x in infos">{{data.consults.advice }}
+          </ul>
+
+        </div>
+        <div class="col-md-10 col-md-offset-2">
+          <table class="table  table-hover table-bordered">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <th> 处方名称 </th>
+                <th> 处方类别 </th>
+                <th> 拼音名 </th>
+                <th> 操作 </th>
+              </tr>
+            </thead>
+            <tbody id="databody">
+              <tr ng-show="dataLengths" ng-repeat="x in data.Prescription">
+                <td>{{ x.name }}</td>
+                <td>
+                  <span ng-if="x.prescriptionType ==''">处方类别</span>
+                  <span ng-if="x.prescriptionType =='Sport'">运动</span>
+                  <span ng-if="x.prescriptionType =='Nutrition'">营养</span>
+                </td>
+                <td>{{ x.spell }}</td>
+                <td>
+                  <a href="#?id={{x.id}}">删除</a></td>
+              </tr>
+              <tr ng-show="!dataLengths">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-10 col-md-offset-2">
+          <p><b>上传文件:</b> <input type="file" name="" value=""></p>
+        </div>
+      </div>
+      <hr>
+      <!--<div class="row">
         <div class="col-md-2"><img src='http://usr.im/100x100?text=文字说明' class='img-responsive img-thumbnail' alt='自定义'></div>
         <div class="col-md-10">
           <p>
@@ -115,44 +115,44 @@
           </p>
         </div>
       </div>-->
-      </div>
     </div>
+  </div>
 
-    <!--脚本-->
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../../Scripts/select2.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-    <!--自定义脚本部分-->
-    <script>
-      // var app = angular.module('myApp', []);
-      // app.controller('customersCtrl', function($scope, $http) {
-      //   var reportObj = new UrlSearch();
-      //   if (reportObj.id) {
-      //     // 获取当前的会员报告单号
-      //     $scope.reportId = reportObj.id;
-      //     var url = BasicUrl + "report/" + reportObj.id;
-      //     //获取当前用户的具体信息
-      //     $http.get(url).success(function(data) {
-      //       if (data != null && data != "" && data != "null" && data.id) {
-      //         $scope.data = data;
-      //       } else {
-      //         tool.alert("提示", data.errorMessage);
-      //       }
-      //     }).error(function(data, header, config, status) {
-      //       //处理响应失败
-      //       //   tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
-      //       window.location.href = "MemberList.html";
-      //     });
-      //   } else {
-      //     tool.alert("提示", "参数错误,当前无法获取数据!");
-      //   }
+  <!--脚本-->
+  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <!--自定义脚本部分-->
+  <script>
+    // var app = angular.module('myApp', []);
+    // app.controller('customersCtrl', function($scope, $http) {
+    //   var reportObj = new UrlSearch();
+    //   if (reportObj.id) {
+    //     // 获取当前的会员报告单号
+    //     $scope.reportId = reportObj.id;
+    //     var url = BasicUrl + "report/" + reportObj.id;
+    //     //获取当前用户的具体信息
+    //     $http.get(url).success(function(data) {
+    //       if (data != null && data != "" && data != "null" && data.id) {
+    //         $scope.data = data;
+    //       } else {
+    //         tool.alert("提示", data.errorMessage);
+    //       }
+    //     }).error(function(data, header, config, status) {
+    //       //处理响应失败
+    //       //   tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+    //       window.location.href = "MemberList.html";
+    //     });
+    //   } else {
+    //     tool.alert("提示", "参数错误,当前无法获取数据!");
+    //   }
 
-      // });
-    </script>
-  </body>
+    // });
+  </script>
+</body>
 
 </html>

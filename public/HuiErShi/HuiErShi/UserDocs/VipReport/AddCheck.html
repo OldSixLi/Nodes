@@ -60,13 +60,13 @@
       <li class="active">验单详情</li>
     </ol>
     <div class="row form-inline">
-      <div class="col-md-2 text-center">
+      <div class="col-md-2 text-center col-md-offset-1">
         <img src="{{data.picUrl[picIndex]}}" alt="" class="img-responsive img-thumbnail" ng-click="seeDetail(data.picUrl[picIndex])">
         <a class="btn btn-link pull-left" ng-click="prevImage()" ng-show="picIndex>0">上一张</a>
         <span class="btn btn-link" style="color:black;">{{(picIndex+1)+'/'+picNum}}</span>
         <a class="btn btn-link pull-right" ng-click="nextImage()" ng-show="picIndex<(picNum-1)">下一张</a>
       </div>
-      <div class="col-md-10">
+      <div class="col-md-9">
         <p>会员姓名：{{data.user.userName}}　　　　　　性别：{{data.user.gender=="M"?"男":"女"}}　　　　　　手机：{{data.user.vipEntity.mobile}}</p>
         <p>验单评估：
           <input type="radio" name="isValid" value="1" checked ng-model="isuse">有效验单&nbsp;&nbsp;&nbsp;&nbsp;

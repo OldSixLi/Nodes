@@ -20,7 +20,8 @@
       <li class="active">处方列表</li>
     </ol>
     <div class="text-right col-xs-12" id="search_block">
-      <form class="form-inline" role="form">
+
+      <form class="form-inline" role="form"> <a class="btn btn-primary pull-left" ng-show="showBack" href="MemberReportInfo.html?id={{reportId}}">返回会员报告页面</a>
         <div class="form-group text-left">
           <label class="control-label">处方类别：</label>
           <select class="form-control" id="prescriptionType" style="width:150px;">
@@ -165,9 +166,15 @@
       // keyboard: false
     });
     var params = ""; //全局变量  请求的参数
+    var obj = new UrlSearch();
+
     var app = angular.module('myApp', []);
     app.controller('customersCtrl', function($scope, $http) {
       $scope.isSave = true;
+      if (obj.reportId) {
+        $scope.showBack = true;
+        $scope.reportId = obj.reportId;
+      }
       //分页方法声明
       var pageing = function(pageindex, params) {
 
