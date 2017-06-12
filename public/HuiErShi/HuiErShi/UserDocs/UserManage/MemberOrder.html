@@ -83,30 +83,30 @@
             <tr>
               <th>序号</th>
               <th>姓名</th>
-              <th class="order" data-order='userName' ng-click="title='gender';desc=!desc;sort('gender')">
+              <th class="order" data-order='genders' ng-click="title='genders';desc=!desc;sort('genders')">
                 性别
                 <span class="glyphicon glyphicon-sort"></span>
               </th>
-              <th class="order" data-order='date' ng-click="title='date';desc=!desc;sort('date')">预约日期<span class="glyphicon glyphicon-sort"></span></th>
+              <th data-order='time' class="order" ng-click="title='time';desc=!desc;sort('time')">预约日期<span class="glyphicon glyphicon-sort"></span></th>
               <th class="order" data-order='isYes' ng-click="title='isYes';desc=!desc;sort('isYes')">预约确认<span class="glyphicon glyphicon-sort"></span></th>
               <th>预约项目</th>
               <th>预约报告号 / 备注</th>
             </tr>
           </thead>
           <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in data.content">
+            <tr ng-show="dataLengths" ng-repeat="x in data.content|orderBy:title:desc">
               <td>{{ $index+data.page*data.pageNum+1}}</td>
               <td>
                 <a href="UserInfo.html?id={{ x.user.id}}">{{ x.user.userName }}</a></td>
-              <td>{{ x.user.gender=="M"?"男":"女" }}</td>
-              <td>{{ x.date= x.modifyAt |date:"yyyy/MM/dd HH:mm:ss"}}</td>
+              <td>{{ x.genders= x.user.gender=="M"?"男":"女" }}</td>
+              <td>{{ x.time= x.modifyAt |date:"yyyy/MM/dd HH:mm:ss"}}</td>
               <td>
-                <a ng-click='getEditModel(x.id)' href="" ng-if="!x.confirmAt">{{"确认预约"}}</a> <span ng-click='getEditModel(x.id)' href="" ng-if="x.confirmAt">{{ x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}</span></td>
+                <a ng-click='getEditModel(x.id)' href="" ng-if="!x.confirmAt">{{"确认预约"}}</a> <span ng-click='getEditModel(x.id)' href="" ng-if="x.confirmAt">{{x.isYes= x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}</span></td>
               <td>
                 <a ng-repeat="c in x.appointmentItems" href="#?id={{c.id}}">{{c.name}}</a>
               </td>
               <td ng-if="!x.modifyAt"><a href="#" ng-click="menberSignUp(x.id)">{{x.remark}}</a></td>
-              <td ng-if="x.report.reportNo&&x.modifyAt"><span ng-if="x.report.reportNo">  {{x.report.reportNo+' /'}}</span> {{x.comment}}</td>
+              <td ng-if="x.report.reportNo&&x.modifyAt"><span ng-if="x.report.reportNo">   {{x.report.reportNo+' /'}} </span> {{x.comment}}</td>
 
               <td ng-if="!x.report.reportNo&&x.modifyAt"><a href="#" ng-click="menberSignUp(x.id)">会员签到</a></td>
             </tr>
@@ -257,7 +257,10 @@
             $scope.dataLengths = data.content.length > 0;
             if (data.content != null && data.content.length > 0) {
               //赋值操作
+              $scope.title = 'time';
+              $scope.desc = 0;
               $scope.data = data;
+
               $scope.totalPage = data.totalPages;
               $scope.totalRecord = data.totalElements;
               initPageDiv($("#alreadyPage"),
@@ -352,16 +355,16 @@
 
       }
 
-      // $scope.sort = function(ziduan) {
-      //     var classname = '';
-      //     if ($scope.desc) {
-      //         classname = 'glyphicon glyphicon-arrow-down';
-      //     } else {
-      //         classname = 'glyphicon glyphicon-arrow-up';
-      //     }
-      //     $("[data-order]").find('span').addClass('glyphicon glyphicon-sort');
-      //     $("[data-order='" + ziduan + "']").find('span').removeClass().addClass(classname);
-      // }
+      $scope.sort = function(ziduan) {
+        var classname = '';
+        if ($scope.desc) {
+          classname = 'glyphicon glyphicon-arrow-down';
+        } else {
+          classname = 'glyphicon glyphicon-arrow-up';
+        }
+        $("[data-order]").find('span').addClass('glyphicon glyphicon-sort');
+        $("[data-order='" + ziduan + "']").find('span').removeClass().addClass(classname);
+      }
 
       //跳转至某页方法
       $scope.skip = function() {
