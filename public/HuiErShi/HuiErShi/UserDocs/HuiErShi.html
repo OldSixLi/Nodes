@@ -70,7 +70,7 @@
 
     <!-- 顶部 -->
     <div class="navtop text-right userbar">
-      <span class="glyphicon glyphicon-bell" style="color:white;" aria-hidden="true"></span>
+      <span class="glyphicon glyphicon-bell" style="color:white;cursor: pointer" aria-hidden="true"><span class="badge">4</span></span>
       <span class="glyphicon glyphicon-log-in" style="color:white;cursor: pointer;" aria-hidden="true" onclick="logout(event)"></span>
     </div>
     <!-- 显示区域 -->
@@ -121,6 +121,14 @@
             alert("获取用户身份出错，请重新登录！");
             location.replace('Login.html');
           });
+          $.get(BasicUrl + "notice/?adminId=" + id).success(function(data) {
+            if (data != null && data != "" && data != "null") {　
+
+            }
+          });
+
+          // "ReportToBeFilledCount": 16,
+          // "ReportToBeRepliedCount": 2
         }
 
 
