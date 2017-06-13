@@ -201,6 +201,7 @@ body {
   position: fixed;
   right: 0;
   top: 42px;
+  z-index: -1;
 }
 
 .second-menu {
@@ -233,6 +234,15 @@ body {
 
 .imgContent {
   text-align: center;
+}
+
+.notice-btn {
+  border: none;
+  background-color: #ddd;
+  height: 0;
+  /* width: 50px; */
+  padding: 0;
+  top: -5px;
 }
 
 

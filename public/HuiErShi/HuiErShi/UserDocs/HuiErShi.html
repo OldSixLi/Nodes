@@ -1,245 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="https://raw.githubusercontent.com/OldSixLi/ListPage/master/myapp/public/images/my.ico" />
-    <title>主页</title>
-    <link rel="stylesheet" href="../Styles/bootstrap.css">
-    <link rel="stylesheet" href="../Styles/select2.min.css">
-    <link href="../Styles/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Styles/pageindex-back.css">
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="https://raw.githubusercontent.com/OldSixLi/ListPage/master/myapp/public/images/my.ico" />
+  <title>主页</title>
+  <link rel="stylesheet" href="../Styles/bootstrap.css">
+  <link rel="stylesheet" href="../Styles/select2.min.css">
+  <link href="../Styles/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../Styles/pageindex-back.css">
+</head>
 
 
-  <body class="index" scroll="no" lang="en">
-    <!-- LOGO -->
-    <div class="logo" id="logo" style="-webkit-user-select: none;">
-      <b>惠尔仕健康项目</b>
-    </div>
-    <!-- 侧边栏菜单 -->
-    <div class="menu" style="-webkit-user-select: none;">
-      <dl class="expand">
-        <dt class="icon_usermanage">用户管理<span class="contract">　</span></dt>
-        <dd data-link="UserManage/DemandList.html">需求记录</dd>
-        <dd data-link="UserManage/MemberOrder.html">预约列表</dd>
-        <dd data-link="UserManage/UserList.html">用户列表</dd>
-        <dd data-link="UserManage/MemberList.html">会员列表</dd>
-        <dd data-link="UserManage/ActivityList.html">活动列表</dd>
-      </dl>
-      <dl><dt class="icon_userdata">用户数据
+<body class="index" scroll="no" lang="en">
+  <!-- LOGO -->
+  <div class="logo" id="logo" style="-webkit-user-select: none;">
+    <b>惠尔仕健康项目</b>
+  </div>
+  <!-- 侧边栏菜单 -->
+  <div class="menu" style="-webkit-user-select: none;">
+    <dl class="expand">
+      <dt class="icon_usermanage">用户管理<span class="contract">　</span></dt>
+      <dd data-link="UserManage/DemandList.html">需求记录</dd>
+      <dd data-link="UserManage/MemberOrder.html">预约列表</dd>
+      <dd data-link="UserManage/UserList.html">用户列表</dd>
+      <dd data-link="UserManage/MemberList.html">会员列表</dd>
+      <dd data-link="UserManage/ActivityList.html">活动列表</dd>
+    </dl>
+    <dl><dt class="icon_userdata">用户数据
          <span class="contract">　</span></dt>
-        <dd data-link="UserData/ProjectList.html" class="rela"> 项目列表 <span class="second-menu" id="projectList">　</span></dd>
-        <dd data-for="projectList" class="third-menu" data-link="UserData/ViewManage.html">视图管理</dd>
-        <dd data-link="UserData/ProjectData.html" class="rela">项目数据
-          <span class="second-menu" id="projectDataList">　</span></dd>
-        <dd data-for="projectDataList" class="third-menu" data-link="UserData/RecordList.html">记录列表</dd>
-        <dd data-for="projectDataList" class="third-menu" data-link="UserData/UseDrugRecaod.html">用药记录列表</dd>
-        <dd data-for="projectDataList" class="third-menu" data-link="UserData/FoodRecord.html">饮食记录</dd>
-        <dd data-for="projectDataList" class="third-menu" data-link="UserData/SportsRecord.html">运动记录</dd>
-        <dd data-for="projectDataList" class="third-menu" data-link="UserData/FeedRecord.html">反馈记录</dd>
+      <dd data-link="UserData/ProjectList.html" class="rela"> 项目列表 <span class="second-menu" id="projectList">　</span></dd>
+      <dd data-for="projectList" class="third-menu" data-link="UserData/ViewManage.html">视图管理</dd>
+      <dd data-link="UserData/ProjectData.html" class="rela">项目数据
+        <span class="second-menu" id="projectDataList">　</span></dd>
+      <dd data-for="projectDataList" class="third-menu" data-link="UserData/RecordList.html">记录列表</dd>
+      <dd data-for="projectDataList" class="third-menu" data-link="UserData/UseDrugRecaod.html">用药记录列表</dd>
+      <dd data-for="projectDataList" class="third-menu" data-link="UserData/FoodRecord.html">饮食记录</dd>
+      <dd data-for="projectDataList" class="third-menu" data-link="UserData/SportsRecord.html">运动记录</dd>
+      <dd data-for="projectDataList" class="third-menu" data-link="UserData/FeedRecord.html">反馈记录</dd>
 
-      </dl>
-      <dl><dt class="icon_report">会员报告<span class="contract">　</span></dt>
-        <dd data-link="VipReport/PrescriptionList.html">处方列表</dd>
-        <dd data-link="VipReport/MemberReportList.html">会员报告列表</dd>
-        <dd data-link="VipReport/AdvisoryList.html">咨询列表</dd>
-        <dd data-link="VipReport/CheckLists.html">验单列表</dd>
-      </dl>
-      <dl><dt class="icon_system">系统管理<span class="contract">　</span></dt>
-        <dd data-link="SystemManage/ReservationItem.html">预约项目</dd>
-        <dd data-link="SystemManage/MobileSetting.html">移动端设置</dd>
-        <dd data-link="SystemManage/PayList.html">支付列表</dd>
-        <dd data-link="SystemManage/FoodsManageList.html">饮食设置</dd>
-        <dd data-link="SystemManage/CardsList.html" class="rela">卡券列表<span class="second-menu" id="cardList">　</span></dd>
+    </dl>
+    <dl><dt class="icon_report">会员报告<span class="contract">　</span></dt>
+      <dd data-link="VipReport/PrescriptionList.html">处方列表</dd>
+      <dd data-link="VipReport/MemberReportList.html">会员报告列表</dd>
+      <dd data-link="VipReport/AdvisoryList.html">咨询列表</dd>
+      <dd data-link="VipReport/CheckLists.html">验单列表</dd>
+    </dl>
+    <dl><dt class="icon_system">系统管理<span class="contract">　</span></dt>
+      <dd data-link="SystemManage/ReservationItem.html">预约项目</dd>
+      <dd data-link="SystemManage/MobileSetting.html">移动端设置</dd>
+      <dd data-link="SystemManage/PayList.html">支付列表</dd>
+      <dd data-link="SystemManage/FoodsManageList.html">饮食设置</dd>
+      <dd data-link="SystemManage/CardsList.html" class="rela">卡券列表<span class="second-menu" id="cardList">　</span></dd>
 
-        <dd data-for="cardList" class="third-menu" data-link="SystemManage/IssueDetails.html">发放详情</dd>
+      <dd data-for="cardList" class="third-menu" data-link="SystemManage/IssueDetails.html">发放详情</dd>
 
-        <!--<dd data-link="SystemManage/IssueDetails.html">发放详情</dd>-->
-        <dd data-link="SystemManage/AdminSetting.html">管理员设置</dd>
-      </dl>
+      <!--<dd data-link="SystemManage/IssueDetails.html">发放详情</dd>-->
+      <dd data-link="SystemManage/AdminSetting.html">管理员设置</dd>
+    </dl>
 
-      <input type="hidden" name="adminNo" id="adminNo" value="">
-      <input type="hidden" name="name" id="name" value="">
-      <input type="hidden" name="role" id="role" value="">
-      <input type="hidden" name="job" id="job" value="">
-      <input type="hidden" name="iconUrl" id="iconUrl" value="">
+    <input type="hidden" name="adminNo" id="adminNo" value="">
+    <input type="hidden" name="name" id="name" value="">
+    <input type="hidden" name="role" id="role" value="">
+    <input type="hidden" name="job" id="job" value="">
+    <input type="hidden" name="iconUrl" id="iconUrl" value="">
+  </div>
+  <!-- Split button -->
+
+  <!-- 顶部 -->
+  <div class="navtop text-right userbar">
+    <div class="btn-group" style="margin-top:-5px;">
+
+      <button type="button" class="dropdown-toggle notice-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     <span class="glyphicon glyphicon-bell" style="color:white;cursor: pointer"><span class="badge" id="totalNotice"></span>
+    </span>
+  </button>
+      <ul class="dropdown-menu" style="z-index:1000">
+        <li><a href="#" class="ReportToBeFilledCount">待填写报告
+          <span class="badge"></span></a></li>
+        <li><a href="#" class="ReportToBeRepliedCount">待回复咨询
+          <span class="badge"></span></a>
+        </li>
+      </ul>
     </div>
-
-    <!-- 顶部 -->
-    <div class="navtop text-right userbar">
-      <span class="glyphicon glyphicon-bell" style="color:white;cursor: pointer" aria-hidden="true"><span class="badge">4</span></span>
-      <span class="glyphicon glyphicon-log-in" style="color:white;cursor: pointer;" aria-hidden="true" onclick="logout(event)"></span>
-    </div>
-    <!-- 显示区域 -->
-    <div class="workspace">
-      <!--连接地址-->
-      <iframe id="work-frame" name="work-frame" scrolling="auto" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%" src="UserManage/DemandList.html" style="-webkit-user-select: none;">
+    <span class="glyphicon glyphicon-log-in" style="color:white;cursor: pointer;" aria-hidden="true" onclick="logout(event)"></span>
+  </div>
+  <!-- 显示区域 -->
+  <div class="workspace">
+    <!--连接地址-->
+    <iframe id="work-frame" name="work-frame" scrolling="auto" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%" src="UserManage/DemandList.html" style="-webkit-user-select: none;">
         </iframe>
-    </div>
+  </div>
 
-    <!-- 脚本 -->
-    <script type="text/javascript" src="../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../Scripts/angular.min.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../Styles/jquery-confirm/jquery-confirm.min.js"></script>
-    <script type="text/javascript" src="../Scripts/select2.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap-paginator.js"></script>
-    <script type="text/javascript" src="../Scripts/CommonScript.js"></script>
+  <!-- 脚本 -->
+  <script type="text/javascript" src="../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../Scripts/bootstrap.js"></script>
+  <script type="text/javascript" src="../Styles/jquery-confirm/jquery-confirm.min.js"></script>
+  <script type="text/javascript" src="../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../Scripts/bootstrap-paginator.js"></script>
+  <script type="text/javascript" src="../Scripts/CommonScript.js"></script>
 
-    <script type="text/javascript">
-      function reinitIframe() {
-        var iframe = document.getElementById("frame_content");
-        try {
-          iframe.height = iframe.contentWindow.document.documentElement.scrollHeight;
-        } catch (ex) {}
-      }
-      window.setInterval("reinitIframe()", 200);
-    </script>
-    <script>
-      $(function() {
+  <script type="text/javascript">
+    function reinitIframe() {
+      var iframe = document.getElementById("frame_content");
+      try {
+        iframe.height = iframe.contentWindow.document.documentElement.scrollHeight;
+      } catch (ex) {}
+    }
+    window.setInterval("reinitIframe()", 200);
+  </script>
+  <script>
+    $(function() {
 
-        var searchObj = new UrlSearch();
-        if (searchObj.id) {
-          var id = searchObj.id;
-          //获取当前登录的身份
-          $.get(BasicUrl + "admin/" + id).success(function(data) {
-            if (data != null && data != "" && data != "null") {　
-              $("#adminNo").val(data.adminNo);
-              $("#name").val(data.name);
-              $("#role").val(data.role);
-              $("#job").val(data.job);
-              $("#iconUrl").val(data.iconUrl);
-            } else {
-              alert("获取用户身份出错，请重新登录！");
-              location.replace('Login.html');
-            }
-          }).error(function() {
+      var searchObj = new UrlSearch();
+      if (searchObj.id) {
+        var id = searchObj.id;
+        //获取当前登录的身份
+        $.get(BasicUrl + "admin/" + id).success(function(data) {
+          if (data != null && data != "" && data != "null") {　
+            $("#adminNo").val(data.adminNo);
+            $("#name").val(data.name);
+            $("#role").val(data.role);
+            $("#job").val(data.job);
+            $("#iconUrl").val(data.iconUrl);
+          } else {
             alert("获取用户身份出错，请重新登录！");
             location.replace('Login.html');
-          });
-          $.get(BasicUrl + "notice/?adminId=" + id).success(function(data) {
-            if (data != null && data != "" && data != "null") {　
-
-            }
-          });
-
-          // "ReportToBeFilledCount": 16,
-          // "ReportToBeRepliedCount": 2
-        }
-
-
-        $("#select2").select2({
-          tags: true,
-          maximumSelectionLength: 3,
-          width: "250px"
-        });
-
-        $("dd").each(function() {
-          $(this).click(function() {
-            var href = $(this).attr("data-link");
-            $("dd").removeClass('action');
-            $(this).addClass('action');
-            if ($(this).hasClass('rela')) {}
-            $("#work-frame").attr("src", href);
-          });
-        });
-
-
-        $(".second-menu").each(function() {
-          $(this).click(function(e) {
-            e.stopPropagation();
-            if ($(this).hasClass('on')) {
-              $(".second-menu").removeClass('on');
-              var id = $(this).attr('id');
-              $("[data-for='" + id + "']").hide();
-            } else {
-              var id = $(this).attr('id');
-              $("[data-for]").hide();
-              $("[data-for='" + id + "']").show();
-              $(".second-menu").removeClass('on');
-              $(this).addClass('on');
-            }
-          })
-        });
-      });
-
-      // 菜单栏方法
-      $("div.menu").find("dl").each(function(index) {
-        $(this).find("dt").on("click", function(e) {
-          $("[data-for]").hide();
-          if ($(this).parent().hasClass('expand')) {
-            $(this).parent().removeClass("expand");
-            return false;
           }
-          if (!$(this).parent().is(".expand ")) {
-            // 判断其他的是否有展开的，收起
-            $(".menu dl.expand").removeClass("expand");
-            $(this).parent().addClass("expand");
-          }
-          $(".second-menu").removeClass('on');
-        });
-      });
-
-      function logout(event) {
-        confirms("提示", "确认退出后台管理系统吗？", function() {
+        }).error(function() {
+          alert("获取用户身份出错，请重新登录！");
           location.replace('Login.html');
-          event.returnValue = false;
-        }, function() {
-
+        });
+        $.get(BasicUrl + "notice/?adminId=" + id).success(function(data) {
+          if (data != null && data != "" && data != "null") {　
+            var fill = data.ReportToBeFilledCount;
+            var reply = data.ReportToBeRepliedCount;
+            var total = fill + reply;
+            fill == 0 || $(".ReportToBeFilledCount").find('span').text(fill);
+            reply == 0 || $(".ReportToBeRepliedCount").find('span').text(reply);
+            total == 0 || $("#totalNotice").text(total);
+          }
         });
 
+        // "ReportToBeFilledCount": 16,
+        // "ReportToBeRepliedCount": 2
       }
 
-      function confirms(title, content, okCallback, cancelCallback) {
-        var confirm = okCallback && typeof okCallback === "function" ? okCallback :
-          function() {};
-        var cancel = cancelCallback && typeof cancelCallback === "function" ? cancelCallback :
-          function() {};
-        if (myBrowser() == "IE8") {
-          bootbox.confirm({
-            buttons: {
-              confirm: {
-                label: '确认',
-                className: 'btn-success'
-              },
-              cancel: {
-                label: '取消',
-                className: 'btn-default'
-              }
-            },
-            message: content,
-            callback: function(result) {
-              if (result) {
-                confirm();
-              } else {
-                cancel();
-              }
-            },
-            title: title,
-          });
-        } else {
-          var confirm = okCallback && typeof okCallback === "function" ? okCallback : function() {};
-          var cancel = cancelCallback && typeof cancelCallback === "function" ? cancelCallback : function() {};
-          $.confirm({
-            title: title,
-            content: content,
-            confirm: confirm,
-            cancel: cancel,
-            confirmButton: '确定',
-            cancelButton: '取消',
-            confirmButtonClass: 'btn-success',
-            cancelButtonClass: 'btn-default',
-            backgroundDismiss: false,
-            animation: 'zoom',
-            closeAnimation: 'scale'
-          });
+
+      $("#select2").select2({
+        tags: true,
+        maximumSelectionLength: 3,
+        width: "250px"
+      });
+
+      $("dd").each(function() {
+        $(this).click(function() {
+          var href = $(this).attr("data-link");
+          $("dd").removeClass('action');
+          $(this).addClass('action');
+          if ($(this).hasClass('rela')) {}
+          $("#work-frame").attr("src", href);
+        });
+      });
+
+
+      $(".second-menu").each(function() {
+        $(this).click(function(e) {
+          e.stopPropagation();
+          if ($(this).hasClass('on')) {
+            $(".second-menu").removeClass('on');
+            var id = $(this).attr('id');
+            $("[data-for='" + id + "']").hide();
+          } else {
+            var id = $(this).attr('id');
+            $("[data-for]").hide();
+            $("[data-for='" + id + "']").show();
+            $(".second-menu").removeClass('on');
+            $(this).addClass('on');
+          }
+        })
+      });
+    });
+
+    // 菜单栏方法
+    $("div.menu").find("dl").each(function(index) {
+      $(this).find("dt").on("click", function(e) {
+        $("[data-for]").hide();
+        if ($(this).parent().hasClass('expand')) {
+          $(this).parent().removeClass("expand");
+          return false;
         }
+        if (!$(this).parent().is(".expand ")) {
+          // 判断其他的是否有展开的，收起
+          $(".menu dl.expand").removeClass("expand");
+          $(this).parent().addClass("expand");
+        }
+        $(".second-menu").removeClass('on');
+      });
+    });
+
+    function logout(event) {
+      confirms("提示", "确认退出后台管理系统吗？", function() {
+        location.replace('Login.html');
+        event.returnValue = false;
+      }, function() {
+
+      });
+
+    }
+
+    function confirms(title, content, okCallback, cancelCallback) {
+      var confirm = okCallback && typeof okCallback === "function" ? okCallback :
+        function() {};
+      var cancel = cancelCallback && typeof cancelCallback === "function" ? cancelCallback :
+        function() {};
+      if (myBrowser() == "IE8") {
+        bootbox.confirm({
+          buttons: {
+            confirm: {
+              label: '确认',
+              className: 'btn-success'
+            },
+            cancel: {
+              label: '取消',
+              className: 'btn-default'
+            }
+          },
+          message: content,
+          callback: function(result) {
+            if (result) {
+              confirm();
+            } else {
+              cancel();
+            }
+          },
+          title: title,
+        });
+      } else {
+        var confirm = okCallback && typeof okCallback === "function" ? okCallback : function() {};
+        var cancel = cancelCallback && typeof cancelCallback === "function" ? cancelCallback : function() {};
+        $.confirm({
+          title: title,
+          content: content,
+          confirm: confirm,
+          cancel: cancel,
+          confirmButton: '确定',
+          cancelButton: '取消',
+          confirmButtonClass: 'btn-success',
+          cancelButtonClass: 'btn-default',
+          backgroundDismiss: false,
+          animation: 'zoom',
+          closeAnimation: 'scale'
+        });
       }
-    </script>
-  </body>
+    }
+  </script>
+</body>
 
 </html>
