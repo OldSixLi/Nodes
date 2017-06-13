@@ -6,12 +6,12 @@
  */
 //将form表单内容序列化为JSON
 var BasicUrl = "http://60.205.170.209:8080/admin/api/";
-(function ($) {
-  $.fn.serializeJson = function () {
+(function($) {
+  $.fn.serializeJson = function() {
     var serializeObj = {};
     var array = this.serializeArray();
     var str = this.serialize();
-    $(array).each(function () {
+    $(array).each(function() {
       if (serializeObj[this.name]) {
         if ($.isArray(serializeObj[this.name])) {
           serializeObj[this.name].push(this.value);
@@ -27,17 +27,17 @@ var BasicUrl = "http://60.205.170.209:8080/admin/api/";
 })(jQuery);
 
 
-$(function () {
+$(function() {
   if ($(".start_end_time")) {
     $(".start_end_time").datetimepicker();
   }
 
-  $("#btnStarttime").click(function () {
+  $("#btnStarttime").click(function() {
     if ($("#txtStartTime")) {
       $("#txtStartTime").datetimepicker('show');
     }
   });
-  $("#btnEndtime").click(function () {
+  $("#btnEndtime").click(function() {
     if ($("#txtEndTime")) {
       $("#txtEndTime").datetimepicker('show');
     }
@@ -47,8 +47,8 @@ $(function () {
   }
 
   /// <summary>悬浮于一级菜单时显示二级菜单的内容</summary>
-  $("#mainMenu>li>a").each(function (index) {
-    $(this).hover(function () {
+  $("#mainMenu>li>a").each(function(index) {
+    $(this).hover(function() {
       var position = $(this).offset();
       var selector = $(this).attr("data-SecondMenu");
       var marginleft = position.left - $(selector).find("li").size() * 45 + 45;
@@ -60,10 +60,10 @@ $(function () {
 });
 
 
-$(function () {
+$(function() {
   /// <summary>表格排序功能</summary>
   var isdesc = false; //定义一个全局变量，用来确定升序还是降序
-  $("[data-type]").click(function () {
+  $("[data-type]").click(function() {
     //  点击列表的表头进行排序，图标操作部分start
     $(this).find("span").addClass("glyphicon").end().siblings("th").find("span").removeClass();
     //添加正序或倒序图标
@@ -82,11 +82,11 @@ $(function () {
     var tablearr = $.makeArray($("tbody tr:lt(" + trlength + ")"));
     //排序规则三种：1、时间；2、字符串；3、数字
     if ($(this).attr("data-type") === "time") { //时间类型值排序操作
-      tablearr.sort(function (a, b) {
+      tablearr.sort(function(a, b) {
         return isdesc ? timescompare($(a).find('td').eq(colunindex).text(), $(b).find('td').eq(colunindex).text()) : timescompare($(b).find('td').eq(colunindex).text(), $(a).find('td').eq(colunindex).text());
       });
     } else if ($(this).attr("data-type") === "str") { //字符串类型值排序操作
-      tablearr.sort(function (a, b) {
+      tablearr.sort(function(a, b) {
         var avalue = $(a).find("td").eq(colunindex).text().trim();
         var bvalue = $(b).find("td").eq(colunindex).text().trim();
         return isdesc ? avalue.localeCompare(bvalue) : bvalue.localeCompare(avalue);
@@ -95,7 +95,7 @@ $(function () {
         ass = ass > 0 ? 1 : 2;
       });
     } else if ($(this).attr("data-type") === "num") { //数字类型值排序操作
-      tablearr.sort(function (a, b) {
+      tablearr.sort(function(a, b) {
         var avalue = parseInt($(a).find("td").eq(colunindex).text()) - 0;
         var bvalue = parseInt($(b).find("td").eq(colunindex).text()) - 0;
         return isdesc ? avalue - bvalue : bvalue - avalue;
@@ -140,21 +140,21 @@ function initPageDiv($dom, now, all, each, $dom2, change) {
     currentPage: now, // 当前页
     totalPages: all, // 共几页
     numberOfPages: each, // 每次显示几页
-    itemTexts: function (type, page, current) { // 修改显示文字
+    itemTexts: function(type, page, current) { // 修改显示文字
       switch (type) {
-      case "first":
-        return "首页";
-      case "prev":
-        return "<";
-      case "next":
-        return ">";
-      case "last":
-        return "尾页";
-      case "page":
-        return page;
+        case "first":
+          return "首页";
+        case "prev":
+          return "<";
+        case "next":
+          return ">";
+        case "last":
+          return "尾页";
+        case "page":
+          return page;
       }
     },
-    onPageClicked: function (event, originalEvent, type, page) { // 异步换页
+    onPageClicked: function(event, originalEvent, type, page) { // 异步换页
       $dom2.val(page);
       change();
     }
@@ -199,11 +199,21 @@ function myBrowser() {
   }
 };
 
-var JSTOOL = function () {
+function getAdmin() {
+  var adminData = {
+    adminNo: $('#adminNo', window.parent.document).val(),
+    name: $('#name', window.parent.document).val(),
+    role: $('#role', window.parent.document).val(),
+    job: $('#job', window.parent.document).val(),
+    iconUrl: $('#iconUrl', window.parent.document).val()
+  };
+  return adminData;
+}
+var JSTOOL = function() {
   // 下拉菜单样式
-  this.changeSelect = function ($dom, hasSearch) {
+  this.changeSelect = function($dom, hasSearch) {
     var selectNum = 0;
-    if (typeof (hasSearch) != 'undefined') {
+    if (typeof(hasSearch) != 'undefined') {
       if (hasSearch == false) {
         selectNum = -1;
       }
@@ -216,9 +226,9 @@ var JSTOOL = function () {
     });
   };
   // 提示
-  this.alert = function (title, content, callback, className) {
+  this.alert = function(title, content, callback, className) {
     var confirm = callback && typeof callback === "function" ? callback :
-      function () {};
+      function() {};
     if (myBrowser() == "IE8") {
       window.top.bootbox.alert({
         buttons: {
@@ -228,7 +238,7 @@ var JSTOOL = function () {
           }
         },
         message: content,
-        callback: function () {
+        callback: function() {
           confirm();
         },
         title: title,
@@ -254,11 +264,11 @@ var JSTOOL = function () {
     }
   };
   // 确认框
-  this.confirm = function (title, content, okCallback, cancelCallback) {
+  this.confirm = function(title, content, okCallback, cancelCallback) {
     var confirm = okCallback && typeof okCallback === "function" ? okCallback :
-      function () {};
+      function() {};
     var cancel = cancelCallback && typeof cancelCallback === "function" ? cancelCallback :
-      function () {};
+      function() {};
     if (myBrowser() == "IE8") {
       window.top.bootbox.confirm({
         buttons: {
@@ -272,7 +282,7 @@ var JSTOOL = function () {
           }
         },
         message: content,
-        callback: function (result) {
+        callback: function(result) {
           if (result) {
             confirm();
           } else {
@@ -282,8 +292,8 @@ var JSTOOL = function () {
         title: title,
       });
     } else {
-      var confirm = okCallback && typeof okCallback === "function" ? okCallback : function () {};
-      var cancel = cancelCallback && typeof cancelCallback === "function" ? cancelCallback : function () {};
+      var confirm = okCallback && typeof okCallback === "function" ? okCallback : function() {};
+      var cancel = cancelCallback && typeof cancelCallback === "function" ? cancelCallback : function() {};
       window.top.window.top.$.confirm({
         title: title,
         content: content,
@@ -300,7 +310,7 @@ var JSTOOL = function () {
     }
   };
   // 对话框
-  this.dialog = function (title, content) {
+  this.dialog = function(title, content) {
     window.top.$.dialog({
       title: title,
       content: content,

@@ -60,10 +60,12 @@
         <!--<dd data-link="SystemManage/IssueDetails.html">发放详情</dd>-->
         <dd data-link="SystemManage/AdminSetting.html">管理员设置</dd>
       </dl>
-      <!--<dl><dt class="icon_500000">用户说明<span class="contract">　</span></dt>
-      <dd data-link="SystemManage/HelpNotes.html">用户说明</dd>
-    </dl>-->
 
+      <input type="hidden" name="adminNo" id="adminNo" value="">
+      <input type="hidden" name="name" id="name" value="">
+      <input type="hidden" name="role" id="role" value="">
+      <input type="hidden" name="job" id="job" value="">
+      <input type="hidden" name="iconUrl" id="iconUrl" value="">
     </div>
 
     <!-- 顶部 -->
@@ -99,6 +101,29 @@
     </script>
     <script>
       $(function() {
+
+        var searchObj = new UrlSearch();
+        if (searchObj.id) {
+          var id = searchObj.id;
+          //获取当前登录的身份
+          $.get(BasicUrl + "admin/" + id).success(function(data) {
+            if (data != null && data != "" && data != "null") {　
+              $("#adminNo").val(data.adminNo);
+              $("#name").val(data.name);
+              $("#role").val(data.role);
+              $("#job").val(data.job);
+              $("#iconUrl").val(data.iconUrl);
+            } else {
+              alert("获取用户身份出错，请重新登录！");
+              location.replace('Login.html');
+            }
+          }).error(function() {
+            alert("获取用户身份出错，请重新登录！");
+            location.replace('Login.html');
+          });
+        }
+
+
         $("#select2").select2({
           tags: true,
           maximumSelectionLength: 3,
