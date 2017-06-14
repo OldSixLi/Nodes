@@ -2,58 +2,58 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>编辑食物</title>
-  <link href="../../Styles/bootstrap.css" rel="stylesheet">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>编辑食物</title>
+    <link href="../../Styles/bootstrap.css" rel="stylesheet">
 
-  <link href="../../Styles/common.css" rel="stylesheet">
-</head>
+    <link href="../../Styles/common.css" rel="stylesheet">
+  </head>
 
-<body ng-app="myApp" ng-controller="validateCtrl" class="myload">
-  <div>
+  <body ng-app="myApp" ng-controller="validateCtrl" class="myload">
+    <div>
 
 
-    <!-- 面包屑导航 -->
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="breadcrumb">
-            <li> <a href="#">系统管理</a> </li>
-            <li class="active">编辑食物</li>
-          </ul>
+      <!-- 面包屑导航 -->
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="breadcrumb">
+              <li> <a href="#">系统管理</a> </li>
+              <li class="active">编辑食物</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-    <!--内容区域-->
-    <div class="container-fluid">
-      <div class="row">
-        <!--表单-->
-        <form role="form" name="validateForm">
-          <input type="text" id="id" name="id" style="opacity:0;width:0;height:0;" ng-model="data.id" placeholder="能量">
-          <!--图片上传-->
-          <div class="col-md-12">
-            <div class="col-md-2  col-md-offset-5 col-sm-4  col-sm-offset-4 text-center img-container" id="btn-uploader">
-              <a id="pickfiles">
-                <img id="img" src='{{data.iconURL?data.iconURL:"../../images/upload/upload-alert.png"}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;"></a>
+      <!--内容区域-->
+      <div class="container-fluid">
+        <div class="row">
+          <!--表单-->
+          <form role="form" name="validateForm">
+            <input type="text" id="id" name="id" style="opacity:0;width:0;height:0;" ng-model="data.id" placeholder="能量">
+            <!--图片上传-->
+            <div class="col-md-12">
+              <div class="col-md-2  col-md-offset-5 col-sm-4  col-sm-offset-4 text-center img-container" id="btn-uploader">
+                <a id="pickfiles">
+                  <img id="img" src='{{data.iconURL?data.iconURL:"../../images/upload/upload-alert.png"}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;"></a>
 
-              <input type="text" name="iconUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-model="data.iconURL">
+                <input type="text" name="iconUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-model="data.iconURL">
 
-            </div>
-          </div>
-          <!--分割线-->
-          <div class="col-md-12 col-sm-12">
-            <hr>
-          </div>
-          <!--左侧表单-->
-          <div class="col-md-offset-1 col-md-5 col-sm-6 col-sm-offset-0 form-horizontal">
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="announcement" class="control-label">食物类型：</label>
               </div>
-              <div class="col-sm-6 col-md-7">
-                <select class="form-control" name="announcement" ng-model="data.categories">
+            </div>
+            <!--分割线-->
+            <div class="col-md-12 col-sm-12">
+              <hr>
+            </div>
+            <!--左侧表单-->
+            <div class="col-md-offset-1 col-md-5 col-sm-6 col-sm-offset-0 form-horizontal">
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="announcement" class="control-label">食物类型：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <select class="form-control" name="announcement" ng-model="data.categories">
             <option value="谷薯类">谷薯类</option>
             <option value="豆奶类">豆奶类</option> 
             <option value="蔬菜水果类">蔬菜水果类</option>
@@ -61,14 +61,14 @@
             <option value="坚果油脂类">坚果油脂类</option>
             <option value="其他类">其他类</option>
         </select>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="subcategories" class="control-label">二级类型：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <select class="form-control" name="subcategories" ng-model="data.subcategories">
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="subcategories" class="control-label">二级类型：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <select class="form-control" name="subcategories" ng-model="data.subcategories">
             
             <option>谷类</option>
             <option>杂豆</option>
@@ -84,220 +84,220 @@
             <option>储能量食物</option> 
             <option>其他</option>  
             </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="standardWeight" class="control-label">标准重量（g）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="number" class="form-control" id="standardWeight" name="standardWeight" ng-model="data.dietNutrition.standardWeight" placeholder="标准重量">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="moisture" class="control-label">水分（g）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="number" class="form-control" id="moisture" name="moisture" ng-model="data.dietNutrition.moisture" placeholder="水分">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="energy" class="control-label">能量（kcal）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="energy" name="energy" ng-model="data.dietNutrition.energy" placeholder="能量">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="txtUserNativePlace" class="control-label">蛋白质（g）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="protein" name="protein" ng-model="data.dietNutrition.protein" placeholder="蛋白质">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="txtUserJob" class="control-label">脂肪（g）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="fat" name="fat" ng-model="data.dietNutrition.fat" placeholder="脂肪">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="carbohydrate" class="control-label">碳水化合物（g）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="carbohydrate" name="carbohydrate" ng-model="data.dietNutrition.carbohydrate" placeholder="碳水化合物">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="dietaryFiber" class="control-label">膳食纤维：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="dietaryFiber" name="dietaryFiber" ng-model="data.dietNutrition.dietaryFiber" placeholder="膳食纤维">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="ashContent" class="control-label">灰分（g）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="ashContent" name="ashContent" ng-model="data.dietNutrition.ashContent" placeholder="灰分">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="vitaminA" class="control-label">维生素A(μgRE)：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="vitaminA" name="vitaminA" ng-model="data.dietNutrition.vitaminA" placeholder="维生素A含量">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="txtUserPressure" class="control-label">胡萝卜素（μg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="carotene" name="carotene" ng-model="data.dietNutrition.carotene" placeholder="胡萝卜素含量">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="thiamine" class="control-label">硫胺素（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="thiamine" name="thiamine" ng-model="data.dietNutrition.thiamine" placeholder="硫胺素含量">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="riboflavin" class="control-label">核黄素（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="riboflavin" name="riboflavin" ng-model="data.dietNutrition.riboflavin" placeholder="核黄素含量">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="description" class="control-label">食物描述：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <textarea class="form-control" id="description" name="description" ng-model="data.description" rows="5" placeholder="请输入食物描述">{{data.description}}</textarea>
+                </div>
               </div>
             </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="standardWeight" class="control-label">标准重量（g）：</label>
+            <!-- 右侧表单 -->
+            <div class="  col-md-5 col-sm-6 form-horizontal">
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="name" class="control-label">食物名称：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="name" name="name" ng-model="data.name" placeholder="食物名称">
+                </div>
               </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="number" class="form-control" id="standardWeight" name="standardWeight" ng-model="data.dietNutrition.standardWeight" placeholder="标准重量">
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="niacin" class="control-label">烟酸（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="number" class="form-control" id="niacin" name="niacin" ng-model="data.dietNutrition.niacin" placeholder="烟酸含量">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="moisture" class="control-label">水分（g）：</label>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="vitaminC" class="control-label">维生素C（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="number" class="form-control" id="vitaminC" name="vitaminC" ng-model="data.dietNutrition.vitaminC" placeholder="维生素C含量">
+                </div>
               </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="number" class="form-control" id="moisture" name="moisture" ng-model="data.dietNutrition.moisture" placeholder="水分">
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="vitaminE" class="control-label">维生素E（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="number" class="form-control" id="vitaminE" name="vitaminE" ng-model="data.dietNutrition.vitaminE" placeholder="维生素E含量">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="energy" class="control-label">能量（kcal）：</label>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="alphaTE" class="control-label">α-TE（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="alphaTE" name="alphaTE" ng-model="data.dietNutrition.alphaTE" placeholder="α-TE含量">
+                </div>
               </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="energy" name="energy" ng-model="data.dietNutrition.energy" placeholder="能量">
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="calcium" class="control-label">钙（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="calcium" name="calcium" ng-model="data.dietNutrition.calcium" placeholder="钙含量">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="txtUserNativePlace" class="control-label">蛋白质（g）：</label>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="phosphorus" class="control-label">磷（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="phosphorus" name="phosphorus" ng-model="data.dietNutrition.phosphorus" placeholder="磷含量">
+                </div>
               </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="protein" name="protein" ng-model="data.dietNutrition.protein" placeholder="蛋白质">
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="sodium" class="control-label">钠（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="sodium" name="sodium" ng-model="data.dietNutrition.sodium" placeholder="钠含量">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="txtUserJob" class="control-label">脂肪（g）：</label>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="magnesium" class="control-label">镁（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="magnesium" name="magnesium" ng-model="data.dietNutrition.magnesium" placeholder="镁含量">
+                </div>
               </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="fat" name="fat" ng-model="data.dietNutrition.fat" placeholder="脂肪">
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="iron" class="control-label">铁（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="iron" name="iron" ng-model="data.dietNutrition.iron" placeholder="铁含量">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="carbohydrate" class="control-label">碳水化合物（g）：</label>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="zinc" class="control-label">锌（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="zinc" name="zinc" ng-model="data.dietNutrition.zinc" placeholder="锌含量">
+                </div>
               </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="carbohydrate" name="carbohydrate" ng-model="data.dietNutrition.carbohydrate" placeholder="碳水化合物">
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="selenium" class="control-label">硒（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="selenium" name="selenium" ng-model="data.dietNutrition.selenium" placeholder="硒含量">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="dietaryFiber" class="control-label">膳食纤维：</label>
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="copper" class="control-label">铜（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="copper" name="copper" ng-model="data.dietNutrition.copper" placeholder="铜含量">
+                </div>
               </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="dietaryFiber" name="dietaryFiber" ng-model="data.dietNutrition.dietaryFiber" placeholder="膳食纤维">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="ashContent" class="control-label">灰分（g）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="ashContent" name="ashContent" ng-model="data.dietNutrition.ashContent" placeholder="灰分">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="vitaminA" class="control-label">维生素A(μgRE)：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="vitaminA" name="vitaminA" ng-model="data.dietNutrition.vitaminA" placeholder="维生素A含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="txtUserPressure" class="control-label">胡萝卜素（μg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="carotene" name="carotene" ng-model="data.dietNutrition.carotene" placeholder="胡萝卜素含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="thiamine" class="control-label">硫胺素（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="thiamine" name="thiamine" ng-model="data.dietNutrition.thiamine" placeholder="硫胺素含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="riboflavin" class="control-label">核黄素（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="riboflavin" name="riboflavin" ng-model="data.dietNutrition.riboflavin" placeholder="核黄素含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="description" class="control-label">食物描述：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <textarea class="form-control" id="description" name="description" ng-model="data.description" rows="5" placeholder="请输入食物描述">{{data.description}}</textarea>
-              </div>
-            </div>
-          </div>
-          <!-- 右侧表单 -->
-          <div class="  col-md-5 col-sm-6 form-horizontal">
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="name" class="control-label">食物名称：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="name" name="name" ng-model="data.name" placeholder="食物名称">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="niacin" class="control-label">烟酸（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="number" class="form-control" id="niacin" name="niacin" ng-model="data.dietNutrition.niacin" placeholder="烟酸含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="vitaminC" class="control-label">维生素C（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="number" class="form-control" id="vitaminC" name="vitaminC" ng-model="data.dietNutrition.vitaminC" placeholder="维生素C含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="vitaminE" class="control-label">维生素E（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="number" class="form-control" id="vitaminE" name="vitaminE" ng-model="data.dietNutrition.vitaminE" placeholder="维生素E含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="alphaTE" class="control-label">α-TE（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="alphaTE" name="alphaTE" ng-model="data.dietNutrition.alphaTE" placeholder="α-TE含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="calcium" class="control-label">钙（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="calcium" name="calcium" ng-model="data.dietNutrition.calcium" placeholder="钙含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="phosphorus" class="control-label">磷（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="phosphorus" name="phosphorus" ng-model="data.dietNutrition.phosphorus" placeholder="磷含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="sodium" class="control-label">钠（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="sodium" name="sodium" ng-model="data.dietNutrition.sodium" placeholder="钠含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="magnesium" class="control-label">镁（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="magnesium" name="magnesium" ng-model="data.dietNutrition.magnesium" placeholder="镁含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="iron" class="control-label">铁（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="iron" name="iron" ng-model="data.dietNutrition.iron" placeholder="铁含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="zinc" class="control-label">锌（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="zinc" name="zinc" ng-model="data.dietNutrition.zinc" placeholder="锌含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="selenium" class="control-label">硒（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="selenium" name="selenium" ng-model="data.dietNutrition.selenium" placeholder="硒含量">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="copper" class="control-label">铜（mg）：</label>
-              </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="copper" name="copper" ng-model="data.dietNutrition.copper" placeholder="铜含量">
-              </div>
-            </div>
-            <!--<div class="form-group">
+              <!--<div class="form-group">
             <div class="col-sm-6 col-md-4">
               <label for="txtUserPressure" class="control-label">锰（mg）：</label>
             </div>
@@ -306,240 +306,240 @@
             </div>
           </div>-->
 
-            <!---->
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="txtUserPressure" class="control-label">酸（mg）：</label>
+              <!---->
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="txtUserPressure" class="control-label">酸（mg）：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="manganese" name="manganese" ng-model="data.dietNutrition.manganese" placeholder="酸含量">
+                </div>
               </div>
-              <div class="col-sm-6 col-md-7">
-                <input type="text" class="form-control" id="manganese" name="manganese" ng-model="data.dietNutrition.manganese" placeholder="酸含量">
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="instruction" class="control-label">食物说明：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <textarea class="form-control" name="instruction" id="instruction" rows="5" ng-model="data.instruction" placeholder="食物说明"></textarea>
+                </div>
               </div>
             </div>
-            <div class="form-group">
-              <div class="col-sm-6 col-md-4">
-                <label for="instruction" class="control-label">食物说明：</label>
+            <!--提交按钮-->
+            <div class="col-md-12 col-sm-12">
+              <hr />
+              <div class="col-sm-3 col-md-2 col-md-offset-4 col-sm-offset-3">
+                <input type="submit" name="save" value="保存" class="btn btn-primary btn-block" ng-click="saveInfo()" />
               </div>
-              <div class="col-sm-6 col-md-7">
-                <textarea class="form-control" name="instruction" id="instruction" rows="5" ng-model="data.instruction" placeholder="食物说明"></textarea>
+              <div class="col-sm-3 col-md-2">
+                <input type="button" name="cencel" value="取消" class="btn btn-default btn-block" />
               </div>
             </div>
-          </div>
-          <!--提交按钮-->
-          <div class="col-md-12 col-sm-12">
-            <hr />
-            <div class="col-sm-3 col-md-2 col-md-offset-4 col-sm-offset-3">
-              <input type="submit" name="save" value="保存" class="btn btn-primary btn-block" ng-click="saveInfo()" />
-            </div>
-            <div class="col-sm-3 col-md-2">
-              <input type="button" name="cencel" value="取消" class="btn btn-default btn-block" />
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- 脚本 -->
-  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-  <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
+    <!-- 脚本 -->
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
 
 
-  <script>
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
-    //获取七牛uptoken　
-    uploader = Qiniu.uploader({
-      runtimes: 'html5,flash,html4',
-      browse_button: 'pickfiles', //上传按钮的ID
-      container: 'btn-uploader', //上传按钮的上级元素ID
-      drop_element: 'btn-uploader',
-      max_file_size: '100mb', //最大文件限制　
-      dragdrop: false,
-      chunk_size: '4mb', //分块大小 
-      unique_names: true,
-      save_key: true,
-      uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
-        var token = "";
-        $.ajax({
-          type: "get",
-          url: "http://60.205.170.209:8080/admin/api/qnToken",
-          async: false,
-          dataType: "json",
-          success: function(data) {
-            token = data.upToken;
+    <script>
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
+      //获取七牛uptoken　
+      uploader = Qiniu.uploader({
+        runtimes: 'html5,flash,html4',
+        browse_button: 'pickfiles', //上传按钮的ID
+        container: 'btn-uploader', //上传按钮的上级元素ID
+        drop_element: 'btn-uploader',
+        max_file_size: '100mb', //最大文件限制　
+        dragdrop: false,
+        chunk_size: '4mb', //分块大小 
+        unique_names: true,
+        save_key: true,
+        uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
+          var token = "";
+          $.ajax({
+            type: "get",
+            url: "http://60.205.170.209:8080/admin/api/qnToken",
+            async: false,
+            dataType: "json",
+            success: function(data) {
+              token = data.upToken;
+            }
+          });
+          return token;
+        },
+        unique_names: false,
+        domain: domainUrl, //自己的七牛云存储空间域名
+        multi_selection: false, //是否允许同时选择多文件
+        //文件类型过滤，这里限制为图片类型
+        filters: {
+          mime_types: [{
+            title: "Image files",
+            extensions: "jpg,jpeg,gif,png"
+          }]
+        },
+        auto_start: true,
+        init: {
+          'FilesAdded': function(up, files) {
+            //do something
+          },
+          'BeforeUpload': function(up, file) {
+            //do something
+          },
+          'UploadProgress': function(up, file) {
+            //可以在这里控制上传进度的显示
+            //可参考七牛的例子
+          },
+          'UploadComplete': function() {
+            //do something
+          },
+          'FileUploaded': function(up, file, info) {　
+            var json = JSON.parse(info);
+            tool.alert("提示", "上传成功");
+            //图片压缩处理:限制图片长宽均为200px ,且图片质量为原来75%;
+            var imgSrc = domainUrl + json.key;
+            $("#img").attr("src", imgSrc);
+            $("[name='iconUrl']").val(imgSrc);
+          },
+          'Error': function(up, err, errTip) {
+            tool.alert("提示", errTip);
+          },
+          'Key': function(up, file) {
+            return file.name;
           }
-        });
-        return token;
-      },
-      unique_names: false,
-      domain: domainUrl, //自己的七牛云存储空间域名
-      multi_selection: false, //是否允许同时选择多文件
-      //文件类型过滤，这里限制为图片类型
-      filters: {
-        mime_types: [{
-          title: "Image files",
-          extensions: "jpg,jpeg,gif,png"
-        }]
-      },
-      auto_start: true,
-      init: {
-        'FilesAdded': function(up, files) {
-          //do something
-        },
-        'BeforeUpload': function(up, file) {
-          //do something
-        },
-        'UploadProgress': function(up, file) {
-          //可以在这里控制上传进度的显示
-          //可参考七牛的例子
-        },
-        'UploadComplete': function() {
-          //do something
-        },
-        'FileUploaded': function(up, file, info) {　
-          var json = JSON.parse(info);
-          tool.alert("提示", "上传成功");
-          //图片压缩处理:限制图片长宽均为200px ,且图片质量为原来75%;
-          var imgSrc = domainUrl + json.key + "?imageView2/1/w/200/h/200/q/75|imageslim";
-          $("#img").attr("src", imgSrc);
-          $("[name='iconUrl']").val(imgSrc);
-        },
-        'Error': function(up, err, errTip) {
-          tool.alert("提示", errTip);
-        },
-        'Key': function(up, file) {
-          return file.name;
         }
-      }
-    });
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    $(function() {
-      // $(".start_end_time").datetimepicker();
-    });
+      });
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      $(function() {
+        // $(".start_end_time").datetimepicker();
+      });
 
-    (function() {
-      var app = angular.module("myApp", ["w5c.validator"]);
-      window.app = app;
-      //配置验证规则
-      app.config(["w5cValidatorProvider", function(w5cValidatorProvider) {
-        // 全局配置
-        w5cValidatorProvider.config({
-          blurTrig: true,
-          showError: true,
-          removeError: true
-        });
-
-        w5cValidatorProvider.setRules({});
-      }]);
-
-      // 控制器
-      //TODO：饮食习惯、运动习惯、压力状况 没有相关的接口。编号，所属不确定
-      app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
-        var vm = $scope.vm = {
-          entity: {} //用来存放页面数据
-        };
-        var foodObj = new UrlSearch();
-        if (foodObj.id) {
-          var foodid = foodObj.id;
-          $http.get(BasicUrl + "diet/" + foodid).success(function(data) {
-            if (data != null && data != "" && data != "null" && data.id) {
-
-              $scope.data = data;
-            } else {}
-          }).error(function(data, header, config, status) {
-            //处理响应失败
-            tool.alert("提示", "获取食物数据出错！");
-            window.history.back(-1); //回退至上一页面
+      (function() {
+        var app = angular.module("myApp", ["w5c.validator"]);
+        window.app = app;
+        //配置验证规则
+        app.config(["w5cValidatorProvider", function(w5cValidatorProvider) {
+          // 全局配置
+          w5cValidatorProvider.config({
+            blurTrig: true,
+            showError: true,
+            removeError: true
           });
 
+          w5cValidatorProvider.setRules({});
+        }]);
 
-
-        } else {
-          //   tool.alert("提示", "当前页面未获取到数据！");
-          //   window.history.back(-1);
-        }
-
-
-        $scope.saveInfo = function() {
-          //添加操作
+        // 控制器
+        //TODO：饮食习惯、运动习惯、压力状况 没有相关的接口。编号，所属不确定
+        app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
+          var vm = $scope.vm = {
+            entity: {} //用来存放页面数据
+          };
+          var foodObj = new UrlSearch();
           if (foodObj.id) {
-            $http({
-                method: 'PATCH',
-                url: url = BasicUrl + "diet/" + foodObj.id,
-                data: $('[name="validateForm"]').serialize(),
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
-                }
-              })
-              .success(function(data, xhr) {
-                if (xhr == 200) {
-                  if (data.errorMessage) {
-                    tool.alert("提示", data.errorMessage);
-                  } else {
-                    tool.alert("提示", "保存成功!", function() {
-                      window.location.href = "SystemManage/FoodsManageList.html";
-                    });
-                  }
-                } else {
-                  tool.alert("提示", "保存失败,请重试!");
-                  $(":submit").attr("disabled", false);
-                }
-              }).error(function(response) {
-                if (response && response.errorMessage) {
-                  tool.alert("提示", response.errorMessage);
-                }
-              });
+            var foodid = foodObj.id;
+            $http.get(BasicUrl + "diet/" + foodid).success(function(data) {
+              if (data != null && data != "" && data != "null" && data.id) {
+
+                $scope.data = data;
+              } else {}
+            }).error(function(data, header, config, status) {
+              //处理响应失败
+              tool.alert("提示", "获取食物数据出错！");
+              window.history.back(-1); //回退至上一页面
+            });
+
+
+
           } else {
-            $http({
-                method: 'POST',
-                url: url = BasicUrl + "diet",
-                data: $('[name="validateForm"]').serialize(),
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
-                }
-              })
-              .success(function(data, xhr) {
-                if (xhr == 200) {
-                  if (data.errorMessage) {
-                    tool.alert("提示", data.errorMessage);
-                  } else {
-                    tool.alert("提示", "保存成功!", function() {
-                      window.location.href = "SystemManage/FoodsManageList.html";
-                    });
-                  }
-                } else {
-                  tool.alert("提示", "保存失败,请重试!");
-                  $(":submit").attr("disabled", false);
-                }
-              }).error(function(response) {
-                if (response && response.errorMessage) {
-                  tool.alert("提示", response.errorMessage);
-                }
-              });
-
+            //   tool.alert("提示", "当前页面未获取到数据！");
+            //   window.history.back(-1);
           }
-        };
 
-        $scope.$watch("viewContentLoaded", function() {
-          angular.element(".myload").removeClass("myload");
-        })
-      }]);
-    })();
-  </script>
-</body>
+
+          $scope.saveInfo = function() {
+            //添加操作
+            if (foodObj.id) {
+              $http({
+                  method: 'PATCH',
+                  url: url = BasicUrl + "diet/" + foodObj.id,
+                  data: $('[name="validateForm"]').serialize(),
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                  }
+                })
+                .success(function(data, xhr) {
+                  if (xhr == 200) {
+                    if (data.errorMessage) {
+                      tool.alert("提示", data.errorMessage);
+                    } else {
+                      tool.alert("提示", "保存成功!", function() {
+                        window.location.href = "SystemManage/FoodsManageList.html";
+                      });
+                    }
+                  } else {
+                    tool.alert("提示", "保存失败,请重试!");
+                    $(":submit").attr("disabled", false);
+                  }
+                }).error(function(response) {
+                  if (response && response.errorMessage) {
+                    tool.alert("提示", response.errorMessage);
+                  }
+                });
+            } else {
+              $http({
+                  method: 'POST',
+                  url: url = BasicUrl + "diet",
+                  data: $('[name="validateForm"]').serialize(),
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                  }
+                })
+                .success(function(data, xhr) {
+                  if (xhr == 200) {
+                    if (data.errorMessage) {
+                      tool.alert("提示", data.errorMessage);
+                    } else {
+                      tool.alert("提示", "保存成功!", function() {
+                        window.location.href = "SystemManage/FoodsManageList.html";
+                      });
+                    }
+                  } else {
+                    tool.alert("提示", "保存失败,请重试!");
+                    $(":submit").attr("disabled", false);
+                  }
+                }).error(function(response) {
+                  if (response && response.errorMessage) {
+                    tool.alert("提示", response.errorMessage);
+                  }
+                });
+
+            }
+          };
+
+          $scope.$watch("viewContentLoaded", function() {
+            angular.element(".myload").removeClass("myload");
+          })
+        }]);
+      })();
+    </script>
+  </body>
 
 </html>

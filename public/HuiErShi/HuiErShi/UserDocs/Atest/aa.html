@@ -2,117 +2,117 @@
 <!DOCTYPE html>
 <html lang='en'>
 
-<head>
-  <meta charset='utf-8'>
-  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <link rel='shortcut icon' href='https://raw.githubusercontent.com/OldSixLi/ListPage/master/myapp/public/images/my.ico' />
-  <title> </title>
-  <!-- Bootstrap引用 -->
-  <link href='http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css' rel='stylesheet'>
-  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-  <style>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='shortcut icon' href='https://raw.githubusercontent.com/OldSixLi/ListPage/master/myapp/public/images/my.ico' />
+    <title> </title>
+    <!-- Bootstrap引用 -->
+    <link href='http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css' rel='stylesheet'>
+    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+    <style>
 
-  </style>
-</head>
+    </style>
+  </head>
 
-<body>
-  <div class="container">
-    <div class="row">
-      <!-- 消除外边距 -->
-      <div class="col-md-12">
-        <!--上传图片Begin-->
-        <div id="btn-uploader" class="text-center">
-          <a id="pickfiles" href="javascript:void 0;"> <img src='../../images/7.png' id="img" class='img-responsive img-thumbnail img-block' alt='自定义'></a>
+  <body>
+    <div class="container">
+      <div class="row">
+        <!-- 消除外边距 -->
+        <div class="col-md-12">
+          <!--上传图片Begin-->
+          <div id="btn-uploader" class="text-center">
+            <a id="pickfiles" href="javascript:void 0;"> <img src='../../images/7.png' id="img" class='img-responsive img-thumbnail img-block' alt='自定义'></a>
+          </div>
+          <!--上传图片End-->
+
         </div>
-        <!--上传图片End-->
-
       </div>
+      <input type="radio" name="role" ng-model="model.role" value="1">TODO1&nbsp;&nbsp;
+      <input type="radio" name="role" ng-model="model.role" value="2">TODO2&nbsp;&nbsp;
+      <input type="radio" name="role" ng-model="model.role" value="3">TODO3&nbsp;&nbsp;
+      <script>
+        // 取值：
+        var radioVal = $('input:radio[name=TODO]:checked').val();
+      </script>
     </div>
-    <input type="radio" name="role" ng-model="model.role" value="1">TODO1&nbsp;&nbsp;
-    <input type="radio" name="role" ng-model="model.role" value="2">TODO2&nbsp;&nbsp;
-    <input type="radio" name="role" ng-model="model.role" value="3">TODO3&nbsp;&nbsp;
-    <script>
-      // 取值：
-      var radioVal = $('input:radio[name=TODO]:checked').val();
-    </script>
-  </div>
 
-  <!-- 脚本 -->
-  <!-- <script src='http://cdn.bootcss.com/angular.js/1.4.1/angular.js'></script> -->
-  <script src='http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js'></script>
-  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
-  <script src='http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-  <script>
-    var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
-    //获取七牛uptoken　
-    uploader = Qiniu.uploader({
-      runtimes: 'html5,flash,html4',
-      browse_button: 'pickfiles', //上传按钮的ID
-      container: 'btn-uploader', //上传按钮的上级元素ID
-      drop_element: 'btn-uploader',
-      max_file_size: '100mb', //最大文件限制　
-      dragdrop: false,
-      chunk_size: '4mb', //分块大小 
-      unique_names: true,
-      save_key: true,
-      uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
-        var token = "";
-        $.ajax({
-          type: "get",
-          url: "http://60.205.170.209:8080/admin/api/qnToken",
-          async: false,
-          dataType: "json",
-          success: function(data) {
-            token = data.upToken;
+    <!-- 脚本 -->
+    <!-- <script src='http://cdn.bootcss.com/angular.js/1.4.1/angular.js'></script> -->
+    <script src='http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js'></script>
+    <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
+    <script src='http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script>
+      var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
+      //获取七牛uptoken　
+      uploader = Qiniu.uploader({
+        runtimes: 'html5,flash,html4',
+        browse_button: 'pickfiles', //上传按钮的ID
+        container: 'btn-uploader', //上传按钮的上级元素ID
+        drop_element: 'btn-uploader',
+        max_file_size: '100mb', //最大文件限制　
+        dragdrop: false,
+        chunk_size: '4mb', //分块大小 
+        unique_names: true,
+        save_key: true,
+        uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
+          var token = "";
+          $.ajax({
+            type: "get",
+            url: "http://60.205.170.209:8080/admin/api/qnToken",
+            async: false,
+            dataType: "json",
+            success: function(data) {
+              token = data.upToken;
+            }
+          });
+          return token;
+        },
+        unique_names: false,
+        domain: domainUrl, //自己的七牛云存储空间域名
+        multi_selection: false, //是否允许同时选择多文件
+        //文件类型过滤，这里限制为图片类型
+        filters: {
+          mime_types: [{
+            title: "Image files",
+            extensions: "jpg,jpeg,gif,png"
+          }]
+        },
+        auto_start: true,
+        init: {
+          'FilesAdded': function(up, files) {
+            //do something
+          },
+          'BeforeUpload': function(up, file) {
+            //do something
+          },
+          'UploadProgress': function(up, file) {
+            //可以在这里控制上传进度的显示
+            //可参考七牛的例子
+          },
+          'UploadComplete': function() {
+            //do something
+          },
+          'FileUploaded': function(up, file, info) {　
+            var json = JSON.parse(info);
+            //图片压缩处理:限制图片长宽均为200px ,且图片质量为原来75%;
+            $("#img").attr("src", domainUrl + json.key);
+          },
+          'Error': function(up, err, errTip) {
+            alert("提示", errTip);
+          },
+          'Key': function(up, file) {
+            return file.name;
           }
-        });
-        return token;
-      },
-      unique_names: false,
-      domain: domainUrl, //自己的七牛云存储空间域名
-      multi_selection: false, //是否允许同时选择多文件
-      //文件类型过滤，这里限制为图片类型
-      filters: {
-        mime_types: [{
-          title: "Image files",
-          extensions: "jpg,jpeg,gif,png"
-        }]
-      },
-      auto_start: true,
-      init: {
-        'FilesAdded': function(up, files) {
-          //do something
-        },
-        'BeforeUpload': function(up, file) {
-          //do something
-        },
-        'UploadProgress': function(up, file) {
-          //可以在这里控制上传进度的显示
-          //可参考七牛的例子
-        },
-        'UploadComplete': function() {
-          //do something
-        },
-        'FileUploaded': function(up, file, info) {　
-          var json = JSON.parse(info);
-          //图片压缩处理:限制图片长宽均为200px ,且图片质量为原来75%;
-          $("#img").attr("src", domainUrl + json.key + "?imageView2/1/w/200/h/200/q/75|imageslim");
-        },
-        'Error': function(up, err, errTip) {
-          alert("提示", errTip);
-        },
-        'Key': function(up, file) {
-          return file.name;
         }
-      }
-    });
-  </script>
-</body>
+      });
+    </script>
+  </body>
 
 </html>

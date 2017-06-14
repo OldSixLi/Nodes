@@ -216,7 +216,7 @@
             var json = JSON.parse(info);
             tool.alert("提示", "上传成功");
             //图片压缩处理:限制图片长宽均为200px ,且图片质量为原来75%;
-            var imgSrc = domainUrl + json.key + "?imageView2/1/w/350/h/200/q/100|imageslim";
+            var imgSrc = domainUrl + json.key;
             $("#img").attr("src", imgSrc);
             $("[name='iconUrl']").val(imgSrc);
           },
