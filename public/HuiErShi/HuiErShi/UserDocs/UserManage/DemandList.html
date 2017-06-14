@@ -145,7 +145,7 @@
                   <div class="col-sm-9">
                     <select name="userId" id="modalUserId" class="form-control" ng-model="vm.data.name" required style="width:100%;"> 
           </select>
-                    <input type="hidden" name="adminId" value="1">
+                    <input type="hidden" name="adminId" id="adminId" value="1">
                   </div>
                 </div>
                 <div class="form-group">
@@ -202,9 +202,7 @@
     <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
     <script>
       $(function() {
-        // tool.changeSelect($("#modalUserId"), false);
-        // tool.changeSelect($("#demandWay"), false);
-
+        $("#adminId").val(adminId());
         $("#userId").select2({
           placeholder: '请选择',
           allowClear: true,
@@ -293,9 +291,6 @@
           });
         }]);
         app.controller("customersCtrl", ["$scope", "$http", function($scope, $http) {
-
-
-
           $http.get(BasicUrl + "admin/advisers").success(function(data) {
             if (data != null && data != "" && data != "null") {
               $scope.options = data;
@@ -305,7 +300,7 @@
           //分页方法声明
           var pageing = function(pageindex, params) {
               //请求地址 
-              var url = BasicUrl + "demand?adminId=1&" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+              var url = BasicUrl + "demand?adminId=" + adminId() + "&" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
               $http.get(url).success(function(data) {
                 if (data != null && data != "" && data != "null") {
                   //判断当前是否存在记录
@@ -376,7 +371,7 @@
                   type: "PATCH",
                   url: BasicUrl + "demand/" + id,
                   data: {
-                    adminId: 1,
+                    adminId: adminId(),
                     id: id
                   },
                   dataType: "json",

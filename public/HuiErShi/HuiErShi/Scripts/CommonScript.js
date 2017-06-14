@@ -198,9 +198,14 @@ function myBrowser() {
     return "Opera";
   }
 };
-
+/**
+ * 获取当前登录的用户的身份信息
+ * 
+ * @returns 
+ */
 function getAdmin() {
   var adminData = {
+    adminId: $('#adminId', window.parent.document).val(),
     adminNo: $('#adminNo', window.parent.document).val(),
     name: $('#name', window.parent.document).val(),
     role: $('#role', window.parent.document).val(),
@@ -208,6 +213,19 @@ function getAdmin() {
     iconUrl: $('#iconUrl', window.parent.document).val()
   };
   return adminData;
+}
+
+function adminRole() {
+
+}
+/**
+ * 获取当前登录的用户的ID
+ * 
+ * @returns 
+ */
+function adminId() {
+  var obj = getAdmin();
+  return obj.adminId;
 }
 var JSTOOL = function() {
   // 下拉菜单样式

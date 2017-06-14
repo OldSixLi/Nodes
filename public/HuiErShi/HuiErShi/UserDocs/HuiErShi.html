@@ -62,6 +62,7 @@
       </dl>
 
       <input type="hidden" name="adminNo" id="adminNo" value="">
+      <input type="hidden" name="adminId" id="adminId" value="">
       <input type="hidden" name="name" id="name" value="">
       <input type="hidden" name="role" id="role" value="">
       <input type="hidden" name="job" id="job" value="">
@@ -125,6 +126,7 @@
           $.get(BasicUrl + "admin/" + id).success(function(data) {
             if (data != null && data != "" && data != "null") {　
               $("#adminNo").val(data.adminNo);
+              $("#adminId").val(id);
               $("#name").val(data.name);
               $("#role").val(data.role);
               $("#job").val(data.job);
@@ -148,8 +150,8 @@
           //获取当前登录用户的未读信息
           $.get(BasicUrl + "notice/?adminId=" + id).success(function(data) {
             if (data != null && data != "" && data != "null") {　
-              var fill = data.ReportToBeFilledCount;
-              var reply = data.ReportToBeRepliedCount;
+              var fill = data.ReportToBeFilledCount || 0;
+              var reply = data.ReportToBeRepliedCount || 0;
               var total = fill + reply;
               fill == 0 || $(".ReportToBeFilledCount").find('span').text(fill);
               reply == 0 || $(".ReportToBeRepliedCount").find('span').text(reply);
