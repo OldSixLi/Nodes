@@ -1,118 +1,119 @@
 ﻿<!DOCTYPE html>
 <html>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>饮食分析</title>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>饮食分析</title>
 
-  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-  <!-- 个人维护样式库 -->
-  <link href="../../Styles/common.css" rel="stylesheet">
-</head>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+    <!-- 个人维护样式库 -->
+    <link href="../../Styles/common.css" rel="stylesheet">
+  </head>
 
-<body ng-app="myApp">
-  <!--检索项-->
-  <div ng-controller="customersCtrl" class="container-fluid myload">
-    <!-- 面包屑导航 -->
-    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-      <li><a href="javascript:void(0)">用户数据</a></li>
-      <li class="active">饮食分析</li>
-    </ol>
-    <div class=" col-xs-12 form-inline" id="search_block">
-      <a href="javascript:void(0)" class="btn btn-primary btn-lg">饮食记录 </a>
-      <a href="javascript:void(0)" class="btn btn-primary btn-lg" ng-click="currentPanel='sancan'">一日三餐能量分配 </a>
-      <a href="javascript:void(0)" class="btn btn-primary btn-lg">三大营养素摄入量与能量来源结构 </a>
-      <a href="javascript:void(0)" class="btn btn-primary btn-lg">分类食物摄入量分析 </a>
-      <a href="javascript:void(0)" class="btn btn-primary btn-lg">营养成分分析 </a>
+  <body ng-app="myApp">
+    <!--检索项-->
+    <div ng-controller="customersCtrl" class="container-fluid myload">
+      <!-- 面包屑导航 -->
+      <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+        <li><a href="javascript:void(0)">用户数据</a></li>
+        <li class="active">饮食分析</li>
+      </ol>
+      <div class=" col-xs-12 form-inline" id="search_block">
+        <a href="javascript:void(0)" class="btn btn-primary btn-lg">饮食记录 </a>
+        <a href="javascript:void(0)" class="btn btn-primary btn-lg" ng-click="currentPanel='sancan'">一日三餐能量分配 </a>
+        <a href="javascript:void(0)" class="btn btn-primary btn-lg">三大营养素摄入量与能量来源结构 </a>
+        <a href="javascript:void(0)" class="btn btn-primary btn-lg">分类食物摄入量分析 </a>
+        <a href="javascript:void(0)" class="btn btn-primary btn-lg">营养成分分析 </a>
 
-      <div class="form-group text-left" style="margin: 10px 0 0 0 ">
-        <label class="lbl_search">起止日期：</label>
+        <div class="form-group text-left" style="margin: 10px 0 0 0 ">
+          <label class="lbl_search">起止日期：</label>
 
 
-        <div class="input-group timeblock">
-          <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
-          <div class="input-group-btn">
-            <button type="button" class="btn btn-default" id="btnStarttime">
+          <div class="input-group timeblock">
+            <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" id="btnStarttime">
                         <span class="glyphicon glyphicon-calendar"></span></button>
+            </div>
           </div>
-        </div>
-        <label class="">至</label>
+          <label class="">至</label>
 
-        <div class="input-group timeblock">
-          <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
-          <div class="input-group-btn">
-            <button type="button" class="btn btn-default" id="btnEndtime">
+          <div class="input-group timeblock">
+            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" id="btnEndtime">
                         <span class="glyphicon glyphicon-calendar"></span></button>
+            </div>
           </div>
+          <!-- 搜索按钮 -->
+          <a ng-click="search()" class="btn btn-primary" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+
         </div>
-        <!-- 搜索按钮 -->
-        <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+        <a ng-click="back()" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-share-alt"></i>&nbsp;返回上级页面</a>
+
       </div>
+      <!-- 数据显示 -->
+      <div class="ng-scope tab-content container-fluid">
 
+        <table class="table table-hover table-bordered table-condensed ">
+          <!-- 表头 -->
+          <thead>
+            <tr>
+              <th>
+                日期
+              </th>
+              <th>
+                全天(kcal)
+              </th>
+              <th>
+                早餐(kcal)
+              </th>
+              <th>
+                午餐(kcal)
+              </th>
+              <th>
+                晚餐(kcal)
+              </th>
+              <th>
+                零食(kcal)
+              </th>
+              <th>
+                早餐%
+              </th>
+              <th>
+                午餐%
+              </th>
+              <th>
+                晚餐%
+              </th>
+              <th>
+                零食%
+              </th>
+            </tr>
+          </thead>
+          <tbody id="databody">
+            <tr ng-show="dataLengths" ng-repeat="x in data">
+              <td>{{ x.date}}</td>
+              <td>{{ $index+names.page.currentPage*10-9}}</td>
+              <td>{{ x.FP_HM }}</td>
+              <td>{{ x.FP_HM }}</td>
+              <td>{{ x.FP_HM }}</td>
+              <td>{{ x.FP_HM }}</td>
+              <td>{{ x.FP_HM }}</td>
+              <td>{{ x.FP_HM }}</td>
+              <td>{{ x.ID }}</td>
+              <td>{{ x.FP_HM }}</td>
+            </tr>
+            <tr ng-show="!dataLengths">
+              <td colspan="100" class="text-center ">暂无结果</td>
+            </tr>
+          </tbody>
+        </table>
 
-    </div>
-    <!-- 数据显示 -->
-    <div class="ng-scope tab-content container-fluid">
-
-      <table class="table table-hover table-bordered table-condensed ">
-        <!-- 表头 -->
-        <thead>
-          <tr>
-            <th>
-              日期
-            </th>
-            <th>
-              全天(kcal)
-            </th>
-            <th>
-              早餐(kcal)
-            </th>
-            <th>
-              午餐(kcal)
-            </th>
-            <th>
-              晚餐(kcal)
-            </th>
-            <th>
-              零食(kcal)
-            </th>
-            <th>
-              早餐%
-            </th>
-            <th>
-              午餐%
-            </th>
-            <th>
-              晚餐%
-            </th>
-            <th>
-              零食%
-            </th>
-          </tr>
-        </thead>
-        <tbody id="databody">
-          <tr ng-show="dataLengths" ng-repeat="x in data">
-            <td>{{ x.date}}</td>
-            <td>{{ $index+names.page.currentPage*10-9}}</td>
-            <td>{{ x.FP_HM }}</td>
-            <td>{{ x.FP_HM }}</td>
-            <td>{{ x.FP_HM }}</td>
-            <td>{{ x.FP_HM }}</td>
-            <td>{{ x.FP_HM }}</td>
-            <td>{{ x.FP_HM }}</td>
-            <td>{{ x.ID }}</td>
-            <td>{{ x.FP_HM }}</td>
-          </tr>
-          <tr ng-show="!dataLengths">
-            <td colspan="100" class="text-center ">暂无结果</td>
-          </tr>
-        </tbody>
-      </table>
-
-    </div>
-    <!--<div ng-show="dataLengths">
+      </div>
+      <!--<div ng-show="dataLengths">
             <div class="form-group pull-right topage_block">
               
                 <label>{{totalRecord}}条/{{totalPage}}页</label>
@@ -126,74 +127,81 @@
                 <ul class="pagination" id="alreadyPage"></ul>
             </div>
         </div>-->
-    <!-- 当前页隐藏域 -->
-    <input id="currentPage" name="currentPage" value="1" type="hidden">
-  </div>
-  <!--脚本-->
-  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-  <script>
-    $(".start_end_time").datetimepicker({
-      timepicker: false,
-      format: 'Y-m-d',
-    });
-
-    $(function() {
-      tool.changeSelect($("#username"), true);
-    });
-    var params = ""; //全局变量
-    var app = angular.module('myApp', []);
-    app.controller('customersCtrl', function($scope, $http) {
-      var obj = new UrlSearch();
-      var pageing = function(pageindex, params) {
-          $scope.currentPanel = "dietRecordAnalysis";
-          var url = BasicUrl + "dietAnalysis/" + $scope.currentPanel + "?userId=" + obj.userId + "&" + params;
-          $http.get(url).success(function(data) {
-            if (data != null && data != "" && data != "null") {
-              $scope.dataLengths = data.length > 0;
-              if (data != null && data.length > 0) {
-                $scope.data = data;
-              } else {
-                $scope.dataLengths = false;
-              }
-            }
-          });
-        }
-        //分页方法
-      pageing(0, params);
-      //查询按钮
-      $scope.search = function() {
-        //TODO  需要修改部分
-        //起始时间时间戳
-        var minExpiredAt = $("#txtStartTime").val();
-        //结束时间时间戳
-        var maxExpiredAt = $("#txtEndTime").val();
-        //校验只有一个搜索条件
-        if (!minExpiredAt || !maxExpiredAt) {
-          tool.alert("提示", "请选择起止日期！");
-          return false;
-        }
-        //起止日期校验
-        if (minExpiredAt > maxExpiredAt) {
-          tool.alert("提示", "结束时间不得早于起始时间！");
-          return false;
-        }
-        params = "minDate=" + minExpiredAt + "&maxDate=" + maxExpiredAt;
-        pageing(0, params);
-      }
-
-      //加载完毕后再显示 
-      $scope.$watch("viewContentLoaded", function() {
-        angular.element(".myload").removeClass("myload");
+      <!-- 当前页隐藏域 -->
+      <input id="currentPage" name="currentPage" value="1" type="hidden">
+    </div>
+    <!--脚本-->
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script>
+      $(".start_end_time").datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
       });
 
-    });
-  </script>
-</body>
+      $(function() {
+        tool.changeSelect($("#username"), true);
+      });
+      var params = ""; //全局变量
+      var app = angular.module('myApp', []);
+      app.controller('customersCtrl', function($scope, $http) {
+        var obj = new UrlSearch();
+        var pageing = function(pageindex, params) {
+            $scope.currentPanel = "dietRecordAnalysis";
+            var url = BasicUrl + "dietAnalysis/" + $scope.currentPanel + "?userId=" + obj.userId + "&" + params;
+            $http.get(url).success(function(data) {
+              if (data != null && data != "" && data != "null") {
+                $scope.dataLengths = data.length > 0;
+                if (data != null && data.length > 0) {
+                  $scope.data = data;
+                } else {
+                  $scope.dataLengths = false;
+                }
+              }
+            });
+          }
+          //分页方法
+        pageing(0, params);
+        //查询按钮
+        $scope.search = function() {
+          //TODO  需要修改部分
+          //起始时间时间戳
+          var minExpiredAt = $("#txtStartTime").val();
+          //结束时间时间戳
+          var maxExpiredAt = $("#txtEndTime").val();
+          //校验只有一个搜索条件
+          if (!minExpiredAt || !maxExpiredAt) {
+            tool.alert("提示", "请选择起止日期！");
+            return false;
+          }
+          //起止日期校验
+          if (minExpiredAt > maxExpiredAt) {
+            tool.alert("提示", "结束时间不得早于起始时间！");
+            return false;
+          }
+          params = "minDate=" + minExpiredAt + "&maxDate=" + maxExpiredAt;
+          pageing(0, params);
+        }
+
+        //返回上一级页面
+        $scope.back = function() {
+          var name = obj.userId;
+          var time = obj.date;
+          window.location.href = "FoodRecord.html?userId=" + name + "&date=" + time;
+        }
+
+        //加载完毕后再显示 
+        $scope.$watch("viewContentLoaded", function() {
+          angular.element(".myload").removeClass("myload");
+        });
+
+      });
+    </script>
+  </body>
 
 </html>

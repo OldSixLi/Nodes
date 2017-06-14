@@ -99,7 +99,7 @@
                 <td>
                   <a href="UserInfo.html?id={{ x.user.id}}">{{ x.user.vipEntity.realName }}</a></td>
                 <td>{{ x.genders= x.user.gender=="M"?"男":"女" }}</td>
-                <td>{{ x.time= x.modifyAt |date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                <td>{{ x.time= x.createAt |date:"yyyy/MM/dd HH:mm:ss"}}</td>
                 <td>
                   <a ng-click='getEditModel(x.id)' href="" ng-if="!x.confirmAt">{{"确认预约"}}</a> <span ng-click='getEditModel(x.id)' href="" ng-if="x.confirmAt">{{x.isYes= x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}}</span>
                 </td>
@@ -333,7 +333,7 @@
           }
           //起止日期校验
           if (minExpiredAt && maxExpiredAt && (minExpiredAt > maxExpiredAt)) {
-            tool.alert("提示", "活动日期中结束时间不得早于起始时间");
+            tool.alert("提示", "预约日期截止时间不得早于起始时间");
             return false;
           }
           params = '';

@@ -210,16 +210,75 @@
           <div class="modal-body">
             <form class="form-horizontal" role="form">
               <div class="form-group">
-                <div class="col-sm-2 text-right"><label for="chufanglist" class="control-label">选择处方</label></div>
-                <div class="col-sm-10">
+                <div class="col-sm-2 text-right">
+                  <label for="chufanglist" class="control-label">处方类别</label>
+                </div>
+                <div class="col-sm-3">
+                  <select id="chufangType" class="form-control" style="width:100%;">
+                    <option value="">所有</option>
+                    <option value="Sport">运动处方</option>
+                    <option value="Nutrition">营养处方</option>  
+                  </select>
+                </div>
+                <div class="col-sm-2 text-right">
+                  <label for="chufanglist" class="control-label">选择处方</label>
+                </div>
+                <div class="col-sm-3">
                   <select id="chufanglist" class="form-control" style="width:100%;">
                    <option  value="">请选择</option>
                    <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option>
                 </select>
                 </div>
+                <div class="col-sm-2">
+                  <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+                </div>
               </div>
+              <div class="form-group">
+                <div class="col-md-12">
+                  <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
+                  <table class="table table-hover">
+                    <!-- 表头 -->
+                    <thead>
+                      <tr>
+                        <th> 序号 </th>
+                        <th> 处方名 </th>
+                        <th> 处方类别 </th>
+                        <th> 拼音 </th>
+                      </tr>
+                    </thead>
+                    <tbody id="databody">
+                      <tr ng-show="dataLengths" ng-repeat="x in datas.content">
+                        <td>{{ $index+1 }}</td>
+                        <td><a href="#" ng-click=getEditModel(x.id)>{{ x.name }}</a></td>
+                        <td>{{ x.prescriptionType=="Sport"?"运动":"营养" }}</td>
+                        <td>{{ x.spell}}</td>
+                      </tr>
+                      <tr ng-show="!dataLengths">
+                        <td colspan="100" class="text-center ">暂无结果</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div ng-show="dataLengths" class="col-md-12">
+                  <!--<div class="form-group pull-right topage_block">
+ 
+                    <label>{{totalRecord}}条/{{totalPage}}页</label>
+                    <label>跳至</label>
+                    <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
+                    <label>页</label>
+                    <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+                  </div>-->
+                  <!-- 分页控件 -->
+                  <input id="currentPage" name="currentPage" value="1" type="hidden">
+                  <div class="pull-right">
+                    <ul class="pagination" id="alreadyPage"></ul>
+                  </div>
+                </div>
+              </div>
+
             </form>
           </div>
+
           <div class="modal-footer">
             <a class="btn  btn-primary pull-left" href="PrescriptionList.html?reportId={{reportId}}">添加新处方</a>
             <a class="btn btn-default" data-dismiss="modal">取消</a>
@@ -398,6 +457,7 @@
           }
         })
       }
+      var params = ""; //全局变量  请求的参数
       // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
       // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
       // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
@@ -412,7 +472,59 @@
           }
           tool.changeSelect($("#chufanglist"), false);
         });
-        //获取详情
+
+
+        //分页方法声明
+        var pageing = function(pageindex, params) {
+            //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../prescription?
+            var url = BasicUrl + "prescription?" + params + "page=" + pageindex + "&pageNum=5"; //请求的参数和地址
+            $http.get(url).success(function(data) {
+              if (data != null && data != "" && data != "null") {
+                //判断当前是否存在记录
+
+                if (data.content && data.content != null && data.content.length > 0) {
+                  $scope.dataLengths = data.content.length > 0;
+                  //赋值操作 
+                  $scope.datas = data;
+                  $scope.totalPage = data.totalPages;
+                  $scope.totalRecord = data.totalElements;
+                  //调用生成分页方法
+                  initPageDiv($("#alreadyPage"), //在哪里生成页码
+                    pageindex + 1, //当前页
+                    data.totalPages, //总页数
+                    5, //每次显示多少页
+                    $("#currentPage"), //隐藏域的值：当前页数
+                    function() {
+                      pageing($("#currentPage").val() - 1, params);
+                    });
+                } else {
+                  $scope.dataLengths = false;
+                  // tool.alert("提示", "当前条件下未获取到信息!");
+                }
+              }
+            });
+          }
+          //分页方法
+
+        pageing(0, params);
+        //TODO  未完成
+        $scope.getEditModel = function(id) {
+            var arr = $scope.datas.content;
+            arr.forEach(function(element, index, array) {
+              var obj = element;
+              if (element.id == id) {
+                $scope.model = {
+                  id: id,
+                  name: element.name,
+                  spell: element.spell,
+                  prescriptionType: element.prescriptionType,
+                  description: element.description,
+                };
+              }
+            }, this);
+
+          }
+          //获取详情
         var reportObj = new UrlSearch();
         if (reportObj.id) {
           $scope.reportId = reportObj.id;

@@ -97,7 +97,7 @@
                 <td>{{ x.dietEntity.categories }}</td>
                 <td>{{ x.dietEntity.subcategories }}</td>
                 <td>{{ x.dietEntity.name }}</td>
-                <td>{{ x.unitWeight }}</td>
+                <td>{{ x.unitWeight*x.quantity }}</td>
               </tr>
               <tr ng-show="!foodRecordDataLengths">
                 <td colspan="100" class="text-center ">暂无结果</td>
@@ -488,45 +488,51 @@
       app.controller('customersCtrl', function($scope, $http) {
         //分页方法声明
         var pageing = function(pageindex, params) {
-            //请求地址
-            $scope.userid = 0;
-            var url = BasicUrl + "dietAnalysis/mealNutritionEnergyAnalysis?" + params; //请求的参数和地址
-            $http.get(url).success(function(data) {
-              if (data != null && data != "" && data != "null") {
-                //判断当前是否存在记录
-                $scope.dataLengths = data.length > 0;
-                if (data != null && data.length > 0) {
-                  $scope.data = data;
-                } else {
-                  $scope.dataLengths = false;
-                  // alert("未获取到数据，请重试");
-                }
+          //请求地址
+          $scope.userid = 0;
+          var url = BasicUrl + "dietAnalysis/mealNutritionEnergyAnalysis?" + params; //请求的参数和地址
+          $http.get(url).success(function(data) {
+            if (data != null && data != "" && data != "null") {
+              //判断当前是否存在记录
+              $scope.dataLengths = data.length > 0;
+              if (data != null && data.length > 0) {
+                $scope.data = data;
+              } else {
+                $scope.dataLengths = false;
+                // alert("未获取到数据，请重试");
               }
-            });
-            $http.get(BasicUrl + "dietAnalysis/dailyClassificationOfFoodIntake?" + params).success(function(data) {
-              if (data != null && data != "" && data != "null") {
-                //判断当前是否存在记录
-                $scope.fenleidataLengths = data.length > 0;
-                if (data != null && data.length > 0) {
-                  $scope.fenleiData = data;
-                } else {
-                  $scope.fenleidataLengths = false;
-                }
+            }
+          });
+          $http.get(BasicUrl + "dietAnalysis/dailyClassificationOfFoodIntake?" + params).success(function(data) {
+            if (data != null && data != "" && data != "null") {
+              //判断当前是否存在记录
+              $scope.fenleidataLengths = data.length > 0;
+              if (data != null && data.length > 0) {
+                $scope.fenleiData = data;
+              } else {
+                $scope.fenleidataLengths = false;
               }
-            });
-            $http.get(BasicUrl + "dietRecord?" + params).success(function(data) {
-              if (data != null && data != "" && data != "null") {
-                //判断当前是否存在记录
-                $scope.foodRecordDataLengths = data.length > 0;
-                if (data != null && data.length > 0) {
-                  $scope.foodRecordData = data;
-                } else {
-                  $scope.foodRecordDataLengths = false;
-                }
+            }
+          });
+          $http.get(BasicUrl + "dietRecord?" + params).success(function(data) {
+            if (data != null && data != "" && data != "null") {
+              //判断当前是否存在记录
+              $scope.foodRecordDataLengths = data.length > 0;
+              if (data != null && data.length > 0) {
+                $scope.foodRecordData = data;
+              } else {
+                $scope.foodRecordDataLengths = false;
               }
-            });
-          }
-          //分页方法
+            }
+          });
+        }
+
+
+        var obj = new UrlSearch();
+        if (obj.userId && obj.date) {
+          params = "userId=" + obj.userId + "&date=" + obj.date
+        }
+        //分页方法
         pageing(0, params);
         //查询按钮
         $scope.search = function() {
@@ -566,7 +572,7 @@
             tool.alert("提示", "请选择用户！");
             return false;
           }
-          window.location.href = "DietAnalysis.html?userId=" + $("#username").val();
+          window.location.href = "DietAnalysis.html?userId=" + $("#username").val() + "&date=" + $("#txtStartTime").val();
         }
 
         //加载完毕后再显示 

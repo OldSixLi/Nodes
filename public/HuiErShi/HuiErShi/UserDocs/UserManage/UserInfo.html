@@ -227,10 +227,10 @@
                   <label class="control-label">专家团队：</label>
                   <span ng-if="!data.experts"> <a data-toggle="modal" href="#zhuanjiaModel"><span>立即设置</span></a>
                   </span>
-
-                  <span ng-if="data.experts">
+                  <a data-toggle="modal" href="#zhuanjiaModel">
+                    <span ng-if="data.experts">
                     {{data.experts.DietitianExpert.name+"("+data.experts.DietitianExpert.job.substr(0,2)+")"}}&nbsp; 
-                    {{data.experts.SportExpert.name+"("+data.experts.SportExpert.job.substr(0,2)+")"}}</span>
+                    {{data.experts.SportExpert.name+"("+data.experts.SportExpert.job.substr(0,2)+")"}}</span></a>
                 </p>
               </div>
               <div class="col-md-3">
@@ -368,16 +368,12 @@
                   <div style="padding:5px;">
                   </div>
                   <select name="from" id="multiselect" class="form-control" size="16" multiple="multiple" ng-model="selectedName">
-              <option ng-repeat="x in options"  value="{{x.id}}" data-type="{{x.role}}" ng-if="x.role==2">
+              <option ng-repeat="x in options"  value="{{x.id}}" data-type="{{x.role}}" ng-if="x.role==2&&x.id!=data.experts.SportExpert.id">
                {{x.name+"(运动专家)"}}
                                 </option>
-                                 <option ng-repeat="x in options"  value="{{x.id}}" data-type="{{x.role}}" ng-if="x.role==3">
-               {{x.name+"(饮食专家)"}}　
-             
-                                </option>
-
-
-                                　
+                                 <option ng-repeat="x in options"  value="{{x.id}}" data-type="{{x.role}}" ng-if="x.role==3&&x.id!=data.experts.DietitianExpert.id">
+               {{x.name+"(饮食专家)"}}　             
+                                </option>                                　
               </select>
                 </div>
               </div>
@@ -388,7 +384,10 @@
               <div class="col-md-5 col-sm-5 col-xs-5">
                 <div class="panel panel-default panel-select">
                   <div class="panel-heading" style="text-align: right"><b>已选专家列表</b></div>
-                  <select name="to" id="multiselect_to" class="form-control" size="16" multiple="multiple"></select>
+                  <select name="to" id="multiselect_to" class="form-control" size="16" multiple="multiple"> 
+                    <option value="{{data.experts.DietitianExpert.id}}" ng-if="data.experts.DietitianExpert.id" data-type="{{data.experts.DietitianExpert.role}}" >{{data.experts.DietitianExpert.name+"(饮食专家)"}}</option>
+                     <option value="{{data.experts.SportExpert.id}}" ng-if="data.experts.SportExpert.id" data-type="{{data.experts.SportExpert.role}}" >{{data.experts.SportExpert.name+"(饮食专家)"}}</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -494,6 +493,8 @@
           $http.get(url).success(function(data) {
             if (data != null && data != "" && data != "null" && data.id) {
               $scope.data = data;
+              // $scope.foodExpert = ;
+              // $scope.sportExpert = ;
             } else {
               tool.alert("提示", data.errorMessage);
             }

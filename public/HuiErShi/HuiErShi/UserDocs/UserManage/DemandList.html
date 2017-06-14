@@ -249,7 +249,6 @@
           templateSelection: formatRepoSelection,
         });
 
-
         function formatRepo(repo) {
           return repo.realName;
         }
@@ -319,9 +318,7 @@
                       function() {
                         pageing($("#currentPage").val() - 1, params);
                       });
-                  } else {
-                    // tool.alert("提示", "未获取到数据");
-                  }
+                  } else {}
                 }
               });
             }
@@ -379,7 +376,6 @@
                     if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
                       tool.alert("提示", JSON.parse(response.responseText).errorMessage);
                     }
-
                   },
                   complete: function(xhr, textStatus) {
                     if (xhr.status == 200) {
@@ -391,10 +387,7 @@
                   }
                 });
               },
-              function() {
-                //用户点击取消按钮时操作
-
-              });
+              function() {});
           }
 
           var vm = $scope.vm = {
