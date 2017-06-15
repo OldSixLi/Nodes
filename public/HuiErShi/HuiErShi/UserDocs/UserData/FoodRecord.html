@@ -530,7 +530,33 @@
 
         var obj = new UrlSearch();
         if (obj.userId && obj.date) {
-          params = "userId=" + obj.userId + "&date=" + obj.date
+          params = "userId=" + obj.userId + "&date=" + obj.date;
+          //设置数据
+          $("#txtStartTime").val(obj.date);
+          $("#username").val(obj.userId).trigger("change");
+
+          // $("#username").select2({
+          //   placeholder: '请选择',
+          //   allowClear: true,
+          //   ajax: {
+          //     url: function(params) {
+          //       return BasicUrl + "vip/name/" + params.term;
+          //     },
+          //     dataType: 'json',
+          //     delay: 250,
+          //     processResults: function(data, page) {
+          //       return {
+          //         results: data
+          //       };
+          //     },
+          //     cache: false
+          //   },
+          //   minimumInputLength: 1,
+          //   minimumResultsForSearch: 1,
+          //   width: "120px",
+          //   templateResult: formatRepo,
+          //   templateSelection: formatRepoSelection,
+          // });
         }
         //分页方法
         pageing(0, params);

@@ -1,305 +1,305 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>运动记录</title>
-  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/common.css" rel="stylesheet">
-</head>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>运动记录</title>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/common.css" rel="stylesheet">
+  </head>
 
-<body ng-app="myApp">
-  <div ng-controller="customersCtrl" class="container-fluid">
-    <!-- 面包屑导航 -->
-    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-      <li><a href="javascript:history.back(-1)">用户数据</a></li>
-      <li class="active">运动记录</li>
-    </ol>
-    <div class="col-xs-12" id="search_block" style="z-index:100;">
-      <form class="form-inline text-right" role="form">
-        <div class="form-group text-left">
-          <label class="control-label">会员姓名:</label>
-          <!--下拉菜单-->
-          <select id="userSlt" class="form-control">  <option></option>
+  <body ng-app="myApp">
+    <div ng-controller="customersCtrl" class="container-fluid">
+      <!-- 面包屑导航 -->
+      <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+        <li><a href="javascript:history.back(-1)">用户数据</a></li>
+        <li class="active">运动记录</li>
+      </ol>
+      <div class="col-xs-12" id="search_block" style="z-index:100;">
+        <form class="form-inline text-right" role="form">
+          <div class="form-group text-left">
+            <label class="control-label">会员姓名:</label>
+            <!--下拉菜单-->
+            <select id="userSlt" class="form-control">  <option></option>
           </select> &nbsp;&nbsp;&nbsp;
-          <!--日期-->
-          <label class="control-label">日期:</label>
-          <span class="glyphicon glyphicon-chevron-left cu-pointer" title="前一天" onclick="prevDay()"></span>
-          <div class="input-group timeblock">
-            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="开始时间">
-            <div class="input-group-btn">
-              <button type="button" class="btn btn-default" id="btnEndtime">
+            <!--日期-->
+            <label class="control-label">日期:</label>
+            <span class="glyphicon glyphicon-chevron-left cu-pointer" title="前一天" onclick="prevDay()"></span>
+            <div class="input-group timeblock">
+              <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" id="btnEndtime">
                 <span class="glyphicon glyphicon-calendar"></span></button>
+              </div>
             </div>
+            <span class="glyphicon glyphicon-chevron-right cu-pointer" title="后一天" onclick="nextDay()"></span>
+            <a class="btn btn-primary" id="btnSearch" ng-click="search()"><i class="glyphicon glyphicon-search"></i>&nbsp;搜索</a>
           </div>
-          <span class="glyphicon glyphicon-chevron-right cu-pointer" title="后一天" onclick="nextDay()"></span>
-          <a class="btn btn-primary" id="btnSearch" ng-click="search()"><i class="glyphicon glyphicon-search"></i>&nbsp;搜索</a>
-        </div>
-      </form>
-    </div>
-    <div id="main" style="width: 80%;height:400px;margin:50px auto;"></div>
-    <!-- 数据显示 -->
-    <div class="tab-content container-fluid">
-
-      <p>静息心率:{{"TODO后台数据暂时未提供"}}</p>
-
-      <div class=" fixed-table-container">
-        <table class="table table-hover">
-          <!-- 表头 -->
-          <thead>
-            <tr>
-              <th>序号</th>
-              <th>运动名称</th>
-              <th>运动开始时间</th>
-              <th>运动结束时间</th>
-              <th>持续时长</th>
-              <th>组数</th>
-              <th>每组数量</th>
-              <th>卡路里</th>
-              <th>心率</th>
-              <th>REP</th>
-            </tr>
-          </thead>
-          <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
-              <td>{{$index+data.page*data.pageNum+1}}</td>
-              <td>{{ x.name }}</td>
-              <td>{{ x.startAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
-              <td>{{ x.endAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
-              <td>{{ x.lasted+"分"}}</td>
-              <td>{{ x.group}}</td>
-              <td>{{ x.count}}</td>
-              <td>{{ x.calorie}}</td>
-              <td>{{ x.heartRate}}</td>
-              <td>{{ x.rpe}}</td>
-            </tr>
-            <tr ng-show="!dataLengths">
-              <td colspan="100" class="text-center ">暂无结果</td>
-            </tr>
-          </tbody>
-        </table>
+        </form>
       </div>
-      <!--<p>备注:{{"TODO后台数据暂时未提供"}}</p>-->
+      <div id="main" style="width: 80%;height:400px;margin:50px auto;"></div>
+      <!-- 数据显示 -->
+      <div class="tab-content container-fluid">
+
+        <p>静息心率:{{"TODO后台数据暂时未提供"}}</p>
+
+        <div class=" fixed-table-container">
+          <table class="table table-hover">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>运动名称</th>
+                <th>运动开始时间</th>
+                <th>运动结束时间</th>
+                <th>持续时长</th>
+                <th>组数</th>
+                <th>每组数量</th>
+                <th>卡路里</th>
+                <th>心率</th>
+                <th>REP</th>
+              </tr>
+            </thead>
+            <tbody id="databody">
+              <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
+                <td>{{$index+data.page*data.pageNum+1}}</td>
+                <td>{{ x.name }}</td>
+                <td>{{ x.startAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
+                <td>{{ x.endAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
+                <td>{{ x.lasted+"分"}}</td>
+                <td>{{ x.group}}</td>
+                <td>{{ x.count}}</td>
+                <td>{{ x.calorie}}</td>
+                <td>{{ x.heartRate}}</td>
+                <td>{{ x.rpe}}</td>
+              </tr>
+              <tr ng-show="!dataLengths">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!--<p>备注:{{"TODO后台数据暂时未提供"}}</p>-->
+      </div>
+
+
     </div>
-
-
-  </div>
-  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-  <script type="text/javascript" src="../../Scripts/echarts/echarts.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-  <script>
-    var myChart = echarts.init(document.getElementById('main'));
-    // 【04】指定图表的配置项和数据  
-    var currentDate = "2017-04-25";
-    var option = {
-      title: {
-        text: '运动心率图',
-        subtext: currentDate
-      },
-      tooltip: {
-        trigger: 'axis'
-      },
-      toolbox: {
-        show: true,
-        feature: {
-          mark: {
-            show: true
-          },
-          dataView: {
-            show: true,
-            readOnly: false
-          },
-          magicType: {
-            show: true,
-            type: ['line', 'bar']
-          },
-          // restore: {
-          //   show: true
-          // },
-          // saveAsImage: {
-          //   show: true
-          // }
-        }
-      },
-      calculable: true,
-      xAxis: [{
-        type: 'category',
-        boundaryGap: false,
-        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-      }],
-      yAxis: [{
-        type: 'value',
-        // axisLabel: {
-        //   formatter: '{value} '
-        // }
-      }],
-      series: [{
-        name: '最大值',
-        type: 'line',
-        data: [],
-        // 11, 11, 15, 13, 12, 13, 10
-        markPoint: {
-          data: [{
-            type: 'max',
-            name: '最大值'
-          }, {
-            type: 'min',
-            name: '最小值'
-          }]
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../../Scripts/echarts/echarts.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script>
+      var myChart = echarts.init(document.getElementById('main'));
+      // 【04】指定图表的配置项和数据  
+      var currentDate = "2017-04-25";
+      var option = {
+        title: {
+          text: '运动心率图',
+          subtext: currentDate
         },
-        markLine: {
-          data: [{
-            type: 'average',
-            name: '平均值'
-          }]
-        }
-      }]
-    };
-    // 【05】使用刚指定的配置项和数据显示图表。  
-    myChart.setOption(option);
-    $(function() {
-      //日期框初始化
-      $(".start_end_time").datetimepicker({
-        timepicker: false,
-        format: 'Y-m-d',
-      });
-      // 下拉框AJAX获取数据
-      $("#userSlt").select2({
-        placeholder: '请选择',
-        allowClear: true,
-        ajax: {
-          // url: BasicUrl + "vip/name",
-          url: function(params) {
-            return BasicUrl + "vip/name/" + params.term;
-          },
-          dataType: 'json',
-          delay: 250,
-          processResults: function(data, page) {
-            return {
-              results: data
-            };
-          },
-          cache: false
+        tooltip: {
+          trigger: 'axis'
         },
-        // escapeMarkup: function(markup) {
-        //   return markup;
-        // },
-        minimumInputLength: 1,
-        minimumResultsForSearch: 1,
-        width: "220px",
-        templateResult: formatRepo,
-        templateSelection: formatRepoSelection,
-      });
-    });
-
-    function formatRepo(repo) {
-      return repo.realName;
-    }
-
-    function formatRepoSelection(repo) {
-      return repo.realName;
-    }
-
-    function getLocalTime(tm) {
-      var tt = new Date(parseInt(tm)).toLocaleString('chinese', {
-        hour12: false
-      }).replace(/\//g, "-");
-      return tt;
-    }
-    //前一天
-    function prevDay() {
-      var date = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()));
-      date = date - 86400000;
-      var time = getLocalTime(date);
-      $('#txtEndTime').datetimepicker({
-        value: time
-      });
-    }
-
-    function nextDay() {
-      var date = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()));
-      date = date + 86400000;
-      var time = getLocalTime(date);
-      $('#txtEndTime').datetimepicker({
-        value: time
-      });
-    }
-    var params = ""; //请求参数变量
-    var app = angular.module('myApp', []);
-    app.controller('customersCtrl', function($scope, $http) {
-      // 分页方法
-      var pageing = function(pageindex, params) {　
-        var url = BasicUrl + "sport?" + params + "page=" + pageindex + "&pageNum=10";　
-        $http.get(url).success(function(data) {
-          if (data != null && data != "" && data != "null") {
-            $scope.dataLengths = data.content.length > 0;　
-            if (data.content != null && data.content.length > 0) {
-              $scope.data = data;
-              $scope.totalPage = data.totalPages;
-              $scope.totalRecord = data.totalElements;
-              var arr = [],
-                timeArr = [];
-              for (var index = 0; index < data.content.length; index++) {
-                arr.push(data.content[index].heartRate);
-                timeArr.push(getLocalTime(data.content[index].createAt));
-                console.log(getLocalTime(data.content[index].createAt));
-              }
-              var currentTime = getLocalTime(Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()))).substr(0, 9);
-              option.title.subtext = currentTime;
-              option.xAxis[0].data = timeArr;
-              option.series[0].data = arr;　
-              myChart.setOption(option);
-              //调用生成分页方法
-              initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
-                pageing($("#currentPage").val() - 1, params);
-              });
-            } else {
-              $scope.dataLengths = false;
-              tool.alert("提示", "当前条件下未获取到数据");
-            }
+        toolbox: {
+          show: true,
+          feature: {
+            mark: {
+              show: true
+            },
+            dataView: {
+              show: true,
+              readOnly: false
+            },
+            magicType: {
+              show: true,
+              type: ['line', 'bar']
+            },
+            // restore: {
+            //   show: true
+            // },
+            // saveAsImage: {
+            //   show: true
+            // }
           }
-        }).error(function(data) {
-          $scope.dataLengths = false;
+        },
+        calculable: true,
+        xAxis: [{
+          type: 'category',
+          boundaryGap: false,
+          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        }],
+        yAxis: [{
+          type: 'value',
+          // axisLabel: {
+          //   formatter: '{value} '
+          // }
+        }],
+        series: [{
+          name: '最大值',
+          type: 'line',
+          data: [],
+          // 11, 11, 15, 13, 12, 13, 10
+          markPoint: {
+            data: [{
+              type: 'max',
+              name: '最大值'
+            }, {
+              type: 'min',
+              name: '最小值'
+            }]
+          },
+          markLine: {
+            data: [{
+              type: 'average',
+              name: '平均值'
+            }]
+          }
+        }]
+      };
+      // 【05】使用刚指定的配置项和数据显示图表。  
+      myChart.setOption(option);
+      $(function() {
+        //日期框初始化
+        $(".start_end_time").datetimepicker({
+          timepicker: false,
+          format: 'Y-m-d',
         });
-      }　
+        // 下拉框AJAX获取数据
+        $("#userSlt").select2({
+          placeholder: '请选择',
+          allowClear: true,
+          ajax: {
+            // url: BasicUrl + "vip/name",
+            url: function(params) {
+              return BasicUrl + "vip/name/" + params.term;
+            },
+            dataType: 'json',
+            delay: 250,
+            processResults: function(data, page) {
+              return {
+                results: data
+              };
+            },
+            cache: false
+          },
+          // escapeMarkup: function(markup) {
+          //   return markup;
+          // },
+          minimumInputLength: 1,
+          minimumResultsForSearch: 1,
+          width: "220px",
+          templateResult: formatRepo,
+          templateSelection: formatRepoSelection,
+        });
+      });
 
-      // pageing(0, params);
-      $scope.search = function() {
-        console.log("值:" + $("#userSlt").val());
-        var userid = $("#userSlt").val();
-        var time = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-        if (!(userid || time)) {
-          tool.alert("提示", "请选择用户和日期！");
-          return false;
-        }
-        params = ""
-        if (userid) {
-          params += "userId=" + userid + "&";
-        }
-        if (time != 0) {
-          params += "minCreatedAt=" + time + "&";
-        }
-        pageing(0, params);
+      function formatRepo(repo) {
+        return repo.realName;
       }
 
-      //跳转至某页方法
-      $scope.skip = function() {
-        if ($scope.toPageValue <= 1) {
-          $scope.toPageValue = 1;
-        } else if ($scope.toPageValue > $scope.totalPage) {
-          $scope.toPageValue = $scope.totalPage;
-        }
-        pageing($scope.toPageValue - 1, params);
+      function formatRepoSelection(repo) {
+        return repo.realName;
       }
-    });
-  </script>
-</body>
+
+      function getLocalTime(tm) {
+        var tt = new Date(parseInt(tm)).toLocaleString('chinese', {
+          hour12: false
+        }).replace(/\//g, "-");
+        return tt;
+      }
+      //前一天
+      function prevDay() {
+        var date = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()));
+        date = date - 86400000;
+        var time = getLocalTime(date);
+        $('#txtEndTime').datetimepicker({
+          value: time
+        });
+      }
+
+      function nextDay() {
+        var date = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()));
+        date = date + 86400000;
+        var time = getLocalTime(date);
+        $('#txtEndTime').datetimepicker({
+          value: time
+        });
+      }
+      var params = ""; //请求参数变量
+      var app = angular.module('myApp', []);
+      app.controller('customersCtrl', function($scope, $http) {
+        // 分页方法
+        var pageing = function(pageindex, params) {　
+          var url = BasicUrl + "sport?" + params + "page=" + pageindex + "&pageNum=10";　
+          $http.get(url).success(function(data) {
+            if (data != null && data != "" && data != "null") {
+              $scope.dataLengths = data.content.length > 0;　
+              if (data.content != null && data.content.length > 0) {
+                $scope.data = data;
+                $scope.totalPage = data.totalPages;
+                $scope.totalRecord = data.totalElements;
+                var arr = [],
+                  timeArr = [];
+                for (var index = 0; index < data.content.length; index++) {
+                  arr.push(data.content[index].heartRate);
+                  timeArr.push(getLocalTime(data.content[index].createAt));
+                  console.log(getLocalTime(data.content[index].createAt));
+                }
+                var currentTime = getLocalTime(Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()))).substr(0, 9);
+                option.title.subtext = currentTime;
+                option.xAxis[0].data = timeArr;
+                option.series[0].data = arr;　
+                myChart.setOption(option);
+                //调用生成分页方法
+                initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
+                  pageing($("#currentPage").val() - 1, params);
+                });
+              } else {
+                $scope.dataLengths = false;
+                tool.alert("提示", "当前条件下未获取到数据");
+              }
+            }
+          }).error(function(data) {
+            $scope.dataLengths = false;
+          });
+        }　
+
+        // pageing(0, params);
+        $scope.search = function() {
+          console.log("值:" + $("#userSlt").val());
+          var userid = $("#userSlt").val();
+          var time = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+          if (!(userid || time)) {
+            tool.alert("提示", "请选择用户和日期！");
+            return false;
+          }
+          params = ""
+          if (userid) {
+            params += "userId=" + userid + "&";
+          }
+          if (time != 0) {
+            params += "minCreatedAt=" + time + "&";
+          }
+          pageing(0, params);
+        }
+
+        //跳转至某页方法
+        $scope.skip = function() {
+          if ($scope.toPageValue <= 1) {
+            $scope.toPageValue = 1;
+          } else if ($scope.toPageValue > $scope.totalPage) {
+            $scope.toPageValue = $scope.totalPage;
+          }
+          pageing($scope.toPageValue - 1, params);
+        }
+      });
+    </script>
+  </body>
 
 </html>
