@@ -200,8 +200,8 @@
 
 
     <!--按钮END-->
-    <div class="modal fade" id="modal">
-      <div class="modal-dialog">
+    <div class="modal fade bs-example-modal-lg" id="modal">
+      <div class="modal-dialog  modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -236,28 +236,33 @@
               <div class="form-group">
                 <div class="col-md-12">
                   <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
-                  <table class="table table-hover">
-                    <!-- 表头 -->
-                    <thead>
-                      <tr>
-                        <th> 序号 </th>
-                        <th> 处方名 </th>
-                        <th> 处方类别 </th>
-                        <th> 拼音 </th>
-                      </tr>
-                    </thead>
-                    <tbody id="databody">
-                      <tr ng-show="dataLengths" ng-repeat="x in datas.content">
-                        <td>{{ $index+1 }}</td>
-                        <td><a href="#" ng-click=getEditModel(x.id)>{{ x.name }}</a></td>
-                        <td>{{ x.prescriptionType=="Sport"?"运动":"营养" }}</td>
-                        <td>{{ x.spell}}</td>
-                      </tr>
-                      <tr ng-show="!dataLengths">
-                        <td colspan="100" class="text-center ">暂无结果</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div class="panel panel-default" style="margin-bottom:0;">
+                    <div class="panel-body" style="padding: 0;">
+                      <table class="table table-hover">
+                        <!-- 表头 -->
+                        <thead>
+                          <tr>
+                            <th> 序号 </th>
+                            <th> 处方名 </th>
+                            <th> 处方类别 </th>
+                            <th> 拼音 </th>
+                          </tr>
+                        </thead>
+                        <tbody id="databody">
+                          <tr ng-show="dataLengths" ng-repeat="x in datas.content">
+                            <td>{{ $index+1 }}</td>
+                            <td><a href="#" ng-click=getEditModel(x.id)>{{ x.name }}</a></td>
+                            <td>{{ x.prescriptionType=="Sport"?"运动":"营养" }}</td>
+                            <td>{{ x.spell}}</td>
+                          </tr>
+                          <tr ng-show="!dataLengths">
+                            <td colspan="100" class="text-center ">暂无结果</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
                 </div>
                 <div ng-show="dataLengths" class="col-md-12">
                   <!--<div class="form-group pull-right topage_block">
@@ -275,12 +280,44 @@
                   </div>
                 </div>
               </div>
+              <hr>
+              <div ng-show="model.id>0">
 
+
+                <input type="hidden" name="id" ng-model="model.id">
+                <form class="form-horizontal " role="form" id="addForm" name="addForm">
+                  <div class="form-group">
+                    <div class="col-sm-2 text-right "><label for="chufangName" class="control-label">处方名称</label></div>
+                    <div class="col-sm-4">
+                      <input type="text" class="form-control" id="chufangName" placeholder="处方名称" ng-model="model.name">
+                    </div>
+                    <div class="col-sm-2 text-right"><label for="spellName" class="control-label">拼音名称</label></div>
+                    <div class="col-sm-4"><input type="text" class="form-control" id="spellName" placeholder="拼音名称" ng-model="model.spell"></div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-2 text-right"><label for="spellName" class="control-label">处方类别</label></div>
+                    <div class="col-sm-10">
+                      <select class="form-control" id="chufangTypes" ng-model="model.prescriptionType">
+                  <option value="">请选择</option>
+                  <option value="Nutrition">营养处方</option>
+                  <option value="Sport">运动处方</option>
+                </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-2 text-right"><label for="spellName" class="control-label">　　内容</label></div>
+                    <div class="col-sm-10">
+                      <textarea rows="5" cols="5" class="form-control" id="chufangContent" placeholder="请输入处方内容" ng-model="model.description"></textarea>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </form>
           </div>
 
           <div class="modal-footer">
-            <a class="btn  btn-primary pull-left" href="PrescriptionList.html?reportId={{reportId}}">添加新处方</a>
+            <!--<a class="btn  btn-primary pull-left" href="PrescriptionList.html?reportId={{reportId}}">添加新处方</a>-->
             <a class="btn btn-default" data-dismiss="modal">取消</a>
             <a class="btn btn-primary" ng-click='addChufangObj()'>添加</a>
           </div>
@@ -448,6 +485,7 @@
         }
       });
 
+
       function changeFileDisable() {
         $(".pdf").each(function() {
           if ($(this).attr('href') == "") {
@@ -458,6 +496,8 @@
         })
       }
       var params = ""; //全局变量  请求的参数
+
+      var chufangObj = {};
       // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
       // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
       // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
@@ -465,6 +505,7 @@
       var app = angular.module('myApp', []);
       app.controller('customersCtrl', function($scope, $http, $timeout) {
         //获取处方下拉菜单
+
         var chufangurl = BasicUrl + "prescription?page=0&pageNum=10";
         $http.get(chufangurl).success(function(data) {
           if (data != null && data != "" && data != "null") {
@@ -472,6 +513,10 @@
           }
           tool.changeSelect($("#chufanglist"), false);
         });
+
+
+
+
 
 
         //分页方法声明
@@ -506,25 +551,47 @@
           }
           //分页方法
 
-        pageing(0, params);
+        // pageing(0, params);
         //TODO  未完成
         $scope.getEditModel = function(id) {
-            var arr = $scope.datas.content;
-            arr.forEach(function(element, index, array) {
-              var obj = element;
-              if (element.id == id) {
-                $scope.model = {
-                  id: id,
-                  name: element.name,
-                  spell: element.spell,
-                  prescriptionType: element.prescriptionType,
-                  description: element.description,
-                };
-              }
-            }, this);
+          var arr = $scope.datas.content;
+          arr.forEach(function(element, index, array) {
+            var obj = element;
+            if (element.id == id) {
+              $scope.model = {
+                id: id,
+                name: element.name,
+                spell: element.spell,
+                prescriptionType: element.prescriptionType,
+                description: element.description,
+              };
 
-          }
-          //获取详情
+              chufangObj = {
+                id: id,
+                name: element.name,
+                spell: element.spell,
+                prescriptionType: element.prescriptionType,
+                description: element.description
+              }
+            }
+          }, this);
+        }
+
+        //关闭模态框时事件
+        $('#modal').on('hidden.bs.modal', function() {
+          $scope.model = {};
+          $scope.datas = {};
+        })
+
+        //关闭模态框时事件
+        $('#modal').on('hide.bs.modal', function() {
+          $scope.model = {};
+          $scope.datas = {};
+        })
+
+
+
+        //获取详情
         var reportObj = new UrlSearch();
         if (reportObj.id) {
           $scope.reportId = reportObj.id;
@@ -625,51 +692,189 @@
 
         //添加处方确定操作
         $scope.addChufangObj = function() {
-          var chufangID = $("#chufanglist").val();
-          if (!chufangID) {
+          //判断处方内容是否有修改  
+          if (!$scope.model) {
             tool.alert("提示", "您还未选择处方！");
-            return falsel
+            return false;
           }
 
-          $.ajax({
-            type: "POST",
-            url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertAdviceReportId + "/prescription",
-            data: {
-              reportId: $scope.reportId - 0,
-              consultId: $scope.expertAdviceReportId,
-              prescriptionId: chufangID
-            },
-            dataType: "json",
-            error: function(response) {
-              if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-                tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-              }
-            },
-            success: function(data) {},
-            complete: function(xhr, textStatus) {
-              if (xhr.status == 200) {
-                if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
-                  tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
-                } else {
-                  tool.alert("提示", "添加成功", function() {
-                    //根据添加的类别进行判断然后添加数据
-                    if ($scope.expertType == 'food') {
-                      $scope.foodChufangArr.push($scope.getChufangObj(chufangID));
-                      $scope.$apply();
-                      $("#chufanglist").val('');
-                      $('#modal').modal('hide');
-                    }
-                    if ($scope.expertType == 'sport') {
-                      $scope.sportChufangArr.push($scope.getChufangObj(chufangID));
-                      $scope.$apply();
-                      $("#chufanglist").val('');
-                      $('#modal').modal('hide');
-                    }
-                  });
+          if (($scope.model.name == chufangObj.name) &&
+            ($scope.model.spell == chufangObj.spell) &&
+            ($scope.model.prescriptionType == chufangObj.prescriptionType) &&
+            ($scope.model.description == chufangObj.description)) {
+            // 相同时操作 
+            var chufangID = $scope.model.id;
+            //异步请求操作
+            $.ajax({
+              type: "POST",
+              url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertAdviceReportId + "/prescription",
+              data: {
+                reportId: $scope.reportId - 0,
+                consultId: $scope.expertAdviceReportId,
+                prescriptionId: chufangID
+              },
+              dataType: "json",
+              error: function(response) {
+                if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                  tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+                }
+              },
+              success: function(data) {},
+              complete: function(xhr, textStatus) {
+                if (xhr.status == 200) {
+                  if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
+                    tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
+                  } else {
+                    tool.alert("提示", "添加成功", function() {
+                      //根据添加的类别进行判断然后添加数据
+                      if ($scope.expertType == 'food') {
+                        $scope.foodChufangArr.push($scope.getChufangObj(chufangID));
+                        $scope.$apply();
+                        $("#chufanglist").val('');
+                        $('#modal').modal('hide');
+                      }
+                      if ($scope.expertType == 'sport') {
+                        $scope.sportChufangArr.push($scope.getChufangObj(chufangID));
+                        $scope.$apply();
+                        $("#chufanglist").val('');
+                        $('#modal').modal('hide');
+                      }
+                    });
+                  }
                 }
               }
+            });
+          } else {
+            //  不同时操作 
+
+            var saveInfo = {
+              //文本框,下拉菜单选择值
+              name: $.trim($("#chufangName").val()),
+              spell: $.trim($("#spellName").val()),
+              prescriptionType: $("#chufangTypes").val(),
+              description: $.trim($("#chufangContent").val())
+            };
+            var __error = [];
+            if (saveInfo.name == "") {
+              __error.push("请输入处方名！");
             }
-          });
+            if (saveInfo.spell == "") {
+              __error.push("请输入处方拼音名称！");
+            }
+            if (saveInfo.prescriptionType == "") {
+              __error.push("请选择处方类别！");
+            }
+            if (saveInfo.description == "") {
+              __error.push("请输入处方内容！");
+            }
+            if (__error.length > 0) {
+              tool.alert("提示", __error.join("<br />"));
+              return false;
+            }
+            $.ajax({
+              type: "POST",
+              url: BasicUrl + "prescription",
+              data: saveInfo,
+              dataType: "json",
+              error: function(response) {
+                if (response && response.errorMessage) {
+                  tool.alert("提示", response.errorMessage);
+                }
+              },
+              complete: function(xhr, textStatus) {
+                console.log(xhr.status);
+                if (xhr.status == 200) {
+                  // $('[name="addForm"]')[0].reset();
+                  // $('#modal').modal('hide')
+                  // tool.alert("提示", "数据保存成功", function() {
+                  //刷新当前页面.
+                  // window.location.reload();
+                  // });
+
+                  // {
+                  // "id": 23,
+                  // "name": "132",
+                  // "spell": "312321",
+                  // "description": "231321",
+                  // "prescriptionType": "Sport"
+                  // }
+
+                  var data = JSON.parse(xhr.responseText);
+                  if (!data.id) {
+                    return false;
+                  }
+                  var chufangID = data.id;
+                  $.ajax({
+                    type: "POST",
+                    url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertAdviceReportId + "/prescription",
+                    data: {
+                      reportId: $scope.reportId - 0,
+                      consultId: $scope.expertAdviceReportId,
+                      prescriptionId: chufangID
+                    },
+                    dataType: "json",
+                    error: function(response) {
+                      if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                        tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+                      }
+                    },
+                    success: function(data) {},
+                    complete: function(xhr, textStatus) {
+                      if (xhr.status == 200) {
+                        if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
+                          tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
+                        } else {
+                          tool.alert("提示", "添加成功", function() {
+                            // 根据添加的类别进行判断然后添加数据
+                            if ($scope.expertType == 'food') {
+                              $scope.foodChufangArr.push($scope.model);
+                              $scope.$apply();
+                              $("#chufanglist").val('');
+                              $('#modal').modal('hide');
+                            }
+                            if ($scope.expertType == 'sport') {
+                              $scope.sportChufangArr.push($scope.model);
+                              $scope.$apply();
+                              $("#chufanglist").val('');
+                              $('#modal').modal('hide');
+                            }
+                          });
+                        }
+                      }
+                    }
+                  });
+                } else {
+                  if (xhr.responseText) {
+                    var json = JSON.parse(xhr.responseText);
+                    tool.alert("提示", json.errorMessage);
+                  }
+                }
+              }
+            });
+          }
+
+
+        }
+
+
+        //查询按钮
+        $scope.search = function() {
+          var type = $("#chufangType").val();
+          var name = $("#chufanglist").find("option:selected").text() == "请选择" ? "" : $("#chufanglist").find("option:selected").text();
+          //校验只有一个搜索条件 
+          // if (!(name || type) && searchindex == 1) {
+          //   tool.alert("提示", "请至少输入一个搜索条件");
+          //   return false;
+          // }
+          params = "";
+          if (type) {
+            params = "prescriptionType=" + type + "&";
+          }
+          if (name) {
+            params += "name=" + name + "&";
+          }
+
+          pageing(0, params);
         }
 
         //发布报告（手机端可见）
@@ -710,9 +915,8 @@
                 }
               });
             },
-            function() {
-              //用户点击取消按钮时操作
-            });
+            function() {});
+
         }
 
         //专家添加建议
@@ -739,7 +943,6 @@
               "提示",
               "确认添加建议？",
               function() {
-
                 var data = {
                   reportId: $scope.reportId,
                   consultId: $scope.expertData[type + 'Id'] - 0,
@@ -748,8 +951,7 @@
                   advice: $scope.expertData[type + 'Advice'],
                   prescriptions: chufang.join(','), //处方
                   attach: $("[name='" + type + "iconUrl']").val() //附件
-                }　　
-
+                }
 
                 $http({
                     method: 'PATCH',
@@ -794,10 +996,10 @@
               function() {
 
                 var attachUrl = $("[name='" + type + "iconUrl']").val();
-                if (!attachUrl) {
-                  tool.alert("提示", "请上传附件！");
-                  return false;
-                }
+                // if (!attachUrl) {
+                //   tool.alert("提示", "请上传附件！");
+                //   return false;
+                // }
                 $.ajax({
                   type: "POST",
                   url: BasicUrl + "report/" + $scope.reportId + "/consult",

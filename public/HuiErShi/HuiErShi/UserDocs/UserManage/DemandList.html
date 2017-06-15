@@ -296,6 +296,7 @@
               tool.changeSelect($("#advisorId"), true);
             }
           });
+          var searchIndex = 0;
           //分页方法声明
           var pageing = function(pageindex, params) {
               //请求地址 
@@ -318,7 +319,12 @@
                       function() {
                         pageing($("#currentPage").val() - 1, params);
                       });
-                  } else {}
+                  } else {
+                    if (searchIndex > 0) {
+
+                      tool.alert("提示", "没有相关的记录！");
+                    }
+                  }
                 }
               });
             }
@@ -326,13 +332,14 @@
           pageing(0, params);
           //查询按钮
           $scope.search = function() {
+            searchIndex++;
             //TODO  需要修改部分
             //参数赋值
             var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
             var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
 
             var advisorId = $("#advisorId").val();
-            var userId = $("#userId").val();
+            var userId = $("#userId").val() || "";
             //校验只有一个搜索条件
             if (!(minExpiredAt || maxExpiredAt || advisorId || userId)) {
               tool.alert("提示", "请至少输入一个搜索条件");

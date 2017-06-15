@@ -1,369 +1,370 @@
 ﻿<!DOCTYPE html>
 <html>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>支付列表</title>
-  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/common.css" rel="stylesheet">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>支付列表</title>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/common.css" rel="stylesheet">
 
-</head>
+  </head>
 
-<body ng-app="myApp">
-  <!--检索项-->
-  <div ng-controller="customersCtrl" class="container-fluid myload">
-    <!-- 面包屑导航 -->
-    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-      <li><a href="javascript:void(0)">系统管理</a></li>
-      <li class="active">支付列表</li>
-    </ol>
+  <body ng-app="myApp">
+    <!--检索项-->
+    <div ng-controller="customersCtrl" class="container-fluid myload">
+      <!-- 面包屑导航 -->
+      <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+        <li><a href="javascript:void(0)">系统管理</a></li>
+        <li class="active">支付列表</li>
+      </ol>
 
-    <div class="text-right col-xs-12" id="search_block">
-      <form class="form-inline  text-left" role="form">
-        <div class="form-group text-left">
-          <label class="">关键字： </label>
-          <input id="txtKeyWord" name="keyword" class="form-control" placeholder="请输入项目名称" type="text">
-        </div>
-        <div class="form-group text-left">
-          <label class="control-label">&nbsp;&nbsp;卡券：</label>
-          <select class="form-control" id="cardsList" style="width:150px;"> 
+      <div class="text-right col-xs-12" id="search_block">
+        <form class="form-inline  text-left" role="form">
+          <div class="form-group text-left">
+            <label class="">关键字： </label>
+            <input id="txtKeyWord" name="keyword" class="form-control" placeholder="请输入项目名称" type="text">
+          </div>
+          <div class="form-group text-left">
+            <label class="control-label">&nbsp;&nbsp;卡券：</label>
+            <select class="form-control" id="cardsList" style="width:150px;">     <option value="">全部</option>
          <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option>
       </select>
-        </div>
-        <div class="form-group text-left">
-          <label class="lbl_search">支付时间：</label>
-          <div class="input-group timeblock">
-            <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
-            <div class="input-group-btn">
-              <button type="button" class="btn btn-default" id="btnStarttime">
-                <span class="glyphicon glyphicon-calendar"></span></button>
-            </div>
           </div>
+          <div class="form-group text-left">
+            <label class="lbl_search">支付时间：</label>
+            <div class="input-group timeblock">
+              <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" id="btnStarttime">
+                <span class="glyphicon glyphicon-calendar"></span></button>
+              </div>
+            </div>
 
 
-          <label class="">至</label>
+            <label class="">至</label>
 
 
-          <div class="input-group timeblock">
-            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
-            <div class="input-group-btn">
-              <button type="button" class="btn btn-default" id="btnEndtime">
+            <div class="input-group timeblock">
+              <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" id="btnEndtime">
                 <span class="glyphicon glyphicon-calendar"></span>
               </button>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- 搜索按钮 -->
-        <a data-toggle="modal" href="#modal" class="btn btn-primary pull-right" id="添加"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加</a>
-        <a ng-click="search()" class="btn btn-primary pull-right" id="btnSearch" style="margin-right: 5px;"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
-      </form>
-    </div>
-
-    <div class="modal fade" id="modal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title text-center">添加支付</h4>
-          </div>
-          <div class="modal-body">
-            <form class="form-horizontal" role="form" name="addForm">
-              <div class="form-group">
-                <div class="col-sm-3 text-right"><label for="userId" class="control-label">会员名称</label></div>
-                <div class="col-sm-8">
-                  <select class="form-control" name="userId" id="userId"></select>
-                </div>
               </div>
-              <div class="form-group">
-                <div class="col-sm-3 text-right"><label for="modalCardsList" class="control-label">会员卡名</label></div>
-                <div class="col-sm-8">
-                  <select class="form-control" name="modalCardsList" id="modalCardsList" style="width:100%;">
+            </div>
+
+          </div>
+
+          <!-- 搜索按钮 -->
+          <a data-toggle="modal" href="#modal" class="btn btn-primary pull-right" id="添加"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加</a>
+          <a ng-click="search()" class="btn btn-primary pull-right" id="btnSearch" style="margin-right: 5px;"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+        </form>
+      </div>
+
+      <div class="modal fade" id="modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title text-center">添加支付</h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" role="form" name="addForm">
+                <div class="form-group">
+                  <div class="col-sm-3 text-right"><label for="userId" class="control-label">会员名称</label></div>
+                  <div class="col-sm-8">
+                    <select class="form-control" name="userId" id="userId"></select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-3 text-right"><label for="modalCardsList" class="control-label">会员卡名</label></div>
+                  <div class="col-sm-8">
+                    <select class="form-control" name="modalCardsList" id="modalCardsList" style="width:100%;">
+                  
 <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option>
                     
                   </select>
+                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-3 text-right"><label for="cardFee" class="control-label">　　金额</label></div>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control vipprices" id="cardFee" name="cardFee" ng-model="model.cardFee" placeholder="请输入金额"></div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <a class="btn btn-default" data-dismiss="modal">取消</a>
-            <a class="btn btn-primary" ng-click="save()" ng-show="isSave">保存</a>
-            <a class="btn btn-primary" ng-click="saveEdit()" ng-show="!isSave">保存修改</a>
+                <div class="form-group">
+                  <div class="col-sm-3 text-right"><label for="cardFee" class="control-label">　　金额</label></div>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control vipprices" id="cardFee" name="cardFee" ng-model="model.cardFee" placeholder="请输入金额"></div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <a class="btn btn-default" data-dismiss="modal">取消</a>
+              <a class="btn btn-primary" ng-click="save()" ng-show="isSave">保存</a>
+              <a class="btn btn-primary" ng-click="saveEdit()" ng-show="!isSave">保存修改</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- 数据显示 -->
-    <div class=" tab-content container-fluid">
-      <div class=" fixed-table-container">
-        <table class="table table-hover  ">
-          <!-- 表头 -->
-          <thead>
-            <tr>
-              <th> 序号 </th>
-              <th> 支付项目 </th>
-              <th> 金额 </th>
-              <th> 昵称 </th>
-              <th> 姓名 </th>
-              <th> 支付时间</th>
-              <th class="order" ng-click="title='outTradeNo';desc=!desc">
-                收据号<span></span></th>
-              <th> 支付方式</th>
-            </tr>
-          </thead>
-          <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
-              <td>{{ $index+data.page*data.pageNum+1}}</td>
-              <td>{{ x.commodity.commodityName }}</td>
-              <td>{{ x.commodity.price }}</td>
-              <td>
-                <a href="../UserManage/UserInfoEdit.html?id={{x.user.id}}">{{x.user.userName}}</a>
-              </td>
-              <td>
-                <a href="../UserManage/UserInfo.html?id={{x.user.vipEntity.id}}">{{x.user.vipEntity.realName}}</a>
-              </td>
-              <td>{{ x.payment.payAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
-              <td>{{ outTradeNo=x.payment.outTradeNo }}</td>
-              <td>{{ x.tradeType=="offline"?"线下支付":"微信支付"}}</td>
-            </tr>
-            <tr ng-show="!dataLengths">
-              <td colspan="100" class="text-center ">暂无结果</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- 数据显示 -->
+      <div class=" tab-content container-fluid">
+        <div class=" fixed-table-container">
+          <table class="table table-hover  ">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <th> 序号 </th>
+                <th> 支付项目 </th>
+                <th> 金额 </th>
+                <th> 昵称 </th>
+                <th> 姓名 </th>
+                <th> 支付时间</th>
+                <th class="order" ng-click="title='outTradeNo';desc=!desc">
+                  收据号<span></span></th>
+                <th> 支付方式</th>
+              </tr>
+            </thead>
+            <tbody id="databody">
+              <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
+                <td>{{ $index+data.page*data.pageNum+1}}</td>
+                <td>{{ x.commodity.commodityName }}</td>
+                <td>{{ x.commodity.price }}</td>
+                <td>
+                  <a href="../UserManage/UserInfoEdit.html?id={{x.user.id}}">{{x.user.userName}}</a>
+                </td>
+                <td>
+                  <a href="../UserManage/UserInfo.html?id={{x.user.vipEntity.id}}">{{x.user.vipEntity.realName}}</a>
+                </td>
+                <td>{{ x.payment.payAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                <td>{{ outTradeNo=x.payment.outTradeNo }}</td>
+                <td>{{ x.tradeType=="offline"?"线下支付":"微信支付"}}</td>
+              </tr>
+              <tr ng-show="!dataLengths">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-    <div ng-show="dataLengths">
-      <div class="form-group pull-right topage_block">
+      <div ng-show="dataLengths">
+        <div class="form-group pull-right topage_block">
 
-        <!-- 跳转至 -->
-        <label>{{totalRecord}}条/{{totalPage}}页</label>
-        <label>跳至</label>
-        <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
-        <label>页</label>
-        <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+          <!-- 跳转至 -->
+          <label>{{totalRecord}}条/{{totalPage}}页</label>
+          <label>跳至</label>
+          <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
+          <label>页</label>
+          <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+        </div>
+        <!-- 分页控件 -->
+        <div class="pull-right">
+          <ul class="pagination" id="alreadyPage"></ul>
+        </div>
       </div>
-      <!-- 分页控件 -->
-      <div class="pull-right">
-        <ul class="pagination" id="alreadyPage"></ul>
-      </div>
+      <!-- 当前页隐藏域 -->
+      <input id="currentPage" name="currentPage" value="1" type="hidden">
     </div>
-    <!-- 当前页隐藏域 -->
-    <input id="currentPage" name="currentPage" value="1" type="hidden">
-  </div>
-  <!--脚本-->
-  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-  <script>
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    $(function() {
+    <!--脚本-->
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script>
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      $(function() {
 
-      $(".vipprices").keyup(function() {
-        var reg = $(this).val().match(/\d+\.?\d{0,2}/);
-        var txt = '';
-        if (reg != null) {
-          txt = reg[0];
-        }
-        $(this).val(txt);
-      }).change(function() {
-        $(this).keypress();
-        var v = $(this).val();
-        if (/\.$/.test(v)) {
-          $(this).val(v.substr(0, v.length - 1));
-        }
-      });
+        $(".vipprices").keyup(function() {
+          var reg = $(this).val().match(/\d+\.?\d{0,2}/);
+          var txt = '';
+          if (reg != null) {
+            txt = reg[0];
+          }
+          $(this).val(txt);
+        }).change(function() {
+          $(this).keypress();
+          var v = $(this).val();
+          if (/\.$/.test(v)) {
+            $(this).val(v.substr(0, v.length - 1));
+          }
+        });
 
-      $("#userId").select2({
-        placeholder: '请选择',
-        allowClear: true,
-        ajax: {
-          url: function(params) {
-            return BasicUrl + "vip/name/" + params.term;
-          },
-          dataType: 'json',
-          delay: 250,
-          processResults: function(data, page) {
-            return {
-              results: data
-            };
-          },
-          cache: false
-        },
-        minimumInputLength: 1,
-        minimumResultsForSearch: 1,
-        width: "100%",
-        templateResult: formatRepo,
-        templateSelection: formatRepoSelection,
-      });
-
-      function formatRepo(repo) {
-        return repo.realName;
-      }
-
-      function formatRepoSelection(repo) {
-        return repo.realName;
-      }
-    });
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 
-    var params = "";
-    var app = angular.module('myApp', []);
-    app.controller('customersCtrl', function($scope, $http) {
-      //请求会员卡下拉菜单列表
-      $scope.isSave = true;
-      var url = BasicUrl + "vipCard?page=0&pageNum=10";
-      $http.get(url).success(function(data) {
-        if (data != null && data != "" && data != "null") {
-          $scope.options = data.content;
-        }
-      });
-
-
-      tool.changeSelect($("#cardsList"), true);
-      tool.changeSelect($("#modalCardsList"), true);
-      //分页
-      var pageing = function(pageindex, params) {
-
-          // params + 
-          var url = BasicUrl + "payment?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
-          $http.get(url).success(function(data) {
-            if (data != null && data != "" && data != "null") {
-              //判断当前是否存在记录
-              $scope.dataLengths = data.content.length > 0;
-              if (data.content != null && data.content.length > 0) {
-                //赋值操作
-                $scope.title = 'outTradeNo';　
-                $scope.desc = 0;
-                $scope.data = data;
-                $scope.totalPage = data.totalPages;
-                $scope.totalRecord = data.totalElements;
-                initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"),
-                  function() {
-                    pageing($("#currentPage").val() - 1, params);
-                  });
-              } else {
-                $scope.dataLengths = false;
-              }
-            }
-          });
-        }
-        //分页方法
-      pageing(0, params);
-
-      //查询按钮
-      $scope.search = function() {
-        //起始时间时间戳
-        var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
-        //结束时间时间戳
-        var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-        //用户名称
-        var keyWord = $("#txtKeyWord").val();
-        var cardsList = $("#cardsList").val();
-
-        //校验只有一个搜索条件
-        if (!(minExpiredAt || maxExpiredAt || keyWord || cardsList)) {
-          tool.alert("提示", "请至少输入一个搜索条件");
-          return false;
-        }
-        //起止日期校验
-        if (minExpiredAt && maxExpiredAt && minExpiredAt > maxExpiredAt) {
-          tool.alert("提示", "起止日期中结束时间不得早于起始时间");
-          return false;
-        }
-        params = '';
-        if (keyWord) {
-          params += 'keyWord=' + keyWord + '&';
-        }
-        if (cardsList) {
-          params += 'cardId=' + cardsList + '&';
-        }
-        if (minExpiredAt) {
-          params += 'minPayTime=' + minExpiredAt + '&';
-        }
-        if (maxExpiredAt) {
-          params += 'maxPayTime=' + maxExpiredAt + '&';
-        }
-        pageing(0, params);
-      }
-
-      //跳转至某页方法
-      $scope.skip = function() {
-        if ($scope.toPageValue <= 1) {
-          $scope.toPageValue = 1;
-        } else if ($scope.toPageValue > $scope.totalPage) {
-          $scope.toPageValue = $scope.totalPage;
-        }
-        pageing($scope.toPageValue, params);
-      }
-
-      //添加支付
-      $scope.save = function() {
-        var data = {
-          userId: $("#userId").val(),
-          id: $("#modalCardsList").val(),
-          totalFee: $("#cardFee").val()
-        }
-        var url = BasicUrl + "payment";
-        $http({
-            method: 'POST',
-            url: url,
-            data: data,
-            transformRequest: function(obj) {
-              var str = [];
-              for (var p in obj) {
-                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-              }
-              return str.join("&");
+        $("#userId").select2({
+          placeholder: '请选择',
+          allowClear: true,
+          ajax: {
+            url: function(params) {
+              return BasicUrl + "vip/name/" + params.term;
             },
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded'
-            }
-          })
-          .success(function(data, xhr) {
-            if (xhr == 200) {
+            dataType: 'json',
+            delay: 250,
+            processResults: function(data, page) {
+              return {
+                results: data
+              };
+            },
+            cache: false
+          },
+          minimumInputLength: 1,
+          minimumResultsForSearch: 1,
+          width: "100%",
+          templateResult: formatRepo,
+          templateSelection: formatRepoSelection,
+        });
 
-              if (data.errorMessage) {
-                tool.alert("提示", data.errorMessage);
-              } else {
-                tool.alert("提示", "添加成功!");　
-                window.location.reload();
-              }
+        function formatRepo(repo) {
+          return repo.realName;
+        }
 
-            } else {
-              tool.alert("提示", "添加失败,请重试!");
-            }
-          }).error(function(response) {
-            tool.alert("提示", response.errorMessage);
-          });
-
-      }
-
-
-      //加载完毕后再显示 
-      $scope.$watch("viewContentLoaded", function() {
-        angular.element(".myload").removeClass("myload");
+        function formatRepoSelection(repo) {
+          return repo.realName;
+        }
       });
-    });
-  </script>
-</body>
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ 
+      var params = "";
+      var app = angular.module('myApp', []);
+      app.controller('customersCtrl', function($scope, $http) {
+        //请求会员卡下拉菜单列表
+        $scope.isSave = true;
+        var url = BasicUrl + "vipCard?page=0&pageNum=10";
+        $http.get(url).success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            $scope.options = data.content;
+          }
+        });
+
+
+        tool.changeSelect($("#cardsList"), true);
+        tool.changeSelect($("#modalCardsList"), true);
+        //分页
+        var pageing = function(pageindex, params) {
+
+            // params + 
+            var url = BasicUrl + "payment?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+            $http.get(url).success(function(data) {
+              if (data != null && data != "" && data != "null") {
+                //判断当前是否存在记录
+                $scope.dataLengths = data.content.length > 0;
+                if (data.content != null && data.content.length > 0) {
+                  //赋值操作
+                  $scope.title = 'outTradeNo';　
+                  $scope.desc = 0;
+                  $scope.data = data;
+                  $scope.totalPage = data.totalPages;
+                  $scope.totalRecord = data.totalElements;
+                  initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"),
+                    function() {
+                      pageing($("#currentPage").val() - 1, params);
+                    });
+                } else {
+                  $scope.dataLengths = false;
+                }
+              }
+            });
+          }
+          //分页方法
+        pageing(0, params);
+
+        //查询按钮
+        $scope.search = function() {
+          //起始时间时间戳
+          var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+          //结束时间时间戳
+          var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+          //用户名称
+          var keyWord = $("#txtKeyWord").val();
+          var cardsList = $("#cardsList").val();
+
+          //校验只有一个搜索条件
+          if (!(minExpiredAt || maxExpiredAt || keyWord || cardsList)) {
+            tool.alert("提示", "请至少输入一个搜索条件");
+            return false;
+          }
+          //起止日期校验
+          if (minExpiredAt && maxExpiredAt && minExpiredAt > maxExpiredAt) {
+            tool.alert("提示", "起止日期中结束时间不得早于起始时间");
+            return false;
+          }
+          params = '';
+          if (keyWord) {
+            params += 'keyWord=' + keyWord + '&';
+          }
+          if (cardsList) {
+            params += 'cardId=' + cardsList + '&';
+          }
+          if (minExpiredAt) {
+            params += 'minPayTime=' + minExpiredAt + '&';
+          }
+          if (maxExpiredAt) {
+            params += 'maxPayTime=' + maxExpiredAt + '&';
+          }
+          pageing(0, params);
+        }
+
+        //跳转至某页方法
+        $scope.skip = function() {
+          if ($scope.toPageValue <= 1) {
+            $scope.toPageValue = 1;
+          } else if ($scope.toPageValue > $scope.totalPage) {
+            $scope.toPageValue = $scope.totalPage;
+          }
+          pageing($scope.toPageValue, params);
+        }
+
+        //添加支付
+        $scope.save = function() {
+          var data = {
+            userId: $("#userId").val(),
+            id: $("#modalCardsList").val(),
+            totalFee: $("#cardFee").val()
+          }
+          var url = BasicUrl + "payment";
+          $http({
+              method: 'POST',
+              url: url,
+              data: data,
+              transformRequest: function(obj) {
+                var str = [];
+                for (var p in obj) {
+                  str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                }
+                return str.join("&");
+              },
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              }
+            })
+            .success(function(data, xhr) {
+              if (xhr == 200) {
+
+                if (data.errorMessage) {
+                  tool.alert("提示", data.errorMessage);
+                } else {
+                  tool.alert("提示", "添加成功!");　
+                  window.location.reload();
+                }
+
+              } else {
+                tool.alert("提示", "添加失败,请重试!");
+              }
+            }).error(function(response) {
+              tool.alert("提示", response.errorMessage);
+            });
+
+        }
+
+
+        //加载完毕后再显示 
+        $scope.$watch("viewContentLoaded", function() {
+          angular.element(".myload").removeClass("myload");
+        });
+      });
+    </script>
+  </body>
 
 </html>
