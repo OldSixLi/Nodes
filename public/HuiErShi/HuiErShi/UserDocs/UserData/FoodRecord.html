@@ -23,8 +23,8 @@
         <form class="form-inline" role="form">
           <div class="form-group text-left">
             <label class="control-label">会员姓名：</label>
-            <select class="form-control" name="sltType" id="username" style="width:150px;">
-                         
+            <select class="form-control" name="sltType" id="username" style="width:150px;"> 
+             <option value="3620194" selected="selected">select2/select2</option>
                      </select>
           </div>
           <div class="form-group text-left">
@@ -414,7 +414,9 @@
     <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
     <script type="text/javascript" src="../../Scripts/angular.js"></script>
     <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
+    <!--<script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>-->
+    <script type="text/javascript" src="http://select2.github.io/dist/js/select2.full.js"></script>
+
     <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
     <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
     <script>
@@ -422,40 +424,9 @@
         $(".start_end_time").datetimepicker({
           timepicker: false,
           format: 'Y-m-d',
-        });
-
-
-        $("#username").select2({
-          placeholder: '请选择',
-          allowClear: true,
-          ajax: {
-            url: function(params) {
-              return BasicUrl + "vip/name/" + params.term;
-            },
-            dataType: 'json',
-            delay: 250,
-            processResults: function(data, page) {
-              return {
-                results: data
-              };
-            },
-            cache: false
-          },
-          minimumInputLength: 1,
-          minimumResultsForSearch: 1,
-          width: "120px",
-          templateResult: formatRepo,
-          templateSelection: formatRepoSelection,
-        });
-
-        function formatRepo(repo) {
-          return repo.realName;
-        }
-
-        function formatRepoSelection(repo) {
-          return repo.realName;
-        }
+        });　
       });
+
 
       function getLocalTime(tm) {
         var tt = new Date(parseInt(tm)).toLocaleString('chinese', {
@@ -527,63 +498,118 @@
           });
         }
 
-
+        var index = 0;
+        var UserName = "";
         var obj = new UrlSearch();
-        if (obj.userId && obj.date) {
+        if (obj.userId && obj.date && obj.username) {
           params = "userId=" + obj.userId + "&date=" + obj.date;
           //设置数据
-          $("#txtStartTime").val(obj.date);
-          $("#username").val(obj.userId).trigger("change");
+          $("#txtStartTime").val(obj.date);　
+          UserName = obj.username;
 
-          // $("#username").select2({
-          //   placeholder: '请选择',
-          //   allowClear: true,
-          //   ajax: {
-          //     url: function(params) {
-          //       return BasicUrl + "vip/name/" + params.term;
-          //     },
-          //     dataType: 'json',
-          //     delay: 250,
-          //     processResults: function(data, page) {
-          //       return {
-          //         results: data
-          //       };
-          //     },
-          //     cache: false
-          //   },
-          //   minimumInputLength: 1,
-          //   minimumResultsForSearch: 1,
-          //   width: "120px",
-          //   templateResult: formatRepo,
-          //   templateSelection: formatRepoSelection,
-          // });
+          function formatRepo(repo) {
+            return repo.realName;
+          }
+
+          function formatRepoSelection(repo) {
+            index++;
+            // alert(index);
+            if (index == 2) {
+              UserName = decodeURI(obj.username);
+
+              return decodeURI(obj.username);
+            } else {
+              UserName = repo.realName;
+              return repo.realName;
+            }
+          }
+
+          $("#username").select2({
+
+            ajax: {
+              url: function(params) {
+                return BasicUrl + "vip/name/" + params.term;
+              },
+              dataType: 'json',
+              delay: 250,
+              processResults: function(data, page) {
+                return {
+                  results: data
+                };
+              },
+              cache: false
+            },
+            escapeMarkup: function(markup) {
+              return markup;
+            },
+            minimumInputLength: 1,
+            minimumResultsForSearch: 1,
+            width: "120px",
+            templateResult: formatRepo,
+            templateSelection: formatRepoSelection,
+          });
+
+        } else {
+
+          function formatRepo(repo) {
+            return repo.realName;
+          }
+
+          function formatRepoSelection(repo) {
+            UserName = repo.realName;
+            return repo.realName;
+          }
+          $("#username").select2({
+            ajax: {
+              url: function(params) {
+                return BasicUrl + "vip/name/" + params.term;
+              },
+              dataType: 'json',
+              delay: 250,
+              processResults: function(data, page) {
+                return {
+                  results: data
+                };
+              },
+              cache: false
+            },
+            escapeMarkup: function(markup) {
+              return markup;
+            },
+            minimumInputLength: 1,
+            minimumResultsForSearch: 1,
+            width: "120px",
+            templateResult: formatRepo,
+            templateSelection: formatRepoSelection,
+          });
         }
         //分页方法
         pageing(0, params);
         //查询按钮
         $scope.search = function() {
 
-            //用户名称
-            var username = $("#username").val();
-            //会员类型
-            var time = $("#txtStartTime").val();
-            //校验只有一个搜索条件
-            if (!(username || time || username || keyword)) {
-              alert("请至少输入一个搜索条件");
-              return false;
-            }
-            if (!username) {
-              tool.alert("提示", "请选择用户！");
-              return false;
-            }
-            if (!time) {
-              tool.alert("提示", "请选择时间！");
-              return false;
-            }
-            params = "userId=" + username + "&date=" + time;
-            pageing(0, params);
+          //用户名称
+          var username = $("#username").val();
+          //会员类型
+          var time = $("#txtStartTime").val();
+          //校验只有一个搜索条件
+          if (!(username || time || username || keyword)) {
+            alert("请至少输入一个搜索条件");
+            return false;
           }
-          //跳转至某页方法
+          if (!username) {
+            tool.alert("提示", "请选择用户！");
+            return false;
+          }
+          if (!time) {
+            tool.alert("提示", "请选择时间！");
+            return false;
+          }
+          params = "userId=" + username + "&date=" + time;
+          pageing(0, params);
+        }
+
+        //跳转至某页方法
         $scope.skip = function() {
           if ($scope.toPageValue <= 1) {
             $scope.toPageValue = 1;
@@ -598,7 +624,7 @@
             tool.alert("提示", "请选择用户！");
             return false;
           }
-          window.location.href = "DietAnalysis.html?userId=" + $("#username").val() + "&date=" + $("#txtStartTime").val();
+          window.location.href = "DietAnalysis.html?userId=" + $("#username").val() + "&username=" + UserName + "&date=" + $("#txtStartTime").val();
         }
 
         //加载完毕后再显示 

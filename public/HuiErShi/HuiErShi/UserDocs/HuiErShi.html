@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="https://raw.githubusercontent.com/OldSixLi/ListPage/master/myapp/public/images/my.ico" />
     <title>主页</title>
     <link rel="stylesheet" href="../Styles/bootstrap.css">
-    <link rel="stylesheet" href="../Styles/select2.min.css">
+    <!--<link rel="stylesheet" href="../Styles/select2.min.css">-->
     <link href="../Styles/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Styles/pageindex-back.css">
   </head>
@@ -16,11 +16,11 @@
 
   <body class="index" scroll="no" lang="en">
     <!-- LOGO -->
-    <div class="logo" id="logo" style="-webkit-user-select: none;">
+    <div class="logo noselect" id="logo">
       <b>惠尔仕健康项目</b>
     </div>
     <!-- 侧边栏菜单 -->
-    <div class="menu" style="-webkit-user-select: none;">
+    <div class="menu noselect">
       <dl class="expand">
         <dt class="icon_usermanage">用户管理<span class="contract">　</span></dt>
         <dd data-link="UserManage/DemandList.html">需求记录</dd>
@@ -56,8 +56,6 @@
         <dd data-link="SystemManage/CardsList.html" class="rela">卡券列表<span class="second-menu" id="cardList">　</span></dd>
 
         <dd data-for="cardList" class="third-menu" data-link="SystemManage/IssueDetails.html">发放详情</dd>
-
-        <!--<dd data-link="SystemManage/IssueDetails.html">发放详情</dd>-->
         <dd data-link="SystemManage/AdminSetting.html">管理员设置</dd>
       </dl>
 
@@ -68,12 +66,9 @@
       <input type="hidden" name="job" id="job" value="">
       <input type="hidden" name="iconUrl" id="iconUrl" value="">
     </div>
-    <!-- Split button -->
-
     <!-- 顶部 -->
     <div class="navtop text-right userbar">
       <div class="btn-group" style="margin-top:-5px;">
-
         <button type="button" class="dropdown-toggle notice-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
      <span class="glyphicon glyphicon-bell" style="color:white;cursor: pointer"><span class="badge" id="totalNotice"></span>
     </span>
@@ -91,7 +86,7 @@
     <!-- 显示区域 -->
     <div class="workspace">
       <!--连接地址-->
-      <iframe id="work-frame" name="work-frame" scrolling="auto" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%" src="UserManage/DemandList.html" style="-webkit-user-select: none;">
+      <iframe id="work-frame" name="work-frame" scrolling="auto" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%" src="UserManage/DemandList.html" class="noselect">
         </iframe>
     </div>
 
@@ -101,7 +96,6 @@
     <script type="text/javascript" src="../Scripts/angular.min.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap.js"></script>
     <script type="text/javascript" src="../Styles/jquery-confirm/jquery-confirm.min.js"></script>
-    <script type="text/javascript" src="../Scripts/select2.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap-paginator.js"></script>
     <script type="text/javascript" src="../Scripts/CommonScript.js"></script>
 
@@ -113,11 +107,10 @@
         } catch (ex) {}
       }
       window.setInterval("reinitIframe()", 200);
-    </script>
-    <script>
+      //当前登录用户的身份ID
       var adminId;
       $(function() {
-
+        //获取前台参数
         var searchObj = new UrlSearch();
         if (searchObj.id) {
           var id = searchObj.id;
@@ -140,14 +133,17 @@
             location.replace('Login.html');
           });
 
+          //定时获取用户通知
           getNotice();
           setInterval(function() {
             getNotice();
           }, 30000);
         }
-
+        /**
+         * 获取当前登录用户的未读信息 
+         * @returns 
+         */
         function getNotice() {
-          //获取当前登录用户的未读信息
           $.get(BasicUrl + "notice/?adminId=" + id).success(function(data) {
             if (data != null && data != "" && data != "null") {　
               var fill = data.ReportToBeFilledCount || 0;
@@ -168,14 +164,26 @@
         $(".ReportToBeRepliedCount").on('click', function() {
           var href = $(this).attr("data-link") + "?adminId=" + adminId;
           $("#work-frame").attr("src", href);
-        })
-
-        $("#select2").select2({
-          tags: true,
-          maximumSelectionLength: 3,
-          width: "250px"
         });
 
+        // 菜单栏方法
+        $("div.menu").find("dl").each(function(index) {
+          $(this).find("dt").on("click", function(e) {
+            $("[data-for]").hide();
+            if ($(this).parent().hasClass('expand')) {
+              $(this).parent().removeClass("expand");
+              return false;
+            }
+            if (!$(this).parent().is(".expand ")) {
+              // 判断其他的是否有展开的，收起
+              $(".menu dl.expand").removeClass("expand");
+              $(this).parent().addClass("expand");
+            }
+            $(".second-menu").removeClass('on');
+          });
+        });
+
+        //子菜单单击事件
         $("dd").each(function() {
           $(this).click(function() {
             var href = $(this).attr("data-link");
@@ -186,7 +194,7 @@
           });
         });
 
-
+        //父菜单单击事件
         $(".second-menu").each(function() {
           $(this).click(function(e) {
             e.stopPropagation();
@@ -205,33 +213,21 @@
         });
       });
 
-      // 菜单栏方法
-      $("div.menu").find("dl").each(function(index) {
-        $(this).find("dt").on("click", function(e) {
-          $("[data-for]").hide();
-          if ($(this).parent().hasClass('expand')) {
-            $(this).parent().removeClass("expand");
-            return false;
-          }
-          if (!$(this).parent().is(".expand ")) {
-            // 判断其他的是否有展开的，收起
-            $(".menu dl.expand").removeClass("expand");
-            $(this).parent().addClass("expand");
-          }
-          $(".second-menu").removeClass('on');
-        });
-      });
-
+      /**
+       * 退出功能 
+       * @returns 
+       */
       function logout(event) {
         confirms("提示", "确认退出后台管理系统吗？", function() {
           location.replace('Login.html');
           event.returnValue = false;
-        }, function() {
-
-        });
-
+        }, function() {});
       }
 
+      /**
+       * 确认提示框 
+       * @returns 
+       */
       function confirms(title, content, okCallback, cancelCallback) {
         var confirm = okCallback && typeof okCallback === "function" ? okCallback :
           function() {};

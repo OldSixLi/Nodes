@@ -162,7 +162,11 @@ function initPageDiv($dom, now, all, each, $dom2, change) {
   $dom.bootstrapPaginator(options);
 };
 
-//判断浏览器版本
+/**
+ * 判断浏览器版本
+ * 
+ * @returns 
+ */
 function myBrowser() {
   var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
   var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器
@@ -220,7 +224,6 @@ function adminRole() {
 }
 /**
  * 获取当前登录的用户的ID
- * 
  * @returns 
  */
 function adminId() {

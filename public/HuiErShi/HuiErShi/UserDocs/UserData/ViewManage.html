@@ -2,80 +2,80 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>视图管理</title>
-  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/common.css" rel="stylesheet">
-  <!-- <link href="../../Styles/prettify.css" rel="stylesheet"> -->
-  <style type="text/css">
-    .datalist option {
-      height: 30px;
-      font-size: 15px;
-    }
-    
-    .datalist select {
-      border: none;
-      border-radius: 0;
-      width: 105%;
-    }
-    
-    .panel-select {
-      height: 500px;
-      overflow-y: scroll;
-      overflow-x: hidden;
-    }
-    
-    .div_search {
-      margin: 0;
-    }
-    
-    .viewSearch {
-      margin: 10px -15px 10px;
-    }
-    
-    .control-label {
-      line-height: 34px;
-    }
-  </style>
-</head>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>视图管理</title>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/common.css" rel="stylesheet">
+    <!-- <link href="../../Styles/prettify.css" rel="stylesheet"> -->
+    <style type="text/css">
+      .datalist option {
+        height: 30px;
+        font-size: 15px;
+      }
+      
+      .datalist select {
+        border: none;
+        border-radius: 0;
+        width: 105%;
+      }
+      
+      .panel-select {
+        height: 500px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+      }
+      
+      .div_search {
+        margin: 0;
+      }
+      
+      .viewSearch {
+        margin: 10px -15px 10px;
+      }
+      
+      .control-label {
+        line-height: 34px;
+      }
+    </style>
+  </head>
 
-<body ng-app="myApp" ng-controller="myCtrl" class="myload">
-  <!--新视图-->
-  <!--TODO  后期重新布局-->
-  <div class="container">
-    <div class="row viewSearch">
+  <body ng-app="myApp" ng-controller="myCtrl" class="myload">
+    <!--新视图-->
+    <!--TODO  后期重新布局-->
+    <div class="container">
+      <div class="row viewSearch">
 
-      <div class="form-inline text-right">
-        <div class="form-group col-xs-offset-6 col-xs-6 text-right">
-          <label class="control-label">新视图名:</label>
-          <input type="text" class="form-control" id="txtKeyWord" placeholder="新视图名"> &nbsp;&nbsp;&nbsp;&nbsp;
-          <a class="btn btn-primary" style="float: right;" ng-click="viewAdd()">
-            <i class="glyphicon glyphicon-plus">
+        <div class="form-inline text-right">
+          <div class="form-group col-xs-offset-6 col-xs-6 text-right">
+            <label class="control-label">新视图名:</label>
+            <input type="text" class="form-control" id="txtKeyWord" placeholder="新视图名"> &nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-primary" style="float: right;" ng-click="viewAdd()">
+              <i class="glyphicon glyphicon-plus">
               </i>&nbsp; 创建新数据视图
-          </a>
+            </a>
+          </div>
         </div>
-      </div>
 
+      </div>
+      <!--分割线-->
+      <hr style="margin:0 ;" />
     </div>
-    <!--分割线-->
-    <hr style="margin:0 ;" />
-  </div>
-  <!--当前视图-->
-  <div class="container">
-    <div class="row viewSearch">
-      <div class="form-inline text-right">
-        <div class="form-group col-xs-4 text-left">
-          <label class="control-label">当前视图:</label>
-          <select class="form-control" id="dataView" style="width:200px;" ng-model="dataView">
+    <!--当前视图-->
+    <div class="container">
+      <div class="row viewSearch">
+        <div class="form-inline text-right">
+          <div class="form-group col-xs-4 text-left">
+            <label class="control-label">当前视图:</label>
+            <select class="form-control" id="dataView" style="width:200px;" ng-model="dataView">
                      <option ng-repeat="x in viewOptions"  value="{{x.id}}">{{x.name}}</option>
                   </select>
-        </div>
-        <div class="form-group col-xs-6">
-          <label class="control-label">标签：</label>
+          </div>
+          <div class="form-group col-xs-6">
+            <label class="control-label">标签：</label>
 
-          <select id="sel_menu2" multiple="multiple" class="form-control" style="width: 400px;">
+            <select id="sel_menu2" multiple="multiple" class="form-control" style="width: 400px;">
             <optgroup label="标签组1">
             <option value="1">标签1</option>
             <option value="2">标签2</option>
@@ -93,230 +93,226 @@
             </optgroup>
             </select>
 
-        </div>
-        <div class="form-group col-xs-2">
-          <a class="btn btn-primary " style="float: right;" ng-click="saveEdit()"><i class=" glyphicon glyphicon-plus"></i>&nbsp;保存视图设置　</a>
+          </div>
+          <div class="form-group col-xs-2">
+            <a class="btn btn-primary " style="float: right;" ng-click="saveEdit()"><i class=" glyphicon glyphicon-plus"></i>&nbsp;保存视图设置　</a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="container">
-    <div class="row datalist">
-      <div class="col-md-5 col-sm-5 col-xs-5">
-        <div class="panel panel-default panel-select">
-          <div class="panel-heading" style="text-align: right"><b>可选数据项目</b>
-          </div>
-          <div style="padding:5px;">
-          </div>
-          <select name="from" id="multiselect" class="form-control" size="16" multiple="multiple" ng-model="selectedName">
+    <div class="container">
+      <div class="row datalist">
+        <div class="col-md-5 col-sm-5 col-xs-5">
+          <div class="panel panel-default panel-select">
+            <div class="panel-heading" style="text-align: right"><b>可选数据项目</b>
+            </div>
+            <div style="padding:5px;">
+            </div>
+            <select name="from" id="multiselect" class="form-control" size="16" multiple="multiple" ng-model="selectedName">
               <option ng-repeat="x in options"  value="{{x.itemId}}" ng-show="!itemListObj[x.itemId]">{{x.name}}</option>
               </select>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-2  col-xs-2" style="padding-top:100px;">
+          <button type="button" id="multiselect_rightSelected" class="btn btn-block btn-primary"><span>加入视图</span><i class="glyphicon glyphicon-chevron-right"></i></button>
+          <button type="button" id="multiselect_leftSelected" class="btn btn-block "><span>移出视图</span><i class="glyphicon glyphicon-chevron-left"></i></button>
+        </div>
+        <div class="col-md-5 col-sm-5 col-xs-5">
+          <div class="panel panel-default panel-select">
+            <div class="panel-heading" style="text-align: right"><b>可选数据项目</b></div>
+
+            <select name="to" id="multiselect_to" class="form-control" size="16" multiple="multiple">
+              <option ng-repeat="x in itemList"  value="{{x.itemId}}">{{x.name}}</option>
+            </select>
+
+            </select>
+          </div>
         </div>
       </div>
-      <div class="col-md-2 col-sm-2  col-xs-2" style="padding-top:100px;">
-        <button type="button" id="multiselect_rightSelected" class="btn btn-block btn-primary"><span>加入视图</span><i class="glyphicon glyphicon-chevron-right"></i></button>
-        <button type="button" id="multiselect_leftSelected" class="btn btn-block "><span>移出视图</span><i class="glyphicon glyphicon-chevron-left"></i></button>
-      </div>
-      <div class="col-md-5 col-sm-5 col-xs-5">
-        <div class="panel panel-default panel-select">
-          <div class="panel-heading" style="text-align: right"><b>可选数据项目</b></div>
 
-          <select name="to" id="multiselect_to" class="form-control" size="16" multiple="multiple">
- <option ng-repeat="x in itemList"  value="{{x.itemId}}">{{x.name}}</option>
-              </select>
-
-          </select>
-        </div>
-      </div>
     </div>
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.js"></script>
+    <script type="text/javascript" src="../../Scripts/multiselect.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function($) {
+        $('#multiselect').multiselect({
+          search: {
+            left: '<input type="text" name="q" class="form-control" placeholder="输入值进行搜索" />',
+          },
+          fireSearch: function(value) {
+            return value.length > 1;
+          },
+          beforeMoveToRight: function($left, $right, $options) {　
+            return true;
+          }
 
-  </div>
-  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.js"></script>
-  <script type="text/javascript" src="../../Scripts/multiselect.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function($) {
-      $('#multiselect').multiselect({
-        search: {
-          left: '<input type="text" name="q" class="form-control" placeholder="输入值进行搜索" />',
-        },
-        fireSearch: function(value) {
-          return value.length > 1;
-        },
-        beforeMoveToRight: function($left, $right, $options) {
-          // console.log($left);
-          // console.log($right);
-          // console.log($options);
-          // console.log($options.text());
-          return true;
-        }
-
-      });
-      //多选
-      $("#sel_menu2").select2({
-        tags: true,
-        maximumSelectionLength: 10 //最多能够选择的个数
-      });
-    });
-
-    var app = angular.module('myApp', []);
-    app.controller('myCtrl', function($scope, $http) {
-      //获取视图列表
-
-      $http.get(BasicUrl + "view").success(function(data) {
-        if (data != null && data != "" && data != "null") {
-          $scope.viewOptions = data;
-          tool.changeSelect($("#dataView"), false);
-        }
-      });
-
-      var url = BasicUrl + "item?page=0&pageNum=1000";
-      $http.get(url).success(function(data) {
-        if (data != null && data != "" && data != "null") {
-          $scope.options = data.content;
-        }
-      });
-      //添加新视图操作
-      $scope.viewAdd = function() {
-        var viewName = $("#txtKeyWord").val();
-        var arr = [];
-        var $option = $("#multiselect_to").find('option');
-        $option.each(function() {
-          arr.push($(this).val());
         });
-        var str = arr.join(","); //将用户选择的项目字符串组合
-        var selectVal = $("#sel_menu2").val(); //标签字符串组合  
-        var error = [];
-        var tag = selectVal == null ? "" : selectVal.join(',');
-        if (str == "") {
-          error.push("数据项目不能为空");
-        }
-        if (viewName == "") {
-          error.push("视图名称不能为空");
-        }
-        if (tag == "") {
-          error.push("视图所属标签不能为空");
-        }
-        if (error.length != 0) {
-          tool.alert("提示", error.join("<br/>"));
-          return false;
-        }
+        //多选
+        $("#sel_menu2").select2({
+          tags: true,
+          maximumSelectionLength: 10　
+        });
+      });
 
+      var app = angular.module('myApp', []);
+      app.controller('myCtrl', function($scope, $http) {
+        //获取视图列表
 
-        $.ajax({
-          type: "POST",
-          url: BasicUrl + "view",
-          data: {
-            name: viewName,
-            itemIds: str,
-            tag: tag
-          },
-          dataType: "json",
-          success: function(data, textStatus, request) {
-            if (data.id) {
-              tool.alert("提示", "数据保存成功");
-              window.location.reload();
-            }
-
-          },
-          error: function(response) {
-            if (response && response.errorMessage) {
-              tool.alert("提示", response.errorMessage);
-            }
+        $http.get(BasicUrl + "view").success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            $scope.viewOptions = data;
+            tool.changeSelect($("#dataView"), false);
           }
         });
 
-      }
+        var url = BasicUrl + "item?page=0&pageNum=1000";
+        $http.get(url).success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            $scope.options = data.content;
+          }
+        });
+        //添加新视图操作
+        $scope.viewAdd = function() {
+          var viewName = $("#txtKeyWord").val();
+          var arr = [];
+          var $option = $("#multiselect_to").find('option');
+          $option.each(function() {
+            arr.push($(this).val());
+          });
+          var str = arr.join(","); //将用户选择的项目字符串组合
+          var selectVal = $("#sel_menu2").val(); //标签字符串组合  
+          var error = [];
+          var tag = selectVal == null ? "" : selectVal.join(',');
+          if (str == "") {
+            error.push("数据项目不能为空");
+          }
+          if (viewName == "") {
+            error.push("视图名称不能为空");
+          }
+          if (tag == "") {
+            error.push("视图所属标签不能为空");
+          }
+          if (error.length != 0) {
+            tool.alert("提示", error.join("<br/>"));
+            return false;
+          }
 
-      $scope.$watch("dataView", function(newValue, oldValue) {
-        if (newValue) {
-          $scope.editViewId = newValue;
-          //获取当前视图下项目
-          // var viewID = $("#dataView").val();
-          $http.get(BasicUrl + "view/" + newValue).success(function(data) {
-            if (data != null && data != "" && data != "null") {
-              //数据不为空
-              $scope.itemList = data.items; //TODO 修改
-              $scope.editViewName = data.name;
-              $scope.itemListObj = {};
-              for (var index = 0; index < $scope.itemList.length; index++) {
-                var element = $scope.itemList[index];
-                $scope.itemListObj[element.itemId] = element.itemId;
-                console.log(element.itemId);
+
+          $.ajax({
+            type: "POST",
+            url: BasicUrl + "view",
+            data: {
+              name: viewName,
+              itemIds: str,
+              tag: tag
+            },
+            dataType: "json",
+            success: function(data, textStatus, request) {
+              if (data.id) {
+                tool.alert("提示", "数据保存成功");
+                window.location.reload();
               }
 
+            },
+            error: function(response) {
+              if (response && response.errorMessage) {
+                tool.alert("提示", response.errorMessage);
+              }
+            }
+          });
+
+        }
+
+        $scope.$watch("dataView", function(newValue, oldValue) {
+          if (newValue) {
+            $scope.editViewId = newValue;
+            //获取当前视图下项目
+            // var viewID = $("#dataView").val();
+            $http.get(BasicUrl + "view/" + newValue).success(function(data) {
+              if (data != null && data != "" && data != "null") {
+                //数据不为空
+                $scope.itemList = data.items; //TODO 修改
+                $scope.editViewName = data.name;
+                $scope.itemListObj = {};
+                for (var index = 0; index < $scope.itemList.length; index++) {
+                  var element = $scope.itemList[index];
+                  $scope.itemListObj[element.itemId] = element.itemId;
+                  console.log(element.itemId);
+                }
+
+              }
+            });
+          }
+        });
+
+
+
+        //修改视图操作
+        $scope.saveEdit = function() {
+          if ($scope.editViewId == 0 || !$scope.editViewId) {
+            tool.alert("提示", "请选择视图");
+            return false;
+          }
+          var arr = [];
+          var $option = $("#multiselect_to").find('option');
+          $option.each(function() {
+            arr.push($(this).val());
+          });
+          var str = arr.join(","); //将用户选择的项目字符串组合
+          var selectVal = $("#sel_menu2").val(); //标签字符串组合  
+          var error = [];
+          var tag = selectVal == null ? "" : selectVal.join(',');
+          if (str == "") {
+            error.push("数据项目不能为空");
+          }
+          if (tag == "" || tag == null) {
+            error.push("视图所属标签不能为空");
+          }
+          if (error.length != 0) {
+            tool.alert("提示", error.join("<br/>"));
+            return false;
+          }
+          $.ajax({
+            type: "PATCH",
+            url: BasicUrl + "view/" + $scope.editViewId,
+            data: {
+              id: $scope.editViewId,
+              name: $scope.editViewName,
+              itemIds: str,
+              tag: tag
+            },
+            dataType: "json",
+            success: function(data, textStatus, request) {
+              if (data.id) {
+                tool.alert("提示", "数据保存成功");
+                window.location.reload();
+              }
+
+            },
+            error: function(response) {
+              if (response && response.errorMessage) {
+                tool.alert("提示", response.errorMessage);
+              }
+            },
+            complete: function(xhr, textStatus) {
+              if (xhr.status == 200) {
+                tool.alert("提示", "数据保存成功");
+                window.location.reload();
+              }
             }
           });
         }
-      });
 
-
-
-      //修改视图操作
-      $scope.saveEdit = function() {
-        if ($scope.editViewId == 0 || !$scope.editViewId) {
-          tool.alert("提示", "请选择视图");
-          return false;
-        }
-        var arr = [];
-        var $option = $("#multiselect_to").find('option');
-        $option.each(function() {
-          arr.push($(this).val());
+        //加载完毕后再显示 
+        $scope.$watch("viewContentLoaded", function() {
+          angular.element(".myload").removeClass("myload");
         });
-        var str = arr.join(","); //将用户选择的项目字符串组合
-        var selectVal = $("#sel_menu2").val(); //标签字符串组合  
-        var error = [];
-        var tag = selectVal == null ? "" : selectVal.join(',');
-        if (str == "") {
-          error.push("数据项目不能为空");
-        }
-        if (tag == "" || tag == null) {
-          error.push("视图所属标签不能为空");
-        }
-        if (error.length != 0) {
-          tool.alert("提示", error.join("<br/>"));
-          return false;
-        }
-        $.ajax({
-          type: "PATCH",
-          url: BasicUrl + "view/" + $scope.editViewId,
-          data: {
-            id: $scope.editViewId,
-            name: $scope.editViewName,
-            itemIds: str,
-            tag: tag
-          },
-          dataType: "json",
-          success: function(data, textStatus, request) {
-            if (data.id) {
-              tool.alert("提示", "数据保存成功");
-              window.location.reload();
-            }
-
-          },
-          error: function(response) {
-            if (response && response.errorMessage) {
-              tool.alert("提示", response.errorMessage);
-            }
-          },
-          complete: function(xhr, textStatus) {
-            if (xhr.status == 200) {
-              tool.alert("提示", "数据保存成功");
-              window.location.reload();
-            }
-          }
-        });
-      }
-
-      //加载完毕后再显示 
-      $scope.$watch("viewContentLoaded", function() {
-        angular.element(".myload").removeClass("myload");
       });
-    });
-  </script>
-</body>
+    </script>
+  </body>
 
 </html>

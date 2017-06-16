@@ -10,8 +10,6 @@
     <link href="../../Styles/common.css" rel="stylesheet">
     <style>
       .img-container {
-        /*width: 250px;
-      height: 250px;*/
         text-align: center;
       }
       
@@ -176,20 +174,18 @@
           }
         }
       });　
+
       var params = ""; //全局变量  请求的参数
       var app = angular.module('myApp', []);
       app.controller('customersCtrl', function($scope, $http) {
         var pageing = function(pageindex, params) {
-
             var url = BasicUrl + "settings?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
             $http.get(url).success(function(data) {
               if (data != null && data != "" && data != "null") {
                 $scope.dataLengths = data.content.length > 0;
                 if (data.content != null && data.content.length > 0) {
                   $scope.data = data;
-                } else {
-                  // tool.alert("提示", "未获取到数据！");
-                }
+                } else {　}
               }
             });
           }
@@ -197,13 +193,8 @@
         pageing(0, params);
         // 上传背景按钮操作方法
         $scope.saveInfo = function() {　
-          var bgUrl = $("#iconUrl").val();
-
-
-          if (bgUrl) {
-            //保存操作
-
-
+          var bgUrl = $("#iconUrl").val();　
+          if (bgUrl) {　
             tool.confirm(
               "请输入名称",
               '<input type="text" name="name" value="" id="name" class="form-control" placeholder="请输入名称">',
@@ -221,9 +212,7 @@
                       tool.alert("提示", JSON.parse(response.responseText).errorMessage);
                     }
                   },
-                  success: function(data) {
-
-                  },
+                  success: function(data) {},
                   complete: function(xhr, textStatus) {
                     if (xhr.status == 200) {
                       if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
@@ -238,10 +227,7 @@
                   }
                 });
               },
-              function() {
-                //用户点击取消按钮时操作
-
-              });
+              function() {　});
 
           } else {
             tool.alert("提示", "请上传背景后在进行保存操作");
