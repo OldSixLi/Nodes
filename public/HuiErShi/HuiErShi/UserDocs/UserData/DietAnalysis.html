@@ -1,118 +1,388 @@
 ﻿<!DOCTYPE html>
 <html>
 
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>饮食分析</title>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>饮食分析</title>
 
-    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-    <link href="../../Styles/common.css" rel="stylesheet">
-  </head>
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/common.css" rel="stylesheet">
+</head>
 
-  <body ng-app="myApp">
-    <!--检索项-->
-    <div ng-controller="customersCtrl" class="container-fluid myload">
-      <!-- 面包屑导航 -->
-      <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-        <li><a href="javascript:void(0)">用户数据</a></li>
-        <li class="active">饮食分析</li>
-      </ol>
-      <div class=" col-xs-12 form-inline" id="search_block">
-        <a href="javascript:void(0)" class="btn btn-primary btn-lg">饮食记录 </a>
-        <a href="javascript:void(0)" class="btn btn-primary btn-lg" ng-click="currentPanel='sancan'">一日三餐能量分配 </a>
-        <a href="javascript:void(0)" class="btn btn-primary btn-lg">三大营养素摄入量与能量来源结构 </a>
-        <a href="javascript:void(0)" class="btn btn-primary btn-lg">分类食物摄入量分析 </a>
-        <a href="javascript:void(0)" class="btn btn-primary btn-lg">营养成分分析 </a>
+<body ng-app="myApp">
+  <!--检索项-->
+  <div ng-controller="customersCtrl" class="container-fluid myload">
+    <!-- 面包屑导航 -->
+    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+      <li><a href="javascript:void(0)">用户数据</a></li>
+      <li class="active">饮食分析</li>
+    </ol>
+    <div class=" col-xs-12 form-inline" id="search_block">
+      <a href="javascript:void(0)" class="btn btn-primary btn-lg" ng-click="currentPanel='dietRecordAnalysis';search()">饮食记录 </a>
+      <a href="javascript:void(0)" class="btn btn-primary btn-lg" ng-click="currentPanel='threeMealsEnergyDistribution';search()">一日三餐能量分配 </a>
+      <a href="javascript:void(0)" class="btn btn-primary btn-lg" ng-click="currentPanel='majorNutrientsIntakeAndEnergySourcesStructure';search()">三大营养素摄入量与能量来源结构 </a>
+      <a href="javascript:void(0)" class="btn btn-primary btn-lg" ng-click="currentPanel='powderFoodIntakeClassAnalysis';search()">分类食物摄入量分析 </a>
+      <a href="javascript:void(0)" class="btn btn-primary btn-lg" ng-click="currentPanel='nutritionalAnalysis';search()">营养成分分析 </a>
 
-        <div class="form-group text-left" style="margin: 10px 0 0 0 ">
-          <label class="lbl_search">起止日期：</label>
+      <div class="form-group text-left" style="margin: 10px 0 0 0 ">
+        <label class="lbl_search">起止日期：</label>
 
 
-          <div class="input-group timeblock">
-            <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
-            <div class="input-group-btn">
-              <button type="button" class="btn btn-default" id="btnStarttime">
+        <div class="input-group timeblock">
+          <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default" id="btnStarttime">
                         <span class="glyphicon glyphicon-calendar"></span></button>
-            </div>
           </div>
-          <label class="">至</label>
-
-          <div class="input-group timeblock">
-            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
-            <div class="input-group-btn">
-              <button type="button" class="btn btn-default" id="btnEndtime">
-                        <span class="glyphicon glyphicon-calendar"></span></button>
-            </div>
-          </div>
-          <!-- 搜索按钮 -->
-          <a ng-click="search()" class="btn btn-primary" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
-
         </div>
-        <a ng-click="back()" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-share-alt"></i>&nbsp;返回上级页面</a>
+        <label class="">至</label>
+
+        <div class="input-group timeblock">
+          <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-default" id="btnEndtime">
+                        <span class="glyphicon glyphicon-calendar"></span></button>
+          </div>
+        </div>
+        <!-- 搜索按钮 -->
+        <a ng-click="search()" class="btn btn-primary" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
 
       </div>
-      <!-- 数据显示 -->
-      <div class="ng-scope tab-content container-fluid">
+      <a ng-click="back()" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-share-alt"></i>&nbsp;返回上级页面</a>
 
-        <table class="table table-hover table-bordered table-condensed ">
-          <!-- 表头 -->
-          <thead>
-            <tr>
-              <th>
-                日期
-              </th>
-              <th>
-                全天(kcal)
-              </th>
-              <th>
-                早餐(kcal)
-              </th>
-              <th>
-                午餐(kcal)
-              </th>
-              <th>
-                晚餐(kcal)
-              </th>
-              <th>
-                零食(kcal)
-              </th>
-              <th>
-                早餐%
-              </th>
-              <th>
-                午餐%
-              </th>
-              <th>
-                晚餐%
-              </th>
-              <th>
-                零食%
-              </th>
-            </tr>
-          </thead>
-          <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in data">
-              <td>{{ x.date}}</td>
-              <td>{{ $index+names.page.currentPage*10-9}}</td>
-              <td>{{ x.FP_HM }}</td>
-              <td>{{ x.FP_HM }}</td>
-              <td>{{ x.FP_HM }}</td>
-              <td>{{ x.FP_HM }}</td>
-              <td>{{ x.FP_HM }}</td>
-              <td>{{ x.FP_HM }}</td>
-              <td>{{ x.ID }}</td>
-              <td>{{ x.FP_HM }}</td>
-            </tr>
-            <tr ng-show="!dataLengths">
-              <td colspan="100" class="text-center ">暂无结果</td>
-            </tr>
-          </tbody>
-        </table>
+    </div>
+    <!-- 数据显示 -->
+    <div class="ng-scope tab-content container-fluid col-md-12">
 
-      </div>
-      <!--<div ng-show="dataLengths">
+      <!--1-->
+      <table class="table table-hover table-bordered table-condensed " ng-show="currentPanel=='dietRecordAnalysis'">
+        <!-- 表头 -->
+        <thead>
+
+          <tr>
+            <th>
+              日期
+            </th>
+            <th>
+              餐别
+            </th>
+            <th>
+              食物类别
+            </th>
+            <th>
+              食物二级类型
+            </th>
+            <th>
+              食物
+            </th>
+            <th>
+              重量（g）
+            </th>
+
+          </tr>
+        </thead>
+        <tbody id="databody">
+          <tr ng-show="dataLengths" ng-repeat="x in data">
+            <td>{{ x.date }}</td>
+            <td>
+              <span ng-if="x.type=='1'">早餐</span>
+              <span ng-if="x.type=='2'">午餐</span>
+              <span ng-if="x.type=='3'">晚餐</span>
+              <span ng-if="x.type=='4'">零食</span></td>
+            <td>{{ x.dietEntity.categories }}</td>
+            <td>{{ x.dietEntity.subcategories }}</td>
+            <td>{{ x.dietEntity.subcategories }}</td>
+            <td>{{ x.quantity*x. unitWeight}}</td>
+
+          </tr>
+          <tr ng-show="!dataLengths">
+            <td colspan="100" class="text-center ">暂无结果</td>
+          </tr>
+        </tbody>
+      </table>
+      <!--2-->
+      <table class="table table-hover table-bordered table-condensed " ng-show="currentPanel=='threeMealsEnergyDistribution'">
+        <thead>
+          <tr>
+            <th>
+              日期
+            </th>
+            <th>
+              全天(kcal)
+            </th>
+            <th>
+              早餐(kcal)
+            </th>
+            <th>
+              午餐(kcal)
+            </th>
+            <th>
+              晚餐(kcal)
+            </th>
+            <th>
+              零食(kcal)
+            </th>
+            <th>
+              早餐%
+            </th>
+            <th>
+              午餐%
+            </th>
+            <th>
+              晚餐%
+            </th>
+            <th>
+              零食%
+            </th>
+          </tr>
+        </thead>
+        <tbody id="databody">
+
+          <tr ng-show="dataLengths" ng-repeat="x in data">
+            <td>{{x["日期"]}}</td>
+            <td>{{ x["早餐"]+x["午餐"]+x["晚餐"]+x["零食"]}}</td>
+            <td>{{ x["早餐"] }}</td>
+            <td>{{ x["午餐"] }}</td>
+            <td>{{ x["晚餐"]}}</td>
+            <td>{{ x["零食"] }}</td>
+            <td>{{ x.FP_HM }}</td>
+            <td>{{ x.FP_HM }}</td>
+            <td>{{ x.ID }}</td>
+            <td>{{ x.FP_HM }}</td>
+          </tr>
+          <tr ng-show="!dataLengths">
+            <td colspan="100" class="text-center ">暂无结果</td>
+          </tr>
+        </tbody>
+      </table>
+      <!--3-->
+      <table class="table table-hover table-bordered table-condensed " ng-show="currentPanel=='majorNutrientsIntakeAndEnergySourcesStructure'">
+        <thead>
+          <tr>
+            <th>
+              日期
+            </th>
+            <th>
+              能量总计（kcal）
+            </th>
+            <th>
+              碳水化合物(g)
+            </th>
+            <th>
+              脂肪(g)
+            </th>
+            <th>
+              蛋白质(g)
+            </th>
+            <th>
+              碳水化合物%
+            </th>
+            <th>
+              脂肪%
+            </th>
+            <th>
+              蛋白质%
+            </th>
+          </tr>
+        </thead>
+        <tbody id="databody">
+          <tr ng-show="dataLengths" ng-repeat="x in data">
+            <td>{{x["日期"]}}</td>
+            <td>{{ x.total=(x["脂肪"]+x["蛋白质"]+x["碳水化合物"]).toFixed(1) }}</td>
+            <td>{{ x["碳水化合物"] }}</td>
+            <td>{{ x["脂肪"] }}</td>
+            <td>{{ x["蛋白质"]}}</td>
+            <td>{{ (x["碳水化合物"]/x.total).toFixed(3)*100+'%'}}</td>
+            <td>{{ (x["脂肪"]/x.total-0).toFixed(3)*100+'%' }}</td>
+            <td>{{ (x["蛋白质"]/x.total-0).toFixed(3)*100+'%' }}</td>
+          </tr>
+          <tr ng-show="!dataLengths">
+            <td colspan="100" class="text-center ">暂无结果</td>
+          </tr>
+        </tbody>
+      </table>
+      <!--4-->
+      <table class="table table-hover table-bordered table-condensed " ng-show="currentPanel=='powderFoodIntakeClassAnalysis'">
+        <thead>
+          <tr>
+            <th>
+              日期
+            </th>
+            <th>
+              摄入总量
+            </th>
+            <th>
+              谷类(g)
+            </th>
+            <th>
+              杂豆(g)
+            </th>
+            <th>
+              薯类(g)
+            </th>
+            <th>
+              蔬菜(g)
+            </th>
+            <th>
+              水果(g)
+            </th>
+            <th>
+              畜禽肉(g)
+            </th>
+            <th>
+              水产品(g)
+            </th>
+            <th>
+              奶制品(g)
+            </th>
+            <th>
+              蛋类(g)
+            </th>
+            <th>
+              豆制品(g)
+            </th>
+            <th>
+              坚果类(g)
+            </th>
+            <th>
+              储能量食物(g)
+            </th>
+            <th>
+              其他(g)
+            </th>
+          </tr>
+        </thead>
+
+
+        <tbody id="databody">
+          <tr ng-show="dataLengths" ng-repeat="x in data">
+            <td>{{x["日期"]}}</td>
+            <td>{{ x.total=x["谷类"]+x["杂豆"]+x["薯类"]+x["蔬菜"]+ x["水果"]+x["畜禽肉"]+x["水产品"] +x["奶制品"]+x["蛋类"]+ x["豆制品"]+ x["坚果类"]+x["储能量食物"] + x["其他"] }}</td>
+            <td>{{ x["谷类"] }}</td>
+            <td>{{ x["杂豆"] }}</td>
+            <td>{{ x["薯类"]}}</td>
+            <td>{{ x["蔬菜"] }}</td>
+            <td>{{ x["水果"] }}</td>
+            <td>{{ x["畜禽肉"]}}</td>
+            <td>{{ x["水产品"] }}</td>
+            <td>{{ x["奶制品"] }}</td>
+            <td>{{ x["蛋类"]}}</td>
+            <td>{{ x["豆制品"] }}</td>
+            <td>{{ x["坚果类"] }}</td>
+            <td>{{ x["储能量食物"]}}</td>
+            <td>{{ x["其他"]}}</td>
+          </tr>
+          <tr ng-show="!dataLengths">
+            <td colspan="100" class="text-center ">暂无结果</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--5-->
+
+      <table class="table table-hover table-bordered table-condensed " style="max-width:100$;width:100%;" ng-show="currentPanel=='nutritionalAnalysis'">
+        <thead>
+          <tr>
+            <th>
+              日期
+            </th>
+            <th>
+              可食部（g）
+            </th>
+            <th>
+              水分（g）
+            </th>
+            <th>
+              能量（kcal）
+            </th>
+            <th>
+              蛋白质（g）
+            </th>
+            <th>
+              脂肪（g）
+            </th>
+            <th>
+              碳水化合物
+            </th>
+            <th>
+              膳食纤维
+            </th>
+            <th>
+              灰分（g）
+            </th>
+            <th>
+              维生素A（μgRE）
+            </th>
+            <th>
+              胡萝卜素（μg）</th>
+            <th>
+              硫胺素（mg）
+            </th>
+            <th>
+              核黄素（mg）
+            </th>
+            <th>
+              烟酸（mg）
+            </th>
+            <th>
+              维生素C（mg）
+            </th>
+            <th> 维生素E总含量（mg）</th>
+            <th> α-TE（mg）</th>
+            <th> 钙（mg）</th>
+            <th> 磷（mg）</th>
+            <th> 钾（mg）</th>
+            <th> 钠（mg）</th>
+            <th> 镁（mg）</th>
+            <th> 铁（mg）</th>
+            <th> 锌（mg）</th>
+            <th> 硒（mg）</th>
+            <th> 铜（mg）</th>
+            <th> 锰（mg）</th>
+          </tr>
+        </thead>
+
+
+        <tbody id="databody">
+
+          <tr ng-show="dataLengths" ng-repeat="x in data">
+            <td>{{x["日期"]}}</td>
+            <td>{{ x.total=x["谷类"]+x["杂豆"]+x["薯类"]+x["蔬菜"]+ x["水果"]+x["畜禽肉"]+x["水产品"] +x["奶制品"]+x["蛋类"]+ x["豆制品"]+ x["坚果类"]+x["储能量食物"] + x["其他"] }}</td>
+            <td>{{ x["水分"] }}</td>
+            <td>{{ x["能量"] }}</td>
+            <td>{{ x["蛋白质"]}}</td>
+            <td>{{ x["脂肪"] }}</td>
+            <td>{{ x["碳水化合物"] }}</td>
+            <td>{{ x["膳食纤维"]}}</td>
+            <td>{{ x["灰分"] }}</td>
+            <td>{{ x["维生素A"] }}</td>
+            <td>{{ x["胡萝卜素"]}}</td>
+            <td>{{ x["硫胺素"] }}</td>
+            <td>{{ x["核黄素"] }}</td>
+            <td>{{ x["烟酸"]}}</td>
+            <td>{{ x["维生素C"]}}</td>
+            <td>{{ x["维生素E"]}}</td>
+            <td>{{ x["α-TE"]}}</td>
+            <td>{{ x["钙"]}}</td>
+            <td>{{ x["磷"]}}</td>
+            <td>{{ x["钾"]}}</td>
+            <td>{{ x["钠"]}}</td>
+            <td>{{ x["镁"]}}</td>
+            <td>{{ x["铁"]}}</td>
+            <td>{{ x["锌"]}}</td>
+            <td>{{ x["硒"]}}</td>
+            <td>{{ x["铜"]}}</td>
+            <td>{{ x["锰"]}}</td>
+          </tr>
+          <tr ng-show="!dataLengths">
+            <td colspan="100" class="text-center ">暂无结果</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--<div ng-show="dataLengths">
             <div class="form-group pull-right topage_block">
               
                 <label>{{totalRecord}}条/{{totalPage}}页</label>
@@ -126,82 +396,90 @@
                 <ul class="pagination" id="alreadyPage"></ul>
             </div>
         </div>-->
-      <!-- 当前页隐藏域 -->
-      <input id="currentPage" name="currentPage" value="1" type="hidden">
-    </div>
-    <!--脚本-->
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../../Scripts/select2.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-    <script>
-      $(".start_end_time").datetimepicker({
-        timepicker: false,
-        format: 'Y-m-d',
-      });
+    <!-- 当前页隐藏域 -->
+    <input id="currentPage" name="currentPage" value="1" type="hidden">
+  </div>
+  <!--脚本-->
+  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <script>
+    $(".start_end_time").datetimepicker({
+      timepicker: false,
+      format: 'Y-m-d',
+    });
 
-      $(function() {
-        tool.changeSelect($("#username"), true);
-      });
-      var params = ""; //全局变量
-      var app = angular.module('myApp', []);
-      app.controller('customersCtrl', function($scope, $http) {
-        var obj = new UrlSearch();
-        var pageing = function(pageindex, params) {
-            $scope.currentPanel = "dietRecordAnalysis";
-            var url = BasicUrl + "dietAnalysis/" + $scope.currentPanel + "?userId=" + obj.userId + "&" + params;
-            $http.get(url).success(function(data) {
-              if (data != null && data != "" && data != "null") {
-                $scope.dataLengths = data.length > 0;
-                if (data != null && data.length > 0) {
-                  $scope.data = data;
-                } else {
-                  $scope.dataLengths = false;
-                }
+    $(function() {
+      tool.changeSelect($("#username"), true);
+    });
+    var params = ""; //全局变量
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+      var obj = new UrlSearch();
+      $scope.currentPanel = "dietRecordAnalysis";
+      var pageing = function(pageindex, params) {
+
+          var url = BasicUrl + "dietAnalysis/" + $scope.currentPanel + "?userId=" + obj.userId + "&" + params;
+          $http.get(url).success(function(data) {
+            if (data != null && data != "" && data != "null") {
+              $scope.dataLengths = data.length > 0;
+              if (data != null && data.length > 0) {
+                $scope.data = data;
+              } else {
+                $scope.dataLengths = false;
               }
-            });
-          }
-          //分页方法
+            }
+          });
+        }
+        //分页方法
+      pageing(0, params);
+      //查询按钮
+      $scope.search = function() {
+        //TODO  需要修改部分
+        //起始时间时间戳
+        var minExpiredAt = $("#txtStartTime").val();
+        //结束时间时间戳
+        var maxExpiredAt = $("#txtEndTime").val();
+        //校验只有一个搜索条件
+        if (!minExpiredAt || !maxExpiredAt) {
+          tool.alert("提示", "请选择起止日期！");
+          return false;
+        }
+        //起止日期校验
+        if (minExpiredAt > maxExpiredAt) {
+          tool.alert("提示", "结束时间不得早于起始时间！");
+          return false;
+        }
+        // ?userId=1&minDate=2017-03-01&maxDate=2017-03-10
+        params = "minDate=" + minExpiredAt + "&maxDate=" + maxExpiredAt;
         pageing(0, params);
-        //查询按钮
-        $scope.search = function() {
-          //TODO  需要修改部分
-          //起始时间时间戳
-          var minExpiredAt = $("#txtStartTime").val();
-          //结束时间时间戳
-          var maxExpiredAt = $("#txtEndTime").val();
-          //校验只有一个搜索条件
-          if (!minExpiredAt || !maxExpiredAt) {
-            tool.alert("提示", "请选择起止日期！");
-            return false;
-          }
-          //起止日期校验
-          if (minExpiredAt > maxExpiredAt) {
-            tool.alert("提示", "结束时间不得早于起始时间！");
-            return false;
-          }
-          params = "minDate=" + minExpiredAt + "&maxDate=" + maxExpiredAt;
-          pageing(0, params);
-        }
+      }
 
-        //返回上一级页面
-        $scope.back = function() {
-          var name = obj.userId;
-          var time = obj.date;
-          var username = obj.username;
-          window.location.href = "FoodRecord.html?userId=" + name + "&username=" + obj.username + "&date=" + time;
-        }
+      //返回上一级页面
+      $scope.back = function() {
+        var name = obj.userId;
+        var time = obj.date;
+        var username = obj.username;
+        window.location.href = "FoodRecord.html?userId=" + name + "&username=" + obj.username + "&date=" + time;
+      }
 
-        //加载完毕后再显示 
-        $scope.$watch("viewContentLoaded", function() {
-          angular.element(".myload").removeClass("myload");
-        });
-
+      //加载完毕后再显示 
+      $scope.$watch("viewContentLoaded", function() {
+        angular.element(".myload").removeClass("myload");
       });
-    </script>
-  </body>
+
+    });
+  </script>
+</body>
+
+</html> if (minExpiredAt > maxExpiredAt) { tool.alert("提示", "结束时间不得早于起始时间！"); return false; } // ?userId=1&minDate=2017-03-01&maxDate=2017-03-10 params = "minDate=" + minExpiredAt + "&maxDate=" + maxExpiredAt; pageing(0, params); } //返回上一级页面 $scope.back = function()
+{ var name = obj.userId; var time = obj.date; var username = obj.username; window.location.href = "FoodRecord.html?userId=" + name + "&username=" + obj.username + "&date=" + time; } //加载完毕后再显示 $scope.$watch("viewContentLoaded", function() { angular.element(".myload").removeClass("myload");
+}); });
+</script>
+</body>
 
 </html>

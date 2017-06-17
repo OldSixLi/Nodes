@@ -1,80 +1,80 @@
 ﻿<!DOCTYPE html>
 <html>
 
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>饮食记录</title>
-    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-    <!-- 个人维护样式库 -->
-    <link href="../../Styles/common.css" rel="stylesheet">
-  </head>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>饮食记录</title>
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+  <!-- 个人维护样式库 -->
+  <link href="../../Styles/common.css" rel="stylesheet">
+</head>
 
-  <body ng-app="myApp">
-    <!--检索项-->
-    <div ng-controller="customersCtrl" class="container-fluid myload">
-      <!-- 面包屑导航 -->
-      <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-        <li><a href="javascript:void(0)">用户数据</a></li>
-        <li class="active">饮食记录</li>
-      </ol>
-      <div class="text-right col-xs-12" id="search_block">
-        <form class="form-inline" role="form">
-          <div class="form-group text-left">
-            <label class="control-label">会员姓名：</label>
-            <select class="form-control" name="sltType" id="username" style="width:150px;"> 
+<body ng-app="myApp">
+  <!--检索项-->
+  <div ng-controller="customersCtrl" class="container-fluid myload">
+    <!-- 面包屑导航 -->
+    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+      <li><a href="javascript:void(0)">用户数据</a></li>
+      <li class="active">饮食记录</li>
+    </ol>
+    <div class="text-right col-xs-12" id="search_block">
+      <form class="form-inline" role="form">
+        <div class="form-group text-left">
+          <label class="control-label">会员姓名：</label>
+          <select class="form-control" name="sltType" id="username" style="width:150px;"> 
              <option value="3620194" selected="selected">select2/select2</option>
                      </select>
-          </div>
-          <div class="form-group text-left">
-            <label class="lbl_search">&nbsp;&nbsp;&nbsp;选择日期：</label>
-            <span class="glyphicon glyphicon-chevron-left cu-pointer" title="前一天" onclick="prevDay()"></span>
+        </div>
+        <div class="form-group text-left">
+          <label class="lbl_search">&nbsp;&nbsp;&nbsp;选择日期：</label>
+          <span class="glyphicon glyphicon-chevron-left cu-pointer" title="前一天" onclick="prevDay()"></span>
 
-            <div class="input-group timeblock">
-              <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
-              <div class="input-group-btn">
-                <button type="button" class="btn btn-default" id="btnStarttime">
+          <div class="input-group timeblock">
+            <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" id="btnStarttime">
                           <span class="glyphicon glyphicon-calendar"></span></button>
-              </div>
             </div>
-            <span class="glyphicon glyphicon-chevron-right cu-pointer" title="后一天" onclick="nextDay()"></span>
           </div>
-          <!-- 搜索按钮 -->
-          <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
-          <a class="btn btn-primary " id="btnSearch" href="" ng-click="redirect()"><i class=" glyphicon glyphicon-plus"></i>&nbsp;查看更多</a>
-        </form>
-      </div>
-      <!-- 数据显示 -->
-      <div class="ng-scope tab-content container-fluid">
-        <div class=" fixed-table-container" style="margin-bottom: 10px;">
-          <table class="table table-hover  ">
-            <!-- 表头 -->
-            <thead>
-              <tr>
-                <th class="order" ng-click="title='FP_HM';desc=!desc">
-                  餐别
-                  <span></span>
-                </th>
-                <th class="order" ng-click="title='FP_HM';desc=!desc">
-                  食物类别
-                  <span></span>
-                </th>
-                <th class="order" ng-click="title='FP_HM';desc=!desc">
-                  食物二级类型<span></span>
-                </th>
-                <th>
-                  食物
-                </th>
-                <th>
-                  重量（g）
-                </th>
-              </tr>
-            </thead>
-            <tbody id="databody">
+          <span class="glyphicon glyphicon-chevron-right cu-pointer" title="后一天" onclick="nextDay()"></span>
+        </div>
+        <!-- 搜索按钮 -->
+        <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
+        <a class="btn btn-primary " id="btnSearch" href="" ng-click="redirect()"><i class=" glyphicon glyphicon-plus"></i>&nbsp;查看更多</a>
+      </form>
+    </div>
+    <!-- 数据显示 -->
+    <div class="ng-scope tab-content container-fluid">
+      <div class=" fixed-table-container" style="margin-bottom: 10px;">
+        <table class="table table-hover  ">
+          <!-- 表头 -->
+          <thead>
+            <tr>
+              <th class="order" ng-click="title='FP_HM';desc=!desc">
+                餐别
+                <span></span>
+              </th>
+              <th class="order" ng-click="title='FP_HM';desc=!desc">
+                食物类别
+                <span></span>
+              </th>
+              <th class="order" ng-click="title='FP_HM';desc=!desc">
+                食物二级类型<span></span>
+              </th>
+              <th>
+                食物
+              </th>
+              <th>
+                重量（g）
+              </th>
+            </tr>
+          </thead>
+          <tbody id="databody">
 
 
-              <!--{
+            <!--{
         "id": 418,
         "type": 4,
         "quantity": 2,
@@ -87,70 +87,70 @@
         "unitWeight": 100,
         "date": "2017-06-08"
     }-->
-              <tr ng-show="foodRecordDataLengths" ng-repeat="x in foodRecordData ">
-                <td ng-switch='x.type'>
-                  <span ng-switch-when="1">早餐</span>
-                  <span ng-switch-when="2">午餐</span>
-                  <span ng-switch-when="3">晚餐</span>
-                  <span ng-switch-when="4">零食</span>
-                </td>
-                <td>{{ x.dietEntity.categories }}</td>
-                <td>{{ x.dietEntity.subcategories }}</td>
-                <td>{{ x.dietEntity.name }}</td>
-                <td>{{ x.unitWeight*x.quantity }}</td>
-              </tr>
-              <tr ng-show="!foodRecordDataLengths">
-                <td colspan="100" class="text-center ">暂无结果</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!--<div class="col-md-1"><b>备注：</b></div>-->
-        <!-- <div class="col-md-11">
-        <p>{{}}</p></div>-->
-
+            <tr ng-show="foodRecordDataLengths" ng-repeat="x in foodRecordData ">
+              <td ng-switch='x.type'>
+                <span ng-switch-when="1">早餐</span>
+                <span ng-switch-when="2">午餐</span>
+                <span ng-switch-when="3">晚餐</span>
+                <span ng-switch-when="4">零食</span>
+              </td>
+              <td>{{ x.dietEntity.categories }}</td>
+              <td>{{ x.dietEntity.subcategories }}</td>
+              <td>{{ x.dietEntity.name }}</td>
+              <td>{{ x.unitWeight*x.quantity }}</td>
+            </tr>
+            <tr ng-show="!foodRecordDataLengths">
+              <td colspan="100" class="text-center ">暂无结果</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
-      <!-- 当前页隐藏域 -->
-      <input id="currentPage" name="currentPage" value="1" type="hidden">
+      <!--<div class="col-md-1"><b>备注：</b></div>-->
+      <!-- <div class="col-md-11">
+        <p>{{}}</p></div>-->
 
-      <div class="container-fluid">
-        <div class="col-xs-12">
-          <h4><b>每餐能量营养分析</b></h4>
-          <table class="table table-bordered table-condensed">
-            <tr>
-              <th></th>
-              <th>总能量</th>
-              <th>占总能量比例</th>
-              <th>碳水化合物(g)</th>
-              <th>能量比例</th>
-              <th>蛋白质(g)</th>
-              <th>能量比例</th>
-              <th>脂肪(g)</th>
-              <th>能量比例</th>
+    </div>
+
+    <!-- 当前页隐藏域 -->
+    <input id="currentPage" name="currentPage" value="1" type="hidden">
+
+    <div class="container-fluid">
+      <div class="col-xs-12">
+        <h4><b>每餐能量营养分析</b></h4>
+        <table class="table table-bordered table-condensed">
+          <tr>
+            <th></th>
+            <th>总能量</th>
+            <th>占总能量比例</th>
+            <th>碳水化合物(g)</th>
+            <th>能量比例</th>
+            <th>蛋白质(g)</th>
+            <th>能量比例</th>
+            <th>脂肪(g)</th>
+            <th>能量比例</th>
+          </tr>
+          <tbody>
+            <tr ng-show="dataLengths" ng-repeat="x in data ">
+              <td> {{ x["用餐类型"]}}</td>
+              <td> {{x["脂肪cal"]}}</td>
+              <td>{{ x["用餐类型"]}}</td>
+              <td> {{x["碳水化合物"]}}</td>
+              <td>{{ (x["碳水化合物"]/x["碳水化合物cal"]).toFixed(3)*100+'%'}}</td>
+              <td> {{x["蛋白质"]}}</td>
+              <td>{{ (x["蛋白质"]/x["蛋白质cal"]).toFixed(3)*100+'%'}}</td>
+              <td> {{x["脂肪"]}}</td>
+              <td>{{(x["脂肪"]/x["脂肪cal"]).toFixed(3)*100+'%'}}</td>
             </tr>
-            <tbody>
-              <tr ng-show="dataLengths" ng-repeat="x in data ">
-                <td> {{ x["用餐类型"]}}</td>
-                <td> {{x["脂肪cal"]}}</td>
-                <td>{{ x["用餐类型"]}}</td>
-                <td> {{x["碳水化合物"]}}</td>
-                <td>{{ (x["碳水化合物"]/x["碳水化合物cal"]).toFixed(3)*100+'%'}}</td>
-                <td> {{x["蛋白质"]}}</td>
-                <td>{{ (x["蛋白质"]/x["蛋白质cal"]).toFixed(3)*100+'%'}}</td>
-                <td> {{x["脂肪"]}}</td>
-                <td>{{(x["脂肪"]/x["脂肪cal"]).toFixed(3)*100+'%'}}</td>
-              </tr>
-              <tr ng-show="!dataLengths">
-                <td colspan="100" class="text-center ">暂无结果</td>
-              </tr>
-            </tbody>
+            <tr ng-show="!dataLengths">
+              <td colspan="100" class="text-center ">暂无结果</td>
+            </tr>
+          </tbody>
 
 
 
-          </table>
-          <!--<table class="table table-bordered table-condensed" style="margin: 20px 0">
+        </table>
+        <!--<table class="table table-bordered table-condensed" style="margin: 20px 0">
         <tr>
           <th style="width: 50px;"></th>
           <th>总能量</th>
@@ -220,102 +220,102 @@
         </tr>
       </table>-->
 
-          <p><b>1g碳水化合物产生4kcal热量，1g脂肪产生9kcal热量，1g蛋白质产生4kcal热量</b></p>
+        <p><b>1g碳水化合物产生4kcal热量，1g脂肪产生9kcal热量，1g蛋白质产生4kcal热量</b></p>
 
-          <h4><b>日分类食物摄入量分析</b></h4>
-          <div class="row">
-            <div class="col-xs-4">
-              <!--左侧表格数据-->
-              <table class="table table-bordered table-condensed">
-                <thead>
-                  <tr>
-                    <th>营养素</th>
-                    <th>摄入量</th>
-                    <th>推荐量</th>
-                  </tr>
-                </thead>
-                <tbody ng-show="fenleidataLengths" ng-repeat="x in fenleiData">
+        <h4><b>日分类食物摄入量分析</b></h4>
+        <div class="row">
+          <div class="col-xs-4">
+            <!--左侧表格数据-->
+            <table class="table table-bordered table-condensed">
+              <thead>
+                <tr>
+                  <th>营养素</th>
+                  <th>摄入量</th>
+                  <th>推荐量</th>
+                </tr>
+              </thead>
+              <tbody ng-show="fenleidataLengths" ng-repeat="x in fenleiData">
 
-                  <tr>
-                    <td>总量</td>
-                    <td>1308</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>谷类</td>
-                    <td>{{x["谷类"]}}</td>
-                    <td>50-150</td>
-                  </tr>
-                  <tr>
-                    <td>杂豆</td>
-                    <td>{{x["杂豆"]}}</td>
-                    <td>50-150</td>
-                  </tr>
-                  <tr>
-                    <td>薯类</td>
-                    <td>{{x["薯类"]}}</td>
-                    <td>50-100</td>
-                  </tr>
-                  <tr>
-                    <td>蔬菜</td>
-                    <td>{{x["蔬菜"]}}</td>
-                    <td>300-500</td>
-                  </tr>
-                  <tr>
-                    <td>水果</td>
-                    <td>{{x["水果"]}}</td>
-                    <td>200-350</td>
-                  </tr>
-                  <tr>
-                    <td>畜禽肉</td>
-                    <td>{{x["畜禽肉"]}}</td>
-                    <td>40-75</td>
-                  </tr>
-                  <tr>
-                    <td>水产品</td>
-                    <td>{{x["水产品"]}}</td>
-                    <td>40-75</td>
-                  </tr>
-                  <tr>
-                    <td>奶制品</td>
-                    <td>{{x["奶制品"]}}</td>
-                    <td>300</td>
-                  </tr>
-                  <tr>
-                    <td>蛋类</td>
-                    <td>{{x["蛋类"]}}</td>
-                    <td>40-50</td>
-                  </tr>
-                  <tr>
-                    <td>豆制品</td>
-                    <td>{{x["豆制品"]}}</td>
-                    <td>25-35</td>
-                  </tr>
-                  <tr>
-                    <td>坚果类</td>
-                    <td>{{x["坚果类"]}}</td>
-                    <td>25-35</td>
-                  </tr>
-                  <tr>
-                    <td>储能量食物</td>
-                    <td>{{x["储能量食物"]}}</td>
-                    <td>盐&lt;6g 油25-30g</td>
-                  </tr>
-                  <tr>
-                    <td>其他</td>
-                    <td>{{x["其他"]}}</td>
-                    <td>水1500-1700ml</td>
-                  </tr>
-                </tbody>
+                <tr>
+                  <td>总量</td>
+                  <td>1308</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>谷类</td>
+                  <td>{{x["谷类"]}}</td>
+                  <td>50-150</td>
+                </tr>
+                <tr>
+                  <td>杂豆</td>
+                  <td>{{x["杂豆"]}}</td>
+                  <td>50-150</td>
+                </tr>
+                <tr>
+                  <td>薯类</td>
+                  <td>{{x["薯类"]}}</td>
+                  <td>50-100</td>
+                </tr>
+                <tr>
+                  <td>蔬菜</td>
+                  <td>{{x["蔬菜"]}}</td>
+                  <td>300-500</td>
+                </tr>
+                <tr>
+                  <td>水果</td>
+                  <td>{{x["水果"]}}</td>
+                  <td>200-350</td>
+                </tr>
+                <tr>
+                  <td>畜禽肉</td>
+                  <td>{{x["畜禽肉"]}}</td>
+                  <td>40-75</td>
+                </tr>
+                <tr>
+                  <td>水产品</td>
+                  <td>{{x["水产品"]}}</td>
+                  <td>40-75</td>
+                </tr>
+                <tr>
+                  <td>奶制品</td>
+                  <td>{{x["奶制品"]}}</td>
+                  <td>300</td>
+                </tr>
+                <tr>
+                  <td>蛋类</td>
+                  <td>{{x["蛋类"]}}</td>
+                  <td>40-50</td>
+                </tr>
+                <tr>
+                  <td>豆制品</td>
+                  <td>{{x["豆制品"]}}</td>
+                  <td>25-35</td>
+                </tr>
+                <tr>
+                  <td>坚果类</td>
+                  <td>{{x["坚果类"]}}</td>
+                  <td>25-35</td>
+                </tr>
+                <tr>
+                  <td>储能量食物</td>
+                  <td>{{x["储能量食物"]}}</td>
+                  <td>盐&lt;6g 油25-30g</td>
+                </tr>
+                <tr>
+                  <td>其他</td>
+                  <td>{{x["其他"]}}</td>
+                  <td>水1500-1700ml</td>
+                </tr>
+              </tbody>
 
-                <tbody ng-show="!fenleidataLengths">
-                  <td colspan="100" class="text-center ">暂无结果</td>
-                </tbody>
+              <tbody ng-show="!fenleidataLengths">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tbody>
 
-              </table>
-            </div>
-            <!--右侧表格数据-->
-            <!--<div class="col-xs-7 col-xs-offset-1">
+            </table>
+          </div>
+          <!--右侧表格数据-->
+          <!--<div class="col-xs-7 col-xs-offset-1">
           <table class="table table-bordered table-condensed">
             <tr>
               <th>Chart 7</th>
@@ -405,234 +405,246 @@
             </tr>
           </table>
         </div>-->
-          </div>
         </div>
       </div>
     </div>
-    <!--脚本-->
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <!--<script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>-->
-    <script type="text/javascript" src="http://select2.github.io/dist/js/select2.full.js"></script>
+  </div>
+  <!--脚本-->
+  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
+  <!--<script type="text/javascript" src="http://select2.github.io/dist/js/select2.full.js"></script>-->
 
-    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-    <script>
-      $(function() {
-        $(".start_end_time").datetimepicker({
-          timepicker: false,
-          format: 'Y-m-d',
-        });　
+  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <script>
+    $(function() {
+      $(".start_end_time").datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+      });　
+    });
+
+
+    function getLocalTime(tm) {
+      var tt = new Date(parseInt(tm)).toLocaleString('chinese', {
+        hour12: false
+      }).replace(/\//g, "-");
+      return tt;
+    }
+
+    //前一天
+    function prevDay() {
+      var date = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtStartTime").val()));
+
+      date = date - 86400000;
+      var time = getLocalTime(date);
+      $('#txtStartTime').datetimepicker({
+        value: time
       });
+    }
 
-
-      function getLocalTime(tm) {
-        var tt = new Date(parseInt(tm)).toLocaleString('chinese', {
-          hour12: false
-        }).replace(/\//g, "-");
-        return tt;
-      }
-
-      //前一天
-      function prevDay() {
-        var date = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtStartTime").val()));
-
-        date = date - 86400000;
-        var time = getLocalTime(date);
-        $('#txtStartTime').datetimepicker({
-          value: time
+    function nextDay() {
+      var date = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtStartTime").val()));
+      date = date + 86400000;
+      var time = getLocalTime(date);
+      $('#txtStartTime').datetimepicker({
+        value: time
+      });
+    }
+    var params = ""; //全局变量
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http) {
+      //分页方法声明
+      var pageing = function(pageindex, params) {
+        //请求地址
+        $scope.userid = 0;
+        var url = BasicUrl + "dietAnalysis/mealNutritionEnergyAnalysis?" + params; //请求的参数和地址
+        $http.get(url).success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            //判断当前是否存在记录
+            $scope.dataLengths = data.length > 0;
+            if (data != null && data.length > 0) {
+              $scope.data = data;
+            } else {
+              $scope.dataLengths = false;
+              // alert("未获取到数据，请重试");
+            }
+          }
+        });
+        $http.get(BasicUrl + "dietAnalysis/dailyClassificationOfFoodIntake?" + params).success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            //判断当前是否存在记录
+            $scope.fenleidataLengths = data.length > 0;
+            if (data != null && data.length > 0) {
+              $scope.fenleiData = data;
+            } else {
+              $scope.fenleidataLengths = false;
+            }
+          }
+        });
+        $http.get(BasicUrl + "dietRecord?" + params).success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            //判断当前是否存在记录
+            $scope.foodRecordDataLengths = data.length > 0;
+            if (data != null && data.length > 0) {
+              $scope.foodRecordData = data;
+            } else {
+              $scope.foodRecordDataLengths = false;
+            }
+          }
         });
       }
 
-      function nextDay() {
-        var date = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtStartTime").val()));
-        date = date + 86400000;
-        var time = getLocalTime(date);
-        $('#txtStartTime').datetimepicker({
-          value: time
-        });
-      }
-      var params = ""; //全局变量
-      var app = angular.module('myApp', []);
-      app.controller('customersCtrl', function($scope, $http) {
-        //分页方法声明
-        var pageing = function(pageindex, params) {
-          //请求地址
-          $scope.userid = 0;
-          var url = BasicUrl + "dietAnalysis/mealNutritionEnergyAnalysis?" + params; //请求的参数和地址
-          $http.get(url).success(function(data) {
-            if (data != null && data != "" && data != "null") {
-              //判断当前是否存在记录
-              $scope.dataLengths = data.length > 0;
-              if (data != null && data.length > 0) {
-                $scope.data = data;
-              } else {
-                $scope.dataLengths = false;
-                // alert("未获取到数据，请重试");
-              }
-            }
-          });
-          $http.get(BasicUrl + "dietAnalysis/dailyClassificationOfFoodIntake?" + params).success(function(data) {
-            if (data != null && data != "" && data != "null") {
-              //判断当前是否存在记录
-              $scope.fenleidataLengths = data.length > 0;
-              if (data != null && data.length > 0) {
-                $scope.fenleiData = data;
-              } else {
-                $scope.fenleidataLengths = false;
-              }
-            }
-          });
-          $http.get(BasicUrl + "dietRecord?" + params).success(function(data) {
-            if (data != null && data != "" && data != "null") {
-              //判断当前是否存在记录
-              $scope.foodRecordDataLengths = data.length > 0;
-              if (data != null && data.length > 0) {
-                $scope.foodRecordData = data;
-              } else {
-                $scope.foodRecordDataLengths = false;
-              }
-            }
-          });
+      var index = 0;
+      var UserID = "";
+      var UserName = "";
+      var obj = new UrlSearch();
+      if (obj.userId && obj.date && obj.username) {
+        params = "userId=" + obj.userId + "&date=" + obj.date;
+        //设置数据
+        UserName = obj.username;
+        UserID = obj.userId;
+
+        function formatRepo(repo) {
+          return repo.realName;
         }
 
-        var index = 0;
-        var UserName = "";
-        var obj = new UrlSearch();
-        if (obj.userId && obj.date && obj.username) {
-          params = "userId=" + obj.userId + "&date=" + obj.date;
-          //设置数据
-          $("#txtStartTime").val(obj.date);　
-          UserName = obj.username;
 
-          function formatRepo(repo) {
-            return repo.realName;
-          }
 
-          function formatRepoSelection(repo) {
+        $("#username").select2({
+
+          ajax: {
+            url: function(params) {
+              return BasicUrl + "vip/name/" + params.term;
+            },
+            dataType: 'json',
+            delay: 250,
+            processResults: function(data, page) {
+
+              return {
+
+                results: data
+              };
+            },
+            cache: false
+          },
+          escapeMarkup: function(markup) {
+            return markup;
+          },
+          minimumInputLength: 1,
+          minimumResultsForSearch: 1,
+          width: "120px",
+          templateResult: formatRepo,
+          templateSelection: function(repo) {
             index++;
-            // alert(index);
+            // alert(index);  
             if (index == 2) {
               UserName = decodeURI(obj.username);
-
               return decodeURI(obj.username);
             } else {
+              if (repo.id && repo.id < 10000) {
+                UserID = repo.id;
+              }
+
+              // console.log(repo.id)
               UserName = repo.realName;
               return repo.realName;
             }
           }
-
-          $("#username").select2({
-
-            ajax: {
-              url: function(params) {
-                return BasicUrl + "vip/name/" + params.term;
-              },
-              dataType: 'json',
-              delay: 250,
-              processResults: function(data, page) {
-                return {
-                  results: data
-                };
-              },
-              cache: false
-            },
-            escapeMarkup: function(markup) {
-              return markup;
-            },
-            minimumInputLength: 1,
-            minimumResultsForSearch: 1,
-            width: "120px",
-            templateResult: formatRepo,
-            templateSelection: formatRepoSelection,
-          });
-
-        } else {
-
-          function formatRepo(repo) {
-            return repo.realName;
-          }
-
-          function formatRepoSelection(repo) {
-            UserName = repo.realName;
-            return repo.realName;
-          }
-          $("#username").select2({
-            ajax: {
-              url: function(params) {
-                return BasicUrl + "vip/name/" + params.term;
-              },
-              dataType: 'json',
-              delay: 250,
-              processResults: function(data, page) {
-                return {
-                  results: data
-                };
-              },
-              cache: false
-            },
-            escapeMarkup: function(markup) {
-              return markup;
-            },
-            minimumInputLength: 1,
-            minimumResultsForSearch: 1,
-            width: "120px",
-            templateResult: formatRepo,
-            templateSelection: formatRepoSelection,
-          });
-        }
-        //分页方法
-        pageing(0, params);
-        //查询按钮
-        $scope.search = function() {
-
-          //用户名称
-          var username = $("#username").val();
-          //会员类型
-          var time = $("#txtStartTime").val();
-          //校验只有一个搜索条件
-          if (!(username || time || username || keyword)) {
-            alert("请至少输入一个搜索条件");
-            return false;
-          }
-          if (!username) {
-            tool.alert("提示", "请选择用户！");
-            return false;
-          }
-          if (!time) {
-            tool.alert("提示", "请选择时间！");
-            return false;
-          }
-          params = "userId=" + username + "&date=" + time;
-          pageing(0, params);
-        }
-
-        //跳转至某页方法
-        $scope.skip = function() {
-          if ($scope.toPageValue <= 1) {
-            $scope.toPageValue = 1;
-          } else if ($scope.toPageValue > $scope.totalPage) {
-            $scope.toPageValue = $scope.totalPage;
-          }
-          pageing($scope.toPageValue, params);
-        }
-
-        $scope.redirect = function() {
-          if (!$("#username").val()) {
-            tool.alert("提示", "请选择用户！");
-            return false;
-          }
-          window.location.href = "DietAnalysis.html?userId=" + $("#username").val() + "&username=" + UserName + "&date=" + $("#txtStartTime").val();
-        }
-
-        //加载完毕后再显示 
-        $scope.$watch("viewContentLoaded", function() {
-          angular.element(".myload").removeClass("myload");
         });
+        $("#txtStartTime").val(obj.date);　
+      } else {
+
+        function formatRepo(repo) {
+          return repo.realName;
+        }
+
+        function formatRepoSelection(repo) {
+
+          if (repo.id && repo.id < 10000) {
+            UserID = repo.id;
+          }
+          UserName = repo.realName;
+          return repo.realName;
+        }
+        $("#username").select2({
+          ajax: {
+            url: function(params) {
+              return BasicUrl + "vip/name/" + params.term;
+            },
+            dataType: 'json',
+            delay: 250,
+            processResults: function(data, page) {
+              return {
+                results: data
+              };
+            },
+            cache: false
+          },
+          escapeMarkup: function(markup) {
+            return markup;
+          },
+          minimumInputLength: 1,
+          minimumResultsForSearch: 1,
+          width: "120px",
+          templateResult: formatRepo,
+          templateSelection: formatRepoSelection
+        });
+      }
+      //分页方法
+      pageing(0, params);
+      //查询按钮
+      $scope.search = function() {
+
+        //用户名称
+        // var username = $("#username").val();
+        var username = UserID;
+        //会员类型
+        var time = $("#txtStartTime").val();
+        //校验只有一个搜索条件
+        if (!(username || time)) {
+          tool.alert("提示", "请至少输入一个搜索条件！");
+          return false;
+        }
+        if (!username) {
+          tool.alert("提示", "请选择用户！");
+          return false;
+        }
+        if (!time) {
+          tool.alert("提示", "请选择时间！");
+          return false;
+        }
+        params = "userId=" + username + "&date=" + time;
+        pageing(0, params);
+      }
+
+      //跳转至某页方法
+      $scope.skip = function() {
+        if ($scope.toPageValue <= 1) {
+          $scope.toPageValue = 1;
+        } else if ($scope.toPageValue > $scope.totalPage) {
+          $scope.toPageValue = $scope.totalPage;
+        }
+        pageing($scope.toPageValue, params);
+      }
+
+      $scope.redirect = function() {
+        if (!$("#username").val()) {
+          tool.alert("提示", "请选择用户！");
+          return false;
+        }
+        window.location.href = "DietAnalysis.html?userId=" + $("#username").val() + "&username=" + UserName + "&date=" + $("#txtStartTime").val();
+      }
+
+      //加载完毕后再显示 
+      $scope.$watch("viewContentLoaded", function() {
+        angular.element(".myload").removeClass("myload");
       });
-    </script>
-  </body>
+    });
+  </script>
+</body>
 
 </html>

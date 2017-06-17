@@ -2,270 +2,270 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>报告详情</title>
-    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
-    <link href="../../Styles/common.css" rel="stylesheet">
-    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-    <style>
-      .user-icon {
-        max-width: 100px;
-        height: 100px;
-      }
-      
-      .button-file:hover {
-        text-decoration: none;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>报告详情</title>
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
+  <link href="../../Styles/common.css" rel="stylesheet">
+  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+  <style>
+    .user-icon {
+      max-width: 100px;
+      height: 100px;
+    }
+    
+    .button-file:hover {
+      text-decoration: none;
+    }
+  </style>
+</head>
 
-  <body ng-app="myApp" ng-controller="customersCtrl" class="myload">
-    <!-- 面包屑导航 -->
-    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-      <li><a href="javascript:void(0)">会员报告</a></li>
-      <li><a href="MemberReportList.html">报告列表</a></li>
-      <li class="active">{{"会员报告详情"}}</li>
-    </ol>
-    <!--会员详情-->
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <!-- 消除外边距 -->
-          <div class="col-md-2">
-            <img src='{{data.user.iconUrl==""?"http://usr.im/100x100?text=暂无图片":data.user.iconUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'></div>
-          <div class="col-md-3">
-            <p><b>　　姓名:</b><span><a href="../UserManage/UserInfo.html?id={{data.user.id}}"> {{data.user.vipName}}</a></span></p>
-            <p><b>报告单号:</b><span>{{data.reportNo}}</span></p>
-          </div>
-          <div class="col-md-2">
-            <p><b>性别:</b><span>女</span></p>
-            <p><b>日期:</b><span>{{data.createAt|date:"yyyy/MM/dd" }}</span></p>
-          </div>
-          <div class="col-md-2">
-            <p><b>年龄:</b><span>18</span></p>
-            <p><b>状态:</b>
-              <span ng-if="data.status=='0'">检查登记</span>
-              <span ng-if="data.status=='1'">专家填写</span>
-              <span ng-if="data.status=='2'">待发布</span>
-              <span ng-if="data.status=='3'">已发布</span></p>
-
-          </div>
-          <div class="col-md-3">
-            <button type="button" class="btn btn-primary pull-right" ng-click="publishReport()">发布报告</button>
-          </div>
-          <div class="col-md-2"> </div>
-          <div class="col-md-6 ">
-            <p><b>　　验单:</b>
-              <a ng-repeat="x in data.inspections" href="#?id={{x.id}}">{{x.name+" "}}</a>
-              <span>（<a href="AddCheck.html">创建验单</a>）</span>
-            </p>
-          </div>
+<body ng-app="myApp" ng-controller="customersCtrl" class="myload">
+  <!-- 面包屑导航 -->
+  <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+    <li><a href="javascript:void(0)">会员报告</a></li>
+    <li><a href="MemberReportList.html">报告列表</a></li>
+    <li class="active">{{"会员报告详情"}}</li>
+  </ol>
+  <!--会员详情-->
+  <div class="section">
+    <div class="container">
+      <div class="row">
+        <!-- 消除外边距 -->
+        <div class="col-md-2">
+          <img src='{{data.user.iconUrl==""?"http://usr.im/100x100?text=暂无图片":data.user.iconUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'></div>
+        <div class="col-md-3">
+          <p><b>　　姓名:</b><span><a href="../UserManage/UserInfo.html?id={{data.user.id}}"> {{data.user.vipName}}</a></span></p>
+          <p><b>报告单号:</b><span>{{data.reportNo}}</span></p>
         </div>
-        <hr>
-        <div class="row">
-          <!-- 消除外边距 -->
-          <div class="col-md-2"><img src='{{expertData.foodUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.foodUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
-
-            <button type="button" class="btn btn-primary" ng-click="addConsult('food')" style="margin-top:10px;">确认提交</button>
-          </div>
-          <div class="col-md-10">
-            <p><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.foodReport,'food')">修改</a>)
-              <br>
-              <span>　　</span> <span>{{expertData.foodReport}}
-             </span>
-            </p>
-            <p><b>专家建议:</b>(<a href="" ng-click="editAdvice(expertData.foodAdvice,'food')">修改</a>)
-              <br>
-              <span>　　</span> <span>{{expertData.foodAdvice}}</span>
-            </p>
-          </div>
-          <div class="col-md-10 col-md-offset-2">
-          </div>
-          <div class="col-md-2">
-            <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.foodId,'food')" style="position:relative;right:-27px;" ng-disabled="expertData.foodId<=0">添加处方</a>
-          </div>
-          <div class="col-md-10">
-            <table class="table  table-hover table-bordered">
-              <!-- 表头 -->
-              <thead>
-                <tr>
-                  <th> 处方名称 </th>
-                  <th> 处方类别 </th>
-                  <th> 拼音名 </th>
-                  <th> 操作 </th>
-                </tr>
-              </thead>
-              <tbody id="databody">
-                <tr ng-show="foodChufangArr.length>0" ng-repeat="x in foodChufangArr">
-                  <td>{{ x.name }}</td>
-                  <td>
-                    <span ng-if="x.prescriptionType ==''">处方类别</span>
-                    <span ng-if="x.prescriptionType =='Sport'">运动</span>
-                    <span ng-if="x.prescriptionType =='Nutrition'">营养</span>
-                  </td>
-                  <td>{{ x.spell }}</td>
-                  <td>
-                    <a href="" ng-click="deleteFoodArr(x.id)">删除</a></td>
-                </tr>
-                <tr ng-show="foodChufangArr.length<=0">
-                  <td colspan="100" class="text-center ">暂无结果</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div id="btn-uploader1">
-              <a id="pickfiles1" class="button-file">
-
-                <button type="button" class="btn btn-primary">上传PDF附件</button>
-              </a> <input type="text" name="foodiconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.foodAttach">
-
-              <a href="{{expertData.foodAttach}}" id="foodLink" download="fujian.pdf" class="pdf btn btn-link ">下载附件</a>
-            </div>
-          </div>
-          <div class="col-md-10 col-md-offset-2">
-          </div>
+        <div class="col-md-2">
+          <p><b>性别:</b><span>女</span></p>
+          <p><b>日期:</b><span>{{data.createAt|date:"yyyy/MM/dd" }}</span></p>
         </div>
-        <hr>
-        <div class="row">
-          <!-- 消除外边距 -->
-          <div class="col-md-2">
-            <img src='{{expertData.sportUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.sportUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
+        <div class="col-md-2">
+          <p><b>年龄:</b><span>18</span></p>
+          <p><b>状态:</b>
+            <span ng-if="data.status=='0'">检查登记</span>
+            <span ng-if="data.status=='1'">专家填写</span>
+            <span ng-if="data.status=='2'">待发布</span>
+            <span ng-if="data.status=='3'">已发布</span></p>
 
-            <button type="button" class="btn btn-primary" ng-click="addConsult('sport')" style="margin-top:10px;">确认提交</button>
-          </div>
-          <div class="col-md-10">
-            <p id="sportReport"><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.sportReport,'sport')">修改</a>)
-              <br>
-              <span>　　</span> <span class="content">{{expertData.sportReport}}
-             </span>
-            </p>
-            <p id="sportAdvice"><b>专家建议:</b>(<a href="" ng-click="editAdvice(expertData.sportAdvice,'sport')">修改</a>)
-              <br>
-              <span>　　</span> <span class="content">{{expertData.sportAdvice}}</span>
-            </p>
-          </div>
-          <div class="col-md-10 col-md-offset-2">
-          </div>
-          <div class="col-md-2">
-            <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.sportId,'sport')" style="position:relative;right:-27px;" ng-disabled="expertData.sportId<=0">添加处方</a>
-          </div>
-          <div class="col-md-10">
-            <table class="table  table-hover table-bordered">
-              <!-- 表头 -->
-              <thead>
-                <tr>
-                  <th> 处方名称 </th>
-                  <th> 处方类别 </th>
-                  <th> 拼音名 </th>
-                  <th> 操作 </th>
-                </tr>
-              </thead>
-              <tbody id="databody">
-                <tr ng-show="sportChufangArr.length>0" ng-repeat="x in sportChufangArr">
-                  <td>{{ x.name }}</td>
-                  <td>
-                    <span ng-if="x.prescriptionType ==''">处方类别</span>
-                    <span ng-if="x.prescriptionType =='Sport'">运动</span>
-                    <span ng-if="x.prescriptionType =='Nutrition'">营养</span>
-                  </td>
-                  <td>{{ x.spell }}</td>
-                  <td>
-                    <a href="" ng-click="deleteSportArr(x.id)">删除</a></td>
-                </tr>
-                <tr ng-show="sportChufangArr.length<=0">
-                  <td colspan="100" class="text-center ">暂无结果</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div id="btn-uploader">
-              <a id="pickfiles" class="button-file">
-                <!--<img id="img" src='{{model.imageUrl ==null?"../../images/upload/upload-alert.png":model.imageUrl}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;">-->
-                <button type="button" class="btn btn-primary">上传PDF附件</button>
-              </a> <input type="text" name="sporticonUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.sportAttach">
-              <!--<a href="{{expertData.sportAttach}}" id="sportLink" target="_blank" class="pdf btn btn-link">查看附件</a>-->
-              <a href="{{expertData.sportAttach}}" id="sportLink" download="fujian.pdf" class="pdf btn btn-link">下载附件</a>
-              <!---->
-            </div>
-          </div>
-          <div class="col-md-10 col-md-offset-2">
-
-          </div>
         </div>
-
+        <div class="col-md-3">
+          <button type="button" class="btn btn-primary pull-right" ng-click="publishReport()">发布报告</button>
+        </div>
+        <div class="col-md-2"> </div>
+        <div class="col-md-6 ">
+          <p><b>　　验单:</b>
+            <a ng-repeat="x in data.inspections" href="#?id={{x.id}}">{{x.name+" "}}</a>
+            <span>（<a href="AddCheck.html?reportId={{reportId}}&userid={{data.user.id}}">创建验单</a>）</span>
+          </p>
+        </div>
       </div>
-    </div>
+      <hr>
+      <div class="row">
+        <!-- 消除外边距 -->
+        <div class="col-md-2"><img src='{{expertData.foodUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.foodUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
 
+          <button type="button" class="btn btn-primary" ng-click="addConsult('food')" style="margin-top:10px;">确认提交</button>
+        </div>
+        <div class="col-md-10">
+          <p><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.foodReport,'food')">修改</a>)
+            <br>
+            <span>　　</span> <span>{{expertData.foodReport}}
+             </span>
+          </p>
+          <p><b>专家建议:</b>(<a href="" ng-click="editAdvice(expertData.foodAdvice,'food')">修改</a>)
+            <br>
+            <span>　　</span> <span>{{expertData.foodAdvice}}</span>
+          </p>
+        </div>
+        <div class="col-md-10 col-md-offset-2">
+        </div>
+        <div class="col-md-2">
+          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.foodId,'food')" style="position:relative;right:-27px;" ng-disabled="expertData.foodId<=0">添加处方</a>
+        </div>
+        <div class="col-md-10">
+          <table class="table  table-hover table-bordered">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <th> 处方名称 </th>
+                <th> 处方类别 </th>
+                <th> 拼音名 </th>
+                <th> 操作 </th>
+              </tr>
+            </thead>
+            <tbody id="databody">
+              <tr ng-show="foodChufangArr.length>0" ng-repeat="x in foodChufangArr">
+                <td>{{ x.name }}</td>
+                <td>
+                  <span ng-if="x.prescriptionType ==''">处方类别</span>
+                  <span ng-if="x.prescriptionType =='Sport'">运动</span>
+                  <span ng-if="x.prescriptionType =='Nutrition'">营养</span>
+                </td>
+                <td>{{ x.spell }}</td>
+                <td>
+                  <a href="" ng-click="deleteFoodArr(x.id)">删除</a></td>
+              </tr>
+              <tr ng-show="foodChufangArr.length<=0">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tr>
+            </tbody>
+          </table>
 
-    <!--按钮END-->
-    <div class="modal fade bs-example-modal-lg" id="modal">
-      <div class="modal-dialog  modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title text-center">添加处方</h4>
+          <div id="btn-uploader1">
+            <a id="pickfiles1" class="button-file">
+
+              <button type="button" class="btn btn-primary">上传PDF附件</button>
+            </a> <input type="text" name="foodiconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.foodAttach">
+
+            <a href="{{expertData.foodAttach}}" id="foodLink" download="fujian.pdf" class="pdf btn btn-link ">下载附件</a>
           </div>
-          <div class="modal-body">
-            <form class="form-horizontal" role="form">
-              <div class="form-group">
-                <div class="col-sm-2 text-right">
-                  <label for="chufanglist" class="control-label">处方类别</label>
-                </div>
-                <div class="col-sm-3">
-                  <select id="chufangType" class="form-control" style="width:100%;">
+        </div>
+        <div class="col-md-10 col-md-offset-2">
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <!-- 消除外边距 -->
+        <div class="col-md-2">
+          <img src='{{expertData.sportUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.sportUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
+
+          <button type="button" class="btn btn-primary" ng-click="addConsult('sport')" style="margin-top:10px;">确认提交</button>
+        </div>
+        <div class="col-md-10">
+          <p id="sportReport"><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.sportReport,'sport')">修改</a>)
+            <br>
+            <span>　　</span> <span class="content">{{expertData.sportReport}}
+             </span>
+          </p>
+          <p id="sportAdvice"><b>专家建议:</b>(<a href="" ng-click="editAdvice(expertData.sportAdvice,'sport')">修改</a>)
+            <br>
+            <span>　　</span> <span class="content">{{expertData.sportAdvice}}</span>
+          </p>
+        </div>
+        <div class="col-md-10 col-md-offset-2">
+        </div>
+        <div class="col-md-2">
+          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.sportId,'sport')" style="position:relative;right:-27px;" ng-disabled="expertData.sportId<=0">添加处方</a>
+        </div>
+        <div class="col-md-10">
+          <table class="table  table-hover table-bordered">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <th> 处方名称 </th>
+                <th> 处方类别 </th>
+                <th> 拼音名 </th>
+                <th> 操作 </th>
+              </tr>
+            </thead>
+            <tbody id="databody">
+              <tr ng-show="sportChufangArr.length>0" ng-repeat="x in sportChufangArr">
+                <td>{{ x.name }}</td>
+                <td>
+                  <span ng-if="x.prescriptionType ==''">处方类别</span>
+                  <span ng-if="x.prescriptionType =='Sport'">运动</span>
+                  <span ng-if="x.prescriptionType =='Nutrition'">营养</span>
+                </td>
+                <td>{{ x.spell }}</td>
+                <td>
+                  <a href="" ng-click="deleteSportArr(x.id)">删除</a></td>
+              </tr>
+              <tr ng-show="sportChufangArr.length<=0">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div id="btn-uploader">
+            <a id="pickfiles" class="button-file">
+              <!--<img id="img" src='{{model.imageUrl ==null?"../../images/upload/upload-alert.png":model.imageUrl}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;">-->
+              <button type="button" class="btn btn-primary">上传PDF附件</button>
+            </a> <input type="text" name="sporticonUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.sportAttach">
+            <!--<a href="{{expertData.sportAttach}}" id="sportLink" target="_blank" class="pdf btn btn-link">查看附件</a>-->
+            <a href="{{expertData.sportAttach}}" id="sportLink" download="fujian.pdf" class="pdf btn btn-link">下载附件</a>
+            <!---->
+          </div>
+        </div>
+        <div class="col-md-10 col-md-offset-2">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!--按钮END-->
+  <div class="modal fade bs-example-modal-lg" id="modal">
+    <div class="modal-dialog  modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title text-center">添加处方</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <div class="col-sm-2 text-right">
+                <label for="chufanglist" class="control-label">处方类别</label>
+              </div>
+              <div class="col-sm-3">
+                <select id="chufangType" class="form-control" style="width:100%;">
                     <option value="">所有</option>
                     <option value="Sport">运动处方</option>
                     <option value="Nutrition">营养处方</option>  
                   </select>
-                </div>
-                <div class="col-sm-2 text-right">
-                  <label for="chufanglist" class="control-label">选择处方</label>
-                </div>
-                <div class="col-sm-3">
-                  <select id="chufanglist" class="form-control" style="width:100%;">
+              </div>
+              <div class="col-sm-2 text-right">
+                <label for="chufanglist" class="control-label">选择处方</label>
+              </div>
+              <div class="col-sm-3">
+                <select id="chufanglist" class="form-control" style="width:100%;">
                    <option  value="">请选择</option>
                    <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option>
                 </select>
-                </div>
-                <div class="col-sm-2">
-                  <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
-                </div>
               </div>
-              <div class="form-group">
-                <div class="col-md-12">
-                  <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
-                  <div class="panel panel-default" style="margin-bottom:0;">
-                    <div class="panel-body" style="padding: 0;">
-                      <table class="table table-hover">
-                        <!-- 表头 -->
-                        <thead>
-                          <tr>
-                            <th> 序号 </th>
-                            <th> 处方名 </th>
-                            <th> 处方类别 </th>
-                            <th> 拼音 </th>
-                          </tr>
-                        </thead>
-                        <tbody id="databody">
-                          <tr ng-show="dataLengths" ng-repeat="x in datas.content">
-                            <td>{{ $index+1 }}</td>
-                            <td><a href="#" ng-click=getEditModel(x.id)>{{ x.name }}</a></td>
-                            <td>{{ x.prescriptionType=="Sport"?"运动":"营养" }}</td>
-                            <td>{{ x.spell}}</td>
-                          </tr>
-                          <tr ng-show="!dataLengths">
-                            <td colspan="100" class="text-center ">暂无结果</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+              <div class="col-sm-2">
+                <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-12">
+                <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
+                <div class="panel panel-default" style="margin-bottom:0;">
+                  <div class="panel-body" style="padding: 0;">
+                    <table class="table table-hover">
+                      <!-- 表头 -->
+                      <thead>
+                        <tr>
+                          <th> 序号 </th>
+                          <th> 处方名 </th>
+                          <th> 处方类别 </th>
+                          <th> 拼音 </th>
+                        </tr>
+                      </thead>
+                      <tbody id="databody">
+                        <tr ng-show="dataLengths" ng-repeat="x in datas.content">
+                          <td>{{ $index+1 }}</td>
+                          <td><a href="#" ng-click=getEditModel(x.id)>{{ x.name }}</a></td>
+                          <td>{{ x.prescriptionType=="Sport"?"运动":"营养" }}</td>
+                          <td>{{ x.spell}}</td>
+                        </tr>
+                        <tr ng-show="!dataLengths">
+                          <td colspan="100" class="text-center ">暂无结果</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
-
                 </div>
-                <div ng-show="dataLengths" class="col-md-12">
-                  <!--<div class="form-group pull-right topage_block">
+
+              </div>
+              <div ng-show="dataLengths" class="col-md-12">
+                <!--<div class="form-group pull-right topage_block">
  
                     <label>{{totalRecord}}条/{{totalPage}}页</label>
                     <label>跳至</label>
@@ -273,445 +273,641 @@
                     <label>页</label>
                     <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
                   </div>-->
-                  <!-- 分页控件 -->
-                  <input id="currentPage" name="currentPage" value="1" type="hidden">
-                  <div class="pull-right">
-                    <ul class="pagination" id="alreadyPage"></ul>
-                  </div>
+                <!-- 分页控件 -->
+                <input id="currentPage" name="currentPage" value="1" type="hidden">
+                <div class="pull-right">
+                  <ul class="pagination" id="alreadyPage"></ul>
                 </div>
               </div>
-              <hr>
-              <div ng-show="model.id>0">
+            </div>
+            <hr>
+            <div ng-show="model.id>0">
 
 
-                <input type="hidden" name="id" ng-model="model.id">
-                <form class="form-horizontal " role="form" id="addForm" name="addForm">
-                  <div class="form-group">
-                    <div class="col-sm-2 text-right "><label for="chufangName" class="control-label">处方名称</label></div>
-                    <div class="col-sm-4">
-                      <input type="text" class="form-control" id="chufangName" placeholder="处方名称" ng-model="model.name">
-                    </div>
-                    <div class="col-sm-2 text-right"><label for="spellName" class="control-label">拼音名称</label></div>
-                    <div class="col-sm-4"><input type="text" class="form-control" id="spellName" placeholder="拼音名称" ng-model="model.spell"></div>
+              <input type="hidden" name="id" ng-model="model.id">
+              <form class="form-horizontal " role="form" id="addForm" name="addForm">
+                <div class="form-group">
+                  <div class="col-sm-2 text-right "><label for="chufangName" class="control-label">处方名称</label></div>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control" id="chufangName" placeholder="处方名称" ng-model="model.name">
                   </div>
-                  <div class="form-group">
-                    <div class="col-sm-2 text-right"><label for="spellName" class="control-label">处方类别</label></div>
-                    <div class="col-sm-10">
-                      <select class="form-control" id="chufangTypes" ng-model="model.prescriptionType">
+                  <div class="col-sm-2 text-right"><label for="spellName" class="control-label">拼音名称</label></div>
+                  <div class="col-sm-4"><input type="text" class="form-control" id="spellName" placeholder="拼音名称" ng-model="model.spell"></div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-2 text-right"><label for="spellName" class="control-label">处方类别</label></div>
+                  <div class="col-sm-10">
+                    <select class="form-control" id="chufangTypes" ng-model="model.prescriptionType">
                   <option value="">请选择</option>
                   <option value="Nutrition">营养处方</option>
                   <option value="Sport">运动处方</option>
                 </select>
-                    </div>
                   </div>
+                </div>
 
-                  <div class="form-group">
-                    <div class="col-sm-2 text-right"><label for="spellName" class="control-label">　　内容</label></div>
-                    <div class="col-sm-10">
-                      <textarea rows="5" cols="5" class="form-control" id="chufangContent" placeholder="请输入处方内容" ng-model="model.description"></textarea>
-                    </div>
+                <div class="form-group">
+                  <div class="col-sm-2 text-right"><label for="spellName" class="control-label">　　内容</label></div>
+                  <div class="col-sm-10">
+                    <textarea rows="5" cols="5" class="form-control" id="chufangContent" placeholder="请输入处方内容" ng-model="model.description"></textarea>
                   </div>
-                </form>
-              </div>
-            </form>
-          </div>
+                </div>
+              </form>
+            </div>
+          </form>
+        </div>
 
-          <div class="modal-footer">
-            <!--<a class="btn  btn-primary pull-left" href="PrescriptionList.html?reportId={{reportId}}">添加新处方</a>-->
-            <a class="btn btn-default" data-dismiss="modal">取消</a>
-            <a class="btn btn-primary" ng-click='addChufangObj()'>添加</a>
-          </div>
+        <div class="modal-footer">
+          <!--<a class="btn  btn-primary pull-left" href="PrescriptionList.html?reportId={{reportId}}">添加新处方</a>-->
+          <a class="btn btn-default" data-dismiss="modal">取消</a>
+          <a class="btn btn-primary" ng-click='addChufangObj()'>添加</a>
         </div>
       </div>
     </div>
-    <script>
-    </script>
-    <!--脚本-->
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../../Scripts/select2.js"></script>
-    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
-    <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-    <!--自定义脚本部分-->
-    <script>
-      var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
-      var sportFileName = "";
-      var foodFileName = "";
-      uploader = Qiniu.uploader({
-        runtimes: 'html5,flash,html4',
-        browse_button: 'pickfiles', //上传按钮的ID
-        container: 'btn-uploader', //上传按钮的上级元素ID
-        drop_element: 'btn-uploader',
-        max_file_size: '100mb', //最大文件限制　
-        dragdrop: false,
-        chunk_size: '4mb', //分块大小  
+  </div>
+  <script>
+  </script>
+  <!--脚本-->
+  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <!--自定义脚本部分-->
+  <script>
+    var domainUrl = "http://omsss06f1.bkt.clouddn.com/";
+    var sportFileName = "";
+    var foodFileName = "";
+    uploader = Qiniu.uploader({
+      runtimes: 'html5,flash,html4',
+      browse_button: 'pickfiles', //上传按钮的ID
+      container: 'btn-uploader', //上传按钮的上级元素ID
+      drop_element: 'btn-uploader',
+      max_file_size: '100mb', //最大文件限制　
+      dragdrop: false,
+      chunk_size: '4mb', //分块大小  
 
-        uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
-          var token = "";
-          $.ajax({
-            type: "get",
-            url: "http://60.205.170.209:8080/admin/api/qnToken",
-            async: false,
-            dataType: "json",
-            success: function(data) {
-              token = data.upToken;
-            }
-          });
-          return token;
-        },
-        // save_key: true,
-        unique_names: true,
-
-        domain: domainUrl, //自己的七牛云存储空间域名
-        multi_selection: false, //是否允许同时选择多文件
-        //文件类型过滤，这里限制为图片类型
-        filters: {
-          mime_types: [{
-            title: "PDF files",
-            extensions: "pdf"
-          }]
-        },
-        auto_start: true,
-        init: {
-          'FilesAdded': function(up, files) {
-            //do something
-          },
-          'BeforeUpload': function(up, file) {
-            // alert(file);
-            sportFileName = file.name;
-            console.log(file.name);
-            //do something
-          },
-          'UploadProgress': function(up, file) {
-            //可以在这里控制上传进度的显示
-            //可参考七牛的例子
-          },
-          'UploadComplete': function() {
-            //do something
-          },
-          'FileUploaded': function(up, file, info) {　
-            var json = JSON.parse(info);
-            tool.alert("提示", "上传成功");
-            var imgSrc = domainUrl + json.key;
-            $("[name='sporticonUrl']").val(imgSrc);
-            $("#sportLink").attr("href", imgSrc);
-            $("#sportLink").text(sportFileName);
-            changeFileDisable();
-          },
-          'Error': function(up, err, errTip) {
-            tool.alert("提示", errTip);
-          },
-          'Key': function(up, file) {
-            var key = '';
-            var timestamp = (new Date()).valueOf();
-            key = timestamp + "_hes.pdf";
-            return key;
+      uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
+        var token = "";
+        $.ajax({
+          type: "get",
+          url: "http://60.205.170.209:8080/admin/api/qnToken",
+          async: false,
+          dataType: "json",
+          success: function(data) {
+            token = data.upToken;
           }
+        });
+        return token;
+      },
+      // save_key: true,
+      unique_names: true,
+
+      domain: domainUrl, //自己的七牛云存储空间域名
+      multi_selection: false, //是否允许同时选择多文件
+      //文件类型过滤，这里限制为图片类型
+      filters: {
+        mime_types: [{
+          title: "PDF files",
+          extensions: "pdf"
+        }]
+      },
+      auto_start: true,
+      init: {
+        'FilesAdded': function(up, files) {
+          //do something
+        },
+        'BeforeUpload': function(up, file) {
+          // alert(file);
+          sportFileName = file.name;
+          console.log(file.name);
+          //do something
+        },
+        'UploadProgress': function(up, file) {
+          //可以在这里控制上传进度的显示
+          //可参考七牛的例子
+        },
+        'UploadComplete': function() {
+          //do something
+        },
+        'FileUploaded': function(up, file, info) {　
+          var json = JSON.parse(info);
+          tool.alert("提示", "上传成功");
+          var imgSrc = domainUrl + json.key;
+          $("[name='sporticonUrl']").val(imgSrc);
+          $("#sportLink").attr("href", imgSrc);
+          $("#sportLink").text(sportFileName);
+          changeFileDisable();
+        },
+        'Error': function(up, err, errTip) {
+          tool.alert("提示", errTip);
+        },
+        'Key': function(up, file) {
+          var key = '';
+          var timestamp = (new Date()).valueOf();
+          key = timestamp + "_hes.pdf";
+          return key;
         }
-      });
-      uploader1 = Qiniu.uploader({
-        runtimes: 'html5,flash,html4',
-        browse_button: 'pickfiles1', //上传按钮的ID
-        container: 'btn-uploader1', //上传按钮的上级元素ID
-        drop_element: 'btn-uploader1',
-        max_file_size: '100mb', //最大文件限制　
-        dragdrop: false,
-        chunk_size: '4mb', //分块大小 
-        // unique_names: true,
-        // save_key: false,
-        uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
-          var token = "";
-          $.ajax({
-            type: "get",
-            url: "http://60.205.170.209:8080/admin/api/qnToken",
-            async: false,
-            dataType: "json",
-            success: function(data) {
-              token = data.upToken;
-            }
-          });
-          return token;
-        },
-        unique_names: false,
-        domain: domainUrl, //自己的七牛云存储空间域名
-        multi_selection: false, //是否允许同时选择多文件
-        //文件类型过滤，这里限制为图片类型
-        filters: {
-          mime_types: [{
-            title: "PDF files",
-            extensions: "pdf"
-          }]
-        },
-        auto_start: true,
-        init: {
-          'FilesAdded': function(up, files) {
-            //do something
-          },
-          'BeforeUpload': function(up, file) {
-            //do something
-            foodFileName = file.name;
-          },
-          'UploadProgress': function(up, file) {
-            //可以在这里控制上传进度的显示
-            //可参考七牛的例子
-          },
-          'UploadComplete': function() {
-            //do something
-          },
-          'FileUploaded': function(up, file, info) {　
-            var json = JSON.parse(info);
-            tool.alert("提示", "上传成功");
-            var imgSrc = domainUrl + json.key;
-            $("[name='foodiconUrl']").val(imgSrc);
-            $("#foodLink").attr("href", imgSrc);
-            $("#foodLink").text(foodFileName);
-            changeFileDisable();
-          },
-          'Error': function(up, err, errTip) {
-            tool.alert("提示", errTip);
-          },
-          'Key': function(up, file) {
-            var key = '';
-            var timestamp = (new Date()).valueOf();
-            key = timestamp + "_hes.pdf";
-            return key;
-          }
-        }
-      });
-
-
-      function changeFileDisable() {
-        $(".pdf").each(function() {
-          if ($(this).attr('href') == "") {
-            $(this).addClass('disabled');
-          } else {
-            $(this).removeClass('disabled');
-          }
-        })
       }
-      var params = ""; //全局变量  请求的参数
-
-      var chufangObj = {};
-      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
-      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-      // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-      var app = angular.module('myApp', []);
-      app.controller('customersCtrl', function($scope, $http, $timeout) {
-        //获取处方下拉菜单
-
-        var chufangurl = BasicUrl + "prescription?page=0&pageNum=10";
-        $http.get(chufangurl).success(function(data) {
-          if (data != null && data != "" && data != "null") {
-            $scope.options = data.content;
+    });
+    uploader1 = Qiniu.uploader({
+      runtimes: 'html5,flash,html4',
+      browse_button: 'pickfiles1', //上传按钮的ID
+      container: 'btn-uploader1', //上传按钮的上级元素ID
+      drop_element: 'btn-uploader1',
+      max_file_size: '100mb', //最大文件限制　
+      dragdrop: false,
+      chunk_size: '4mb', //分块大小 
+      // unique_names: true,
+      // save_key: false,
+      uptoken_func: function() { // 在需要获取uptoken时，该方法会被调用　
+        var token = "";
+        $.ajax({
+          type: "get",
+          url: "http://60.205.170.209:8080/admin/api/qnToken",
+          async: false,
+          dataType: "json",
+          success: function(data) {
+            token = data.upToken;
           }
-          tool.changeSelect($("#chufanglist"), false);
+        });
+        return token;
+      },
+      unique_names: false,
+      domain: domainUrl, //自己的七牛云存储空间域名
+      multi_selection: false, //是否允许同时选择多文件
+      //文件类型过滤，这里限制为图片类型
+      filters: {
+        mime_types: [{
+          title: "PDF files",
+          extensions: "pdf"
+        }]
+      },
+      auto_start: true,
+      init: {
+        'FilesAdded': function(up, files) {
+          //do something
+        },
+        'BeforeUpload': function(up, file) {
+          //do something
+          foodFileName = file.name;
+        },
+        'UploadProgress': function(up, file) {
+          //可以在这里控制上传进度的显示
+          //可参考七牛的例子
+        },
+        'UploadComplete': function() {
+          //do something
+        },
+        'FileUploaded': function(up, file, info) {　
+          var json = JSON.parse(info);
+          tool.alert("提示", "上传成功");
+          var imgSrc = domainUrl + json.key;
+          $("[name='foodiconUrl']").val(imgSrc);
+          $("#foodLink").attr("href", imgSrc);
+          $("#foodLink").text(foodFileName);
+          changeFileDisable();
+        },
+        'Error': function(up, err, errTip) {
+          tool.alert("提示", errTip);
+        },
+        'Key': function(up, file) {
+          var key = '';
+          var timestamp = (new Date()).valueOf();
+          key = timestamp + "_hes.pdf";
+          return key;
+        }
+      }
+    });
+
+
+    function changeFileDisable() {
+      $(".pdf").each(function() {
+        if ($(this).attr('href') == "") {
+          $(this).addClass('disabled');
+        } else {
+          $(this).removeClass('disabled');
+        }
+      })
+    }
+    var params = ""; //全局变量  请求的参数
+
+    var chufangObj = {};
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆   
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+    var app = angular.module('myApp', []);
+    app.controller('customersCtrl', function($scope, $http, $timeout) {
+      //获取处方下拉菜单
+
+      var chufangurl = BasicUrl + "prescription?page=0&pageNum=10";
+      $http.get(chufangurl).success(function(data) {
+        if (data != null && data != "" && data != "null") {
+          $scope.options = data.content;
+        }
+        tool.changeSelect($("#chufanglist"), false);
+      });
+
+
+
+
+
+
+      //分页方法声明
+      var pageing = function(pageindex, params) {
+        //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../prescription?
+        var url = BasicUrl + "prescription?" + params + "page=" + pageindex + "&pageNum=5"; //请求的参数和地址
+        $http.get(url).success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            //判断当前是否存在记录
+
+            if (data.content && data.content != null && data.content.length > 0) {
+              $scope.dataLengths = data.content.length > 0;
+              //赋值操作 
+              $scope.datas = data;
+              $scope.totalPage = data.totalPages;
+              $scope.totalRecord = data.totalElements;
+              //调用生成分页方法
+              initPageDiv($("#alreadyPage"), //在哪里生成页码
+                pageindex + 1, //当前页
+                data.totalPages, //总页数
+                5, //每次显示多少页
+                $("#currentPage"), //隐藏域的值：当前页数
+                function() {
+                  pageing($("#currentPage").val() - 1, params);
+                });
+            } else {
+              $scope.dataLengths = false;
+              // tool.alert("提示", "当前条件下未获取到信息!");
+            }
+          }
+        });
+      }
+
+      //分页方法
+
+      // pageing(0, params);
+      //TODO  未完成
+      $scope.getEditModel = function(id) {
+        var arr = $scope.datas.content;
+        arr.forEach(function(element, index, array) {
+          var obj = element;
+          if (element.id == id) {
+            $scope.model = {
+              id: id,
+              name: element.name,
+              spell: element.spell,
+              prescriptionType: element.prescriptionType,
+              description: element.description,
+            };
+
+            chufangObj = {
+              id: id,
+              name: element.name,
+              spell: element.spell,
+              prescriptionType: element.prescriptionType,
+              description: element.description
+            }
+          }
+        }, this);
+      }
+
+      //关闭模态框时事件
+      $('#modal').on('hidden.bs.modal', function() {
+        $scope.model = {};
+        $scope.datas = {};
+      })
+
+      //关闭模态框时事件
+      $('#modal').on('hide.bs.modal', function() {
+        $scope.model = {};
+        $scope.datas = {};
+      })
+
+
+      //获取详情
+      var reportObj = new UrlSearch();
+      if (reportObj.id) {
+        $scope.reportId = reportObj.id;
+        var url = BasicUrl + "report/" + reportObj.id;
+        $http.get(url).success(function(data) {
+          if (data != null && data != "" && data != "null" && data.id) {
+            $scope.data = data;
+            //当前报告单的专家的ID
+            if (data.experts.SportExpert) {
+              $scope.experts = {
+                sportId: data.experts.SportExpert.id
+              }
+
+            }
+            if (data.experts.DietitianExpert) {
+              $scope.experts = {
+                foodId: data.experts.DietitianExpert.id
+              }
+            }
+
+
+
+            //当前报告单的专家建议的先关信息
+            $scope.expertData = {
+              sportReport: "",
+              sportAdvice: "",
+              sportUrl: "",
+              sportId: 0,
+              foodReport: "",
+              foodAdvice: "",
+              foodUrl: "",
+              foodId: 0
+            };
+            $scope.foodChufangArr = [];
+            $scope.sportChufangArr = [];
+
+            if (data.consults && data.consults.length > 0) {
+              for (var index = 0; index < data.consults.length; index++) {
+                var element = data.consults[index];
+                if (element.admin.role == 2) {
+                  $scope.expertData.sportReport = element.analysis;
+                  $scope.expertData.sportAdvice = element.advice;
+                  $scope.expertData.sportUrl = data.experts.SportExpert.id;
+                  $scope.expertData.sportId = element.id;
+                  $scope.sportChufangArr = element.prescriptions;
+                  $scope.expertData.sportAttach = element.attach;
+                }
+                if (element.admin.role == 3) {
+                  $scope.expertData.foodReport = element.analysis;
+
+                  $scope.expertData.foodAdvice = element.advice;
+                  $scope.expertData.foodUrl = element.admin.iconUrl;
+                  $scope.expertData.foodId = element.id;
+                  $scope.foodChufangArr = element.prescriptions;
+                  $scope.expertData.foodAttach = element.attach;
+                }
+              }
+            }
+            if (!$scope.expertData.foodAttach) {
+              $("#foodLink").addClass('disabled');
+            }
+
+            if (!$scope.expertData.sportAttach) {
+              $("#sportLink").addClass('disabled');
+            }
+
+          } else {
+            tool.alert("提示", data.errorMessage);
+          }
+        }).error(function(data, header, config, status) {
+          tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+          window.location.href = "MemberReportList.html";
         });
 
-
-
-
-
-
-        //分页方法声明
-        var pageing = function(pageindex, params) {
-            //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../prescription?
-            var url = BasicUrl + "prescription?" + params + "page=" + pageindex + "&pageNum=5"; //请求的参数和地址
-            $http.get(url).success(function(data) {
-              if (data != null && data != "" && data != "null") {
-                //判断当前是否存在记录
-
-                if (data.content && data.content != null && data.content.length > 0) {
-                  $scope.dataLengths = data.content.length > 0;
-                  //赋值操作 
-                  $scope.datas = data;
-                  $scope.totalPage = data.totalPages;
-                  $scope.totalRecord = data.totalElements;
-                  //调用生成分页方法
-                  initPageDiv($("#alreadyPage"), //在哪里生成页码
-                    pageindex + 1, //当前页
-                    data.totalPages, //总页数
-                    5, //每次显示多少页
-                    $("#currentPage"), //隐藏域的值：当前页数
-                    function() {
-                      pageing($("#currentPage").val() - 1, params);
-                    });
-                } else {
-                  $scope.dataLengths = false;
-                  // tool.alert("提示", "当前条件下未获取到信息!");
-                }
-              }
-            });
-          }
-          //分页方法
-
-        // pageing(0, params);
-        //TODO  未完成
-        $scope.getEditModel = function(id) {
-          var arr = $scope.datas.content;
-          arr.forEach(function(element, index, array) {
-            var obj = element;
-            if (element.id == id) {
-              $scope.model = {
-                id: id,
-                name: element.name,
-                spell: element.spell,
-                prescriptionType: element.prescriptionType,
-                description: element.description,
-              };
-
-              chufangObj = {
-                id: id,
-                name: element.name,
-                spell: element.spell,
-                prescriptionType: element.prescriptionType,
-                description: element.description
-              }
-            }
-          }, this);
-        }
-
-        //关闭模态框时事件
-        $('#modal').on('hidden.bs.modal', function() {
-          $scope.model = {};
-          $scope.datas = {};
-        })
-
-        //关闭模态框时事件
-        $('#modal').on('hide.bs.modal', function() {
-          $scope.model = {};
-          $scope.datas = {};
-        })
-
-
-
-        //获取详情
-        var reportObj = new UrlSearch();
-        if (reportObj.id) {
-          $scope.reportId = reportObj.id;
-          var url = BasicUrl + "report/" + reportObj.id;
-          $http.get(url).success(function(data) {
-            if (data != null && data != "" && data != "null" && data.id) {
-              $scope.data = data;
-              $scope.expertData = {
-                sportReport: "",
-                sportAdvice: "",
-                sportUrl: "",
-                sportId: 0,
-                foodReport: "",
-                foodAdvice: "",
-                foodUrl: "",
-                foodId: 0
-              };
-              $scope.foodChufangArr = [];
-              $scope.sportChufangArr = [];
-
-              if (data.consults && data.consults.length > 0) {
-                for (var index = 0; index < data.consults.length; index++) {
-                  var element = data.consults[index];
-                  if (element.admin.role == 2) {
-                    $scope.expertData.sportReport = element.analysis;
-                    $scope.expertData.sportAdvice = element.advice;
-                    $scope.expertData.sportUrl = element.admin.iconUrl;
-                    $scope.expertData.sportId = element.id;
-                    $scope.sportChufangArr = element.prescriptions;
-                    $scope.expertData.sportAttach = element.attach;
-                  }
-                  if (element.admin.role == 3) {
-                    $scope.expertData.foodReport = element.analysis;
-                    $scope.expertData.foodAdvice = element.advice;
-                    $scope.expertData.foodUrl = element.admin.iconUrl;
-                    $scope.expertData.foodId = element.id;
-                    $scope.foodChufangArr = element.prescriptions;
-                    $scope.expertData.foodAttach = element.attach;
-                  }
-                }
-              }
-              if (!$scope.expertData.foodAttach) {
-                $("#foodLink").addClass('disabled');
-              }
-
-              if (!$scope.expertData.sportAttach) {
-                $("#sportLink").addClass('disabled');
-              }
-
-            } else {
-              tool.alert("提示", data.errorMessage);
-            }
-          }).error(function(data, header, config, status) {
-            tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
-            window.location.href = "MemberReportList.html";
-          });
-
+      } else {
+        tool.alert("提示", "参数错误,当前无法获取数据!");
+        window.location.href = "MemberReportList.html";
+      }　
+      //修改报告分析
+      $scope.editReport = function(content, type) {
+        if (content) {
+          var htmlstr = '<textarea rows="5" id="editReport" class="form-control" placeholder="请w输入修改内容">' + content + '</textarea>'
         } else {
-          tool.alert("提示", "参数错误,当前无法获取数据!");
-          window.location.href = "MemberReportList.html";
-        }　
-        //修改报告分析
-        $scope.editReport = function(content, type) {
-          if (content) {
-            var htmlstr = '<textarea rows="5" id="editReport" class="form-control" placeholder="请w输入修改内容">' + content + '</textarea>'
-          } else {
-            var htmlstr = '<textarea rows="5" class="form-control" id="editReport" placeholder="请输入修改内容">' + '</textarea>'
+          var htmlstr = '<textarea rows="5" class="form-control" id="editReport" placeholder="请输入修改内容">' + '</textarea>'
+        }
+
+        tool.confirm("请修改内容", htmlstr, function() {
+          var vals = window.top.$("#editReport").val();
+          // $scope.data.consults.analysis = vals;
+          $scope.expertData[type + 'Report'] = vals;
+          $scope.$apply();
+        }, function() {})
+      }
+
+      //修改建议
+      $scope.editAdvice = function(content, type) {
+        if (content) {
+          var htmlstr = '<textarea rows="5" id="adviceContent" class="form-control" placeholder="请输入修改内容">' + content + '</textarea>'
+        } else {
+          var htmlstr = '<textarea rows="5" class="form-control" id="adviceContent" placeholder="请输入修改内容">' + '</textarea>'
+        }
+
+        tool.confirm("请修改内容", htmlstr, function() {
+          var val = window.top.$("#adviceContent").val();
+          $scope.expertData[type + 'Advice'] = val;
+          $scope.$apply();
+        }, function() {})
+      }
+
+      //添加处方时改变相关ID
+      $scope.addChufang = function(id, type) {
+        $scope.expertAdviceReportId = id;
+        $scope.expertType = type;
+      }
+
+      //添加处方确定操作
+      $scope.addChufangObj = function() {
+        //判断处方内容是否有修改  
+        if (!$scope.model) {
+          tool.alert("提示", "您还未选择处方！");
+          return false;
+        }
+
+        if (($scope.model.name == chufangObj.name) &&
+          ($scope.model.spell == chufangObj.spell) &&
+          ($scope.model.prescriptionType == chufangObj.prescriptionType) &&
+          ($scope.model.description == chufangObj.description)) {
+          // 相同时操作 
+          var chufangID = $scope.model.id;
+          //异步请求操作
+          $.ajax({
+            type: "POST",
+            url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertAdviceReportId + "/prescription",
+            data: {
+              reportId: $scope.reportId - 0,
+              consultId: $scope.expertAdviceReportId,
+              prescriptionId: chufangID
+            },
+            dataType: "json",
+            error: function(response) {
+              if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+              }
+            },
+            success: function(data) {},
+            complete: function(xhr, textStatus) {
+              if (xhr.status == 200) {
+                if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
+                  tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
+                } else {
+                  tool.alert("提示", "添加成功", function() {
+                    //根据添加的类别进行判断然后添加数据
+                    if ($scope.expertType == 'food') {
+                      $scope.foodChufangArr.push($scope.getChufangObj(chufangID));
+                      $scope.$apply();
+                      $("#chufanglist").val('');
+                      $('#modal').modal('hide');
+                    }
+                    if ($scope.expertType == 'sport') {
+                      $scope.sportChufangArr.push($scope.getChufangObj(chufangID));
+                      $scope.$apply();
+                      $("#chufanglist").val('');
+                      $('#modal').modal('hide');
+                    }
+                  });
+                }
+              }
+            }
+          });
+        } else {
+          //  不同时操作 
+
+          var saveInfo = {
+            //文本框,下拉菜单选择值
+            name: $.trim($("#chufangName").val()),
+            spell: $.trim($("#spellName").val()),
+            prescriptionType: $("#chufangTypes").val(),
+            description: $.trim($("#chufangContent").val())
+          };
+          var __error = [];
+          if (saveInfo.name == "") {
+            __error.push("请输入处方名！");
           }
-
-          tool.confirm("请修改内容", htmlstr, function() {
-            var vals = window.top.$("#editReport").val();
-            // $scope.data.consults.analysis = vals;
-            $scope.expertData[type + 'Report'] = vals;
-            $scope.$apply();
-          }, function() {})
-        }
-
-        //修改建议
-        $scope.editAdvice = function(content, type) {
-          if (content) {
-            var htmlstr = '<textarea rows="5" id="adviceContent" class="form-control" placeholder="请输入修改内容">' + content + '</textarea>'
-          } else {
-            var htmlstr = '<textarea rows="5" class="form-control" id="adviceContent" placeholder="请输入修改内容">' + '</textarea>'
+          if (saveInfo.spell == "") {
+            __error.push("请输入处方拼音名称！");
           }
-
-          tool.confirm("请修改内容", htmlstr, function() {
-            var val = window.top.$("#adviceContent").val();
-            $scope.expertData[type + 'Advice'] = val;
-            $scope.$apply();
-          }, function() {})
-        }
-
-        //添加处方时改变相关ID
-        $scope.addChufang = function(id, type) {
-          $scope.expertAdviceReportId = id;
-          $scope.expertType = type;
-        }
-
-        //添加处方确定操作
-        $scope.addChufangObj = function() {
-          //判断处方内容是否有修改  
-          if (!$scope.model) {
-            tool.alert("提示", "您还未选择处方！");
+          if (saveInfo.prescriptionType == "") {
+            __error.push("请选择处方类别！");
+          }
+          if (saveInfo.description == "") {
+            __error.push("请输入处方内容！");
+          }
+          if (__error.length > 0) {
+            tool.alert("提示", __error.join("<br />"));
             return false;
           }
+          $.ajax({
+            type: "POST",
+            url: BasicUrl + "prescription",
+            data: saveInfo,
+            dataType: "json",
+            error: function(response) {
+              if (response && response.errorMessage) {
+                tool.alert("提示", response.errorMessage);
+              }
+            },
+            complete: function(xhr, textStatus) {
+              console.log(xhr.status);
+              if (xhr.status == 200) {
+                // $('[name="addForm"]')[0].reset();
+                // $('#modal').modal('hide')
+                // tool.alert("提示", "数据保存成功", function() {
+                //刷新当前页面.
+                // window.location.reload();
+                // });
 
-          if (($scope.model.name == chufangObj.name) &&
-            ($scope.model.spell == chufangObj.spell) &&
-            ($scope.model.prescriptionType == chufangObj.prescriptionType) &&
-            ($scope.model.description == chufangObj.description)) {
-            // 相同时操作 
-            var chufangID = $scope.model.id;
-            //异步请求操作
+                // {
+                // "id": 23,
+                // "name": "132",
+                // "spell": "312321",
+                // "description": "231321",
+                // "prescriptionType": "Sport"
+                // }
+
+                var data = JSON.parse(xhr.responseText);
+                if (!data.id) {
+                  return false;
+                }
+                var chufangID = data.id;
+                $.ajax({
+                  type: "POST",
+                  url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertAdviceReportId + "/prescription",
+                  data: {
+                    reportId: $scope.reportId - 0,
+                    consultId: $scope.expertAdviceReportId,
+                    prescriptionId: chufangID
+                  },
+                  dataType: "json",
+                  error: function(response) {
+                    if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                      tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+                    }
+                  },
+                  success: function(data) {},
+                  complete: function(xhr, textStatus) {
+                    if (xhr.status == 200) {
+                      if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
+                        tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
+                      } else {
+                        tool.alert("提示", "添加成功", function() {
+                          // 根据添加的类别进行判断然后添加数据
+                          if ($scope.expertType == 'food') {
+                            $scope.foodChufangArr.push($scope.model);
+                            $scope.$apply();
+                            $("#chufanglist").val('');
+                            $('#modal').modal('hide');
+                          }
+                          if ($scope.expertType == 'sport') {
+                            $scope.sportChufangArr.push($scope.model);
+                            $scope.$apply();
+                            $("#chufanglist").val('');
+                            $('#modal').modal('hide');
+                          }
+                        });
+                      }
+                    }
+                  }
+                });
+              } else {
+                if (xhr.responseText) {
+                  var json = JSON.parse(xhr.responseText);
+                  tool.alert("提示", json.errorMessage);
+                }
+              }
+            }
+          });
+        }
+
+
+      }
+
+
+      //查询按钮
+      $scope.search = function() {
+        var type = $("#chufangType").val();
+        var name = $("#chufanglist").find("option:selected").text() == "请选择" ? "" : $("#chufanglist").find("option:selected").text();
+        //校验只有一个搜索条件 
+        // if (!(name || type) && searchindex == 1) {
+        //   tool.alert("提示", "请至少输入一个搜索条件");
+        //   return false;
+        // }
+        params = "";
+        if (type) {
+          params = "prescriptionType=" + type + "&";
+        }
+        if (name) {
+          params += "name=" + name + "&";
+        }
+
+        pageing(0, params);
+      }
+
+      //发布报告（手机端可见）
+      $scope.publishReport = function(type) {
+
+        tool.confirm(
+          "提示",
+          "确认发布报告？",
+          function() {
+            //用户点击确认按钮时操作
             $.ajax({
-              type: "POST",
-              url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertAdviceReportId + "/prescription",
+              type: "PATCH",
+              url: BasicUrl + "report/" + $scope.reportId + "/publish",
               data: {
-                reportId: $scope.reportId - 0,
-                consultId: $scope.expertAdviceReportId,
-                prescriptionId: chufangID
+                adminId: 1,
+                id: $scope.reportId
               },
               dataType: "json",
               error: function(response) {
@@ -719,178 +915,120 @@
                   tool.alert("提示", JSON.parse(response.responseText).errorMessage);
                 }
               },
-              success: function(data) {},
+              success: function(data) {
+
+              },
               complete: function(xhr, textStatus) {
                 if (xhr.status == 200) {
                   if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
                     tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
                   } else {
-                    tool.alert("提示", "添加成功", function() {
-                      //根据添加的类别进行判断然后添加数据
-                      if ($scope.expertType == 'food') {
-                        $scope.foodChufangArr.push($scope.getChufangObj(chufangID));
-                        $scope.$apply();
-                        $("#chufanglist").val('');
-                        $('#modal').modal('hide');
-                      }
-                      if ($scope.expertType == 'sport') {
-                        $scope.sportChufangArr.push($scope.getChufangObj(chufangID));
-                        $scope.$apply();
-                        $("#chufanglist").val('');
-                        $('#modal').modal('hide');
-                      }
+                    tool.alert("提示", "发布成功", function() {
+                      //刷新当前页面.
+                      window.location.reload();
                     });
                   }
                 }
               }
             });
-          } else {
-            //  不同时操作 
+          },
+          function() {});
 
-            var saveInfo = {
-              //文本框,下拉菜单选择值
-              name: $.trim($("#chufangName").val()),
-              spell: $.trim($("#spellName").val()),
-              prescriptionType: $("#chufangTypes").val(),
-              description: $.trim($("#chufangContent").val())
-            };
-            var __error = [];
-            if (saveInfo.name == "") {
-              __error.push("请输入处方名！");
-            }
-            if (saveInfo.spell == "") {
-              __error.push("请输入处方拼音名称！");
-            }
-            if (saveInfo.prescriptionType == "") {
-              __error.push("请选择处方类别！");
-            }
-            if (saveInfo.description == "") {
-              __error.push("请输入处方内容！");
-            }
-            if (__error.length > 0) {
-              tool.alert("提示", __error.join("<br />"));
-              return false;
-            }
-            $.ajax({
-              type: "POST",
-              url: BasicUrl + "prescription",
-              data: saveInfo,
-              dataType: "json",
-              error: function(response) {
-                if (response && response.errorMessage) {
-                  tool.alert("提示", response.errorMessage);
-                }
-              },
-              complete: function(xhr, textStatus) {
-                console.log(xhr.status);
-                if (xhr.status == 200) {
-                  // $('[name="addForm"]')[0].reset();
-                  // $('#modal').modal('hide')
-                  // tool.alert("提示", "数据保存成功", function() {
-                  //刷新当前页面.
-                  // window.location.reload();
-                  // });
+      }
 
-                  // {
-                  // "id": 23,
-                  // "name": "132",
-                  // "spell": "312321",
-                  // "description": "231321",
-                  // "prescriptionType": "Sport"
-                  // }
-
-                  var data = JSON.parse(xhr.responseText);
-                  if (!data.id) {
-                    return false;
-                  }
-                  var chufangID = data.id;
-                  $.ajax({
-                    type: "POST",
-                    url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertAdviceReportId + "/prescription",
-                    data: {
-                      reportId: $scope.reportId - 0,
-                      consultId: $scope.expertAdviceReportId,
-                      prescriptionId: chufangID
-                    },
-                    dataType: "json",
-                    error: function(response) {
-                      if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-                        tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-                      }
-                    },
-                    success: function(data) {},
-                    complete: function(xhr, textStatus) {
-                      if (xhr.status == 200) {
-                        if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
-                          tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
-                        } else {
-                          tool.alert("提示", "添加成功", function() {
-                            // 根据添加的类别进行判断然后添加数据
-                            if ($scope.expertType == 'food') {
-                              $scope.foodChufangArr.push($scope.model);
-                              $scope.$apply();
-                              $("#chufanglist").val('');
-                              $('#modal').modal('hide');
-                            }
-                            if ($scope.expertType == 'sport') {
-                              $scope.sportChufangArr.push($scope.model);
-                              $scope.$apply();
-                              $("#chufanglist").val('');
-                              $('#modal').modal('hide');
-                            }
-                          });
-                        }
-                      }
-                    }
-                  });
-                } else {
-                  if (xhr.responseText) {
-                    var json = JSON.parse(xhr.responseText);
-                    tool.alert("提示", json.errorMessage);
-                  }
-                }
-              }
-            });
+      //专家添加建议
+      $scope.addConsult = function(type) {
+        var adminId = 0;　
+        var chufang = [];
+        if (type == 'food') {
+          adminId = $scope.experts.foodId;
+          for (var o = 0; o < $scope.foodChufangArr.length; o++) {
+            var ele = $scope.foodChufangArr[o];
+            chufang.push(ele.id);
           }
 
-
+        } else if (type == 'sport') {
+          adminId = $scope.experts.sportId;
+          for (var o = 0; o < $scope.sportChufangArr.length; o++) {
+            var ele = $scope.sportChufangArr[o];
+            chufang.push(ele.id);
+          }
         }
 
-
-        //查询按钮
-        $scope.search = function() {
-          var type = $("#chufangType").val();
-          var name = $("#chufanglist").find("option:selected").text() == "请选择" ? "" : $("#chufanglist").find("option:selected").text();
-          //校验只有一个搜索条件 
-          // if (!(name || type) && searchindex == 1) {
-          //   tool.alert("提示", "请至少输入一个搜索条件");
-          //   return false;
-          // }
-          params = "";
-          if (type) {
-            params = "prescriptionType=" + type + "&";
-          }
-          if (name) {
-            params += "name=" + name + "&";
-          }
-
-          pageing(0, params);
-        }
-
-        //发布报告（手机端可见）
-        $scope.publishReport = function(type) {
-
+        if ($scope.expertData[type + 'Id'] != 0) {
           tool.confirm(
             "提示",
-            "确认发布报告？",
+            "确认添加建议？",
             function() {
-              //用户点击确认按钮时操作
+              var data = {
+                reportId: $scope.reportId,
+                consultId: $scope.expertData[type + 'Id'] - 0,
+                adminId: adminId, //TODO  修改
+                analysis: $scope.expertData[type + 'Report'],
+                advice: $scope.expertData[type + 'Advice'],
+                prescriptions: chufang.join(','), //处方
+                attach: $("[name='" + type + "iconUrl']").val() //附件
+              }
+
+              $http({
+                  method: 'PATCH',
+                  url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData[type + 'Id'],
+                  data: data,
+                  transformRequest: function(obj) {
+                    var str = [];
+                    for (var p in obj) {
+                      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    }
+                    return str.join("&");
+                  },
+                  headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                  },
+                })
+                .success(function(data, xhr) {
+                  if (xhr == 200) {
+                    if (data.errorMessage) {
+                      tool.alert("提示", data.errorMessage);
+                    } else {
+                      tool.alert("提示", "保存成功!");
+                      //刷新当前页面.
+                      window.location.reload();
+                    }
+                  } else {
+                    tool.alert("提示", "保存失败,请重试!");
+                  }
+                }).error(function(response) {
+                  if (response && response.errorMessage) {
+                    tool.alert("提示", response.errorMessage);
+                  }
+                });
+            },
+            function() {
+
+            });
+        } else {
+          tool.confirm(
+            "提示",
+            "确认添加建议？",
+            function() {
+
+              var attachUrl = $("[name='" + type + "iconUrl']").val();
+              // if (!attachUrl) {
+              //   tool.alert("提示", "请上传附件！");
+              //   return false;
+              // }
               $.ajax({
-                type: "PATCH",
-                url: BasicUrl + "report/" + $scope.reportId + "/publish",
+                type: "POST",
+                url: BasicUrl + "report/" + $scope.reportId + "/consult",
                 data: {
-                  adminId: 1,
-                  id: $scope.reportId
+                  reportId: $scope.reportId - 0,
+                  adminId: adminId, //TODO  修改
+                  analysis: $scope.expertData[type + 'Report'],
+                  advice: $scope.expertData[type + 'Advice'],
+                  attach: attachUrl //附件
+                },
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 dataType: "json",
                 error: function(response) {
@@ -916,218 +1054,95 @@
               });
             },
             function() {});
-
         }
 
-        //专家添加建议
-        $scope.addConsult = function(type) {
-          var adminId = 0;　
-          var chufang = [];
-          if (type == 'food') {
-            adminId = 10;
-            for (var o = 0; o < $scope.foodChufangArr.length; o++) {
-              var ele = $scope.foodChufangArr[o];
-              chufang.push(ele.id);
-            }
 
-          } else if (type == 'sport') {
-            adminId = 4
-            for (var o = 0; o < $scope.sportChufangArr.length; o++) {
-              var ele = $scope.sportChufangArr[o];
-              chufang.push(ele.id);
-            }
-          }
+      }
 
-          if ($scope.expertData[type + 'Id'] != 0) {
-            tool.confirm(
-              "提示",
-              "确认添加建议？",
-              function() {
-                var data = {
-                  reportId: $scope.reportId,
-                  consultId: $scope.expertData[type + 'Id'] - 0,
-                  adminId: adminId, //TODO  修改
-                  analysis: $scope.expertData[type + 'Report'],
-                  advice: $scope.expertData[type + 'Advice'],
-                  prescriptions: chufang.join(','), //处方
-                  attach: $("[name='" + type + "iconUrl']").val() //附件
+      //删除营养专家处方
+      $scope.deleteFoodArr = function(id) {
+        var url = BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData.foodId + "/prescription/" + id;
+        tool.confirm(
+          "提示",
+          "确认删除处方？",
+          function() {
+            //用户点击确认按钮时操作
+            $.ajax({
+              type: "DELETE",
+              url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData.foodId + "/prescription/" + id,
+              dataType: "json",
+              error: function(response) {
+                if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                  tool.alert("提示", JSON.parse(response.responseText).errorMessage);
                 }
-
-                $http({
-                    method: 'PATCH',
-                    url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData[type + 'Id'],
-                    data: data,
-                    transformRequest: function(obj) {
-                      var str = [];
-                      for (var p in obj) {
-                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                      }
-                      return str.join("&");
-                    },
-                    headers: {
-                      'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                  })
-                  .success(function(data, xhr) {
-                    if (xhr == 200) {
-                      if (data.errorMessage) {
-                        tool.alert("提示", data.errorMessage);
-                      } else {
-                        tool.alert("提示", "保存成功!");
-                        //刷新当前页面.
-                        window.location.reload();
-                      }
-                    } else {
-                      tool.alert("提示", "保存失败,请重试!");
-                    }
-                  }).error(function(response) {
-                    if (response && response.errorMessage) {
-                      tool.alert("提示", response.errorMessage);
-                    }
+              },
+              complete: function(xhr, textStatus) {
+                if (xhr.status == 200) {
+                  tool.alert("提示", "删除处方成功", function() {
+                    //刷新当前页面.
+                    window.location.reload();
                   });
-              },
-              function() {
-
-              });
-          } else {
-            tool.confirm(
-              "提示",
-              "确认添加建议？",
-              function() {
-
-                var attachUrl = $("[name='" + type + "iconUrl']").val();
-                // if (!attachUrl) {
-                //   tool.alert("提示", "请上传附件！");
-                //   return false;
-                // }
-                $.ajax({
-                  type: "POST",
-                  url: BasicUrl + "report/" + $scope.reportId + "/consult",
-                  data: {
-                    reportId: $scope.reportId - 0,
-                    adminId: adminId, //TODO  修改
-                    analysis: $scope.expertData[type + 'Report'],
-                    advice: $scope.expertData[type + 'Advice'],
-                    attach: attachUrl //附件
-                  },
-                  headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                  },
-                  dataType: "json",
-                  error: function(response) {
-                    if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-                      tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-                    }
-                  },
-                  success: function(data) {
-
-                  },
-                  complete: function(xhr, textStatus) {
-                    if (xhr.status == 200) {
-                      if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
-                        tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
-                      } else {
-                        tool.alert("提示", "发布成功", function() {
-                          //刷新当前页面.
-                          window.location.reload();
-                        });
-                      }
-                    }
-                  }
-                });
-              },
-              function() {
-
-              });
-          }
-
-
-        }
-
-        //删除营养专家处方
-        $scope.deleteFoodArr = function(id) {
-          var url = BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData.foodId + "/prescription/" + id;
-          tool.confirm(
-            "提示",
-            "确认删除处方？",
-            function() {
-              //用户点击确认按钮时操作
-              $.ajax({
-                type: "DELETE",
-                url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData.foodId + "/prescription/" + id,
-                dataType: "json",
-                error: function(response) {
-                  if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-                    tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-                  }
-                },
-                complete: function(xhr, textStatus) {
-                  if (xhr.status == 200) {
-                    tool.alert("提示", "删除处方成功", function() {
-                      //刷新当前页面.
-                      window.location.reload();
-                    });
-                  }
                 }
-              });
-            },
-            function() {
-              //用户点击取消按钮时操作
+              }
             });
-        }
+          },
+          function() {
+            //用户点击取消按钮时操作
+          });
+      }
 
-        //删除运动专家处方
-        $scope.deleteSportArr = function(id) {
-          var url = BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData.sportId + "/prescription/" + id
-          tool.confirm(
-            "提示",
-            "确认删除处方？",
-            function() {
-              //用户点击确认按钮时操作
-              $.ajax({
-                type: "DELETE",
-                url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData.sportId + "/prescription/" + id,
-                dataType: "json",
-                error: function(response) {
-                  if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-                    tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-                  }
-                },
-                complete: function(xhr, textStatus) {
-                  if (xhr.status == 200) {
-                    tool.alert("提示", "删除处方成功", function() {
-                      //刷新当前页面.
-                      window.location.reload();
-                    });
-                  }
+      //删除运动专家处方
+      $scope.deleteSportArr = function(id) {
+        var url = BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData.sportId + "/prescription/" + id
+        tool.confirm(
+          "提示",
+          "确认删除处方？",
+          function() {
+            //用户点击确认按钮时操作
+            $.ajax({
+              type: "DELETE",
+              url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData.sportId + "/prescription/" + id,
+              dataType: "json",
+              error: function(response) {
+                if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                  tool.alert("提示", JSON.parse(response.responseText).errorMessage);
                 }
-              });
-            },
-            function() {});
-        }
+              },
+              complete: function(xhr, textStatus) {
+                if (xhr.status == 200) {
+                  tool.alert("提示", "删除处方成功", function() {
+                    //刷新当前页面.
+                    window.location.reload();
+                  });
+                }
+              }
+            });
+          },
+          function() {});
+      }
 
-        //获取处方详情
-        $scope.getChufangObj = function(id) {
-          var newObj = {};
-          for (var index = 0; index < $scope.options.length; index++) {
-            var element = $scope.options[index];
-            if (element.id == id) {
-              newObj.id = id;
-              newObj.name = element.name;
-              newObj.spell = element.spell;
-              newObj.prescriptionType = element.prescriptionType;
-            }
+      //获取处方详情
+      $scope.getChufangObj = function(id) {
+        var newObj = {};
+        for (var index = 0; index < $scope.options.length; index++) {
+          var element = $scope.options[index];
+          if (element.id == id) {
+            newObj.id = id;
+            newObj.name = element.name;
+            newObj.spell = element.spell;
+            newObj.prescriptionType = element.prescriptionType;
           }
-          return newObj;
         }
+        return newObj;
+      }
 
-        //加载完毕后再显示 
-        $scope.$watch("viewContentLoaded", function() {
-          angular.element(".myload").removeClass("myload");
-        });
+      //加载完毕后再显示 
+      $scope.$watch("viewContentLoaded", function() {
+        angular.element(".myload").removeClass("myload");
       });
-    </script>
-  </body>
+    });
+  </script>
+</body>
 
 </html>
 </body>
