@@ -654,28 +654,10 @@
                 sportId: data.experts.SportExpert.id,
                 foodId: data.experts.DietitianExpert.id
               }
-
-              // alert($scope.experts.sportId);
               $scope.expertData.sportUrl = data.experts.SportExpert.iconUrl;
               $scope.expertData.foodUrl = data.experts.DietitianExpert.iconUrl;
 
-
-              // $scope.experts = {
-
-              // }
-
-              // alert($scope.experts.foodId)
-
-
-
-
-              // $scope.apply();
-
             }
-            // if (data.experts.DietitianExpert) {
-
-            //   $scope.apply();
-            // }
 
             if (!$scope.expertData.foodAttach) {
               $("#foodLink").addClass('disabled');
