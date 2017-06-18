@@ -68,7 +68,7 @@
         <!-- 消除外边距 -->
         <div class="col-md-2"><img src='{{expertData.foodUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.foodUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
 
-          <button type="button" class="btn btn-primary" ng-click="addConsult('food')" style="margin-top:10px;" ng-disabled="!experts.foodId">确认提交</button>
+          <button type="button" class="btn btn-primary" ng-click="addConsult('food')" style="margin-top:10px;" ng-disabled="!(experts.foodId>0)">确认提交</button>
         </div>
         <div class="col-md-10">
           <p><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.foodReport,'food')">修改</a>)
@@ -84,7 +84,8 @@
         <div class="col-md-10 col-md-offset-2">
         </div>
         <div class="col-md-2">
-          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.foodId,'food')" style="position:relative;right:-27px;" ng-disabled="expertData.foodId<=0">添加处方</a>
+          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.foodId,'food')" style="position:relative;right:-27px;" ng-disabled="!(experts.foodId>0)"> 添加处方</a>
+          <!--ng-disabled="experts.foodId<=0"-->
         </div>
         <div class="col-md-10">
           <table class="table  table-hover table-bordered">
@@ -133,7 +134,7 @@
         <div class="col-md-2">
           <img src='{{expertData.sportUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.sportUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
 
-          <button type="button" class="btn btn-primary" ng-click="addConsult('sport')" style="margin-top:10px;" ng-disabled="!experts.sportId">确认提交</button>
+          <button type="button" class="btn btn-primary" ng-click="addConsult('sport')" style="margin-top:10px;" ng-disabled="!(experts.sportId>0)">确认提交</button>
         </div>
         <div class="col-md-10">
           <p id="sportReport"><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.sportReport,'sport')">修改</a>)
@@ -149,7 +150,7 @@
         <div class="col-md-10 col-md-offset-2">
         </div>
         <div class="col-md-2">
-          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.sportId,'sport')" style="position:relative;right:-27px;" ng-disabled="expertData.sportId<=0">添加处方</a>
+          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.sportId,'sport')" style="position:relative;right:-27px;" ng-disabled="!(experts.sportId>0)"> 添加处方</a>
         </div>
         <div class="col-md-10">
           <table class="table  table-hover table-bordered">
@@ -595,6 +596,10 @@
       var reportObj = new UrlSearch();
       if (reportObj.id) {
         $scope.reportId = reportObj.id;
+        $scope.experts = {
+          sportId: "",
+          foodId: ""
+        }
         var url = BasicUrl + "report/" + reportObj.id;
         $http.get(url).success(function(data) {
           if (data != null && data != "" && data != "null" && data.id) {
@@ -646,17 +651,31 @@
 
             if (data.experts.SportExpert) {
               $scope.experts = {
-                sportId: data.experts.SportExpert.id
-              }
-              $scope.expertData.sportUrl = data.experts.SportExpert.iconUrl;
-
-            }
-            if (data.experts.DietitianExpert) {
-              $scope.experts = {
+                sportId: data.experts.SportExpert.id,
                 foodId: data.experts.DietitianExpert.id
               }
+
+              // alert($scope.experts.sportId);
+              $scope.expertData.sportUrl = data.experts.SportExpert.iconUrl;
               $scope.expertData.foodUrl = data.experts.DietitianExpert.iconUrl;
+
+
+              // $scope.experts = {
+
+              // }
+
+              // alert($scope.experts.foodId)
+
+
+
+
+              // $scope.apply();
+
             }
+            // if (data.experts.DietitianExpert) {
+
+            //   $scope.apply();
+            // }
 
             if (!$scope.expertData.foodAttach) {
               $("#foodLink").addClass('disabled');
