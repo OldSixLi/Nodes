@@ -36,7 +36,7 @@
           <label class="control-label">项目名：</label>
           <select class="form-control" id="itemId" name="itemId" style="width:150px;">
           <option value="">请选择</option>
-          <option ng-repeat="y in Itemoptions" value="{{y.itemId}}" >{{y.name}}</option>
+          <option ng-repeat="y in Itemoptions"  value="{{y.itemId}}" ng-selected="y.itemId==currentItemId"> {{y.name}}</option>
       </select>
         </div>&nbsp;&nbsp;
         <div class="form-group text-left">
@@ -347,13 +347,7 @@
       $scope.timedata = [];
       //分页方法声明
 
-      $http.get(BasicUrl + "item?page=0&pageNum=1000").success(function(data) {
-        if (data != null && data != "" && data != "null") {
-          $scope.Itemoptions = data.content;
-          // $scope.apply();
-          // tool.changeSelect($("#itemId"), true);
-        }
-      });
+
 
       var pageing = function(pageindex, params) {
 
@@ -407,29 +401,27 @@
       }
       var obj = new UrlSearch();
 
-      // "RecordList.html?itemId=" + itemId + "&userId=" + userId;
       if (obj.itemId && obj.userId) {
 
         params = "";
-        if (itemId) {
+        if (obj.itemId) {
           params = "itemId=" + obj.itemId + "&";
         }
-        if (userId) {
+        if (obj.userId) {
           params += "userId=" + obj.userId + "&";
         }
 
-        $scope.currentItemId = itemId;
-        // .trigger('change')
-        // setTimeout(function() {
-        //   $("#itemId").val(itemId);
-        //   tool.changeSelect($("#itemId"), false);
-        // }, 2000);
-
-
-
+        $scope.currentItemId = obj.itemId;
         pageing(0, params);
-      }
+      };
 
+
+      $http.get(BasicUrl + "item?page=0&pageNum=1000").success(function(data) {
+        if (data != null && data != "" && data != "null") {
+          $scope.Itemoptions = data.content;
+          tool.changeSelect($("#itemId"), true);
+        }
+      });
       //分页方法
       // pageing(0, params);
       //查询按钮
