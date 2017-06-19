@@ -230,6 +230,48 @@ function adminId() {
   var obj = getAdmin();
   return obj.adminId;
 }
+
+/**
+ * 设置cookie值
+ * 
+ * @param {any} name 
+ * @param {any} value 
+ * @param {any} seconds 
+ */
+function setCookie(name, value, seconds) {
+  seconds = seconds || 0; //seconds有值就直接赋值，没有为0 
+  var expires = "";
+  if (seconds != 0) { //设置cookie生存时间
+    var date = new Date();
+    date.setTime(date.getTime() + (seconds * 1000));
+    expires = "; expires=" + date.toGMTString();
+  }
+  document.cookie = name + "=" + escape(value) + expires + "; path=/";
+}
+
+function getCookie(name) {
+  var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+  if (arr = document.cookie.match(reg))
+    return unescape(arr[2]);
+  else
+    return null;
+}
+
+function setCurrent() {
+  var url = window.location.href;
+  setCookie('currentUrl', url, 500);
+}
+
+//读取当前cookie存储的地址
+function readCurrentUrl() {
+  var currentUrl = getCookie('currentUrl');
+  if (currentUrl) {
+    $("#work-frame").attr("src", currentUrl);
+  }
+
+}
+// setCookie('currentUrl', '666.html?id=1', 500)
+// alert()
 var JSTOOL = function() {
   // 下拉菜单样式
   this.changeSelect = function($dom, hasSearch) {

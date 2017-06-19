@@ -68,7 +68,7 @@
                 <td>{{ x.name }}</td>
                 <td>{{ x.startAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
                 <td>{{ x.endAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
-                <td>{{ x.lasted+"分"}}</td>
+                <td>{{(x.lasted/60)+"分"}}</td>
                 <td>{{ x.group}}</td>
                 <td>{{ x.count}}</td>
                 <td>{{ x.calorie}}</td>
