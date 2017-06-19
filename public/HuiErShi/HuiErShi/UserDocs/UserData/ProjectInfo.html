@@ -1,503 +1,507 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>项目信息</title>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>项目信息</title>
 
-    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
-    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-    <link href="../../Styles/common.css" rel="stylesheet">
-    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-    <style>
-      .form-horizontal .control-label {
-        text-align: right;
-      }
-      
-      .form-horizontal .form-group {
-        margin: 0;
-      }
-      
-      .form-groups {
-        margin-bottom: 15px;
-      }
-      
-      .form-group .text-right .control-label {
-        line-height: 34px;
-      }
-      
-      legend>label {
-        font-size: 18px;
-      }
-      
-      .form-horizontal .form-group:before,
-      .form-horizontal .form-group:after {
-        display: none;
-        /*content: " ";*/
-      }
-      
-      .form-horizontal .form-group:after {
-        clear: none;
-      }
-    </style>
-  </head>
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
+  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/common.css" rel="stylesheet">
+  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+  <style>
+    .form-horizontal .control-label {
+      text-align: right;
+    }
+    
+    .form-horizontal .form-group {
+      margin: 0;
+    }
+    
+    .form-groups {
+      margin-bottom: 15px;
+    }
+    
+    .form-group .text-right .control-label {
+      line-height: 34px;
+    }
+    
+    legend>label {
+      font-size: 18px;
+    }
+    
+    .form-horizontal .form-group:before,
+    .form-horizontal .form-group:after {
+      display: none;
+      /*content: " ";*/
+    }
+    
+    .form-horizontal .form-group:after {
+      clear: none;
+    }
+  </style>
+</head>
 
-  <body ng-app="myApp">
+<body ng-app="myApp">
 
-    <div ng-controller="validateCtrl" class="container-fluid myload">
-      <!-- 面包屑导航 -->
-      <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-        <li><a href="javascript:void(0)">用户数据</a></li>
-        <li><a href="javascript:history.back(-1);">项目列表</a></li>
-        <li class="active">
-          项目详情</li>
-      </ol>
-      <div class="row">
-        <!--页面主体-->
-        <div class="col-xs-9 col-xs-offset-1">
+  <div ng-controller="validateCtrl" class="container-fluid myload">
+    <!-- 面包屑导航 -->
+    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+      <li><a href="javascript:void(0)">用户数据</a></li>
+      <li><a href="javascript:history.back(-1);">项目列表</a></li>
+      <li class="active">
+        项目详情</li>
+    </ol>
+    <div class="row">
+      <!--页面主体-->
+      <div class="col-xs-9 col-xs-offset-1">
 
-        </div>
-        <div class="col-xs-9 col-xs-offset-1">
-          <form class="form-horizontal w5c-form demo-form" w5c-form-validate="vm.validateOptions" novalidate name="validateForm">
-            <!--第一行-->
-            <div class="row   form-groups">
+      </div>
+      <div class="col-xs-9 col-xs-offset-1">
+        <form class="form-horizontal w5c-form demo-form" w5c-form-validate="vm.validateOptions" novalidate name="validateForm">
+          <!--第一行-->
+          <div class="row   form-groups">
 
-              <div class="col-xs-2 text-right">
-                <label for="txtProjectName" class="control-label">项目名称：</label>
-              </div>
-              <div class="form-group">
-                <div class="col-xs-4">
-                  <input type="text" class="form-control" id="txtProjectName" name="name" placeholder="项目名称" required ng-model="vm.data.name">
-                </div>
-              </div>
-
-              <div class="col-xs-2 text-right">
-                <label for="txtProjectItemId" class="control-label">缩写：</label>
-              </div>
-              <div class="form-group">
-                <div class="col-xs-4">
-                  <input type="text" class="form-control" id="txtProjectItemId" name="itemId" placeholder="缩写" required ng-model="vm.data.itemId" ng-disabled="projectId">
-                </div>
-              </div>
+            <div class="col-xs-2 text-right">
+              <label for="txtProjectName" class="control-label">项目名称：</label>
             </div>
-            <!--第二行-->
-            <div class="row form-groups">
-              <div class="col-xs-2 text-right">
-                <label for="inputPassword3" class="control-label">拼音名：</label>
-              </div>
-              <div class="form-group">
-                <div class="col-xs-4">
-                  <input type="text" class="form-control" id="txtProjectSpell" name="spell" placeholder="拼音" required ng-model="vm.data.spell">
-                </div>
-              </div>
-              <div class="col-xs-2 text-right">
-                <label for="inputPassword3" class="control-label">数据视图：</label>
-
-              </div>
+            <div class="form-group">
               <div class="col-xs-4">
-                <span style="line-height:38px;">暂无</span>
-                <input type="text" class="form-control" id="inputPassword3" placeholder="数据视图" required ng-model="vm.data.inputPassword3" ng-if="false">
+                <input type="text" class="form-control" id="txtProjectName" name="name" placeholder="项目名称" required ng-model="vm.data.name">
               </div>
             </div>
-            <!--第三行-->
-            <div class="row form-groups">
-              <div class="col-md-2 col-sm-2 text-right">
-                <label for="txtProjectDescription" class="control-label">项目说明：</label>
+
+            <div class="col-xs-2 text-right">
+              <label for="txtProjectItemId" class="control-label">缩写：</label>
+            </div>
+            <div class="form-group">
+              <div class="col-xs-4">
+                <input type="text" class="form-control" id="txtProjectItemId" name="itemId" placeholder="缩写" required ng-model="vm.data.itemId" ng-disabled="projectId">
               </div>
-              <div class="form-group">
-                <div class="col-md-10  col-sm-10">
-                  <textarea id="txtProjectDescription" name="description" rows="3" cols="20" class="form-control" required placeholder="项目描述说明" ng-model="vm.data.description"></textarea>
+            </div>
+          </div>
+          <!--第二行-->
+          <div class="row form-groups">
+            <div class="col-xs-2 text-right">
+              <label for="inputPassword3" class="control-label">拼音名：</label>
+            </div>
+            <div class="form-group">
+              <div class="col-xs-4">
+                <input type="text" class="form-control" id="txtProjectSpell" name="spell" placeholder="拼音" required ng-model="vm.data.spell">
+              </div>
+            </div>
+            <div class="col-xs-2 text-right">
+              <label for="inputPassword3" class="control-label">数据视图：</label>
+
+            </div>
+            <div class="col-xs-4">
+              <span style="line-height:38px;" ng-if="!vm.data.views">暂无</span>
+
+              <span style="line-height:30px;" ng-if="vm.data.views" ng-repeat="x in vm.data.views">
+                <a href="ViewManage.html?id={{x.id}}">{{x.name+' '}}</a></span>
+
+              <!--<input type="text" class="form-control" id="inputPassword3" placeholder="数据视图" required ng-model="vm.data.inputPassword3" ng-if="false">-->
+            </div>
+          </div>
+          <!--第三行-->
+          <div class="row form-groups">
+            <div class="col-md-2 col-sm-2 text-right">
+              <label for="txtProjectDescription" class="control-label">项目说明：</label>
+            </div>
+            <div class="form-group">
+              <div class="col-md-10  col-sm-10">
+                <textarea id="txtProjectDescription" name="description" rows="3" cols="20" class="form-control" required placeholder="项目描述说明" ng-model="vm.data.description"></textarea>
+              </div>
+            </div>
+          </div>
+          <!--单选部分-->
+          <div class="row">
+            <!--数值型-->
+            <div class="col-md-12 col-sm-12">
+              <fieldset>
+                <legend>
+                  <input id="Radio1" type="radio" name="type" value="1" ng-model="type" />
+                  <label class="control-label">数值型：</label>
+                </legend>
+
+                <div class="row form-groups">
+                  <div class="col-xs-2 text-right">
+                    <label for="txtMinReference" class="control-label">最小参考值：</label>
+                  </div>
+                  <div class="col-xs-4">
+                    <input type="text" id="txtMinReference" name="minReference" class="form-control" placeholder="最小参考值" value="{{vm.data.type=='1'?vm.data.minReference:''}}" ng-disabled='!(type=="1")'>
+                  </div>
+
+                  <div class="col-xs-2 text-right">
+                    <label for="inputPassword3" class="control-label">计量单位：</label>
+                  </div>
+                  <div class="col-xs-4">
+                    <input type="text" id="txtUnit" name="unit" class="form-control" placeholder="计量单位" value="{{vm.data.type=='1'?vm.data.unit:''}}" ng-disabled='!(type=="1")'>
+                  </div>
                 </div>
-              </div>
+
+                <div class="row form-groups">
+                  <div class="col-xs-2 text-right">
+                    <label for="txtMaxReference" class="control-label">最大参考值：</label>
+                  </div>
+                  <div class="col-xs-4">
+                    <input type="text" id="txtMaxReference" name="maxReference" class="form-control" placeholder="最大参考值" value="{{vm.data.type=='1'?vm.data.maxReference:''}}" ng-disabled='!(type=="1")'>
+                  </div>
+
+                </div>
+              </fieldset>
             </div>
-            <!--单选部分-->
-            <div class="row">
-              <!--数值型-->
-              <div class="col-md-12 col-sm-12">
-                <fieldset>
-                  <legend>
-                    <input id="Radio1" type="radio" name="type" value="1" ng-model="type" />
-                    <label class="control-label">数值型：</label>
-                  </legend>
+          </div>
+          <div class="row">
+            <!--数值型-->
+            <div class="col-md-12 col-sm-12">
+              <fieldset>
+                <legend>
+                  <input id="Radio1" type="radio" name="type" value="4" ng-model="type" />
+                  <label class="control-label">多数值型：</label>
+                </legend>
 
-                  <div class="row form-groups">
-                    <div class="col-xs-2 text-right">
-                      <label for="txtMinReference" class="control-label">最小参考值：</label>
-                    </div>
-                    <div class="col-xs-4">
-                      <input type="text" id="txtMinReference" name="minReference" class="form-control" placeholder="最小参考值" value="{{vm.data.type=='1'?vm.data.minReference:''}}" ng-disabled='!(type=="1")'>
-                    </div>
+                <div class="row form-groups">
 
-                    <div class="col-xs-2 text-right">
-                      <label for="inputPassword3" class="control-label">计量单位：</label>
-                    </div>
-                    <div class="col-xs-4">
-                      <input type="text" id="txtUnit" name="unit" class="form-control" placeholder="计量单位" value="{{vm.data.type=='1'?vm.data.unit:''}}" ng-disabled='!(type=="1")'>
-                    </div>
+                  <div class="col-xs-2 text-right">
+                    <label for="txtMinReference" class="control-label">名称：</label>
+                  </div>
+                  <div class="col-xs-4">
+                    <input type="text" id="subItemName" name="subItemName" class="form-control" placeholder="请输入名称 用,分隔" value="{{vm.data.type=='4'?vm.data.subItemName:''}}" ng-disabled='!(type=="4")'>
+                  </div>
+                  <div class="col-xs-2 text-right">
+                    <label for="inputPassword3" class="control-label">计量单位：</label>
+                  </div>
+                  <div class="col-xs-4">
+                    <input type="text" id="txtUnit" name="unit" class="form-control" placeholder="请输入计量单位" value="{{vm.data.type=='4'?vm.data.unit:''}}" ng-disabled='!(type=="4")'>
                   </div>
 
-                  <div class="row form-groups">
-                    <div class="col-xs-2 text-right">
-                      <label for="txtMaxReference" class="control-label">最大参考值：</label>
-                    </div>
-                    <div class="col-xs-4">
-                      <input type="text" id="txtMaxReference" name="maxReference" class="form-control" placeholder="最大参考值" value="{{vm.data.type=='1'?vm.data.maxReference:''}}" ng-disabled='!(type=="1")'>
-                    </div>
+                </div>
 
+                <div class="row form-groups">
+                  <div class="col-xs-2 text-right">
+                    <label for="txtMinReference" class="control-label">最小参考值：</label>
                   </div>
-                </fieldset>
-              </div>
+                  <div class="col-xs-4">
+                    <input type="text" id="txtMinReference" name="minReference" class="form-control" placeholder="最小参考值 用,分隔" value="{{vm.data.type=='4'?vm.data.minReference:''}}" ng-disabled='!(type=="4")'>
+                  </div>
+                  <div class="col-xs-2 text-right">
+                    <label for="txtMaxReference" class="control-label">最大参考值：</label>
+                  </div>
+                  <div class="col-xs-4">
+                    <input type="text" id="txtMaxReference" name="maxReference" class="form-control" placeholder="最大参考值 用,分隔" value="{{vm.data.type=='4'?vm.data.maxReference:''}}" ng-disabled='!(type=="4")'>
+                  </div>
+
+                </div>
+              </fieldset>
             </div>
-            <div class="row">
-              <!--数值型-->
-              <div class="col-md-12 col-sm-12">
-                <fieldset>
-                  <legend>
-                    <input id="Radio1" type="radio" name="type" value="4" ng-model="type" />
-                    <label class="control-label">多数值型：</label>
-                  </legend>
+          </div>
+          <!--文本型-->
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+              <fieldset>
+                <legend>
+                  <input id="radio2" type="radio" name="type" value="2" ng-model="type" />
+                  <label class="control-label">文本：</label>
+                </legend>
 
-                  <div class="row form-groups">
-
-                    <div class="col-xs-2 text-right">
-                      <label for="txtMinReference" class="control-label">名称：</label>
-                    </div>
-                    <div class="col-xs-4">
-                      <input type="text" id="subItemName" name="subItemName" class="form-control" placeholder="请输入名称 用,分隔" value="{{vm.data.type=='4'?vm.data.subItemName:''}}" ng-disabled='!(type=="4")'>
-                    </div>
-                    <div class="col-xs-2 text-right">
-                      <label for="inputPassword3" class="control-label">计量单位：</label>
-                    </div>
-                    <div class="col-xs-4">
-                      <input type="text" id="txtUnit" name="unit" class="form-control" placeholder="请输入计量单位" value="{{vm.data.type=='4'?vm.data.unit:''}}" ng-disabled='!(type=="4")'>
-                    </div>
-
+                <div class="row form-groups">
+                  <div class="col-xs-2 text-right">
+                    <label for="txtMinInputCount" class="control-label">最少输入数：</label>
+                  </div>
+                  <div class="col-xs-4">
+                    <input type="text" class="form-control" id="txtMinInputCount" name="minInputCount" placeholder="最少输入字符数" ng-model="vm.data.minInputCount" ng-disabled='!(type=="2")'>
                   </div>
 
-                  <div class="row form-groups">
-                    <div class="col-xs-2 text-right">
-                      <label for="txtMinReference" class="control-label">最小参考值：</label>
-                    </div>
-                    <div class="col-xs-4">
-                      <input type="text" id="txtMinReference" name="minReference" class="form-control" placeholder="最小参考值 用,分隔" value="{{vm.data.type=='4'?vm.data.minReference:''}}" ng-disabled='!(type=="4")'>
-                    </div>
-                    <div class="col-xs-2 text-right">
-                      <label for="txtMaxReference" class="control-label">最大参考值：</label>
-                    </div>
-                    <div class="col-xs-4">
-                      <input type="text" id="txtMaxReference" name="maxReference" class="form-control" placeholder="最大参考值 用,分隔" value="{{vm.data.type=='4'?vm.data.maxReference:''}}" ng-disabled='!(type=="4")'>
-                    </div>
-
+                  <div class="col-xs-2 text-right">
+                    <label for="txtMaxInputCount" class="control-label">最大输入数：</label>
                   </div>
-                </fieldset>
-              </div>
+                  <div class="col-xs-4">
+                    <input type="text" class="form-control" id="txtMaxInputCount" name="maxInputCount" placeholder="最多输入字符数" ng-model="vm.data.maxInputCount" ng-disabled='!(type=="2")'>
+                  </div>
+                </div>
+              </fieldset>
             </div>
-            <!--文本型-->
-            <div class="row">
-              <div class="col-md-12 col-sm-12">
-                <fieldset>
-                  <legend>
-                    <input id="radio2" type="radio" name="type" value="2" ng-model="type" />
-                    <label class="control-label">文本：</label>
-                  </legend>
-
-                  <div class="row form-groups">
-                    <div class="col-xs-2 text-right">
-                      <label for="txtMinInputCount" class="control-label">最少输入数：</label>
-                    </div>
-                    <div class="col-xs-4">
-                      <input type="text" class="form-control" id="txtMinInputCount" name="minInputCount" placeholder="最少输入字符数" ng-model="vm.data.minInputCount" ng-disabled='!(type=="2")'>
-                    </div>
-
-                    <div class="col-xs-2 text-right">
-                      <label for="txtMaxInputCount" class="control-label">最大输入数：</label>
-                    </div>
-                    <div class="col-xs-4">
-                      <input type="text" class="form-control" id="txtMaxInputCount" name="maxInputCount" placeholder="最多输入字符数" ng-model="vm.data.maxInputCount" ng-disabled='!(type=="2")'>
-                    </div>
+          </div>
+          <!--选择型-->
+          <div class=" row">
+            <div class="col-md-12 col-sm-12">
+              <fieldset>
+                <legend>
+                  <input id="radio3" type="radio" name="type" value="3" ng-model="type" />
+                  <label class="control-label">选择：</label>
+                </legend>
+                <div class="row form-groups">
+                  <div class="col-xs-2 text-right">
+                    <label for="txtSelections" class="control-label">标签：</label>
                   </div>
-                </fieldset>
-              </div>
-            </div>
-            <!--选择型-->
-            <div class=" row">
-              <div class="col-md-12 col-sm-12">
-                <fieldset>
-                  <legend>
-                    <input id="radio3" type="radio" name="type" value="3" ng-model="type" />
-                    <label class="control-label">选择：</label>
-                  </legend>
-                  <div class="row form-groups">
-                    <div class="col-xs-2 text-right">
-                      <label for="txtSelections" class="control-label">标签：</label>
-                    </div>
-                    <div class="col-xs-4">
-                      <input type="text" class="form-control" id="txtSelections" name="selections" placeholder="请选择标签" ng-model="vm.data.selections" ng-disabled='!(type=="3")'>
-                    </div>
-                    <div class="col-xs-2 text-right">
-                      <label for="rdbIsRadio" class="control-label">只许单选：</label>
-                    </div>
-                    <div class="col-xs-4" style="line-height:38px;">
-                      <input id="rdbIsRadio" type="radio" name="isRadio" value="0" ng-model="vm.data.isRadio" ng-disabled='!(type=="3")' />是
-                      <input id="rdbIsRadio" type="radio" name="isRadio" value="1" ng-model="vm.data.isRadio" ng-disabled='!(type=="3")' />否
-                    </div>
+                  <div class="col-xs-4">
+                    <input type="text" class="form-control" id="txtSelections" name="selections" placeholder="请选择标签" ng-model="vm.data.selections" ng-disabled='!(type=="3")'>
                   </div>
-                </fieldset>
-              </div>
-            </div>
-            <!--图片型-->
-            <div class="row">
-              <div class="col-md-12 col-sm-12">
-                <fieldset>
-                  <legend>
-                    <input id="Radio1" type="radio" name="type" value="0" ng-model="type" />
-                    <label class="control-label">图片：</label>
-                  </legend>
-                  <div class="row form-groups">
-                    <div class="col-xs-2 text-right">
-                      <label for="txtBalance" class="control-label">图片：</label>
-                    </div>
-                    <div class="col-xs-4">
-                      <input type="file" id="txtImage" name="image" ng-model="vm.data.image" ng-disabled='!(type=="4")' />
-                    </div>
+                  <div class="col-xs-2 text-right">
+                    <label for="rdbIsRadio" class="control-label">只许单选：</label>
                   </div>
-                </fieldset>
-              </div>
+                  <div class="col-xs-4" style="line-height:38px;">
+                    <input id="rdbIsRadio" type="radio" name="isRadio" value="0" ng-model="vm.data.isRadio" ng-disabled='!(type=="3")' />是
+                    <input id="rdbIsRadio" type="radio" name="isRadio" value="1" ng-model="vm.data.isRadio" ng-disabled='!(type=="3")' />否
+                  </div>
+                </div>
+              </fieldset>
             </div>
-            <!--阴阳型-->
-            <div class="row">
-              <div class="col-md-12 col-sm-12">
-                <fieldset>
-                  <legend>
-                    <input id="Radio1" type="radio" name="type" value="5" ng-model="type" />
-                    <label class="control-label">阴阳：</label>
-                  </legend>
-                  <div class="row form-groups">
-                    <div class="col-xs-2 text-right">
-                      <label for="txtBalance" class="control-label">阴阳：</label>
-                    </div>
-                    <div class="col-xs-1">
-                      <select class="form-control" id="balanceSlt" ng-disabled='!(type=="5")'>
+          </div>
+          <!--图片型-->
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+              <fieldset>
+                <legend>
+                  <input id="Radio1" type="radio" name="type" value="0" ng-model="type" />
+                  <label class="control-label">图片：</label>
+                </legend>
+                <div class="row form-groups">
+                  <div class="col-xs-2 text-right">
+                    <label for="txtBalance" class="control-label">图片：</label>
+                  </div>
+                  <div class="col-xs-4">
+                    <input type="file" id="txtImage" name="image" ng-model="vm.data.image" ng-disabled='!(type=="4")' />
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+          <!--阴阳型-->
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+              <fieldset>
+                <legend>
+                  <input id="Radio1" type="radio" name="type" value="5" ng-model="type" />
+                  <label class="control-label">阴阳：</label>
+                </legend>
+                <div class="row form-groups">
+                  <div class="col-xs-2 text-right">
+                    <label for="txtBalance" class="control-label">阴阳：</label>
+                  </div>
+                  <div class="col-xs-1">
+                    <select class="form-control" id="balanceSlt" ng-disabled='!(type=="5")'>
                       <option value="+">+</option>
                       <option value="-">-</option>
                     </select>
-                    </div>
-                    <div class="col-xs-3">
-                      <input type="text" class="form-control" id="txtBalance" name="balance" placeholder="请输入数值" ng-disabled='!(type=="5")'>
-                    </div>
-
                   </div>
-                </fieldset>
-              </div>
-            </div>
-            <!--时间型-->
-            <div class="row">
-              <div class="col-md-12 col-sm-12">
-                <fieldset>
-                  <legend>
-                    <input id="Radio1" type="radio" name="type" value="6" ng-model="type" />
-                    <label class="control-label">时间：</label>
-                  </legend>
-                  <div class="row form-groups">
-                    <div class="col-xs-2 text-right">
-                      <label for="inputEmail3" class="control-label">时间：</label>
-                    </div>
-                    <div class="col-xs-4">
-                      <input id="txtTime" name="time" class="start_end_time form-control" placeholder="请选择时间" ng-disabled='!(type=="6")'>
-                    </div>
+                  <div class="col-xs-3">
+                    <input type="text" class="form-control" id="txtBalance" name="balance" placeholder="请输入数值" ng-disabled='!(type=="5")'>
                   </div>
-                  <p ng-show="{{!isShow}}"><b>最后修改:</b> {{vm.data.modifyBy.name}}　{{vm.data.modifyAt|date:"yyyy/MM/dd HH:mm:ss" }}</p>
-                </fieldset>
-              </div>
-            </div>
-            <!--按钮组-->
-            <div class="newProjectblock col-md-12 col-sm-12" ng-show="{{isShow}}">
-              <div class="col-md-3 col-sm-4 col-md-offset-5 col-sm-offset-4">
-                <input type="submit" id="btnNewProject" class="btn btn-block btn-primary" w5c-form-submit="vm.saveinfo($event)" value="创建项目">
-              </div>
-            </div>
-            <div class="editProjectBlock col-md-12 col-sm-12" ng-show="{{!isShow}}">
-              <div class="col-md-3 col-sm-3 col-md-offset-3 col-sm-offset-3">
-                <input type="button" id="btnDelProject" class="btn btn-block btn-primary" value="删除项目" ng-click="vm.deleteProject()">
-              </div>
-              <div class="col-md-3 col-sm-3">
-                <button id="btnSaveProject" class="btn btn-block btn-primary" ng-click="vm.editinfo()">保存项目</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div><br/><br/><br/><br/><br/>
-    </div>
-    <!-- 脚本 -->
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../../Scripts/select2.js"></script>
-    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-    <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
-    <script>
-      $(function() {
-        //初始化时间控件
-        // $(".start_end_time").datetimepicker();
-        tool.changeSelect($("#balanceSlt"), false);
-      });
-      (function() {
-        var app = angular.module("myApp", ["w5c.validator"]);
-        window.app = app;
-        app.config(["w5cValidatorProvider", function(w5cValidatorProvider) {
-          // 全局配置
-          w5cValidatorProvider.config({
-            blurTrig: true,
-            showError: true,
-            removeError: true
-          });
 
-          w5cValidatorProvider.setRules({
-            name: {
-              required: "用户名称不能为空"
-            },
-            spell: {
-              required: "拼音名不能为空"
-            },
-            itemId: {
-              required: "项目缩写不能为空"
-            },
-            description: {
-              required: "项目说明不能为空"
+                </div>
+              </fieldset>
+            </div>
+          </div>
+          <!--时间型-->
+          <div class="row">
+            <div class="col-md-12 col-sm-12">
+              <fieldset>
+                <legend>
+                  <input id="Radio1" type="radio" name="type" value="6" ng-model="type" />
+                  <label class="control-label">时间：</label>
+                </legend>
+                <div class="row form-groups">
+                  <div class="col-xs-2 text-right">
+                    <label for="inputEmail3" class="control-label">时间：</label>
+                  </div>
+                  <div class="col-xs-4">
+                    <input id="txtTime" name="time" class="start_end_time form-control" placeholder="请选择时间" ng-disabled='!(type=="6")'>
+                  </div>
+                </div>
+                <p ng-show="{{!isShow}}"><b>最后修改:</b> {{vm.data.modifyBy.name}}　{{vm.data.modifyAt|date:"yyyy/MM/dd HH:mm:ss" }}</p>
+              </fieldset>
+            </div>
+          </div>
+          <!--按钮组-->
+          <div class="newProjectblock col-md-12 col-sm-12" ng-show="{{isShow}}">
+            <div class="col-md-3 col-sm-4 col-md-offset-5 col-sm-offset-4">
+              <input type="submit" id="btnNewProject" class="btn btn-block btn-primary" w5c-form-submit="vm.saveinfo($event)" value="创建项目">
+            </div>
+          </div>
+          <div class="editProjectBlock col-md-12 col-sm-12" ng-show="{{!isShow}}">
+            <div class="col-md-3 col-sm-3 col-md-offset-3 col-sm-offset-3">
+              <input type="button" id="btnDelProject" class="btn btn-block btn-primary" value="删除项目" ng-click="vm.deleteProject()">
+            </div>
+            <div class="col-md-3 col-sm-3">
+              <button id="btnSaveProject" class="btn btn-block btn-primary" ng-click="vm.editinfo()">保存项目</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div><br/><br/><br/><br/><br/>
+  </div>
+  <!-- 脚本 -->
+  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
+  <script>
+    $(function() {
+      //初始化时间控件
+      // $(".start_end_time").datetimepicker();
+      tool.changeSelect($("#balanceSlt"), false);
+    });
+    (function() {
+      var app = angular.module("myApp", ["w5c.validator"]);
+      window.app = app;
+      app.config(["w5cValidatorProvider", function(w5cValidatorProvider) {
+        // 全局配置
+        w5cValidatorProvider.config({
+          blurTrig: true,
+          showError: true,
+          removeError: true
+        });
+
+        w5cValidatorProvider.setRules({
+          name: {
+            required: "用户名称不能为空"
+          },
+          spell: {
+            required: "拼音名不能为空"
+          },
+          itemId: {
+            required: "项目缩写不能为空"
+          },
+          description: {
+            required: "项目说明不能为空"
+          }
+        });
+      }]);
+      app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
+        var vm = $scope.vm = {
+          showErrorType: "1",
+          showDynamicElement: true,
+          dynamicName: "dynamicName",
+          data: {}
+        };
+        var request = new UrlSearch();
+        $scope.projectId = request.id ? request.id : null;
+        if ($scope.projectId != null) {
+          vm.show_error = true;
+          $scope.isShow = false; //显示修改按钮 
+          var url = BasicUrl + "item/" + $scope.projectId;
+          $http.get(url).success(function(data) {
+            if (data != null && data != "" && data != "null" && data.itemId) {
+              $scope.vm.data = data;
+              $scope.vm.data.todo = "TODO";
+              $scope.type = data.type;
+            } else {
+              tool.alert("提示", "请求数据出错，请重试！");
             }
+          }).error(function(data, header, config, status) {
+            //处理响应失败
+            tool.alert("提示", "获取用户数据出错！");
+            window.history.back(-1); //回退至上一页面
           });
-        }]);
-        app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
-          var vm = $scope.vm = {
-            showErrorType: "1",
-            showDynamicElement: true,
-            dynamicName: "dynamicName",
-            data: {}
-          };
-          var request = new UrlSearch();
-          $scope.projectId = request.id ? request.id : null;
-          if ($scope.projectId != null) {
-            vm.show_error = true;
-            $scope.isShow = false; //显示修改按钮 
-            var url = BasicUrl + "item/" + $scope.projectId;
-            $http.get(url).success(function(data) {
-              if (data != null && data != "" && data != "null" && data.itemId) {
-                $scope.vm.data = data;
-                $scope.vm.data.todo = "TODO";
-                $scope.type = data.type;
-              } else {
-                tool.alert("提示", "请求数据出错，请重试！");
+
+        } else {
+          $scope.isShow = true; //显示新增按钮
+        }
+        vm.saveinfo = function($event) {
+          $(":submit").attr("disabled", true);
+          $http({
+              method: 'POST',
+              url: BasicUrl + "item",
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              data: $("[name='validateForm']").serialize()
+            })
+            .success(function(data, xhr) {
+              if (xhr == 200) {
+                //成功操作 
+                tool.alert("提示", "添加成功!", function() {
+                  window.history.back(-1);
+                });
+                //回退至上一页面 
               }
-            }).error(function(data, header, config, status) {
-              //处理响应失败
-              tool.alert("提示", "获取用户数据出错！");
-              window.history.back(-1); //回退至上一页面
+            }).error(function(response) {
+              if (response != null && response.errorMessage != null) {
+                tool.alert("提示", response.errorMessage);
+              }
+              $(":submit").attr("disabled", false);
             });
 
-          } else {
-            $scope.isShow = true; //显示新增按钮
-          }
-          vm.saveinfo = function($event) {
-            $(":submit").attr("disabled", true);
-            $http({
-                method: 'POST',
-                url: BasicUrl + "item",
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: $("[name='validateForm']").serialize()
-              })
-              .success(function(data, xhr) {
-                if (xhr == 200) {
-                  //成功操作 
-                  tool.alert("提示", "添加成功!", function() {
-                    window.history.back(-1);
-                  });
-                  //回退至上一页面 
-                }
-              }).error(function(response) {
-                if (response != null && response.errorMessage != null) {
-                  tool.alert("提示", response.errorMessage);
-                }
-                $(":submit").attr("disabled", false);
-              });
 
+        };
 
-          };
-
-          vm.deleteProject = function() {
-            var id = $scope.projectId;
-            tool.confirm(
-              "提示",
-              "确认删除当前项目？",
-              function() {
-                //用户点击确认按钮时操作
-                $.ajax({
-                  type: "DELETE",
-                  url: BasicUrl + "item/" + id,
-                  dataType: "json",
-                  error: function(response) {
-                    if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-                      tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-                    }
-                  },
-                  complete: function(xhr, textStatus) {
-                    if (xhr.status == 200) {
-                      tool.alert("提示", "删除成功", function() {});
-                      window.location.href = "ProjectList.html";
-                    }
-                  }
-                });
-              },
-              function() {
-                //用户点击取消按钮时操作
-              });
-
-          };
-
-          vm.editinfo = function() {
-            var len = $(".w5c-error").length;
-            if (len) {
-              tool.alert("提示", "请修改数据后再进行提交！");
-              return false;
-            }
-            //修改按钮操作 
-            var id = $scope.projectId;
-            $http({
-                method: 'PATCH',
+        vm.deleteProject = function() {
+          var id = $scope.projectId;
+          tool.confirm(
+            "提示",
+            "确认删除当前项目？",
+            function() {
+              //用户点击确认按钮时操作
+              $.ajax({
+                type: "DELETE",
                 url: BasicUrl + "item/" + id,
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
+                dataType: "json",
+                error: function(response) {
+                  if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                    tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+                  }
                 },
-                data: $("[name='validateForm']").serialize()
-              })
-              .success(function(data, xhr) {
-                if (xhr == 200) {
-                  //成功操作 
-                  tool.alert("提示", "已保存修改！", function() {
-                    //刷新当前页面.
-                    window.location.reload();
-                  });
-                  //回退至上一页面 
-                } else {
-                  tool.alert("提示", "修改失败！");
+                complete: function(xhr, textStatus) {
+                  if (xhr.status == 200) {
+                    tool.alert("提示", "删除成功", function() {});
+                    window.location.href = "ProjectList.html";
+                  }
                 }
-              }).error(function(response) {
-                if (response != null && response.errorMessage != null) {
-                  tool.alert("提示", response.errorMessage);
-                }
-                $(":submit").attr("disabled", false);
               });
-          };
+            },
+            function() {
+              //用户点击取消按钮时操作
+            });
 
-          //加载完毕后再显示 
-          $scope.$watch("viewContentLoaded", function() {
-            angular.element(".myload").removeClass("myload");
-          });
-        }]);
-      })();
-    </script>
-  </body>
+        };
+
+        vm.editinfo = function() {
+          var len = $(".w5c-error").length;
+          if (len) {
+            tool.alert("提示", "请修改数据后再进行提交！");
+            return false;
+          }
+          //修改按钮操作 
+          var id = $scope.projectId;
+          $http({
+              method: 'PATCH',
+              url: BasicUrl + "item/" + id,
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              data: $("[name='validateForm']").serialize()
+            })
+            .success(function(data, xhr) {
+              if (xhr == 200) {
+                //成功操作 
+                tool.alert("提示", "已保存修改！", function() {
+                  //刷新当前页面.
+                  window.location.reload();
+                });
+                //回退至上一页面 
+              } else {
+                tool.alert("提示", "修改失败！");
+              }
+            }).error(function(response) {
+              if (response != null && response.errorMessage != null) {
+                tool.alert("提示", response.errorMessage);
+              }
+              $(":submit").attr("disabled", false);
+            });
+        };
+
+        //加载完毕后再显示 
+        $scope.$watch("viewContentLoaded", function() {
+          angular.element(".myload").removeClass("myload");
+        });
+      }]);
+    })();
+  </script>
+</body>
 
 </html>

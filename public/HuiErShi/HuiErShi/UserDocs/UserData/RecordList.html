@@ -34,9 +34,9 @@
         </div>
         <div class="form-group text-left">
           <label class="control-label">项目名：</label>
-          <select class="form-control" id="itemId" name="itemId">
+          <select class="form-control" id="itemId" name="itemId" style="width:150px;">
           <option value="">请选择</option>
-          <option ng-repeat="y in Itemoptions"  value="{{y.itemId}}">{{y.name}}</option>
+          <option ng-repeat="y in Itemoptions" value="{{y.itemId}}" >{{y.name}}</option>
       </select>
         </div>&nbsp;&nbsp;
         <div class="form-group text-left">
@@ -262,7 +262,7 @@
     $(function() {
       // $(".start_end_time").datetimepicker();
       tool.changeSelect($("#userId"), false);
-      tool.changeSelect($("#itemId"), false);
+      // tool.changeSelect($("#itemId"), false);
       tool.changeSelect($("#from"), false);
 
       $("#userId").select2({
@@ -350,58 +350,84 @@
       $http.get(BasicUrl + "item?page=0&pageNum=1000").success(function(data) {
         if (data != null && data != "" && data != "null") {
           $scope.Itemoptions = data.content;
-          tool.changeSelect($("#allItem"), true);
+          // $scope.apply();
+          // tool.changeSelect($("#itemId"), true);
         }
       });
+
       var pageing = function(pageindex, params) {
 
         var url = BasicUrl + "item?page=0&pageNum=1000";
+        // $http.get(url).success(function(data) {
+        //   if (data != null && data != "" && data != "null") {
+        //     $scope.options = data.content;
+        //   }
+
+        //TODO  需要修改部分
+        var url = BasicUrl + "data?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
         $http.get(url).success(function(data) {
           if (data != null && data != "" && data != "null") {
-            $scope.options = data.content;
-          }
+            $scope.dataLengths = data.content.length > 0; //判断当前是否存在记录
+            if (data.content != null && data.content.length > 0) {
+              //赋值操作
+              $scope.data = data;
+              $scope.totalPage = data.totalPages;
+              $scope.totalRecord = data.totalElements;
+              //清空数据
+              $scope.tabledata = [];
+              $scope.timedata = [];
+              var arrayData = data.content;
+              //按时间排序下
+              arrayData.sort(function(a, b) {
+                return a.createAt > b.createAt;
+              })
+              for (var i = 0; i < data.content.length; i++) {
+                var singledata = data.content[i];
+                //重新添加数据
+                $scope.tabledata.push(singledata.val);
+                $scope.timedata.push(getLocalTime(singledata.createAt));
 
-          //TODO  需要修改部分
-          var url = BasicUrl + "data?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
-          $http.get(url).success(function(data) {
-            if (data != null && data != "" && data != "null") {
-              $scope.dataLengths = data.content.length > 0; //判断当前是否存在记录
-              if (data.content != null && data.content.length > 0) {
-                //赋值操作
-                $scope.data = data;
-                $scope.totalPage = data.totalPages;
-                $scope.totalRecord = data.totalElements;
-                //清空数据
-                $scope.tabledata = [];
-                $scope.timedata = [];
-                var arrayData = data.content;
-                //按时间排序下
-                arrayData.sort(function(a, b) {
-                  return a.createAt > b.createAt;
-                })
-                for (var i = 0; i < data.content.length; i++) {
-                  var singledata = data.content[i];
-                  //重新添加数据
-                  $scope.tabledata.push(singledata.val);
-                  $scope.timedata.push(getLocalTime(singledata.createAt));
-
-                }
-
-                //调用生成分页方法
-                initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
-                  pageing($("#currentPage").val() - 1, params);
-                });
-              } else {
-                // tool.alert("提示", "当前条件下未获取到数据");
               }
+
+              //调用生成分页方法
+              initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
+                pageing($("#currentPage").val() - 1, params);
+              });
+            } else {
+              // tool.alert("提示", "当前条件下未获取到数据");
             }
-          }).error(function(data) {
-            //处理响应失败
-            if (data && data.errorMessage) {
-              tool.alert("提示", data.errorMessage);
-            }
-          });
+          }
+        }).error(function(data) {
+          //处理响应失败
+          if (data && data.errorMessage) {
+            tool.alert("提示", data.errorMessage);
+          }
         });
+        // });
+      }
+      var obj = new UrlSearch();
+
+      // "RecordList.html?itemId=" + itemId + "&userId=" + userId;
+      if (obj.itemId && obj.userId) {
+
+        params = "";
+        if (itemId) {
+          params = "itemId=" + obj.itemId + "&";
+        }
+        if (userId) {
+          params += "userId=" + obj.userId + "&";
+        }
+
+        $scope.currentItemId = itemId;
+        // .trigger('change')
+        // setTimeout(function() {
+        //   $("#itemId").val(itemId);
+        //   tool.changeSelect($("#itemId"), false);
+        // }, 2000);
+
+
+
+        pageing(0, params);
       }
 
       //分页方法
@@ -493,8 +519,8 @@
       $scope.$watch("viewContentLoaded", function() {
         angular.element(".myload").removeClass("myload");
       });
-
     });
+
 
     function getLocalTime(tm) {
       var tt = new Date(parseInt(tm)).toLocaleString('chinese', {

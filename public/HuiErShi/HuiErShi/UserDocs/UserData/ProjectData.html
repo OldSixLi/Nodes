@@ -93,15 +93,16 @@
               <td>{{ $index+data.page*data.pageNum+1}}</td>
               <td>{{ x.itemName}}</td>
               <td>
-                <span ng-if="itemType=='1'">{{ x.minNum+'~'+x.maxNum}}</span>
-                <span ng-if="itemType=='2'">{{ x.minStr+'~'+x.maxStr}}</span>
-                <span ng-if="itemType=='3'">{{ x.selections}}</span>
-                <span ng-if="itemType=='4'">{{ x.minStr+'~'+x.maxStr}}</span></td>
+                <span ng-if="x.itemType=='1'">{{ x.minNum+'~'+x.maxNum}}</span>
+                <span ng-if="x.itemType=='2'">{{ x.minStr+'~'+x.maxStr}}</span>
+                <span ng-if="x.itemType=='3'">{{ x.selections}}</span>
+                <span ng-if="x.itemType=='4'">{{ x.minStr+'~'+x.maxStr}}</span></td>
               <td>{{x.val}}</td>
               <td>{{ x.createAt|date:"yyyy-MM-dd HH:mm:ss" +"　/　"+x.fromWhere}}</td>
-              <td>{{x.totalCount}} </td>
               <td>
-                <a href="#?id={{x.viewId}}"></a>{{x.viewName}} </td>
+                <a href="javascript:;" ng-click="redirectRecord(x.itemId,userId)">{{x.totalCount}}</a> </td>
+              <td>
+                <a href="ViewManage.html?id={{c.id}}" ng-repeat="c in x.viewSet">{{c.name}}</a> </td>
             </tr>
             <tr ng-show="!dataLengths">
               <td colspan="100" class="text-center ">暂无结果</td>
@@ -385,6 +386,12 @@
         }
       }
 
+      $scope.redirectRecord = function(itemId, userId) {
+
+        var url = "RecordList.html?itemId=" + itemId + "&userId=" + userId;
+        window.location.href = url;
+      }
+
       //查询按钮
       $scope.search = function() {
           //TODO  需要修改部分
@@ -394,6 +401,7 @@
           // var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
           //用户id
           var userId = $("#userId").val();
+          $scope.userId = userId;
           //视图id
           var viewId = $("#viewId").val();
           // 视图标签id
