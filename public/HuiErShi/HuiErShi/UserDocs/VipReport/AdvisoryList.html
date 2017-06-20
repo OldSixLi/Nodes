@@ -381,11 +381,18 @@
       }
       var groupId = '';
 
+      //'eJxFkN1SwjAQRt*ltziaX2u8szRTQWoHClW4yRQS2giGGqJSHd-dmqHj7Tm78*1*38F8kl*WTaOlKJ3AVga3AQguPFanRlslyq1TtsOIMgRALz*UPeqD*eMAUogwAP9SS2Wc3mq-t8j5TKQ8jfgM9gNHXXUm5cvhaBqzyA4kMcnpDeT1*IaO94NsyDCr7Ty5f4kmOwNX66oO0UM1qu*yx6-ss6DqOptyJ7F7TuL9erGKYlvE7VPhsL5yOmuXxIR9mNwJ-2IXCUl3JcKUorN0*lV5zkJECKX0zMvN5vBunHBto3wnP78yM1iQ'
+
+
+
+
 
       //TODO  后期修改此处固定值
+      //      console.log(getCookie('userSig'));
+      //      getCookie('identifier').log
       var login = {
-        "identifier": 'USER_MEMBER10',
-        "userSig": 'eJxFkN1SwjAQRt*ltziaX2u8szRTQWoHClW4yRQS2giGGqJSHd-dmqHj7Tm78*1*38F8kl*WTaOlKJ3AVga3AQguPFanRlslyq1TtsOIMgRALz*UPeqD*eMAUogwAP9SS2Wc3mq-t8j5TKQ8jfgM9gNHXXUm5cvhaBqzyA4kMcnpDeT1*IaO94NsyDCr7Ty5f4kmOwNX66oO0UM1qu*yx6-ss6DqOptyJ7F7TuL9erGKYlvE7VPhsL5yOmuXxIR9mNwJ-2IXCUl3JcKUorN0*lV5zkJECKX0zMvN5vBunHBto3wnP78yM1iQ',
+        "identifier": getCookie('identifier'),
+        "userSig": getCookie('userSig'),
         'identifierNick': ''
       };
 
@@ -1065,7 +1072,6 @@
           'from': '2',
           'con': '3'
         }];
-
         $http.get(BasicUrl + "admin/advisers").success(function(data) {
           if (data != null && data != "" && data != "null") {
             $scope.options = data;
@@ -1084,6 +1090,34 @@
                 if (data != null && data.length > 0) {
                   //赋值操作
                   $scope.data = data;
+
+                  //http://60.205.170.209:8080/admin/api/api-docs/../IM/group/GROUP_REPORT42
+                  //                    var url=BasicUrl+'IM/group/GROUP_REPORT'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                   // $scope.totalPage = data.totalPages;
                   // $scope.totalRecord = data.totalElements;
                   // initPageDiv($("#alreadyPage"), //在哪里生成页码
@@ -1144,7 +1178,6 @@
           webim.getGroupInfo(
             options,
             function(resp) {
-              console.log(resp);
               document.getElementsByClassName('talk_box')[0].style.display = 'block';
               var options = {
                 'GroupId': groupId,
@@ -1170,9 +1203,14 @@
                     }
                   }
                   $scope.$apply();
+
+
+
+
+
                 },
                 function(err) {
-
+                  alert('不能展开对话')
                   console.log(err);
                 }
               );
@@ -1190,45 +1228,44 @@
           }
           //查询按钮
         $scope.search = function() {
-          //起始时间时间戳
-          var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
-          //结束时间时间戳
-          var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-          //用户名称
-          var keyWord = $("#txtKeyWord").val();
-          //会员类型
-          var status = $("#sltViewList").val();
-          var expertId = $("#expertList").val();
+            //起始时间时间戳
+            var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+            //结束时间时间戳
+            var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+            //用户名称
+            var keyWord = $("#txtKeyWord").val();
+            //会员类型
+            var status = $("#sltViewList").val();
+            var expertId = $("#expertList").val();
 
-          //校验只有一个搜索条件
-          if (!(minExpiredAt || maxExpiredAt || keyWord || status || expertId)) {
-            return false;
+            //校验只有一个搜索条件
+            if (!(minExpiredAt || maxExpiredAt || keyWord || status || expertId)) {
+              return false;
+            }
+            //起止日期校验
+            if (minExpiredAt && maxExpiredAt && minExpiredAt > maxExpiredAt) {
+              tool.alert("提示", "报告日期中结束时间不得早于起始时间!");
+              return false;
+            }
+            params = '';
+            if (keyWord) {
+              params += 'keyWord=' + keyWord + '&';
+            }
+            if (expertId) {
+              params += 'expertId=' + expertId + '&';
+            }
+            if (status) {
+              params += 'status=' + status + '&';
+            }
+            if (minExpiredAt) {
+              params += 'minStartAt=' + minExpiredAt + '&';
+            }
+            if (maxExpiredAt) {
+              params += 'maxStartAt=' + maxExpiredAt + '&';
+            }
+            pageing(0, params);
           }
-          //起止日期校验
-          if (minExpiredAt && maxExpiredAt && minExpiredAt > maxExpiredAt) {
-            tool.alert("提示", "报告日期中结束时间不得早于起始时间!");
-            return false;
-          }
-          params = '';
-          if (keyWord) {
-            params += 'keyWord=' + keyWord + '&';
-          }
-          if (expertId) {
-            params += 'expertId=' + expertId + '&';
-          }
-          if (status) {
-            params += 'status=' + status + '&';
-          }
-          if (minExpiredAt) {
-            params += 'minStartAt=' + minExpiredAt + '&';
-          }
-          if (maxExpiredAt) {
-            params += 'maxStartAt=' + maxExpiredAt + '&';
-          }
-          pageing(0, params);
-        }
-
-        //跳转至某页方法
+          //跳转至某页方法
         $scope.skip = function() {
           if ($scope.toPageValue <= 1) {
             $scope.toPageValue = 1;

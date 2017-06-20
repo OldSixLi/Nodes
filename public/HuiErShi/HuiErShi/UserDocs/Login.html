@@ -78,7 +78,7 @@
         var id = null;
         vm.saveinfo = function($event) {
           vm.errorMessage = "";
-          // $(":submit").attr("disabled", true);
+            // $(":submit").attr("disabled", true);
           $http({
               method: 'POST',
               url: 'http://60.205.170.209:8080/admin/api/token',
@@ -92,7 +92,7 @@
               })
             })
             .success(function(data, xhr) {
-              if (xhr == 200) {
+                if (xhr == 200) {
                 if (data.errorMessage) {
                   alert(data.errorMessage);
                   $(":submit").attr("disabled", false);
@@ -102,7 +102,7 @@
                   //   "token": "0737947964606487390279591774052233608530431821039044416448665402"
 
                   //成功操作
-                  id = data.userId
+                  id = data.userId;
                   $http({
                       method: 'POST',
                       url: 'http://60.205.170.209:8080/admin/api/IMConsult/userSig',
@@ -110,15 +110,13 @@
                         'Content-Type': 'application/x-www-form-urlencoded'
                       },
                       data: $.param({
-                        IMUserId: 'USER_MEMBER2' + data.userId
+                        IMUserId: 'USER_MEMBER' + data.userId
                       })
                     })
                     .success(function(data, xhr) {
-
-                      if (xhr == 200) {
-                        setCookie('identifier', 'USER_MEMBER2' + id)
+                        if (xhr == 200) {
+                        setCookie('identifier', 'USER_MEMBER' + id)
                         setCookie('userSig', data);
-                        alert(id)
                         window.location.href = "HuiErShi.html?id=" + id;
 
                       }
