@@ -65,6 +65,10 @@
         </div>
         <hr>
         <div class="row">
+          <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+              // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+              // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+              // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
           <!-- 消除外边距 -->
           <div class="col-md-2"><img src='{{expertData.foodUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.foodUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
 
@@ -85,6 +89,11 @@
           </div>
           <div class="col-md-2">
             <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.foodId,'food')" style="position:relative;right:-27px;" ng-disabled="!(experts.foodId>0)"> 添加处方</a>
+            <div style="margin-top:35px;">
+              <!--$scope.-->
+              <p ng-repeat="a in expertData.foodModifyTime.split(',')">{{a}}</p>
+
+            </div>
             <!--ng-disabled="experts.foodId<=0"-->
           </div>
           <div class="col-md-10">
@@ -118,10 +127,8 @@
 
             <div id="btn-uploader1">
               <a id="pickfiles1" class="button-file">
-
                 <button type="button" class="btn btn-primary">上传PDF附件</button>
               </a> <input type="text" name="foodiconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.foodAttach">
-
               <a href="{{expertData.foodAttach}}" id="foodLink" download="fujian.pdf" class="pdf btn btn-link ">下载附件</a>
             </div>
           </div>
@@ -129,6 +136,10 @@
           </div>
         </div>
         <hr>
+        <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+            // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+            // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+            // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
         <div class="row">
           <!-- 消除外边距 -->
           <div class="col-md-2">
@@ -151,6 +162,10 @@
           </div>
           <div class="col-md-2">
             <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.sportId,'sport')" style="position:relative;right:-27px;" ng-disabled="!(experts.sportId>0)"> 添加处方</a>
+            <div style="margin-top:35px;">
+              <p ng-repeat="a in expertData.sportModifyTime.split(',')">{{a}}</p>
+
+            </div>
           </div>
           <div class="col-md-10">
             <table class="table  table-hover table-bordered">
@@ -183,12 +198,9 @@
 
             <div id="btn-uploader">
               <a id="pickfiles" class="button-file">
-                <!--<img id="img" src='{{model.imageUrl ==null?"../../images/upload/upload-alert.png":model.imageUrl}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;">-->
                 <button type="button" class="btn btn-primary">上传PDF附件</button>
               </a> <input type="text" name="sporticonUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.sportAttach">
-              <!--<a href="{{expertData.sportAttach}}" id="sportLink" target="_blank" class="pdf btn btn-link">查看附件</a>-->
               <a href="{{expertData.sportAttach}}" id="sportLink" download="fujian.pdf" class="pdf btn btn-link">下载附件</a>
-              <!---->
             </div>
           </div>
           <div class="col-md-10 col-md-offset-2">
@@ -629,7 +641,7 @@
                   if (element.admin.role == 2) {
                     $scope.expertData.sportReport = element.analysis;
                     $scope.expertData.sportAdvice = element.advice;
-
+                    $scope.expertData.sportModifyTime = element.modifyTime;
                     $scope.expertData.sportId = element.id;
                     $scope.sportChufangArr = element.prescriptions;
                     $scope.expertData.sportAttach = element.attach;
@@ -638,7 +650,7 @@
                     $scope.expertData.foodReport = element.analysis;
 
                     $scope.expertData.foodAdvice = element.advice;
-
+                    $scope.expertData.foodModifyTime = element.modifyTime;
                     $scope.expertData.foodId = element.id;
                     $scope.foodChufangArr = element.prescriptions;
                     $scope.expertData.foodAttach = element.attach;

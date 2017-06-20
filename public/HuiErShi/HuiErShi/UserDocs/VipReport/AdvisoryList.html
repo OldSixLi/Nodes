@@ -1065,7 +1065,8 @@
           'from': '2',
           'con': '3'
         }];
-        $http.get(url).success(function(data) {
+
+        $http.get(BasicUrl + "admin/advisers").success(function(data) {
           if (data != null && data != "" && data != "null") {
             $scope.options = data;
           }
@@ -1169,11 +1170,6 @@
                     }
                   }
                   $scope.$apply();
-
-
-
-
-
                 },
                 function(err) {
 
@@ -1194,44 +1190,45 @@
           }
           //查询按钮
         $scope.search = function() {
-            //起始时间时间戳
-            var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
-            //结束时间时间戳
-            var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-            //用户名称
-            var keyWord = $("#txtKeyWord").val();
-            //会员类型
-            var status = $("#sltViewList").val();
-            var expertId = $("#expertList").val();
+          //起始时间时间戳
+          var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+          //结束时间时间戳
+          var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+          //用户名称
+          var keyWord = $("#txtKeyWord").val();
+          //会员类型
+          var status = $("#sltViewList").val();
+          var expertId = $("#expertList").val();
 
-            //校验只有一个搜索条件
-            if (!(minExpiredAt || maxExpiredAt || keyWord || status || expertId)) {
-              return false;
-            }
-            //起止日期校验
-            if (minExpiredAt && maxExpiredAt && minExpiredAt > maxExpiredAt) {
-              tool.alert("提示", "报告日期中结束时间不得早于起始时间!");
-              return false;
-            }
-            params = '';
-            if (keyWord) {
-              params += 'keyWord=' + keyWord + '&';
-            }
-            if (expertId) {
-              params += 'expertId=' + expertId + '&';
-            }
-            if (status) {
-              params += 'status=' + status + '&';
-            }
-            if (minExpiredAt) {
-              params += 'minStartAt=' + minExpiredAt + '&';
-            }
-            if (maxExpiredAt) {
-              params += 'maxStartAt=' + maxExpiredAt + '&';
-            }
-            pageing(0, params);
+          //校验只有一个搜索条件
+          if (!(minExpiredAt || maxExpiredAt || keyWord || status || expertId)) {
+            return false;
           }
-          //跳转至某页方法
+          //起止日期校验
+          if (minExpiredAt && maxExpiredAt && minExpiredAt > maxExpiredAt) {
+            tool.alert("提示", "报告日期中结束时间不得早于起始时间!");
+            return false;
+          }
+          params = '';
+          if (keyWord) {
+            params += 'keyWord=' + keyWord + '&';
+          }
+          if (expertId) {
+            params += 'expertId=' + expertId + '&';
+          }
+          if (status) {
+            params += 'status=' + status + '&';
+          }
+          if (minExpiredAt) {
+            params += 'minStartAt=' + minExpiredAt + '&';
+          }
+          if (maxExpiredAt) {
+            params += 'maxStartAt=' + maxExpiredAt + '&';
+          }
+          pageing(0, params);
+        }
+
+        //跳转至某页方法
         $scope.skip = function() {
           if ($scope.toPageValue <= 1) {
             $scope.toPageValue = 1;

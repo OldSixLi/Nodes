@@ -474,14 +474,21 @@
       var app = angular.module('myApp', []);
       app.controller('customersCtrl', function($scope, $http) {
 
-        //TODO  获取会籍顾问
+        /**
+         * 获取会籍顾问
+         * @returns
+         */
         $http.get(BasicUrl + "admin/advisers").success(function(data) {
           if (data != null && data != "" && data != "null") {
             $scope.adviseOptions = data;
             tool.changeSelect($("#adviserList"), true);
           }
         });
-        //TODO  获取专家列表
+
+        /**
+         * 获取专家列表
+         * @returns
+         */
         var url = BasicUrl + "admin/experts";
         $http.get(url).success(function(data) {
           if (data != null && data != "" && data != "null") {
@@ -489,16 +496,19 @@
           }
         });
 
+        //获取当前传入的参数
         var urlObj = new UrlSearch();
         if (urlObj.id) {
           $scope.userid = urlObj.id;
-          var url = "http://60.205.170.209:8080/admin/api/vip/" + urlObj.id;
-          //获取当前用户的具体信息
+          var url = BasicUrl + "vip/" + urlObj.id;
+          /**
+           * 获取当前用户的具体信息
+           * @returns
+           */
           $http.get(url).success(function(data) {
             if (data != null && data != "" && data != "null" && data.id) {
               $scope.data = data;
-              // $scope.foodExpert = ;
-              // $scope.sportExpert = ;
+              $scope.adviserId = data.adviser.id;
             } else {
               tool.alert("提示", data.errorMessage);
             }
@@ -507,8 +517,12 @@
             tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
             window.location.href = "MemberList.html";
           });
-          //获取当前用户汇总信息
-          var infoUrl = "http://60.205.170.209:8080/admin/api/vip/" + urlObj.id + "/summary"
+
+          /**
+           * 获取当前用户汇总信息
+           * @returns
+           */
+          var infoUrl = BasicUrl + "vip/" + urlObj.id + "/summary"
           $http.get(infoUrl).success(function(healthyData) {
             if (healthyData != null && healthyData != "" && healthyData != "null") {
               $scope.vipInfo = healthyData;
@@ -516,15 +530,31 @@
               tool.alert("提示", healthyData.errorMessage);
             }
           }).error(function(data) {
-            //处理响应失败
             tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
             window.location.href = "MemberList.html";
           });
 
+          /**
+           * 获取会员报告相关信息
+           * @returns
+           */
+          // $scope.adviser = $scope.data.adviser;
+          // $http.get(BasicUrl + "vip/" + urlObj.id).success(function(healthyData) {
+          //   if (healthyData != null && healthyData != "" && healthyData != "null") {
+          //     $scope.vipInfo = healthyData;
+          //   } else {
+          //     tool.alert("提示", healthyData.errorMessage);
+          //   }
+          // })
+
         } else {
           tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
         }
-        //设置会员顾问
+
+        /**
+         * 设置会员顾问
+         * @returns
+         */
         $scope.setAdviser = function() {
           var userid = urlObj.id;
           var adviserId = $("#adviserList").val(); //会籍顾问ID
@@ -566,7 +596,10 @@
 
         }
 
-        //设置专家
+        /**
+         * 设置专家
+         * @returns
+         */
         $scope.setExpert = function(id) {
           var userid = $scope.userid; //获取当前用户ID
 
@@ -624,7 +657,10 @@
             function() {});
         }
 
-        //加载完毕后再显示 
+        /**
+         * 加载完毕后再显示
+         * @returns
+         */
         $scope.$watch("viewContentLoaded", function() {
           angular.element(".myload").removeClass("myload");
         });

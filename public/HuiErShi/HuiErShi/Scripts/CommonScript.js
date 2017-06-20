@@ -108,12 +108,21 @@ $(function() {
 });
 
 
-//时间比较函数（直接提取数字进行比较）
+/**
+ * 时间比较函数（直接提取数字进行比较）
+ * 
+ * @param {any} a 
+ * @param {any} b 
+ * @returns 
+ */
 function timescompare(a, b) {
   return a.replace(/[^0-9]+/g, "") - b.replace(/[^0-9]+/g, "");
 }
 
-//分隔获取各个参数
+/**
+ * 分隔获取各个参数
+ * 
+ */
 function UrlSearch() {
   var name, value;
   var str = location.href; //取得整个地址栏
@@ -202,6 +211,9 @@ function myBrowser() {
     return "Opera";
   }
 };
+
+
+
 /**
  * 获取当前登录的用户的身份信息
  * 
@@ -219,9 +231,6 @@ function getAdmin() {
   return adminData;
 }
 
-function adminRole() {
-
-}
 /**
  * 获取当前登录的用户的ID
  * @returns 
