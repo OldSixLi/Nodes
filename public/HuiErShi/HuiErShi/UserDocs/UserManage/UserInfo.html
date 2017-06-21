@@ -261,6 +261,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
+
             <div class=" fixed-table-container">
               <table class="table table-hover">
                 <!-- 表头 -->
@@ -283,24 +284,14 @@
                 <!--数据部分 -->
                 <!--'TODO'  此部分不知道从哪获取接口，后期补充完成-->
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>16356254585</td>
-                    <td>年卡</td>
-                    <td>李惠利</td>
+                  <tr ng-repeat="x in reportInfo">
+                    <td>{{x.reportDate}}</td>
+                    <td><a href="../VipReport/MemberReportList.html?reportId={{x.reportNo}}">{{x.reportNo}}</a></td>
+                    <td>{{x.latestIM.RspMsgList.length||0}}</td>
+                    <td>{{x.experts}}</td>
+
                   </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>16356254585</td>
-                    <td>年卡</td>
-                    <td>李惠利</td>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>16356254585</td>
-                    <td>年卡</td>
-                    <td>李惠利</td>
-                  </tr>
+
                 </tbody>
               </table>
             </div>
@@ -312,7 +303,7 @@
     <!--按钮  移动到其他DOM中-->
 
     <!--按钮END-->
-    <div class="modal fade " id="modal">
+    <div class="modal fade" id="modal">
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
@@ -538,14 +529,15 @@
            * 获取会员报告相关信息
            * @returns
            */
+          //  http://60.205.170.209:8080/admin/api/api-docs/../IMConsult?userId=1&&&page=0&pageNum=100
           // $scope.adviser = $scope.data.adviser;
-          // $http.get(BasicUrl + "vip/" + urlObj.id).success(function(healthyData) {
-          //   if (healthyData != null && healthyData != "" && healthyData != "null") {
-          //     $scope.vipInfo = healthyData;
-          //   } else {
-          //     tool.alert("提示", healthyData.errorMessage);
-          //   }
-          // })
+          $http.get(BasicUrl + "IMConsult?userId=" + urlObj.id + "&page=0&pageNum=100").success(function(healthyData) {
+            if (healthyData != null && healthyData != "" && healthyData != "null") {
+              $scope.reportInfo = healthyData;
+            } else {
+              tool.alert("提示", healthyData.errorMessage);
+            }
+          })
 
         } else {
           tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
