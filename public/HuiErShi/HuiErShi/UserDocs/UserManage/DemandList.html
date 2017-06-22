@@ -47,8 +47,6 @@
           <hr class="hidden-md hidden-lg" />
           <div class="form-group text-left">
             <label class="lbl_search">记录日期：</label>
-
-
             <div class="input-group timeblock">
               <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" />
               <div class="input-group-btn">
@@ -144,6 +142,8 @@
                   </div>
                   <div class="col-sm-9">
                     <select name="userId" id="modalUserId" class="form-control" ng-model="vm.data.name" required style="width:100%;"> 
+<option value="">请选择</option>
+                      <option ng-repeat="x in MemberOptions" value="{{x.id}}">{{x.realName}}</option>
           </select>
                     <input type="hidden" name="adminId" id="adminId" value="1">
                   </div>
@@ -194,7 +194,7 @@
     </div>
     <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
     <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.js"></script>
     <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
     <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
     <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
@@ -226,28 +226,33 @@
           templateSelection: formatRepoSelection,
         });
 
-        $("#modalUserId").select2({
-          placeholder: '请选择',
-          allowClear: true,
-          ajax: {
-            url: function(params) {
-              return BasicUrl + "vip/name/" + params.term;
-            },
-            dataType: 'json',
-            delay: 250,
-            processResults: function(data, page) {
-              return {
-                results: data
-              };
-            },
-            cache: false
-          },
-          minimumInputLength: 1,
-          minimumResultsForSearch: 1,
-          width: "100%",
-          templateResult: formatRepo,
-          templateSelection: formatRepoSelection,
-        });
+
+
+
+
+        // $("#modalUserId").select2({
+        //   placeholder: '请选择',
+        //   allowClear: true,
+        //   ajax: {
+        //     url: function(params) {
+        //       // 
+        //       return BasicUrl + "vip/name/" + params.term;
+        //     },
+        //     dataType: 'json',
+        //     delay: 250,
+        //     processResults: function(data, page) {
+        //       return {
+        //         results: data
+        //       };
+        //     },
+        //     cache: false
+        //   },
+        //   minimumInputLength: 1,
+        //   minimumResultsForSearch: 1,
+        //   width: "100%",
+        //   templateResult: formatRepo,
+        //   templateSelection: formatRepoSelection,
+        // });
 
         function formatRepo(repo) {
           return repo.realName;
@@ -265,6 +270,8 @@
         var app = angular.module("myApp", ["w5c.validator"]);
         window.app = app;
         app.config(["w5cValidatorProvider", function(w5cValidatorProvider) {
+
+
           // 全局配置
           w5cValidatorProvider.config({
             blurTrig: true,
@@ -296,6 +303,14 @@
               tool.changeSelect($("#advisorId"), true);
             }
           });
+
+          $http.get(BasicUrl + "vip/adviser/" + adminId()).success(function(data) {
+            if (data != null && data != "" && data != "null") {
+              $scope.MemberOptions = data;
+              tool.changeSelect($("#modalUserId"), false);
+            }
+          });
+          tool.changeSelect($("#demandWay"), false);
           var searchIndex = 0;
           //分页方法声明
           var pageing = function(pageindex, params) {

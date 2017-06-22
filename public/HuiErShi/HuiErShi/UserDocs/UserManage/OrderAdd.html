@@ -1,294 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>会员信息</title>
-  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
-  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/common.css" rel="stylesheet">
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>会员信息</title>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
+    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/common.css" rel="stylesheet">
+  </head>
 
-<body ng-app="myApp" ng-controller="customersCtrl" class="myload">
-  <!-- 面包屑导航 -->
-  <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-    <li><a href="javascript:void(0)">客户管理</a></li>
-    <li><a href="javascript:history.back(-1)">预约列表</a></li>
-    <li class="active">添加预约</li>
-  </ol>
+  <body ng-app="myApp" ng-controller="customersCtrl" class="myload">
+    <!-- 面包屑导航 -->
+    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+      <li><a href="javascript:void(0)">客户管理</a></li>
+      <li><a href="javascript:history.back(-1)">预约列表</a></li>
+      <li class="active">添加预约</li>
+    </ol>
 
-  <!--搜索-->
-  <div class="text-right col-xs-12" id="search_block">
-    <form class="form-inline" role="form">
-      <div class="form-group text-left">
-        <label class="">姓名： </label>
-        <input id="txtUserName" name="keyword" class="form-control" placeholder="请输入用户名称" type="text">
-      </div>
-      <div class="form-group text-left">
-        <label class="">手机号： </label>
-        <input id="txtUserName" name="phone" class="form-control" placeholder="请输入手机号" type="text">
-      </div>
-      <!-- 搜索按钮 -->
-      <a ng-click="search()" class="btn btn-success" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
-    </form>
-  </div>
-
-  <!-- 数据显示 -->
-  <div class="ng-scope tab-content container-fluid">
-    <div class=" fixed-table-container">
-      <table class="table table-hover table-condensed ">
-        <!-- 表头 -->
-        <thead>
-          <tr>
-            <th>选择</th>
-            <th>序号</th>
-            <th>姓名</th>
-            <th>手机号</th>
-            <th>籍贯</th>
-            <th>地址</th>
-            <th>有效期</th>
-          </tr>
-        </thead>
-        <tbody id="databody">
-          <tr ng-show="dataLengths" ng-repeat="x in data.content">
-            <td>
-              <input type="radio" name="userId" value="{{x.id}}" />
-              <!--<input type="checkbox" name="userid" ng-checked="isChecked(x.id)" ng-click="updateSelection($event,x.id)" />-->
-            </td>
-            <td>{{ $index+data.page*data.pageNum+1}}</td>
-            <td>
-              <img src="{{x.iconUrl}}" alt="" />
-              <a href="UserInfo.html?id={{x.id}}">{{x.realName}}</a>
-            </td>
-            <td ng-click="alerts">{{ x.mobile }}</td>
-            <td>{{ x.nativePlace }}</td>
-            <td>{{ x.contactAddress}}</td>
-            <td>{{x.date=x.vipCard.expiredAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
-          </tr>
-          <tr ng-show="!dataLengths">
-            <td colspan="100" class="text-center ">暂无结果</td>
-          </tr>
-        </tbody>
-      </table>
+    <!--搜索-->
+    <div class="text-right col-xs-12" id="search_block">
+      <form class="form-inline" role="form">
+        <div class="form-group text-left">
+          <label class="">姓名： </label>
+          <input id="txtUserName" name="keyword" class="form-control" placeholder="请输入用户名称" type="text">
+        </div>
+        <div class="form-group text-left">
+          <label class="">手机号： </label>
+          <input id="txtUserName" name="phone" class="form-control" placeholder="请输入手机号" type="text">
+        </div>
+        <!-- 搜索按钮 -->
+        <a ng-click="search()" class="btn btn-success" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+      </form>
     </div>
-    <!-- <p> Selected : {{selected}} </p> -->
 
-  </div>
+    <!-- 数据显示 -->
+    <div class="ng-scope tab-content container-fluid">
+      <div class=" fixed-table-container">
+        <table class="table table-hover table-condensed ">
+          <!-- 表头 -->
+          <thead>
+            <tr>
+              <th>选择</th>
+              <th>序号</th>
+              <th>姓名</th>
+              <th>手机号</th>
+              <th>籍贯</th>
+              <th>地址</th>
+              <th>有效期</th>
+            </tr>
+          </thead>
+          <tbody id="databody">
+            <tr ng-show="dataLengths" ng-repeat="x in data.content">
+              <td>
+                <input type="radio" name="userId" value="{{x.id}}" />
+                <!--<input type="checkbox" name="userid" ng-checked="isChecked(x.id)" ng-click="updateSelection($event,x.id)" />-->
+              </td>
+              <td>{{ $index+data.page*data.pageNum+1}}</td>
+              <td>
+                <img src="{{x.iconUrl}}" alt="" />
+                <a href="UserInfo.html?id={{x.id}}">{{x.realName}}</a>
+              </td>
+              <td ng-click="alerts">{{ x.mobile }}</td>
+              <td>{{ x.nativePlace }}</td>
+              <td>{{ x.contactAddress}}</td>
+              <td>{{x.date=x.vipCard.expiredAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
+            </tr>
+            <tr ng-show="!dataLengths">
+              <td colspan="100" class="text-center ">暂无结果</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- <p> Selected : {{selected}} </p> -->
 
-  <!--分页控件-->
-  <div class="col-md-12">
-    <div ng-show="dataLengths" class="row">
-      <div class="form-group pull-right topage_block">
-        <!-- 跳转至 -->
-        <label>{{totalRecord}}条/{{totalPage}}页</label>
-        <label>跳至</label>
-        <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
-        <label>页</label>
-        <button class="btn btn-success btn-sm" ng-click="skip()">确定</button>
-      </div>
-      <!-- 分页控件 -->
-      <div class="pull-right">
-        <ul class="pagination" id="alreadyPage"></ul>
-      </div>
     </div>
-    <form class="row" id="orderForm">
-      <div class="col-md-6 col-md-offset-3 col-sm-12">
-        <!-- 用于存放选择的用户ID -->
-        <input type="hidden" value="{{selected.join(',')}}" name="userids" id="userIds" />
-        <div class="row form-group">
-          <div class="col-md-3 col-sm-3 col-xs-3 text-right">
-            <label for="date">预约日期:</label></div>
-          <div class="col-md-9 col-sm-9 col-xs-9">
-            <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-              <input type="text" id="date" placeholder="请选择时间" class="start_end_time form-control" />
-              <span class="add-on input-group-addon">
+
+    <!--分页控件-->
+    <div class="col-md-12">
+      <div ng-show="dataLengths" class="row">
+        <div class="form-group pull-right topage_block">
+          <!-- 跳转至 -->
+          <label>{{totalRecord}}条/{{totalPage}}页</label>
+          <label>跳至</label>
+          <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
+          <label>页</label>
+          <button class="btn btn-success btn-sm" ng-click="skip()">确定</button>
+        </div>
+        <!-- 分页控件 -->
+        <div class="pull-right">
+          <ul class="pagination" id="alreadyPage"></ul>
+        </div>
+      </div>
+      <form class="row" id="orderForm">
+        <div class="col-md-6 col-md-offset-3 col-sm-12">
+          <!-- 用于存放选择的用户ID -->
+          <input type="hidden" value="{{selected.join(',')}}" name="userids" id="userIds" />
+          <div class="row form-group">
+            <div class="col-md-3 col-sm-3 col-xs-3 text-right">
+              <label for="date">预约日期:</label></div>
+            <div class="col-md-9 col-sm-9 col-xs-9">
+              <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
+                <input type="text" id="date" placeholder="请选择时间" class="start_end_time form-control" />
+                <span class="add-on input-group-addon">
                               <i class="icon-th glyphicon glyphicon-calendar"></i>
                         </span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row form-group">
-          <div class="col-md-3 col-sm-3 col-xs-3 text-right ">
-            <label>预约项目:</label></div>
-          <div class="col-md-9 col-sm-9 col-xs-9">
-            <label ng-repeat="x in options">
+          <div class="row form-group">
+            <div class="col-md-3 col-sm-3 col-xs-3 text-right ">
+              <label>预约项目:</label></div>
+            <div class="col-md-9 col-sm-9 col-xs-9">
+              <label ng-repeat="x in options">
               <input type="checkbox" name="orderItems" value="{{x.id}}" />{{x.name}}&nbsp;&nbsp;</label>
 
+            </div>
+            <!-- 用于存放当前用户选择的项目ID -->
+            <input type="hidden" name="itemId" id="hidden-items" />
           </div>
-          <!-- 用于存放当前用户选择的项目ID -->
-          <input type="hidden" name="itemId" id="hidden-items" />
-        </div>
-        <div class="row form-group">
-          <div class="col-md-3 col-sm-3 col-xs-3 text-right">
-            <label>预约备注:</label></div>
-          <div class="col-md-9 col-sm-9 col-xs-9">
-            <input type="text" class="form-control" name="notes" id="notes" placeholder="请输入预约备注" ng-model="notes" />
+          <div class="row form-group">
+            <div class="col-md-3 col-sm-3 col-xs-3 text-right">
+              <label>预约备注:</label></div>
+            <div class="col-md-9 col-sm-9 col-xs-9">
+              <input type="text" class="form-control" name="notes" id="notes" placeholder="请输入预约备注" ng-model="notes" />
+            </div>
           </div>
-        </div>
-        <div class="row form-group">
-          <div class="col-md-9 col-md-offset-3 text-center">
-            <input type="button" class="btn btn-success" value="确定" ng-click="save()" /> &nbsp;&nbsp;
-            <a href="javascript:history.back(-1)" class="btn btn-default">取消</a>
+          <div class="row form-group">
+            <div class="col-md-9 col-md-offset-3 text-center">
+              <input type="button" class="btn btn-success" value="确定" ng-click="save()" /> &nbsp;&nbsp;
+              <a href="javascript:history.back(-1)" class="btn btn-default">取消</a>
+            </div>
           </div>
+
         </div>
+      </form>
+    </div>
 
-      </div>
-    </form>
-  </div>
+    <!-- 当前页隐藏域 -->
+    <input id="currentPage" name="currentPage" value="1" type="hidden">
 
-  <!-- 当前页隐藏域 -->
-  <input id="currentPage" name="currentPage" value="1" type="hidden">
+    <!--脚本-->
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+    <!-- <script type="text/javascript" src="../../Scripts/bootstrap.js"></script> -->
+    <!-- <script type="text/javascript" src="../../Scripts/select2.js"></script> -->
+    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
 
-  <!--脚本-->
-  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
-  <!-- <script type="text/javascript" src="../../Scripts/bootstrap.js"></script> -->
-  <!-- <script type="text/javascript" src="../../Scripts/select2.js"></script> -->
-  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script>
+      $(function() {
+        // $(".start_end_time").datetimepicker();
 
-  <script>
-    $(function() {
-      // $(".start_end_time").datetimepicker();
-
-    });
-    var params = "vipType=&minExpiredAt=&maxExpiredAt=&keyWord="; //全局变量
-    var app = angular.module('myApp', []);
-    app.controller('customersCtrl', function($scope, $http) {
-      $scope.selected = [];
-      $scope.isChecked = function(x) {
-        return $scope.selected.indexOf(x) >= 0;
-      };
-
-
-      $http.get(BasicUrl + "appointmentItems/All").success(function(data) {
-        if (data != null && data != "" && data != "null") {
-          $scope.options = data;
-        }
-        tool.changeSelect($("#sltItem"), false);
       });
-      $scope.updateSelection = function($event, x) {
+      var params = "vipType=&minExpiredAt=&maxExpiredAt=&keyWord="; //全局变量
+      var app = angular.module('myApp', []);
+      app.controller('customersCtrl', function($scope, $http) {
+        $scope.selected = [];
+        $scope.isChecked = function(x) {
+          return $scope.selected.indexOf(x) >= 0;
+        };
 
-        var checkbox = $event.target;
-        var checked = checkbox.checked;
-        if (checked) {
-          $scope.selected.push(x);
-          console.log($scope.selected.join(','));
-        } else {
-          var idx = $scope.selected.indexOf(x);
-          $scope.selected.splice(idx, 1);
-          console.log($scope.selected.join(','));
-        }
-      };
-      //分页方法声明
-      var pageing = function(pageindex, params) {
-          //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../vip?
-          var url = BasicUrl + "vip?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
-          $http.get(url).success(function(data) {
-            if (data != null && data != "" && data != "null") {
-              //判断当前是否存在记录
-              $scope.dataLengths = data.content.length > 0;
-              if (data.content != null && data.content.length > 0) {
-                //赋值操作
-                $scope.data = data;
-                $scope.totalPage = data.totalPages;
-                $scope.totalRecord = data.totalElements;
-                //调用生成分页方法
-                initPageDiv($("#alreadyPage"), //在哪里生成页码
-                  pageindex + 1, //当前页
-                  data.totalPages, //总页数
-                  5, //每次显示多少页
-                  $("#currentPage"), //隐藏域的值：当前页数
-                  function() {
-                    pageing($("#currentPage").val() - 1, params);
-                  });
-              } else {
-                tool.alert("提示", "未获取到数据，请重试");
+
+        $http.get(BasicUrl + "appointmentItems/All").success(function(data) {
+          if (data != null && data != "" && data != "null") {
+            $scope.options = data;
+          }
+          tool.changeSelect($("#sltItem"), false);
+        });
+        $scope.updateSelection = function($event, x) {
+
+          var checkbox = $event.target;
+          var checked = checkbox.checked;
+          if (checked) {
+            $scope.selected.push(x);
+            console.log($scope.selected.join(','));
+          } else {
+            var idx = $scope.selected.indexOf(x);
+            $scope.selected.splice(idx, 1);
+            console.log($scope.selected.join(','));
+          }
+        };
+        //分页方法声明
+        var pageing = function(pageindex, params) {
+            //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../vip?
+            var url = BasicUrl + "vip?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+            $http.get(url).success(function(data) {
+              if (data != null && data != "" && data != "null") {
+                //判断当前是否存在记录
+                $scope.dataLengths = data.content.length > 0;
+                if (data.content != null && data.content.length > 0) {
+                  //赋值操作
+                  $scope.data = data;
+                  $scope.totalPage = data.totalPages;
+                  $scope.totalRecord = data.totalElements;
+                  //调用生成分页方法
+                  initPageDiv($("#alreadyPage"), //在哪里生成页码
+                    pageindex + 1, //当前页
+                    data.totalPages, //总页数
+                    5, //每次显示多少页
+                    $("#currentPage"), //隐藏域的值：当前页数
+                    function() {
+                      pageing($("#currentPage").val() - 1, params);
+                    });
+                } else {
+                  tool.alert("提示", "未获取到数据，请重试");
+                }
               }
+            });
+          }
+          //分页方法
+        pageing(0, params);
+
+        //查询按钮
+        $scope.search = function() {
+          // alert('a');
+          //用户名称
+          var username = $("#keyword").val();
+          //会员类型
+          var phone = $("#phone").val();
+          //校验只有一个搜索条件
+          if (!(phone || username)) {
+            tool.alert("提示", "请至少输入一个搜索条件");
+            return false;
+          }　　
+          params = "name=" + username + "&phone=" + phone;
+          pageing(0, params);
+        }
+
+
+        //跳转至某页方法
+        $scope.skip = function() {
+          if ($scope.toPageValue <= 1) {
+            $scope.toPageValue = 1;
+          } else if ($scope.toPageValue > $scope.totalPage) {
+            $scope.toPageValue = $scope.totalPage;
+          }
+          pageing($scope.toPageValue - 1, params);
+        }
+
+        /**
+         * 获取多选框（CheckBox）的值 
+         * @param {any} name 控件名称
+         * @returns 
+         */
+        function getCheckBoxValue(name) {
+          var obj = document.getElementsByName(name);
+          var s = [];
+          for (var i = 0; i < obj.length; i++) {
+            if (obj[i].checked) {
+              s.push(obj[i].value);
+            }
+          }
+          return s.join(',');
+        }
+
+        $scope.save = function() {
+          if (!$("input[type='radio']:checked").val()) {
+            tool.alert("提示", "请选择会员进行预约");
+            return false;
+          }
+
+          if (!getCheckBoxValue('orderItems')) {
+            tool.alert("提示", "请选择预约项目");
+            return false;
+          }
+
+          var saveInfo = {
+            userId: parseInt($("input[type='radio']:checked").val()),
+            appointmentTime: Date.parse(new Date($("#date").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#date").val())),
+            itemId: getCheckBoxValue('orderItems'),
+            comment: $scope.notes
+          }
+          $.post(BasicUrl + 'appointment', saveInfo, function(data, status, jqXHR) {
+            if (status == 'success' && jqXHR.status == 200) {
+              tool.alert('提示', '保存成功');
+              $('#orderForm')[0].reset();
+            } else {
+              tool.alert('提示', '保存失败');
             }
           });
         }
-        //分页方法
-      pageing(0, params);
 
-      //查询按钮
-      $scope.search = function() {
-        // alert('a');
-        //用户名称
-        var username = $("#keyword").val();
-        //会员类型
-        var phone = $("#phone").val();
-        //校验只有一个搜索条件
-        if (!(phone || username)) {
-          tool.alert("提示", "请至少输入一个搜索条件");
-          return false;
-        }　　
-        params = "name=" + username + "&phone=" + phone;
-        pageing(0, params);
-      }
-
-
-      //跳转至某页方法
-      $scope.skip = function() {
-        if ($scope.toPageValue <= 1) {
-          $scope.toPageValue = 1;
-        } else if ($scope.toPageValue > $scope.totalPage) {
-          $scope.toPageValue = $scope.totalPage;
-        }
-        pageing($scope.toPageValue - 1, params);
-      }
-
-      /**
-       * 获取多选框（CheckBox）的值 
-       * @param {any} name 控件名称
-       * @returns 
-       */
-      function getCheckBoxValue(name) {
-        var obj = document.getElementsByName(name);
-        var s = [];
-        for (var i = 0; i < obj.length; i++) {
-          if (obj[i].checked) {
-            s.push(obj[i].value);
-          }
-        }
-        return s.join(',');
-      }
-
-      $scope.save = function() {
-        if (!$("input[type='radio']:checked").val()) {
-          tool.alert("提示", "请选择会员进行预约");
-          return false;
-        }
-
-        if (!getCheckBoxValue('orderItems')) {
-          tool.alert("提示", "请选择预约项目");
-          return false;
-        }
-
-        var saveInfo = {
-          userId: parseInt($("input[type='radio']:checked").val()),
-          appointmentTime: Date.parse(new Date($("#date").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#date").val())),
-          itemId: getCheckBoxValue('orderItems'),
-          comment: $scope.notes
-        }
-        $.post(BasicUrl + 'appointment', saveInfo, function(data, status, jqXHR) {
-          if (status == 'success' && jqXHR.status == 200) {
-            tool.alert('提示', '保存成功');
-            $('#orderForm')[0].reset();
-          } else {
-            tool.alert('提示', '保存失败');
-          }
+        //加载完毕后再显示 
+        $scope.$watch("viewContentLoaded", function() {
+          angular.element(".myload").removeClass("myload");
         });
-      }
-
-      //加载完毕后再显示 
-      $scope.$watch("viewContentLoaded", function() {
-        angular.element(".myload").removeClass("myload");
       });
-    });
-  </script>
-</body>
+    </script>
+  </body>
 
 </html>

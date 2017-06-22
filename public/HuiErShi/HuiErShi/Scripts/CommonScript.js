@@ -241,43 +241,33 @@ function adminId() {
 }
 
 /**
- * 设置cookie值
+ * 判断当前操作的用户是否为正常登陆
  * 
- * @param {any} name 
- * @param {any} value 
- * @param {any} seconds 
+ * @returns 
  */
-function setCookie(name, value, seconds) {
-  seconds = seconds || 0; //seconds有值就直接赋值，没有为0 
-  var expires = "";
-  if (seconds != 0) { //设置cookie生存时间
-    var date = new Date();
-    date.setTime(date.getTime() + (seconds * 1000));
-    expires = "; expires=" + date.toGMTString();
-  }
-  document.cookie = name + "=" + escape(value) + expires + "; path=/";
+function testAdmin() {
+  return adminId > 0;
 }
 
-function getCookie(name) {
-  var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-  if (arr = document.cookie.match(reg))
-    return unescape(arr[2]);
-  else
-    return null;
-}
-
+/**
+ * 把当前加载的地址存储进cookie里
+ * 
+ */
 function setCurrent() {
   var url = window.location.href;
   setCookie('currentUrl', url, 500);
 }
 
-//读取当前cookie存储的地址
+
+/**
+ * 读取当前cookie存储的地址
+ * 每次刷新页面时都从cookie中读取相关的URL地址，可以保持刷新的页面没变
+ */
 function readCurrentUrl() {
   var currentUrl = getCookie('currentUrl');
   if (currentUrl) {
     $("#work-frame").attr("src", currentUrl);
   }
-
 }
 // setCookie('currentUrl', '666.html?id=1', 500)
 // alert()
@@ -392,3 +382,35 @@ var JSTOOL = function() {
   };
 };
 var tool = new JSTOOL();
+// ********************************Cookie相关操作***************************
+/**
+ * 设置cookie值
+ * 
+ * @param {any} name 
+ * @param {any} value 
+ * @param {any} seconds 
+ */
+function setCookie(name, value, seconds) {
+  seconds = seconds || 0; //seconds有值就直接赋值，没有为0 
+  var expires = "";
+  if (seconds != 0) { //设置cookie生存时间
+    var date = new Date();
+    date.setTime(date.getTime() + (seconds * 1000));
+    expires = "; expires=" + date.toGMTString();
+  }
+  document.cookie = name + "=" + escape(value) + expires + "; path=/";
+}
+
+/**
+ * 读取cookie
+ * 
+ * @param {any} name 
+ * @returns 
+ */
+function getCookie(name) {
+  var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+  if (arr = document.cookie.match(reg))
+    return unescape(arr[2]);
+  else
+    return null;
+}

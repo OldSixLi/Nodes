@@ -100,7 +100,7 @@
                 <label for="txtUserNum" class="control-label">编号：</label>
               </div>
               <div class="col-sm-8">
-                <input type="text" class="form-control" name="vipNo" required ng-model="vm.entity.vipEntity.vipNo" placeholder="编号" ng-readonly="true">
+                <input type="text" class="form-control" name="vipNo" required ng-model="vm.entity.vipEntity.vipNo" placeholder="编号">
               </div>
             </div>
             <div class="form-group select2-formgroup">
@@ -383,7 +383,7 @@
                 <tbody>
                   <tr ng-show="vm.dataLengths" ng-repeat="x in vm.entity.vipcards">
                     <td>{{$index+1}}</td>
-                    <td>{{x.id}}</td>
+                    <td>{{x.vipCardEntity.shortName+x.activeAt}}</td>
                     <td>{{x.vipCardEntity.vipType=="considerate"?"体验型":"关爱型"}}</td>
                     <td>{{x.vipCardEntity.validityPeriod}}月</td>
                     <td><span ng-show="x.activated">{{x.activeAt|date:"yyyy/MM/dd HH:mm:ss"}}</span></td>
@@ -588,10 +588,7 @@
               if (data != null && data != "" && data != "null") {
                 // $scope.userData = data;
                 $scope.vm.entity.vipcards = data;
-                $scope.vm.entity.vipEntity.vipNo = data[0].vipCardEntity.shortName + data[0].activeAt;
-                console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
-                console.log($scope.vm.entity.vipEntity.vipNo);
-                console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
+
                 $scope.vm.dataLengths = data.length;
 
               } else {
