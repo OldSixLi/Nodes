@@ -12,7 +12,7 @@
 
   <body ng-app="myApp">
     <div ng-controller="customersCtrl" class="container-fluid myload">
-      <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+      <ol class="breadcrumb col-xs-12" style="-ms-border-radius:0; border-radius:0;background-color:white;">
         <li><a href="javascript:void(0)">系统管理</a></li>
         <li class="active">管理员设置</li>
       </ol>
@@ -392,7 +392,7 @@
               console.log(xhr.status);
               if (xhr.status == 200) {
                 $('[name="addForm"]')[0].reset();
-                $('#modal').modal('hide')
+                  $('#modal').modal('hide');
                 tool.alert("提示", "新增管理员成功", function() {
                   window.location.reload();
                 });
@@ -407,60 +407,60 @@
         }
 
         // 编辑
-        $scope.saveEdit = function() {
-          var saveInfo = {
-            id: $scope.model.id,
-            name: $.trim($("#name").val()),
-            adminNo: $.trim($("#adminNo").val()),
-            job: $.trim($("#job").val()),
-            role: $('input:radio[name=role]:checked').val(),
-            iconUrl: $.trim($("#iconUrl").val()),
-            mobile: $.trim($("#mobile").val()),
-            password: $scope.model.password
-          };
-          var __error = [];
-          if (saveInfo.name == "") {
-            __error.push("请输入名称！");
-          }
-          if (saveInfo.adminNo == "") {
-            __error.push("请输入用户名！");
-          }
-          if (__error.length > 0) {
-            tool.alert("提示", __error.join("<br />"));
-            return false;
-          }
-          $.ajax({
-            type: "PATCH",
-            url: BasicUrl + "admin/" + $scope.model.id,
-            data: saveInfo,
-            dataType: "json",
-            error: function(response) {
-              if (response && response.errorMessage) {
-                tool.alert("提示", response.errorMessage);
+          $scope.saveEdit = function() {
+              var saveInfo = {
+                  id: $scope.model.id,
+                  name: $.trim($("#name").val()),
+                  adminNo: $.trim($("#adminNo").val()),
+                  job: $.trim($("#job").val()),
+                  role: $('input:radio[name=role]:checked').val(),
+                  iconUrl: $.trim($("#iconUrl").val()),
+                  mobile: $.trim($("#mobile").val()),
+                  password: $scope.model.password
+              };
+              var error = [];
+              if (saveInfo.name == "") {
+                  error.push("请输入名称！");
               }
-            },
-            complete: function(xhr, textStatus) {
-              console.log(JSON.stringify(xhr));
-              if (xhr.status == 200) {
-                $('[name="addForm"]')[0].reset();
-                $('#modal').modal('hide')
-                tool.alert("提示", "修改成功", function() {
-                  window.location.reload();
-                });
-              } else {
-                if (xhr.responseText) {
-                  var json = JSON.parse(xhr.responseText);
-                  tool.alert("提示", json.errorMessage);
-                }
+              if (saveInfo.adminNo == "") {
+                  error.push("请输入用户名！");
               }
-            }
-          });
-        }
+              if (error.length > 0) {
+                  tool.alert("提示", error.join("<br />"));
+                  return false;
+              }
+              $.ajax({
+                  type: "PATCH",
+                  url: BasicUrl + "admin/" + $scope.model.id,
+                  data: saveInfo,
+                  dataType: "json",
+                  error: function(response) {
+                      if (response && response.errorMessage) {
+                          tool.alert("提示", response.errorMessage);
+                      }
+                  },
+                  complete: function(xhr, textStatus) {
+                      console.log(JSON.stringify(xhr));
+                      if (xhr.status == 200) {
+                          $('[name="addForm"]')[0].reset();
+                          $('#modal').modal('hide');
+                          tool.alert("提示", "修改成功", function() {
+                              window.location.reload();
+                          });
+                      } else {
+                          if (xhr.responseText) {
+                              var json = JSON.parse(xhr.responseText);
+                              tool.alert("提示", json.errorMessage);
+                          }
+                      }
+                  }
+              });
+          }
 
         //加载完毕后执行
-        $scope.$watch("$viewContentLoaded", function() {
-          angular.element(".myload").removeClass("myload");
-        })
+        $scope.$watch( "$viewContentLoaded", function () {
+            angular.element( ".myload" ).removeClass( "myload" );
+        } );
       });
     </script>
   </body>

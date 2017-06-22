@@ -83,7 +83,7 @@
                 })
                 .success(function(data, xhr) {
                   if (xhr == 200) {
-                    setCookie('identifier', 'USER_MEMBER' + id)
+                      setCookie('identifier', 'USER_MEMBER' + id);
                     setCookie('userSig', data);
                     window.location.href = "HuiErShi.html?id=" + id;
 
