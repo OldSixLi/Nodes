@@ -107,7 +107,7 @@
     <Content Include="images\userphoto.jpg" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\bootstrap-3.3.4.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap-paginator.js" />
     <Content Include="Scripts\bootstrap.js" />

@@ -367,8 +367,8 @@
     <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
     <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
     <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-    <script type="text/javascript" src="../../Scripts/webim.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/spark-md5.js"></script>
+    <script type="text/javascript" src="../../Scripts/chat/webim.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/chat/spark-md5.js"></script>
 
     <script src="http://apps.bdimg.com/libs/angular.js/1.5.0-beta.0/angular-sanitize.min.js"></script>
     <script>
@@ -381,15 +381,15 @@
       }
       var groupId = '';
 
-//'eJxFkN1SwjAQRt*ltziaX2u8szRTQWoHClW4yRQS2giGGqJSHd-dmqHj7Tm78*1*38F8kl*WTaOlKJ3AVga3AQguPFanRlslyq1TtsOIMgRALz*UPeqD*eMAUogwAP9SS2Wc3mq-t8j5TKQ8jfgM9gNHXXUm5cvhaBqzyA4kMcnpDeT1*IaO94NsyDCr7Ty5f4kmOwNX66oO0UM1qu*yx6-ss6DqOptyJ7F7TuL9erGKYlvE7VPhsL5yOmuXxIR9mNwJ-2IXCUl3JcKUorN0*lV5zkJECKX0zMvN5vBunHBto3wnP78yM1iQ'
+      //'eJxFkN1SwjAQRt*ltziaX2u8szRTQWoHClW4yRQS2giGGqJSHd-dmqHj7Tm78*1*38F8kl*WTaOlKJ3AVga3AQguPFanRlslyq1TtsOIMgRALz*UPeqD*eMAUogwAP9SS2Wc3mq-t8j5TKQ8jfgM9gNHXXUm5cvhaBqzyA4kMcnpDeT1*IaO94NsyDCr7Ty5f4kmOwNX66oO0UM1qu*yx6-ss6DqOptyJ7F7TuL9erGKYlvE7VPhsL5yOmuXxIR9mNwJ-2IXCUl3JcKUorN0*lV5zkJECKX0zMvN5vBunHBto3wnP78yM1iQ'
 
 
 
 
 
       //TODO  后期修改此处固定值
-//      console.log(getCookie('userSig'));
-//      getCookie('identifier').log
+      //      console.log(getCookie('userSig'));
+      //      getCookie('identifier').log
       var login = {
         "identifier": getCookie('identifier'),
         "userSig": getCookie('userSig'),
@@ -918,7 +918,7 @@
         webim.login(
           loginInfo, listeners, options,
           function(resp) {
-              login.identifierNick = resp.identifierNick
+            login.identifierNick = resp.identifierNick
             var getMyGroup = function() {
               var options = {
                 'Member_Account': 'USER_MEMBER10',
@@ -1082,17 +1082,17 @@
         //分页方法声明
         var pageing = function(pageindex, params) {
             //请求地址
-       var id=login.identifier.match(/\d+/)[0];
-            var url = BasicUrl + "IMConsult?" + params + "page=" + pageindex + "&pageNum=10&expertId="+id; //请求的参数和地址
+            var id = login.identifier.match(/\d+/)[0];
+            var url = BasicUrl + "IMConsult?" + params + "page=" + pageindex + "&pageNum=10&expertId=" + id; //请求的参数和地址
             $http.get(url).success(function(data) {
-                if (data != null && data != "" && data != "null") {
+              if (data != null && data != "" && data != "null") {
                 //判断当前是否存在记录
                 $scope.dataLengths = data.length > 0;
                 if (data != null && data.length > 0) {
                   //赋值操作
                   $scope.data = data;
-                    //http://60.205.170.209:8080/admin/api/api-docs/../IM/group/GROUP_REPORT42
-//                    var url=BasicUrl+'IM/group/GROUP_REPORT'
+                  //http://60.205.170.209:8080/admin/api/api-docs/../IM/group/GROUP_REPORT42
+                  //                    var url=BasicUrl+'IM/group/GROUP_REPORT'
 
 
 
@@ -1147,7 +1147,7 @@
         };
         $scope.msgList = {};
         $scope.showList = function(res) {
-            $scope.identifierNick = login.identifierNick
+          $scope.identifierNick = login.identifierNick
           groupId = 'GROUP_REPORT' + res;
 
           var options = {
@@ -1178,7 +1178,7 @@
           webim.getGroupInfo(
             options,
             function(resp) {
-              document.getElementsByClassName('talk_box')[0].style     .display = 'block';
+              document.getElementsByClassName('talk_box')[0].style.display = 'block';
               var options = {
                 'GroupId': groupId,
                 'ReqMsgSeq': resp.GroupInfo[0].NextMsgSeq,
@@ -1188,7 +1188,7 @@
               webim.syncGroupMsgs(
                 options,
                 function(msgList) {
-                    $("#model").modal('show');
+                  $("#model").modal('show');
                   for (var i = 0; i < msgList.length; i++) {
                     var data = {
                       'time': msgList[i].time,
@@ -1210,7 +1210,7 @@
 
                 },
                 function(err) {
-               alert('不能展开对话')
+                  alert('不能展开对话')
                   console.log(err);
                 }
               );
