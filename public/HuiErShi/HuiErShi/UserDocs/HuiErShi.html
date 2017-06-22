@@ -5,13 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="https://raw.githubusercontent.com/OldSixLi/ListPage/master/myapp/public/images/my.ico" />
+    <link rel="shortcut icon" href="../images/ico/hui.ico" />
     <title>主页</title>
     <link rel="stylesheet" href="../Styles/bootstrap-3.3.4.css">
-    <link href="../Styles/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Styles/pageindex-back.css">
+    <link rel="stylesheet" href="../Styles/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
   </head>
-
 
   <body class="index" scroll="no" lang="en" onload="readCurrentUrl()">
     <!-- LOGO -->
@@ -65,13 +64,13 @@
       <input type="hidden" name="job" id="job" value="">
       <input type="hidden" name="iconUrl" id="iconUrl" value="">
     </div>
-    <!-- 顶部 -->
+    <!-- 顶部右侧按钮 -->
     <div class="navtop text-right userbar">
       <div class="btn-group" style="margin-top:-5px;">
         <button type="button" class="dropdown-toggle notice-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-     <span class="glyphicon glyphicon-bell" style="color:white;cursor: pointer"><span class="badge" id="totalNotice"></span>
-    </span>
-  </button>
+          <span class="glyphicon glyphicon-bell" style="color:white;cursor: pointer"><span class="badge" id="totalNotice"></span>
+          </span>
+        </button>
         <ul class="dropdown-menu" style="z-index:1000">
           <li><a data-link="VipReport/MemberReportList.html" class="ReportToBeFilledCount">待填写报告
           <span class="badge"></span></a></li>
@@ -82,197 +81,24 @@
       </div>
       <span class="glyphicon glyphicon-log-in" style="color:white;cursor: pointer;" aria-hidden="true" onclick="logout(event)"></span>
     </div>
-    <!-- 显示区域 -->
+    <!-- iframe模块 -->
     <div class="workspace">
       <!--连接地址-->
       <iframe id="work-frame" name="work-frame" scrolling="auto" frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%" src="UserManage/DemandList.html" class="noselect">
-        </iframe>
+      </iframe>
     </div>
 
     <!-- 脚本 -->
-    <script type="text/javascript" src="../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../Scripts/angular.min.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../Styles/jquery-confirm/jquery-confirm.min.js"></script>
-    <script type="text/javascript" src="../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../Scripts/angular.min.js"></script>
     <script type="text/javascript" src="../Scripts/CommonScript.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../Styles/jquery-confirm/jquery-confirm.min.js"></script>
+    <!--网站代码-->
+    <script type="text/javascript" src="../Scripts/iframe/index.js"></script>
 
-    <script type="text/javascript">
-      function reinitIframe() {
-        var iframe = document.getElementById("frame_content");
-        try {
-          iframe.height = iframe.contentWindow.document.documentElement.scrollHeight;
-        } catch (ex) {}
-      }
-      window.setInterval("reinitIframe()", 200);
-      //当前登录用户的身份ID
-      var adminId;
-      $(function() {
-        //获取前台参数
-        var searchObj = new UrlSearch();
-        if (searchObj.id) {
-          var id = searchObj.id;
-          adminId = id;
-          //获取当前登录的身份
-          $.get(BasicUrl + "admin/" + id).success(function(data) {
-            if (data != null && data != "" && data != "null") {　
-              $("#adminNo").val(data.adminNo);
-              $("#adminId").val(id);
-              $("#name").val(data.name);
-              $("#role").val(data.role);
-              $("#job").val(data.job);
-              $("#iconUrl").val(data.iconUrl);
-            } else {
-              alert("获取用户身份出错，请重新登录！");
-              location.replace('Login.html');
-            }
-          }).error(function() {
-            alert("获取用户身份出错，请重新登录！");
-            location.replace('Login.html');
-          });
-
-          //定时获取用户通知
-          getNotice();
-          setInterval(function() {
-            getNotice();
-          }, 30000);
-        }
-        /**
-         * 获取当前登录用户的未读信息 
-         * @returns 
-         */
-        function getNotice() {
-          $.get(BasicUrl + "notice/?adminId=" + id).success(function(data) {
-            if (data != null && data != "" && data != "null") {　
-              var fill = data.ReportToBeFilledCount || 0;
-              var reply = data.ReportToBeRepliedCount || 0;
-              var total = fill + reply;
-              fill == 0 || $(".ReportToBeFilledCount").find('span').text(fill);
-              reply == 0 || $(".ReportToBeRepliedCount").find('span').text(reply);
-              total == 0 || $("#totalNotice").text(total);
-            }
-          });
-        }
-        //跳转到会员报告列表页面
-        $(".ReportToBeFilledCount").on('click', function() {
-          var href = $(this).attr("data-link") + "?adminId=" + adminId;
-          $("#work-frame").attr("src", href);
-        });
-        //跳转到咨询列表页面
-        $(".ReportToBeRepliedCount").on('click', function() {
-          var href = $(this).attr("data-link") + "?adminId=" + adminId;
-          $("#work-frame").attr("src", href);
-        });
-
-        // 菜单栏方法
-        $("div.menu").find("dl").each(function(index) {
-          $(this).find("dt").on("click", function(e) {
-            $("[data-for]").hide();
-            if ($(this).parent().hasClass('expand')) {
-              $(this).parent().removeClass("expand");
-              return false;
-            }
-            if (!$(this).parent().is(".expand ")) {
-              // 判断其他的是否有展开的，收起
-              $(".menu dl.expand").removeClass("expand");
-              $(this).parent().addClass("expand");
-            }
-            $(".second-menu").removeClass('on');
-          });
-        });
-
-        //子菜单单击事件
-        $("dd").each(function() {
-          $(this).click(function() {
-            var href = $(this).attr("data-link");
-            $("dd").removeClass('action');
-            $(this).addClass('action');
-            if ($(this).hasClass('rela')) {}
-            $("#work-frame").attr("src", href);
-          });
-        });
-
-        //父菜单单击事件
-        $(".second-menu").each(function() {
-          $(this).click(function(e) {
-            e.stopPropagation();
-            if ($(this).hasClass('on')) {
-              $(".second-menu").removeClass('on');
-              var id = $(this).attr('id');
-              $("[data-for='" + id + "']").hide();
-            } else {
-              var id = $(this).attr('id');
-              $("[data-for]").hide();
-              $("[data-for='" + id + "']").show();
-              $(".second-menu").removeClass('on');
-              $(this).addClass('on');
-            }
-          })
-        });
-      });
-
-      /**
-       * 退出功能 
-       * @returns 
-       */
-      function logout(event) {
-        confirms("提示", "确认退出后台管理系统吗？", function() {
-          location.replace('Login.html');
-          event.returnValue = false;
-        }, function() {});
-      }
-
-      /**
-       * 确认提示框 
-       * @returns 
-       */
-      function confirms(title, content, okCallback, cancelCallback) {
-        var confirm = okCallback && typeof okCallback === "function" ? okCallback :
-          function() {};
-        var cancel = cancelCallback && typeof cancelCallback === "function" ? cancelCallback :
-          function() {};
-        if (myBrowser() == "IE8") {
-          bootbox.confirm({
-            buttons: {
-              confirm: {
-                label: '确认',
-                className: 'btn-success'
-              },
-              cancel: {
-                label: '取消',
-                className: 'btn-default'
-              }
-            },
-            message: content,
-            callback: function(result) {
-              if (result) {
-                confirm();
-              } else {
-                cancel();
-              }
-            },
-            title: title,
-          });
-        } else {
-          var confirm = okCallback && typeof okCallback === "function" ? okCallback : function() {};
-          var cancel = cancelCallback && typeof cancelCallback === "function" ? cancelCallback : function() {};
-          $.confirm({
-            title: title,
-            content: content,
-            confirm: confirm,
-            cancel: cancel,
-            confirmButton: '确定',
-            cancelButton: '取消',
-            confirmButtonClass: 'btn-success',
-            cancelButtonClass: 'btn-default',
-            backgroundDismiss: false,
-            animation: 'zoom',
-            closeAnimation: 'scale'
-          });
-        }
-      }
-    </script>
   </body>
 
 </html>
