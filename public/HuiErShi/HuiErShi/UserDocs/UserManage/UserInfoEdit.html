@@ -383,7 +383,7 @@
                 <tbody>
                   <tr ng-show="vm.dataLengths" ng-repeat="x in vm.entity.vipcards">
                     <td>{{$index+1}}</td>
-                    <td>{{x.vipCardEntity.shortName+x.activeAt}}</td>
+                    <td>{{x.vipCardEntity.shortName+x.createAt}}</td>
                     <td>{{x.vipCardEntity.vipType=="considerate"?"体验型":"关爱型"}}</td>
                     <td>{{x.vipCardEntity.validityPeriod}}月</td>
                     <td><span ng-show="x.activated">{{x.activeAt|date:"yyyy/MM/dd HH:mm:ss"}}</span></td>
