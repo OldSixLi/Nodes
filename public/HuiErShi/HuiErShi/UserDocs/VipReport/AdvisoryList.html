@@ -137,6 +137,27 @@
         justify-content: flex-end;
         padding-right: 20px;
       }
+      
+      #img>.img_box {
+        width: 800px;
+        height: 800px;
+        position: relative;
+        top: 0%;
+        left: 13%;
+        width: 800px;
+        height: 800px;
+        position: relative;
+        top: 0%;
+        left: 13%;
+        text-align: center;
+        line-height: 800px;
+      }
+      
+      #img>.img_box>img {
+        position: relative;
+        position: relative;
+        display: inline-block;
+      }
     </style>
   </head>
 
@@ -242,17 +263,17 @@
                 <td>{{$index+1}}</td>
                 <td>
                   < img src="{{'http://usr.im/100x100?text=暂未提供'}}" />
-                  < a href=" ">{{ x.userName}}</ a>
+                  < a href=" ">{{ x.userName}}</a>
                 </td>
                 <td>{{ x.gender=="M"?"男":"女"}}</td>
                 <td>{{ x.reportDate| date:"yyyy/MM/dd HH:mm:ss" }}</td>
                 <td>
                   < a href="MemberReportInfo.html?id={{x.reportId}}">
-                    {{ x.reportNo}}</ a>
+                    {{ x.reportNo}}</a>
                 </td>
                 <td>{{ x.experts }}</td>
                 <td ng-click="showList(x.reportId)">
-                  < a href="#">{{x.latestIM.RspMsgList[0].MsgBody[0].MsgContent.Text?x.latestIM.RspMsgList[0].MsgBody[0].MsgContent.Text:'展开对话(无消息)'}}</ a>
+                  < a href="#">{{x.latestIM.RspMsgList[0].MsgBody[0].MsgContent.Text?x.latestIM.RspMsgList[0].MsgBody[0].MsgContent.Text:'展开对话(无消息)'}}</a>
                 </td>
               </tr>
               <tr ng-show="!dataLengths">
@@ -300,7 +321,7 @@
                       <p class="time">{{msg.time*1000 | date:'yyyy-MM-dd HH:mm:ss'}}</p>
                     </div>
                     <div class="other" ng-class="{true: 'me', false: 'other'}[identifierNick==msg.from]">
-                      <p ng-bind-html="msg.con"></p>
+                      <p ng-bind-html="msg.con" ng-click="showINg(msg.con)"></p>
 
                     </div>
 
@@ -327,6 +348,15 @@
         </div>
 
       </div>
+
+      <div class="modal fade in" id="img" aria-hidden="false" style="z-index: 2000">
+        <div class="img_box">
+          <h1>dd</h1>
+
+        </div>
+
+      </div>
+
       <div class="modal fade" id="upload_pic_dialog" tabindex="-1" role="dialog" aria-labelledby="upload_pic_dialog_label" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -561,6 +591,8 @@
         function onFriendSystemNotifys(res) {}
         //newMsgList 为新消息数组，结构为[Msg]
         function onMsgNotify(newMsgList) {
+          console.warn('6666 收到新消息le');
+          console.log('小伙伴可以从这添加提醒回调');
           var sess, newMsg;
           //获取所有聊天会话
           var sessMap = webim.MsgStore.sessMap();
@@ -616,7 +648,7 @@
           if (!oriImage) {
             oriImage = smallImage;
           }
-          return "<img src='" + smallImage.getUrl() + "#" + bigImage.getUrl() + "#" + oriImage.getUrl() + "' style='CURSOR: hand' id='" + content.getImageId() + "' bigImgUrl='" + bigImage.getUrl() + "' onclick='imageClick(this)' />";
+          return "<img src='" + smallImage.getUrl() + "#" + bigImage.getUrl() + "#" + oriImage.getUrl() + "' />";
         }
         //解析文本消息元素
         function convertTextMsgToHtml(content) {
@@ -1245,6 +1277,27 @@
           meg = [];
 
 
+        };
+        $scope.showINg = function(e) {
+
+          var reg = /^['<imgsrc=']/;
+          if (reg.test(e)) {
+            $("#img .img_box")[0].innerHTML = e;
+            $("#img").modal('show');
+            console.log($("#img .img_box img")[0]);
+            $("#img .img_box img").click(function(e) {
+
+              $("#img").modal('hide');
+            })
+
+
+
+
+          }
+        };
+
+        function imageClick(a) {
+          console.log(a);
         }
         $scope.selectPicClick = function(a) {
             selectPicClick(groupId);

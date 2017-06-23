@@ -293,7 +293,6 @@
              }
              if (element.admin.role == 3) {
                $scope.expertData.foodReport = element.analysis;
-
                $scope.expertData.foodAdvice = element.advice;
                $scope.expertData.foodModifyTime = element.modifyTime;
                $scope.expertData.foodId = element.id;

@@ -89,8 +89,9 @@
               $http.get(url).success(function(data) {
                 if (data != null && data != "" && data != "null") {
                   //判断当前是否存在记录
-                  $scope.dataLengths = data.content.length > 0;
+
                   if (data.content != null && data.content.length > 0) {
+                    $scope.dataLengths = true;
                     //赋值操作
                     $scope.data = data;
                     $scope.totalPage = data.totalPages;
@@ -105,6 +106,7 @@
                         pageing($("#currentPage").val() - 1, params);
                       });
                   } else {
+                    $scope.dataLengths = false;
                     if (searchIndex > 0) {
 
                       tool.alert("提示", "没有相关的记录！");

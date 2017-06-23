@@ -263,7 +263,7 @@ function token() {
  */
 $.ajaxSetup({
   beforeSend: function(request) {
-    request.setRequestHeader("authorization", token);
+    request.setRequestHeader("authorization", token());
   }
 });
 
