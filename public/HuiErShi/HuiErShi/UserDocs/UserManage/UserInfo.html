@@ -270,7 +270,7 @@
                     <td>{{x.reportDate}}</td>
                     <td><a href="../VipReport/MemberReportList.html?reportId={{x.reportNo}}">{{x.reportNo}}</a></td>
                     <td>{{x.latestIM.RspMsgList.length||0}}</td>
-                    <td>{{x.experts}}</td>
+                    <td>{{x.experts?x.experts.split(',').join('　'):"未设置"}}</td>
 
                   </tr>
 

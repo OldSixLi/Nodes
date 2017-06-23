@@ -157,6 +157,18 @@
        .success(function(data) {
          if (data != null && data != "" && data != "null") {
            $scope.models = data;
+
+           //  appointmentItems
+           $scope.selectedItem = {
+
+           };
+           if (data.appointmentItems && data.appointmentItems.length > 0) {
+             $.each(data.appointmentItems, function(i, val) {
+               if (val.id) {
+                 $scope.selectedItem['item' + id] = true;
+               }
+             })
+           }
            var userid = data.user.id;
            $http.get(BasicUrl + "vip/" + userid).success(function(data) {
              if (data != null && data != "" && data != "null" && data.id) {

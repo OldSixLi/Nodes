@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="../images/ico/hui.ico" />
     <title>主页</title>
-    <link rel="stylesheet" href="../Styles/bootstrap-3.3.4.css">
+    <link rel="stylesheet" href="../Styles/bootstrap.css">
     <link rel="stylesheet" href="../Styles/pageindex-back.css">
     <link rel="stylesheet" href="../Styles/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
   </head>
@@ -52,11 +52,11 @@
         <dd data-link="SystemManage/PayList.html">支付列表</dd>
         <dd data-link="SystemManage/FoodsManageList.html">饮食设置</dd>
         <dd data-link="SystemManage/CardsList.html" class="rela">卡券列表<span class="second-menu" id="cardList">　</span></dd>
-
         <dd data-for="cardList" class="third-menu" data-link="SystemManage/IssueDetails.html">发放详情</dd>
         <dd data-link="SystemManage/AdminSetting.html">管理员设置</dd>
       </dl>
 
+      <input type="hidden" name="token" id="token" value="">
       <input type="hidden" name="adminNo" id="adminNo" value="">
       <input type="hidden" name="adminId" id="adminId" value="">
       <input type="hidden" name="name" id="name" value="">
@@ -89,10 +89,10 @@
     </div>
 
     <!-- 脚本 -->
+    <script type="text/javascript" src="../Scripts/jquery-1.10.1.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap.js"></script>
     <script type="text/javascript" src="../Scripts/angular.min.js"></script>
     <script type="text/javascript" src="../Scripts/CommonScript.js"></script>
-    <script type="text/javascript" src="../Scripts/jquery-1.10.1.js"></script>
     <script type="text/javascript" src="../Scripts/bootstrap-paginator.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.datetimepicker.full.min.js"></script>
     <script type="text/javascript" src="../Styles/jquery-confirm/jquery-confirm.min.js"></script>

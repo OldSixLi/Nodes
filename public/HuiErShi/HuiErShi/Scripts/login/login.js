@@ -71,6 +71,7 @@
 
               //成功操作
               id = data.userId;
+              token=data.token;
               $http({
                   method: 'POST',
                   url: 'http://60.205.170.209:8080/admin/api/IMConsult/userSig',
@@ -83,8 +84,9 @@
                 })
                 .success(function(data, xhr) {
                   if (xhr == 200) {
-                      setCookie('identifier', 'USER_MEMBER' + id);
+                    setCookie('identifier', 'USER_MEMBER' + id);
                     setCookie('userSig', data);
+                    setCookie('token', token);
                     window.location.href = "HuiErShi.html?id=" + id;
 
                   }

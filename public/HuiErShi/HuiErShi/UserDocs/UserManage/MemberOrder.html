@@ -162,7 +162,7 @@
                   </div>
                   <div class="col-md-6 form-group">确认日期：
                     <div class="input-group timeblock">
-                      <input id="modaltxtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" />
+                      <input id="modaltxtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" ng-model="models.confirmAt | date:'yyyy/MM/dd HH:mm:ss'" ng-disabled="models.confirmAt"/>
                       <div class="input-group-btn">
                         <button type="button" class="btn btn-default" id="btnStarttime">
                           <span class="glyphicon glyphicon-calendar"></span></button>
@@ -171,10 +171,11 @@
                   </div>
                 </div>
                 <div class="row">
-                  <!-- 消除外边距 -->
+                  <!-- 消除外边距 --> 
                   <div class="col-md-12">　　预约项目：
                     <label ng-repeat="x in options">
-                      <input type="checkbox" name="orderItem" value="{{x.id}}" /><span>{{x.name}}&nbsp;&nbsp;</span>
+                  
+                      <input type="checkbox" name="orderItem" value="{{x.id}}" ng-checked="selectedItem['item'+x.id]" ng-disabled="models.confirmAt"/><span> {{x.name}}&nbsp;&nbsp;</span>
                     </label>
                   </div>
                 </div>
@@ -189,7 +190,7 @@
             </div>
             <div class="modal-footer">
               <a class="btn btn-default" data-dismiss="modal">取消</a>
-              <a class="btn btn-primary" ng-click="save()">确定</a>
+              <a class="btn btn-primary" ng-click="save()" ng-disabled="models.confirmAt">确定</a>
             </div>
           </div>
         </div>
@@ -205,8 +206,6 @@
     <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
     <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
     <script type="text/javascript" src="../../Scripts/doc/usermanage/memberorder.js"></script>
-
-
   </body>
 
 </html>

@@ -76,8 +76,9 @@
           $http.get(BasicUrl + "vip/adviser/" + adminId()).success(function(data) {
             if (data != null && data != "" && data != "null") {
               $scope.MemberOptions = data;
-              tool.changeSelect($("#modalUserId"), false);
+
             }
+            tool.changeSelect($("#modalUserId"), false);
           });
           tool.changeSelect($("#demandWay"), false);
           var searchIndex = 0;

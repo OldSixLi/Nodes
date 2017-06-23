@@ -221,6 +221,7 @@ function myBrowser() {
  */
 function getAdmin() {
   var adminData = {
+    token: $('#token', window.parent.document).val(),
     adminId: $('#adminId', window.parent.document).val(),
     adminNo: $('#adminNo', window.parent.document).val(),
     name: $('#name', window.parent.document).val(),
@@ -239,6 +240,33 @@ function adminId() {
   var obj = getAdmin();
   return obj.adminId;
 }
+
+
+function getToken() {
+  var token = getCookie('token');
+  return token;
+}
+
+/**
+ * 获取用户登录时获取的token
+ * 
+ * @returns 
+ */
+function token() {
+  var token = getCookie('token');
+  return token;
+}
+
+/**
+ * 设置全局ajax属性
+ *   
+ */
+$.ajaxSetup({
+  beforeSend: function(request) {
+    request.setRequestHeader("authorization", token);
+  }
+});
+
 
 /**
  * 判断当前操作的用户是否为正常登陆
@@ -382,6 +410,7 @@ var JSTOOL = function() {
   };
 };
 var tool = new JSTOOL();
+
 // ********************************Cookie相关操作***************************
 /**
  * 设置cookie值

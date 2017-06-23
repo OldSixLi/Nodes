@@ -218,7 +218,7 @@
               </tr>
 
             </thead>
-            <tbody id="databody">
+            <!--<tbody id="databody">
               <tr ng-show="dataLengths" ng-repeat="x in data">
 
                 <td>{{$index+1}}</td>
@@ -231,6 +231,29 @@
               {{ x.reportNo}}</a></td>
                 <td>{{ x.experts }}</td>
                 <td ng-click="showList(x.reportId)"><a href="#">展开对话</a></td>
+              </tr>
+              <tr ng-show="!dataLengths">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tr>
+            </tbody>-->
+            <tbody id="databody">
+              <tr ng-show="dataLengths" ng-repeat="x in data">
+
+                <td>{{$index+1}}</td>
+                <td>
+                  < img src="{{'http://usr.im/100x100?text=暂未提供'}}" />
+                  < a href=" ">{{ x.userName}}</ a>
+                </td>
+                <td>{{ x.gender=="M"?"男":"女"}}</td>
+                <td>{{ x.reportDate| date:"yyyy/MM/dd HH:mm:ss" }}</td>
+                <td>
+                  < a href="MemberReportInfo.html?id={{x.reportId}}">
+                    {{ x.reportNo}}</ a>
+                </td>
+                <td>{{ x.experts }}</td>
+                <td ng-click="showList(x.reportId)">
+                  < a href="#">{{x.latestIM.RspMsgList[0].MsgBody[0].MsgContent.Text?x.latestIM.RspMsgList[0].MsgBody[0].MsgContent.Text:'展开对话(无消息)'}}</ a>
+                </td>
               </tr>
               <tr ng-show="!dataLengths">
                 <td colspan="100" class="text-center ">暂无结果</td>
