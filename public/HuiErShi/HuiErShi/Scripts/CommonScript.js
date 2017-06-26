@@ -443,3 +443,23 @@ function getCookie(name) {
   else
     return null;
 }
+
+
+// NOTE: 这个方法不能用中文参数
+// $.ajax({
+//   type: "GET",
+//   url: "http://localhost:3001/users/users",
+//   dataType: "json",
+//   success: function(data) {
+//     if (data != null && data != "") {
+//       if (data.dataSuccess) {
+//         tool.alert("提示", "保存成功");
+//       } else {
+//         tool.alert("提示", "保存失败");
+//       }
+//     }
+//   },
+//   error: function(response) {
+//     tool.alert("提示", "请求服务失败,请重试!");
+//   }
+// });

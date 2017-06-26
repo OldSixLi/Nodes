@@ -893,8 +893,8 @@
           //获取消息内容
           var msgtosend = document.getElementsByClassName("input")[0].value;
           var msgLen = webim.Tool.getStrBytes(msgtosend);
-          if (msgtosend.length < 1) {
-            alert("发送的消息不能为空!");
+          if (msgtosend.length < 1) {　
+            tool.alert("提示", "发送的消息不能为空!");
             return;
           }
           var maxLen, errInfo;

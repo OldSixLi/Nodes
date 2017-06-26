@@ -45,8 +45,8 @@
             <label class="">　预约情况： </label>
             <select class="form-control" name="sltDistrict" id="sltDistrict">
               <option value="">所有</option>
-              <option value="1">未确认</option>
-              <option value="0">已预约</option> 
+              <option value="0">未确认</option>
+              <option value="1">已预约</option> 
           </select>
           </div>&nbsp;&nbsp;
           <div class="form-group text-left">
@@ -162,7 +162,7 @@
                   </div>
                   <div class="col-md-6 form-group">确认日期：
                     <div class="input-group timeblock">
-                      <input id="modaltxtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" ng-model="models.confirmAt | date:'yyyy/MM/dd HH:mm:ss'" ng-disabled="models.confirmAt"/>
+                      <input id="modaltxtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" ng-model="models.confirmAt | date:'yyyy/MM/dd HH:mm:ss'" ng-disabled="models.confirmAt" />
                       <div class="input-group-btn">
                         <button type="button" class="btn btn-default" id="btnStarttime">
                           <span class="glyphicon glyphicon-calendar"></span></button>
@@ -171,7 +171,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <!-- 消除外边距 --> 
+                  <!-- 消除外边距 -->
                   <div class="col-md-12">　　预约项目：
                     <label ng-repeat="x in options">
                   
