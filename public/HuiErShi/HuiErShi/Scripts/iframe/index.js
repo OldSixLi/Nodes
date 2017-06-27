@@ -11,6 +11,23 @@ function reinitIframe() {
     iframe.height = iframe.contentWindow.document.documentElement.scrollHeight;
   } catch (ex) {}
 }
+
+
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http, $timeout) {
+  var searchObj = new UrlSearch();
+  if (searchObj.hesid) {
+    var id = searchObj.hesid;
+  }
+  $http.get(BasicUrl + "admin/" + id).success(function(data) {
+    if (data != null && data != "" && data != "null") {
+      $scope.roleId = data.role;
+      console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
+      console.log("当前的用户身份为：" + $scope.roleId);
+      console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
+    }
+  });
+});
 window.setInterval("reinitIframe()", 200);
 //当前登录用户的身份ID
 var adminId;
@@ -22,13 +39,14 @@ $(function() {
     adminId = id;
     $.ajaxSetup({
       beforeSend: function(request) {
-        request.setRequestHeader("authorization", adminId + '_' + token());
+        // request.setRequestHeader("authorization", adminId + '_' + token());
       }
     });
 
     //获取当前登录的身份
     $.get(BasicUrl + "admin/" + id).success(function(data) {
       if (data != null && data != "" && data != "null") {　
+
         //存储相关信息
         $("#adminNo").val(data.adminNo);
         $("#adminId").val(id);
@@ -59,7 +77,7 @@ $(function() {
   function getNotice() {
     $.ajaxSetup({
       beforeSend: function(request) {
-        request.setRequestHeader("authorization", adminId + '_' + token());
+        // request.setRequestHeader("authorization", adminId + '_' + token());
       }
     });
     $.get(BasicUrl + "notice/?adminId=" + adminId).success(function(data) {

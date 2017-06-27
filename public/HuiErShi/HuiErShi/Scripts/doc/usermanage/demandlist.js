@@ -71,10 +71,10 @@
          * 配置http服务
          * 
          */
-        app.config(["$httpProvider", function($httpProvider) {
-          $httpProvider.defaults.headers.common['authorization'] = headertoken();
-          console.log($httpProvider.defaults.headers.common);
-        }]);
+        // app.config(["$httpProvider", function($httpProvider) {
+        //   $httpProvider.defaults.headers.common['authorization'] = headertoken();
+        //   console.log($httpProvider.defaults.headers.common);
+        // }]);
         //控制器
         app.controller("customersCtrl", ["$scope", "$http", function($scope, $http) {
           //获取当前的专家列表
@@ -99,9 +99,7 @@
           var pageing = function(pageindex, params) {
             //请求地址 
             var url = BasicUrl + "demand?adminId=" + adminId() + "&" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
-            $http.get(url, {
-              headers: { 'authorization': adminId() + '_' + token() }
-            }).success(function(data) {
+            $http.get(url).success(function(data) {
               if (data != null && data != "" && data != "null") {
                 //判断当前是否存在记录
 
@@ -131,6 +129,18 @@
             });
           }
 
+
+
+
+          // 【前提】预约列表页面
+          // 【现象】备注字段有三种现象，如附件图所示：
+          // 1. 添加预约时填写的备注信息，在成功添加预约后没有显示到“预约报告号/备注”字段一栏；
+          // 2.未确认预约时，“预约报告号/备注”字段一栏，就是“会员签到”按钮；
+          // 3.会员签到后，“预约报告号/备注”一栏不仅显示了报告号，还显示了备注信息
+          // 【需求】备注字段是为了记录一些 添加或确认预约过程中 会员的情况，如会员身体状况、电话未接通、改约另外时间等。所以说，“预约报告号/备注”一栏显示的信息也跟整个预约过程的变化而变化：
+          // 1. 添加预约时填写的备注信息，在成功添加预约后正确显示到“预约报告号/备注”字段一栏，直到确认预约后才变成“会员签到”按钮；
+          // 2.没有确认预约时，“预约报告号/备注”字段一栏应一直显示备注的内容，直到确认预约完成，则显示“会员签到”按钮；
+          // 3.会员签到后，“预约报告号/备注”一栏仅显示生成的报告号。
           //分页方法调用
           pageing(0, params);
 

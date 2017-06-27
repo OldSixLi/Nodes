@@ -270,11 +270,11 @@ function headertoken() {
  */
 
 
-$.ajaxSetup({
-  beforeSend: function(request) {
-    request.setRequestHeader("authorization", adminId() + '_' + token());
-  }
-});
+// $.ajaxSetup({
+//   beforeSend: function(request) {
+//     request.setRequestHeader("authorization", adminId() + '_' + token());
+//   }
+// });
 
 // var currentHeader={
 //   header:

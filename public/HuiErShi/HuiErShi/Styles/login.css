@@ -100,3 +100,7 @@ button {
     text-align: left;
     float: left;
 }
+
+.myload {
+    display: none;
+}

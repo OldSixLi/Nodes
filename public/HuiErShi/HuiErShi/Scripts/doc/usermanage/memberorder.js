@@ -165,8 +165,10 @@
            if (data.appointmentItems && data.appointmentItems.length > 0) {
              $.each(data.appointmentItems, function(i, val) {
                if (val.id) {
-                 $scope.selectedItem['item' + id] = true;
+                //  console.log(val.id)
+                 $scope.selectedItem['item' + val.id] = true;
                }
+              
              })
            }
            var userid = data.user.id;

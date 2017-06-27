@@ -137,10 +137,10 @@
     * 配置http服务
     * 
     */
-   app.config(["$httpProvider", function($httpProvider) {
-     $httpProvider.defaults.headers.common["authorization"] = headertoken();
-     console.log($httpProvider.defaults.headers.common);
-   }]);
+   //  app.config(["$httpProvider", function($httpProvider) {
+   //    $httpProvider.defaults.headers.common["authorization"] = headertoken();
+   //    console.log($httpProvider.defaults.headers.common);
+   //  }]);
    app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
      var vm = $scope.vm = {
        //   showErrorType: "1",
@@ -164,7 +164,7 @@
            $scope.vm.entity = data;
            $scope.vm.entity.todo = "TODO";
            // vm.entity.startAt
-           vm.entity.startAt = getLocalTime(vm.entity.startAt);
+           vm.entity.startAt =  vm.entity.startAt;
            $scope.dataLengths = vm.entity.members.length;
 
            // $scope.vm.entity.signByUser = data.signByUser;
@@ -299,7 +299,7 @@
            iconUrl: $("#iconUrl").val(),
            coordinate: $("#coordinate").val(),
            announcement: vm.entity.announcement,
-           startAt: Date.parse(new Date(vm.entity.startAt)).toString() == "NaN" ? 0 : Date.parse(new Date(vm.entity.startAt)),
+           startAt: Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val())),
            lasted: vm.entity.lastedTime,
            signUpCost: vm.entity.signUpCost,
            maxApplyNumber: vm.entity.maxApplyNumber,

@@ -262,18 +262,18 @@
 
                 <td>{{$index+1}}</td>
                 <td>
-                  < img src="{{'http://usr.im/100x100?text=暂未提供'}}" />
-                  < a href=" ">{{ x.userName}}</a>
+                  <img src="{{'http://usr.im/100x100?text=暂未提供'}}" />
+                  <a href="">{{ x.userName}}</a>
                 </td>
                 <td>{{ x.gender=="M"?"男":"女"}}</td>
                 <td>{{ x.reportDate| date:"yyyy/MM/dd HH:mm:ss" }}</td>
                 <td>
-                  < a href="MemberReportInfo.html?id={{x.reportId}}">
+                  <a href="MemberReportInfo.html?id={{x.reportId}}">
                     {{ x.reportNo}}</a>
                 </td>
                 <td>{{ x.experts }}</td>
                 <td ng-click="showList(x.reportId)">
-                  < a href="#">{{x.latestIM.RspMsgList[0].MsgBody[0].MsgContent.Text?x.latestIM.RspMsgList[0].MsgBody[0].MsgContent.Text:'展开对话(无消息)'}}</a>
+                  <a href="#">{{x.latestIM.RspMsgList[0].MsgBody[0].MsgContent.Text?x.latestIM.RspMsgList[0].MsgBody[0].MsgContent.Text:'展开对话(无消息)'}}</a>
                 </td>
               </tr>
               <tr ng-show="!dataLengths">
@@ -415,7 +415,7 @@
     </div>
     <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
     <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.js"></script>
     <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
     <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
     <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>

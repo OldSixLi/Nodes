@@ -65,7 +65,8 @@
                     <div class="col-sm-7 text-left">
 
                       <div class="input-group timeblock">
-                        <input type="text" class="form-control start_end_time" id="txtStartTime" name="startAt" placeholder="请选择时间" required value={{vm.entity.startAt | date: 'yyyy/MM/dd HH:mm:ss'}} ng-model="vm.entity.startAt">
+                        <!--ng-model="vm.entity.startAt"-->
+                        <input type="text" class="form-control start_end_time" id="txtStartTime" name="startAt" placeholder="请选择时间" required value="{{vm.entity.startAt| date: 'yyyy/MM/dd HH:mm:ss'}}" >
                         <div class="input-group-btn" style="vertical-align: top;">
                           <button type="button" class="btn btn-default" id="btnStarttime">
                 <span class="glyphicon glyphicon-calendar"></span></button>
@@ -213,7 +214,7 @@
                 </thead>
                 <tbody id="databody">
                   <tr ng-show="dataLengths" ng-repeat="x in vm.entity.members">
-                    <td>{{ index+1 }}</td>
+                    <td>{{ $index+1 }}</td>
                     <td>{{ x.user.userName }}</td>
                     <td>{{ x.user.gender=="M"?"男":"女" }}</td>
                     <!--报名时间-->

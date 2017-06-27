@@ -106,5 +106,10 @@
           alert(response.errorMessage);
         });
     };
+
+    //加载完毕后执行
+    $scope.$watch("$viewContentLoaded", function() {
+      angular.element(".myload").removeClass("myload");
+    });
   }]);
 })();

@@ -11,15 +11,16 @@
     <link rel="stylesheet" href="../Styles/pageindex-back.css">
     <link rel="stylesheet" href="../Styles/jquery-confirm/jquery-confirm.min.css" rel="stylesheet">
   </head>
+  <!--onload="readCurrentUrl()"-->
 
-  <body class="index" scroll="no" lang="en" onload="readCurrentUrl()">
+  <body class="index" scroll="no" lang="en" ng-app="myApp" ng-controller="customersCtrl">
     <!-- LOGO -->
     <div class="logo noselect" id="logo">
       <b>惠尔仕健康项目</b>
     </div>
     <!-- 侧边栏菜单 -->
     <div class="menu noselect">
-      <dl class="expand">
+      <dl class="expand" ng-show="roleId">
         <dt class="icon_usermanage">用户管理<span class="contract">　</span></dt>
         <dd data-link="UserManage/DemandList.html">需求记录</dd>
         <dd data-link="UserManage/MemberOrder.html">预约列表</dd>
@@ -34,24 +35,24 @@
         <dd data-link="UserData/ProjectData.html" class="rela">项目数据
           <span class="second-menu" id="projectDataList">　</span></dd>
         <dd data-for="projectDataList" class="third-menu" data-link="UserData/RecordList.html">记录列表</dd>
-        <dd data-for="projectDataList" class="third-menu" data-link="UserData/UseDrugRecaod.html">用药记录列表</dd>
+        <dd data-for="projectDataList" class="third-menu" data-link="UserData/UseDrugRecaod.html" ng-show="roleId!=1">用药记录列表</dd>
         <dd data-for="projectDataList" class="third-menu" data-link="UserData/FoodRecord.html">饮食记录</dd>
         <dd data-for="projectDataList" class="third-menu" data-link="UserData/SportsRecord.html">运动记录</dd>
         <dd data-for="projectDataList" class="third-menu" data-link="UserData/FeedRecord.html">反馈记录</dd>
 
       </dl>
       <dl><dt class="icon_report">会员报告<span class="contract">　</span></dt>
-        <dd data-link="VipReport/PrescriptionList.html">处方列表</dd>
+        <dd data-link="VipReport/PrescriptionList.html" ng-show="roleId!=1">处方列表</dd>
         <dd data-link="VipReport/MemberReportList.html">会员报告列表</dd>
-        <dd data-link="VipReport/AdvisoryList.html">咨询列表</dd>
+        <dd data-link="VipReport/AdvisoryList.html" ng-show="roleId!=1">咨询列表</dd>
         <dd data-link="VipReport/CheckLists.html">验单列表</dd>
       </dl>
       <dl><dt class="icon_system">系统管理<span class="contract">　</span></dt>
         <dd data-link="SystemManage/ReservationItem.html">预约项目</dd>
-        <dd data-link="SystemManage/MobileSetting.html">移动端设置</dd>
-        <dd data-link="SystemManage/PayList.html">支付列表</dd>
+        <dd data-link="SystemManage/MobileSetting.html" ng-show="roleId!=2&&roleId!=3">移动端设置</dd>
+        <dd data-link="SystemManage/PayList.html" ng-show="roleId!=2&&roleId!=3">支付列表</dd>
         <dd data-link="SystemManage/FoodsManageList.html">饮食设置</dd>
-        <dd data-link="SystemManage/CardsList.html" class="rela">卡券列表<span class="second-menu" id="cardList">　</span></dd>
+        <dd data-link="SystemManage/CardsList.html" class="rela" ng-show="roleId!=2&&roleId!=3">卡券列表<span class="second-menu" id="cardList">　</span></dd>
         <dd data-for="cardList" class="third-menu" data-link="SystemManage/IssueDetails.html">发放详情</dd>
         <dd data-link="SystemManage/AdminSetting.html">管理员设置</dd>
       </dl>
