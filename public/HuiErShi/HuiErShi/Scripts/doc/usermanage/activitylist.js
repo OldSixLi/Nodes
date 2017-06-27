@@ -3,6 +3,8 @@
  });
  var params = ""; //全局变量
  var app = angular.module('myApp', []);
+
+
  app.controller('customersCtrl', function($scope, $http) {
    //分页方法声明
    var pageing = function(pageindex, params) {

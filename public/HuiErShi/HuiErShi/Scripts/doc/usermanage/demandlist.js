@@ -65,58 +65,75 @@
             }
           });
         }]);
+
+
+        /**
+         * 配置http服务
+         * 
+         */
+        app.config(["$httpProvider", function($httpProvider) {
+          $httpProvider.defaults.headers.common['authorization'] = headertoken();
+          console.log($httpProvider.defaults.headers.common);
+        }]);
+        //控制器
         app.controller("customersCtrl", ["$scope", "$http", function($scope, $http) {
+          //获取当前的专家列表
           $http.get(BasicUrl + "admin/advisers").success(function(data) {
             if (data != null && data != "" && data != "null") {
               $scope.options = data;
               tool.changeSelect($("#advisorId"), true);
             }
           });
-
+          //获取当前专家下的会员
           $http.get(BasicUrl + "vip/adviser/" + adminId()).success(function(data) {
             if (data != null && data != "" && data != "null") {
               $scope.MemberOptions = data;
-
             }
             tool.changeSelect($("#modalUserId"), false);
           });
           tool.changeSelect($("#demandWay"), false);
-          var searchIndex = 0;
+
           //分页方法声明
+          var searchIndex = 0;
+
           var pageing = function(pageindex, params) {
-              //请求地址 
-              var url = BasicUrl + "demand?adminId=" + adminId() + "&" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
-              $http.get(url).success(function(data) {
-                if (data != null && data != "" && data != "null") {
-                  //判断当前是否存在记录
+            //请求地址 
+            var url = BasicUrl + "demand?adminId=" + adminId() + "&" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+            $http.get(url, {
+              headers: { 'authorization': adminId() + '_' + token() }
+            }).success(function(data) {
+              if (data != null && data != "" && data != "null") {
+                //判断当前是否存在记录
 
-                  if (data.content != null && data.content.length > 0) {
-                    $scope.dataLengths = true;
-                    //赋值操作
-                    $scope.data = data;
-                    $scope.totalPage = data.totalPages;
-                    $scope.totalRecord = data.totalElements;
-                    //调用生成分页方法
-                    initPageDiv($("#alreadyPage"), //在哪里生成页码
-                      pageindex + 1, //当前页
-                      data.totalPages, //总页数
-                      5, //每次显示多少页
-                      $("#currentPage"), //隐藏域的值：当前页数
-                      function() {
-                        pageing($("#currentPage").val() - 1, params);
-                      });
-                  } else {
-                    $scope.dataLengths = false;
-                    if (searchIndex > 0) {
+                if (data.content != null && data.content.length > 0) {
+                  $scope.dataLengths = true;
+                  //赋值操作
+                  $scope.data = data;
+                  $scope.totalPage = data.totalPages;
+                  $scope.totalRecord = data.totalElements;
+                  //调用生成分页方法
+                  initPageDiv($("#alreadyPage"), //在哪里生成页码
+                    pageindex + 1, //当前页
+                    data.totalPages, //总页数
+                    5, //每次显示多少页
+                    $("#currentPage"), //隐藏域的值：当前页数
+                    function() {
+                      pageing($("#currentPage").val() - 1, params);
+                    });
+                } else {
+                  $scope.dataLengths = false;
+                  if (searchIndex > 0) {
 
-                      tool.alert("提示", "没有相关的记录！");
-                    }
+                    tool.alert("提示", "没有相关的记录！");
                   }
                 }
-              });
-            }
-            //分页方法
+              }
+            });
+          }
+
+          //分页方法调用
           pageing(0, params);
+
           //查询按钮
           $scope.search = function() {
             searchIndex++;
@@ -190,6 +207,8 @@
             dynamicName: "dynamicName",
             data: {}
           };
+
+          //保存操作
           vm.saveinfo = function($event) {
             $(":submit").attr("disabled", true);
             $http({

@@ -17,9 +17,15 @@ var adminId;
 $(function() {
   //获取前台参数
   var searchObj = new UrlSearch();
-  if (searchObj.id) {
-    var id = searchObj.id;
+  if (searchObj.hesid) {
+    var id = searchObj.hesid;
     adminId = id;
+    $.ajaxSetup({
+      beforeSend: function(request) {
+        request.setRequestHeader("authorization", adminId + '_' + token());
+      }
+    });
+
     //获取当前登录的身份
     $.get(BasicUrl + "admin/" + id).success(function(data) {
       if (data != null && data != "" && data != "null") {　
@@ -51,7 +57,12 @@ $(function() {
    * @returns 
    */
   function getNotice() {
-    $.get(BasicUrl + "notice/?adminId=" + id).success(function(data) {
+    $.ajaxSetup({
+      beforeSend: function(request) {
+        request.setRequestHeader("authorization", adminId + '_' + token());
+      }
+    });
+    $.get(BasicUrl + "notice/?adminId=" + adminId).success(function(data) {
       if (data != null && data != "" && data != "null") {　
         var fill = data.ReportToBeFilledCount || 0;
         var reply = data.ReportToBeRepliedCount || 0;

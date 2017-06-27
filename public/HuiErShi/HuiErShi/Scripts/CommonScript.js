@@ -215,7 +215,7 @@ function myBrowser() {
 
 
 /**
- * 获取当前登录的用户的身份信息
+ * 获取当前登录的用户的身份信息（NOTE:仅限于iframe内页面使用）
  * 
  * @returns 
  */
@@ -237,8 +237,7 @@ function getAdmin() {
  * @returns 
  */
 function adminId() {
-  var obj = getAdmin();
-  return obj.adminId;
+  return getCookie('adminId');
 }
 
 
@@ -258,15 +257,28 @@ function token() {
 }
 
 /**
+ * 请求头中的token
+ * 
+ * @returns 
+ */
+function headertoken() {
+  return adminId() + '_' + token();
+}
+/**
  * 设置全局ajax属性
  *   
  */
+
+
 $.ajaxSetup({
   beforeSend: function(request) {
-    request.setRequestHeader("authorization", token());
+    request.setRequestHeader("authorization", adminId() + '_' + token());
   }
 });
 
+// var currentHeader={
+//   header:
+// }
 
 /**
  * 判断当前操作的用户是否为正常登陆
@@ -285,6 +297,8 @@ function setCurrent() {
   var url = window.location.href;
   setCookie('currentUrl', url, 500);
 }
+
+
 
 
 /**

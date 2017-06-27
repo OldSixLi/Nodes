@@ -133,6 +133,14 @@
      });
    }]);
 
+   /**
+    * 配置http服务
+    * 
+    */
+   app.config(["$httpProvider", function($httpProvider) {
+     $httpProvider.defaults.headers.common["authorization"] = headertoken();
+     console.log($httpProvider.defaults.headers.common);
+   }]);
    app.controller("validateCtrl", ["$scope", "$http", function($scope, $http) {
      var vm = $scope.vm = {
        //   showErrorType: "1",
