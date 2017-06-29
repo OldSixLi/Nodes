@@ -96,7 +96,10 @@
                 <td>{{ x.genders= x.user.vipEntity.gender=="M"?"男":"女" }}</td>
                 <td>{{ x.time= x.createAt |date:"yyyy/MM/dd HH:mm:ss"}}</td>
                 <td>
-                  <a ng-click='getEditModel(x.id)' href="" ng-if="!x.confirmAt">{{"确认预约"}}</a> <a ng-click='getEditModel(x.id)' href="" ng-if="x.confirmAt">{{x.isYes= x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}}</a>
+                  <a ng-click='getEditModel(x.id)' href="" ng-if="x.status=='unconfirmed'">{{x.user.vipEntity.mobile||"确认签到"}}</a>
+                  <a ng-click='getEditModel(x.id)' href="" ng-if="x.status=='confirmed'||x.status=='signedIn'">{{x.isYes= x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}}
+                  
+                  </a>
                 </td>
                 <td>
                   <a ng-repeat="c in x.appointmentItems" ng-click="searchAsItem(c.id)">{{c.name}}</a>
@@ -141,11 +144,15 @@
         <!-- 当前页隐藏域 -->
         <input id="currentPage" name="currentPage" value="1" type="hidden">
       </div>
-      <!--【现象】备注字段有三种现象，如附件图所示：
-1. 添加预约时填写的备注信息，在成功添加预约后没有显示到“预约报告号/备注”字段一栏；
-2.未确认预约时，“预约报告号/备注”字段一栏，就是“会员签到”按钮；
-3.会员签到后，“预约报告号/备注”一栏不仅显示了报告号，还显示了备注信息
--->
+    <!--【前提】预约列表页面，确认预约
+【现象】“确认预约”现在存在几个问题：
+bug 1.“确认预约”按钮不应是这四个字，而是会员的手机号码；
+bug 2.目前确认预约完成后，点击还可以再打开，修改或编辑预约信息的功能已做完，但是签到后已经生成报告编号了，还能再确认预约；
+bug 3.确认预约窗口中，只能选择项目，不能选择专家。
+【需求】
+1.如附件图 1所示，这一栏显示会员的手机号；
+2.确认预约完成后，还是能够进行修改或编辑的，但是 当会员已经签到后生成报告单后，不能再进行预约确认了；
+3.需求如附件图 2所示，预约窗口中，出了项目，专家也可以选择。专家的数据来源为 系统管理-管理员设置中的所有专家。-->
       <!--确认预约-->
       <div class="modal fade" id="modal">
         <div class="modal-dialog">
@@ -201,14 +208,21 @@
                   <!-- 消除外边距 -->
                   <div class="col-md-12">
                     <p><span>　　预约备注：</span><input type="text" name="" id="remark" value="" placeholder="请输入备注" class="form-control" style="width: 50%;"></p>
-                    <p style="margin-top: 15px;">　　<span ng-show="models.modifyAt">最后修改：{{models.confirmBy.name}}　{{models.modifyAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>　</p>
+                    <p style="margin-top: 15px;">
+                      <span ng-show="models.modifyAt" ng-if="{{models.status=='unconfirmed'}}">
+                        最后修改：{{models.modifyBy.name}}　{{models.modifyAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
+                      <span ng-show="models.modifyAt" ng-if="{{models.status=='confirmed'}}">
+                        最后修改：{{models.confirmBy.name}}　{{models.confirmAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
+                      <span ng-show="models.modifyAt" ng-if="{{models.status=='signedIn'}}">
+                        最后修改：{{models.confirmBy.name}}　{{models.confirmAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
+                    </p>
                   </div>
                 </div>
               </form>
             </div>
             <div class="modal-footer">
               <a class="btn btn-default" data-dismiss="modal">关闭</a>
-              <a class="btn btn-primary" ng-click="save()" ng-disabled="models.confirmAt">确定</a>
+              <a class="btn btn-primary" ng-click="save()" ng-disabled="models.status=='signedIn'">确定</a>
             </div>
           </div>
         </div>

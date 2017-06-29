@@ -92,10 +92,12 @@ app.controller('customersCtrl', function($scope, $http) {
         $scope.data = data;
         $scope.adviserId = data.adviser.id;
       } else {
-        tool.alert("提示", data.errorMessage);
+
+        data.errorMessage && tool.alert("提示", data.errorMessage);
       }
     }).error(function(data, header, config, status) {
-      //处理响应失败
+      data.errorMessage
+        //处理响应失败
       tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
       window.location.href = "MemberList.html";
     });
@@ -109,7 +111,7 @@ app.controller('customersCtrl', function($scope, $http) {
       if (healthyData != null && healthyData != "" && healthyData != "null") {
         $scope.vipInfo = healthyData;
       } else {
-        tool.alert("提示", healthyData.errorMessage);
+        healthyData.errorMessage && tool.alert("提示", healthyData.errorMessage);
       }
     }).error(function(data) {
       tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
@@ -122,13 +124,17 @@ app.controller('customersCtrl', function($scope, $http) {
      */
     //  http://60.205.170.209:8080/admin/api/api-docs/../IMConsult?userId=1&&&page=0&pageNum=100
     // $scope.adviser = $scope.data.adviser;
-    $http.get(BasicUrl + "IMConsult?userId=" + urlObj.id + "&page=0&pageNum=100").success(function(healthyData) {
-      if (healthyData != null && healthyData != "" && healthyData != "null") {
-        $scope.reportInfo = healthyData;
-      } else {
-        tool.alert("提示", healthyData.errorMessage);
-      }
-    })
+    $http.get(BasicUrl + "IMConsult?userId=" + urlObj.id + "&page=0&pageNum=100").success(function
+
+      (healthyData) {
+        if (healthyData != null && healthyData != "" && healthyData != "null") {
+          $scope.reportInfo = healthyData;
+        } else {
+          if (healthyData.errorMessage) {
+            tool.alert("提示", healthyData.errorMessage);
+          }
+        }
+      })
 
   } else {
     tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
@@ -159,7 +165,9 @@ app.controller('customersCtrl', function($scope, $http) {
           },
           dataType: "json",
           error: function(response) {
-            if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+            if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse
+
+              (response.responseText).errorMessage) {
               tool.alert("提示", JSON.parse(response.responseText).errorMessage);
             }
 
@@ -221,7 +229,9 @@ app.controller('customersCtrl', function($scope, $http) {
           data: datas,
           dataType: "json",
           error: function(response) {
-            if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+            if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse
+
+              (response.responseText).errorMessage) {
               tool.alert("提示", "设置失败，请重试！");
             }
 

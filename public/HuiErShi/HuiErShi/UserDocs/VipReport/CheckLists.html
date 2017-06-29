@@ -96,12 +96,20 @@
                 </span>
                 </td>
                 <td>
+                  <!--【现象】如附件图 所示，验单页面 验单编号字段显示正常，但是前面的几个字段全部没有数据
+bug 1、前面的字段没有任何数据，验单号是怎么生成的呢？
+bug 2、生成的验单号点击无响应
+【需求】
+1、验单只有会籍顾问录完了保存完了，才会生成验单编号；
+2.生成的验单号 应该是点击后进入查看录入后的数据-->
                   <span ng-show='x.report.reportNo'> {{x.loadBy.name}}</span></td>
                 <td> <span ng-show='x.report.reportNo'>{{x.loadAt| date:"yyyy/MM/dd HH:mm:ss"}}</span></td>
                 <td> <span>{{x.name}}</span></td>
                 <td>
-                  <span><a href="AddCheck.html?id={{x.id}}" ng-show='!x.report.reportNo'>创建报告单</a></span>
-                  <span ng-show='x.report.reportNo'>{{x.report.reportNo }}</span>
+                  <!--<span><a href="AddCheck.html?id={{x.id}}" ng-show='!x.report.reportNo'>创建报告单</a></span>
+                  <span ng-show='x.report.reportNo'><a href="AddCheck.html?id={{x.id}}" ng-show='x.report.reportNo'>{{x.inspectionNo }}</a></span>-->
+                  <span><a href="AddCheck.html?id={{x.id}}" ng-show='!x.inspectionNo '>创建报告单</a></span>
+                  <span ng-show='x.inspectionNo '><a href="AddCheck.html?id={{x.id}}">{{x.inspectionNo }}</a></span>
                 </td>
               </tr>
               <tr ng-show="!dataLengths">

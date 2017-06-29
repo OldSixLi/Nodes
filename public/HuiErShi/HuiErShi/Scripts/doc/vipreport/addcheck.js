@@ -104,9 +104,8 @@
 
    }
    var obj = new UrlSearch();
-   if (obj.reportId) {
-     // alert(obj.userid)
 
+   if (obj.reportId) {
      $scope.reportId = obj.reportId;
      $scope.userId = obj.userid;
    } else {
@@ -150,7 +149,7 @@
      }).error(function(data, header, config, status) {
        //处理响应失败
        tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
-       window.location.href = "MemberList.html";
+       window.location.href = "CheckLists.html";
      });
    } else {
      // alert(213)

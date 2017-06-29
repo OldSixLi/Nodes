@@ -127,7 +127,7 @@
           </div>
         </div>
         <div class="col-md-9">
-          <p>会员姓名：{{data.user.userName}}　　　　　　性别：{{data.user.gender=="M"?"男":"女"}}　　　　　　手机：{{data.user.vipEntity.mobile}}</p>
+          <p>会员姓名：{{data.user.vipName}}　　　　　　性别：{{data.user.gender=="M"?"男":"女"}}　　　　　　手机：{{data.user.vipEntity.mobile}}</p>
           <p>验单评估：
             <input type="radio" name="isValid" value="1" checked ng-model="isuse">有效验单&nbsp;&nbsp;&nbsp;&nbsp;
             <input type="radio" name="isValid" value="0" ng-model="isuse">无效验单</p>
@@ -163,7 +163,7 @@
                   <input type="text" class="form-control" placeholder="报告单号" id="inspectionNo"></div>
               </div>
               <div class="col-md-4">
-                <button type="button" class="btn btn-primary" ng-click="merge()" ng-if="{{!reportId}}">合并报告单</button>&nbsp;&nbsp;
+                <button type="button" class="btn btn-primary" ng-click="merge()" ng-show="{{!reportId}}">合并报告单</button>&nbsp;&nbsp;
                 <button type="button" class="btn btn-primary" ng-click="addNew()">新建报告单</button>
               </div>
             </div>
@@ -215,7 +215,6 @@
         </div>
         <div class="col-md-2">
           <select id="allItem" class="form-control">
-          
           <option ng-repeat="y in Itemoptions"  value="{{y.itemId}}">{{y.name}}</option>
           </select>
 
@@ -238,7 +237,7 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
             <div class="panel-body">
               <ul class="item-list" style="padding:0;">
                 <!--<li class="item-class" ng-repeat="x in itemList" data-id="{{x.itemId}}" ng-click="getItemDetail(x.itemId)" ng-class="itemClassItemId==x.itemId?'item-active':''" style="display:block;list-style: none;  height: 30px;">{{x.name}} </li>-->
-                <li class="item-class" ng-repeat="x in HaveOptions" ng-click="getEditItemDetail(x.item.itemId,x.val,x.id); " value="x.item.itemId" style="display:block;list-style: none;  height: 30px;">{{x.item.name}}</li>
+                <li class="item-class" ng-repeat="x in HaveOptions" ng-click="getEditItemDetail(x.item.itemId,x.val,x.id); " value="x.item.itemId" style="display:block;list-style: none;  height: 30px;">{{x.item.name}} <span class="pull-right" style="min-width:100px;">{{x.val}}</span></li>
               </ul>
 
             </div>
