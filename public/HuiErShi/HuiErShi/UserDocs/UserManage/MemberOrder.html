@@ -16,11 +16,13 @@
 
   <body ng-app="myApp">
     <div ng-controller="customersCtrl" class="container-fluid myload">
+
       <!-- 面包屑导航 -->
       <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
         <li><a href="javascript:void(0)">客户管理</a></li>
         <li class="active">预约列表</li>
       </ol>
+
       <!--搜索-->
       <div class="col-xs-12" id="search_block">
         <form class="form-inline text-right" role="form">
@@ -97,11 +99,21 @@
                   <a ng-click='getEditModel(x.id)' href="" ng-if="!x.confirmAt">{{"确认预约"}}</a> <a ng-click='getEditModel(x.id)' href="" ng-if="x.confirmAt">{{x.isYes= x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}}</a>
                 </td>
                 <td>
-                  <a ng-repeat="c in x.appointmentItems" href="#?id={{c.id}}">{{c.name}}</a>
+                  <a ng-repeat="c in x.appointmentItems" ng-click="searchAsItem(c.id)">{{c.name}}</a>
                 </td>
-                <td ng-if="!x.modifyAt"><a href="#" ng-click="menberSignUp(x.id)">{{x.remark}}</a></td>
-                <td ng-if="x.report.reportNo&&x.modifyAt"><span ng-if="x.report.reportNo">   {{x.report.reportNo+' /'}} </span> {{x.comment}}</td>
-                <td ng-if="!x.report.reportNo&&x.modifyAt"><a href="#" ng-click="menberSignUp(x.id)">会员签到</a></td>
+                <!--备注/单号-->
+                <td>
+                  <!--未确认-->
+                  <span ng-if="x.status=='unconfirmed'">{{x.comment}}</span>
+                  <!--已确认-->
+                  <span ng-if="x.status=='confirmed'">
+                    <a class="btn btn-link" href="#" ng-click="menberSignUp(x.id)"  style="padding:0;">会员签到</a>
+                  </span>
+                  <!--已签到-->
+                  <span ng-if="x.status=='signedIn'">
+                    <a href="../VipReport/MemberReportInfo.html?id={{x.report.id}}">{{x.report.reportNo}}</a></span>
+                </td>
+
               </tr>
               <tr ng-show="!dataLengths">
                 <td colspan="100" class="text-center">暂无结果</td>
@@ -129,6 +141,11 @@
         <!-- 当前页隐藏域 -->
         <input id="currentPage" name="currentPage" value="1" type="hidden">
       </div>
+      <!--【现象】备注字段有三种现象，如附件图所示：
+1. 添加预约时填写的备注信息，在成功添加预约后没有显示到“预约报告号/备注”字段一栏；
+2.未确认预约时，“预约报告号/备注”字段一栏，就是“会员签到”按钮；
+3.会员签到后，“预约报告号/备注”一栏不仅显示了报告号，还显示了备注信息
+-->
       <!--确认预约-->
       <div class="modal fade" id="modal">
         <div class="modal-dialog">
@@ -172,12 +189,12 @@
                 </div>
                 <div class="row">
                   <!-- 消除外边距 -->
-                  <div class="col-md-12">　　预约项目： 
+                  <div class="col-md-12">　　预约项目：
                     <label ng-repeat="x in options">
                   
                       <input type="checkbox" name="orderItem" value="{{x.id}}" ng-checked="selectedItem['item'+x.id]" /><span> {{x.name}}&nbsp;&nbsp;</span>
                       <!--ng-disabled="models.confirmAt"-->
-                    </label>
+                    </label>·
                   </div>
                 </div>
                 <div class="row" style="margin-top: 15px;">
@@ -190,12 +207,13 @@
               </form>
             </div>
             <div class="modal-footer">
-              <a class="btn btn-default" data-dismiss="modal">取消</a>
+              <a class="btn btn-default" data-dismiss="modal">关闭</a>
               <a class="btn btn-primary" ng-click="save()" ng-disabled="models.confirmAt">确定</a>
             </div>
           </div>
         </div>
       </div>
+
       <script>
       </script>
     </div>

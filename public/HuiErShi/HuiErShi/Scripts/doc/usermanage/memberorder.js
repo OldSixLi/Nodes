@@ -165,10 +165,10 @@
            if (data.appointmentItems && data.appointmentItems.length > 0) {
              $.each(data.appointmentItems, function(i, val) {
                if (val.id) {
-                //  console.log(val.id)
+                 //  console.log(val.id)
                  $scope.selectedItem['item' + val.id] = true;
                }
-              
+
              })
            }
            var userid = data.user.id;
@@ -188,6 +188,13 @@
        });
    }
 
+   //根据项目搜索
+   $scope.searchAsItem = function(itemId) {
+     $("#sltItem").val(itemId);
+     tool.changeSelect($("#sltItem"), true);
+     params = "item=" + itemId + '&';
+     pageing(0, params);
+   }
 
    //添加支付
    $scope.save = function() {

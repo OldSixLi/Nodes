@@ -149,9 +149,9 @@
             searchIndex++;
             //TODO  需要修改部分
             //参数赋值
+
             var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
             var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-
             var advisorId = $("#advisorId").val();
             var userId = $("#userId").val() || "";
             //校验只有一个搜索条件
@@ -164,7 +164,7 @@
               tool.alert("提示", "活动日期中结束时间不得早于起始时间");
               return false;
             }
-            params = "minStartAt=" + minExpiredAt + "&maxStartAt=" + maxExpiredAt + "&advisorId=" + advisorId + "&userId=" + userId + "&";
+            params = "minCreateAt=" + minExpiredAt + "&maxCreateAt=" + maxExpiredAt + "&advisorId=" + advisorId + "&userId=" + userId + "&";
             pageing(0, params);
           }
 

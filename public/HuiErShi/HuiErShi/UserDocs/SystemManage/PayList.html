@@ -125,7 +125,7 @@
               <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
                 <td>{{ $index+data.page*data.pageNum+1}}</td>
                 <td>{{ x.commodity.commodityName }}</td>
-                <td>{{ x.commodity.price }}</td>
+                <td>{{ x.totalFee }}</td>
                 <td>
                   <a href="../UserManage/UserInfoEdit.html?id={{x.user.id}}">{{x.user.userName}}</a>
                 </td>

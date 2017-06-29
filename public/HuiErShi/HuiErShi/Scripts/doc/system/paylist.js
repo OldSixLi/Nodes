@@ -59,7 +59,7 @@
  app.controller('customersCtrl', function($scope, $http) {
    //请求会员卡下拉菜单列表
    $scope.isSave = true;
-   var url = BasicUrl + "vipCard?page=0&pageNum=10";
+   var url = BasicUrl + "vipCard?page=0&pageNum=1000";
    $http.get(url).success(function(data) {
      if (data != null && data != "" && data != "null") {
        $scope.options = data.content;

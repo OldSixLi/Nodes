@@ -66,7 +66,7 @@
 
                       <div class="input-group timeblock">
                         <!--ng-model="vm.entity.startAt"-->
-                        <input type="text" class="form-control start_end_time" id="txtStartTime" name="startAt" placeholder="请选择时间" required value="{{vm.entity.startAt| date: 'yyyy/MM/dd HH:mm:ss'}}" >
+                        <input type="text" class="form-control start_end_time" id="txtStartTime" name="startAt" placeholder="请选择时间" required value="{{vm.entity.startAt| date: 'yyyy/MM/dd HH:mm:ss'}}">
                         <div class="input-group-btn" style="vertical-align: top;">
                           <button type="button" class="btn btn-default" id="btnStarttime">
                 <span class="glyphicon glyphicon-calendar"></span></button>
@@ -221,9 +221,9 @@
                     <td>{{ x.signUpAt | date:"yyyy/MM/dd HH:mm:ss" }}</td>
                     <!--签到时间-->
                     <td><span ng-if="!x.signed">未签到</span>
-                      <span ng-if="x.signed">{{ x.activeAt | date:"yyyy/MM/dd HH:mm:ss" }}</span></td>
+                      <span ng-if="x.signed">{{ x.signUpAt | date:"yyyy/MM/dd HH:mm:ss" }}</span></td>
                     <td>
-                      <a href="#" ng-click="vm.cancelSign(x.user.id)">取消报名</a>
+                      <a href="#" class="btn btn-link" ng-click="vm.cancelSign(x.user.id)" style="padding:0;" ng-disabled="x.signed">取消报名</a>
                     </td>
                   </tr>
                   <tr ng-show="!dataLengths">
