@@ -31,7 +31,6 @@ body {
     top: 74px;
     left: 0;
     bottom: 0;
-    overflow: auto;
     width: 180px;
     background: #2F3640;
     margin: 0;
@@ -248,8 +247,14 @@ body {
 .noselect {
     -webkit-user-select: none;
     -moz-user-select: none;
+    -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+}
+
+.ReportToBeFilledCount,
+.ReportToBeRepliedCount {
+    cursor: pointer;
 }
 
 

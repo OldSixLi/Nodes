@@ -19,6 +19,7 @@ app.controller('customersCtrl', function($scope, $http, $timeout) {
   if (searchObj.hesid) {
     var id = searchObj.hesid;
   }
+
   $http.get(BasicUrl + "admin/" + id).success(function(data) {
     if (data != null && data != "" && data != "null") {
       $scope.roleId = data.role;
@@ -30,18 +31,18 @@ app.controller('customersCtrl', function($scope, $http, $timeout) {
 });
 window.setInterval("reinitIframe()", 200);
 //当前登录用户的身份ID
-var adminId;
+var currentAdminId;
 $(function() {
   //获取前台参数
   var searchObj = new UrlSearch();
   if (searchObj.hesid) {
     var id = searchObj.hesid;
-    adminId = id;
-    $.ajaxSetup({
-      beforeSend: function(request) {
-        // request.setRequestHeader("authorization", adminId + '_' + token());
-      }
-    });
+    currentAdminId = id;
+    // $.ajaxSetup({
+    //   beforeSend: function(request) {
+    //     request.setRequestHeader("authorization", currentAdminId + '_' + token());
+    //   }
+    // });
 
     //获取当前登录的身份
     $.get(BasicUrl + "admin/" + id).success(function(data) {
@@ -75,30 +76,29 @@ $(function() {
    * @returns 
    */
   function getNotice() {
-    $.ajaxSetup({
-      beforeSend: function(request) {
-        // request.setRequestHeader("authorization", adminId + '_' + token());
-      }
-    });
-    $.get(BasicUrl + "notice/?adminId=" + adminId).success(function(data) {
+    $.get(BasicUrl + "notice/?adminId=" + currentAdminId).success(function(data) {
       if (data != null && data != "" && data != "null") {　
-        var fill = data.ReportToBeFilledCount || 0;
-        var reply = data.ReportToBeRepliedCount || 0;
-        var total = fill + reply;
-        fill == 0 || $(".ReportToBeFilledCount").find('span').text(fill);
-        reply == 0 || $(".ReportToBeRepliedCount").find('span').text(reply);
-        total == 0 || $("#totalNotice").text(total);
+        handleError(data, function(data) {
+          var fill = data.ReportToBeFilledCount || 0;
+          var reply = data.ReportToBeRepliedCount || 0;
+          var total = fill + reply;
+          alert(total)
+          fill == 0 || $(".ReportToBeFilledCount").find('span').text(fill);
+          reply == 0 || $(".ReportToBeRepliedCount").find('span').text(reply);
+          total == 0 || $("#totalNotice").text(total);
+        })
+
       }
     });
   }
   //跳转到会员报告列表页面
   $(".ReportToBeFilledCount").on('click', function() {
-    var href = $(this).attr("data-link") + "?adminId=" + adminId;
+    var href = $(this).attr("data-link") + "?adminId=" + currentAdminId;
     $("#work-frame").attr("src", href);
   });
   //跳转到咨询列表页面
   $(".ReportToBeRepliedCount").on('click', function() {
-    var href = $(this).attr("data-link") + "?adminId=" + adminId;
+    var href = $(this).attr("data-link") + "?adminId=" + currentAdminId;
     $("#work-frame").attr("src", href);
   });
 

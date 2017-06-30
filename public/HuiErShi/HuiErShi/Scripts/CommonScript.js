@@ -264,17 +264,7 @@ function token() {
 function headertoken() {
   return adminId() + '_' + token();
 }
-/**
- * 设置全局ajax属性
- *   
- */
 
-
-// $.ajaxSetup({
-//   beforeSend: function(request) {
-//     request.setRequestHeader("authorization", adminId() + '_' + token());
-//   }
-// });
 
 // var currentHeader={
 //   header:

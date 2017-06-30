@@ -144,7 +144,7 @@
         <!-- 当前页隐藏域 -->
         <input id="currentPage" name="currentPage" value="1" type="hidden">
       </div>
-    <!--【前提】预约列表页面，确认预约
+      <!--【前提】预约列表页面，确认预约
 【现象】“确认预约”现在存在几个问题：
 bug 1.“确认预约”按钮不应是这四个字，而是会员的手机号码；
 bug 2.目前确认预约完成后，点击还可以再打开，修改或编辑预约信息的功能已做完，但是签到后已经生成报告编号了，还能再确认预约；
@@ -186,7 +186,7 @@ bug 3.确认预约窗口中，只能选择项目，不能选择专家。
                   </div>
                   <div class="col-md-6 form-group">确认日期：
                     <div class="input-group timeblock">
-                      <input id="modaltxtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" ng-model="models.confirmAt | date:'yyyy/MM/dd HH:mm:ss'" ng-disabled="models.confirmAt" />
+                      <input id="modaltxtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" ng-value="models.confirmAt | date:'yyyy/MM/dd HH:mm:ss'" ng-disabled="models.confirmAt" />
                       <div class="input-group-btn">
                         <button type="button" class="btn btn-default" id="btnStarttime">
                           <span class="glyphicon glyphicon-calendar"></span></button>
@@ -207,7 +207,7 @@ bug 3.确认预约窗口中，只能选择项目，不能选择专家。
                 <div class="row" style="margin-top: 15px;">
                   <!-- 消除外边距 -->
                   <div class="col-md-12">
-                    <p><span>　　预约备注：</span><input type="text" name="" id="remark" value="" placeholder="请输入备注" class="form-control" style="width: 50%;"></p>
+                    <p><span>　　预约备注：</span><input type="text" name="" id="remark" ng-value="models.comment" placeholder="请输入备注" class="form-control" style="width: 50%;"></p>
                     <p style="margin-top: 15px;">
                       <span ng-show="models.modifyAt" ng-if="{{models.status=='unconfirmed'}}">
                         最后修改：{{models.modifyBy.name}}　{{models.modifyAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>

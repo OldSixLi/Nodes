@@ -102,29 +102,31 @@
             $http.get(url).success(function(data) {
               if (data != null && data != "" && data != "null") {
                 //判断当前是否存在记录
-
-                if (data.content != null && data.content.length > 0) {
-                  $scope.dataLengths = true;
-                  //赋值操作
-                  $scope.data = data;
-                  $scope.totalPage = data.totalPages;
-                  $scope.totalRecord = data.totalElements;
-                  //调用生成分页方法
-                  initPageDiv($("#alreadyPage"), //在哪里生成页码
-                    pageindex + 1, //当前页
-                    data.totalPages, //总页数
-                    5, //每次显示多少页
-                    $("#currentPage"), //隐藏域的值：当前页数
-                    function() {
-                      pageing($("#currentPage").val() - 1, params);
-                    });
-                } else {
-                  $scope.dataLengths = false;
-                  if (searchIndex > 0) {
-
-                    tool.alert("提示", "没有相关的记录！");
+                handleError(data, function(data) {
+                  if (data.content != null && data.content.length > 0) {
+                    $scope.dataLengths = true;
+                    //赋值操作
+                    $scope.data = data;
+                    $scope.totalPage = data.totalPages;
+                    $scope.totalRecord = data.totalElements;
+                    //调用生成分页方法
+                    initPageDiv($("#alreadyPage"), //在哪里生成页码
+                      pageindex + 1, //当前页
+                      data.totalPages, //总页数
+                      5, //每次显示多少页
+                      $("#currentPage"), //隐藏域的值：当前页数
+                      function() {
+                        pageing($("#currentPage").val() - 1, params);
+                      });
+                  } else {
+                    $scope.dataLengths = false;
+                    if (searchIndex > 0) {
+                      tool.alert("提示", "没有相关的记录！");
+                    }
                   }
-                }
+                });
+
+
               }
             });
           }

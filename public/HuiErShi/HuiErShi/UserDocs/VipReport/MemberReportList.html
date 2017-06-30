@@ -99,7 +99,7 @@
 
               <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
                 <td>{{$index+1}}</td>
-                <td><img src="{{x.user.iconUrl}}" /><a href="../UserManage/UserInfo.html?id={{x.user.id}}">{{x.user.vipName}}</a></td>
+                <td><img src="{{x.user.vipEntity.iconUrl}}" /><a href="../UserManage/UserInfo.html?id={{x.user.id}}">{{x.user.vipName}}</a></td>
                 <td>{{ x.user.gender=="M"?"男":"女"}}</td>
                 <td>{{ x.createAt|date:"yyyy/MM/dd HH:mm:ss"}}&nbsp;&nbsp;{{x.user.vipEntity.adviser.name}}</td>
                 <td><a href="MemberReportInfo.html?id={{x.id}}">{{x.reportNo}}</a></td>

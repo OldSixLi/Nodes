@@ -215,7 +215,7 @@
      }
 
      var status = $scope.currentStatus == 'unconfirmed'
-     if (status) {
+    
 
        $http({
            method: 'POST',
@@ -249,40 +249,7 @@
            tool.alert("提示", response.errorMessage);
          });
 
-
-     } else {
-       $http({
-           method: 'PATCH',
-           url: BasicUrl + "appointment/" + $scope.orderId,
-           data: data,
-           transformRequest: function(obj) {
-             var str = [];
-             for (var p in obj) {
-               str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-             }
-             return str.join("&");
-           },
-           headers: {
-             'Content-Type': 'application/x-www-form-urlencoded'
-           }
-         })
-         .success(function(data, xhr) {
-           if (xhr == 200) {
-             if (data.errorMessage) {
-               tool.alert("提示", data.errorMessage);
-             } else {
-               tool.alert("提示", "操作成功!");　
-               //刷新当前页面.
-               window.location.reload();
-             }
-
-           } else {
-             tool.alert("提示", "操作失败,请重试!");
-           }
-         }).error(function(response) {
-           tool.alert("提示", response.errorMessage);
-         });
-     }
+ 
 
    }
 
