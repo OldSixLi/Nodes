@@ -82,7 +82,6 @@ $(function() {
           var fill = data.ReportToBeFilledCount || 0;
           var reply = data.ReportToBeRepliedCount || 0;
           var total = fill + reply;
-          alert(total)
           fill == 0 || $(".ReportToBeFilledCount").find('span').text(fill);
           reply == 0 || $(".ReportToBeRepliedCount").find('span').text(reply);
           total == 0 || $("#totalNotice").text(total);

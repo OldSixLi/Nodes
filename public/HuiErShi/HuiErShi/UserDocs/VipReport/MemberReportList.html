@@ -47,9 +47,6 @@
              <option value="">全部</option>
              <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option> </select>
             </select>
-
-            <!--<select id="userSlt" class="form-control">  <option></option>
-          </select> &nbsp;&nbsp;&nbsp;-->
           </div>
 
           <div class="form-group text-left">
@@ -96,7 +93,6 @@
               </tr>
             </thead>
             <tbody id="databody">
-
               <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
                 <td>{{$index+1}}</td>
                 <td><img src="{{x.user.vipEntity.iconUrl}}" /><a href="../UserManage/UserInfo.html?id={{x.user.id}}">{{x.user.vipName}}</a></td>
@@ -106,10 +102,7 @@
                 <td><span ng-if="x.status=='0'">检查注册</span>
                   <span ng-if="x.status=='1'">专家建议已填写</span>
                   <span ng-if="x.status=='2'">待发布</span><span ng-if="x.status=='3'">已发布</span></td>
-
-
                 <td>
-                  <!--{{"TODO"}}-->
                   <a ng-repeat="v in x.appointment.appointmentItems" href="../SystemManage/ReservationItem.html?name={{v.name}}">{{ v.name }}</a>
                 </td>
               </tr>
@@ -123,7 +116,6 @@
       <!--分页-->
       <div ng-show="dataLengths">
         <div class="form-group pull-right topage_block">
-
           <!-- 跳转至 -->
           <label>{{totalRecord}}条/{{totalPage}}页</label>
           <label>跳至</label>
@@ -136,7 +128,6 @@
           <ul class="pagination" id="alreadyPage"></ul>
         </div>
       </div>
-
       <!-- 当前页隐藏域 -->
       <input id="currentPage" name="currentPage" value="1" type="hidden">
     </div>

@@ -4,7 +4,7 @@
   */
  $.ajaxSetup({
    beforeSend: function(request) {
-     request.setRequestHeader("authorization", adminId() + '_' + token());
+     //  request.setRequestHeader("authorization", adminId() + '_' + token());
    }
  });
 
@@ -13,7 +13,7 @@
   * 
   */
  app.config(["$httpProvider", function($httpProvider) {
-   $httpProvider.defaults.headers.common["authorization"] = headertoken();
+   //  $httpProvider.defaults.headers.common["authorization"] = headertoken();
  }]);
 
  function handleError(data, callback) {
