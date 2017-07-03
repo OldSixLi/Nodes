@@ -88,6 +88,9 @@
        function() {});
    }
 
+   $scope.hasSignIn = function() {
+     tool.alert("提示", "会员已签到，无法再进行预约确认!");
+   }
 
    //查询按钮
    $scope.search = function() {
@@ -215,41 +218,41 @@
      }
 
      var status = $scope.currentStatus == 'unconfirmed'
-    
 
-       $http({
-           method: 'POST',
-           url: BasicUrl + "appointment/" + $scope.orderId,
-           data: data,
-           transformRequest: function(obj) {
-             var str = [];
-             for (var p in obj) {
-               str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-             }
-             return str.join("&");
-           },
-           headers: {
-             'Content-Type': 'application/x-www-form-urlencoded'
+
+     $http({
+         method: 'POST',
+         url: BasicUrl + "appointment/" + $scope.orderId,
+         data: data,
+         transformRequest: function(obj) {
+           var str = [];
+           for (var p in obj) {
+             str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
            }
-         })
-         .success(function(data, xhr) {
-           if (xhr == 200) {
-             if (data.errorMessage) {
-               tool.alert("提示", data.errorMessage);
-             } else {
-               tool.alert("提示", "操作成功!");　
-               //刷新当前页面.
-               window.location.reload();
-             }
-
+           return str.join("&");
+         },
+         headers: {
+           'Content-Type': 'application/x-www-form-urlencoded'
+         }
+       })
+       .success(function(data, xhr) {
+         if (xhr == 200) {
+           if (data.errorMessage) {
+             tool.alert("提示", data.errorMessage);
            } else {
-             tool.alert("提示", "操作失败,请重试!");
+             tool.alert("提示", "操作成功!");　
+             //刷新当前页面.
+             window.location.reload();
            }
-         }).error(function(response) {
-           tool.alert("提示", response.errorMessage);
-         });
 
- 
+         } else {
+           tool.alert("提示", "操作失败,请重试!");
+         }
+       }).error(function(response) {
+         tool.alert("提示", response.errorMessage);
+       });
+
+
 
    }
 

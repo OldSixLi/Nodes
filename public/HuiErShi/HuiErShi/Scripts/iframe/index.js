@@ -57,12 +57,12 @@ $(function() {
         $("#iconUrl").val(data.iconUrl);
         $("#token").val(token())
       } else {
-        alert("获取用户身份出错，请重新登录1！");
-        // location.replace('Login.html');
+        alert("获取用户身份出错，请重新登录！");
+        location.replace('Login.html');
       }
     }).error(function() {
-      alert("获取用户身份出错，请重新登录2！");
-      // location.replace('Login.html');
+      alert("获取用户身份出错，请重新登录！");
+      location.replace('Login.html');
     });
 
     //定时获取用户通知

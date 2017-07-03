@@ -66,6 +66,21 @@ $(function() {
         tool.alert("提示", "请选择项目类型");
         return false;
       }
+
+      if (radioVal == "1") {
+        if (!$("#txtMinReference").val() || !$("#txtUnit").val() || !$("#txtMaxReference").val()) {
+          tool.alert("提示", "请完善数据后再进行提交");
+          return false;
+        }
+
+      }
+      if (radioVal == "4") {
+        if (!$("#subItemName").val() || !$("#txtUnit").val() || !$("#txtMinReference2").val() || !$("#txtMaxReference2").val()) {
+          tool.alert("提示", "请完善数据后再进行提交");
+          return false;
+        }
+
+      }
       $http({
           method: 'POST',
           url: BasicUrl + "item",
@@ -128,6 +143,22 @@ $(function() {
       }
       //修改按钮操作 
       var id = $scope.projectId;
+
+      if (radioVal == "1") {
+        if (!$("#txtMinReference").val() || !$("#txtUnit").val() || !$("#txtMaxReference").val()) {
+          tool.alert("提示", "请完善数据后再进行提交");
+          return false;
+        }
+
+      }
+      if (radioVal == "4") {
+        if (!$("#subItemName").val() || !$("#txtUnit").val() || !$("#txtMinReference2").val() || !$("#txtMaxReference2").val()) {
+          tool.alert("提示", "请完善数据后再进行提交");
+          return false;
+        }
+
+      }
+
       $http({
           method: 'PATCH',
           url: BasicUrl + "item/" + id,

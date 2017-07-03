@@ -139,7 +139,7 @@
          $scope.data = data;
          $scope.picNum = data.picUrl.length;
          $scope.picIndex = 0;
-
+         $scope.reason = data.loadFailedReason;
          $scope.HaveOptions = data.itemDataEntities;
 
        } else {

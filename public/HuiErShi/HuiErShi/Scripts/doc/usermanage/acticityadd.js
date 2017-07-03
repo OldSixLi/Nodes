@@ -164,7 +164,7 @@
            $scope.vm.entity = data;
            $scope.vm.entity.todo = "TODO";
            // vm.entity.startAt
-           vm.entity.startAt =  vm.entity.startAt;
+           vm.entity.startAt = vm.entity.startAt;
            $scope.dataLengths = vm.entity.members.length;
 
            // $scope.vm.entity.signByUser = data.signByUser;
@@ -198,6 +198,11 @@
      } else {
        $scope.isSave = true;
      }
+
+     $scope.hasSign = function() {
+       tool.alert("提示", "此会员已签到，不可再取消报名!");
+     }
+
      //新增按钮操作
      vm.saveinfo = function($event) {
        console.log("表单开始提交");

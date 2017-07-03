@@ -4,22 +4,23 @@
   */
  $.ajaxSetup({
    beforeSend: function(request) {
-     //  request.setRequestHeader("authorization", adminId() + '_' + token());
+     request.setRequestHeader("authorization", adminId() + '_' + token());
    }
  });
+
 
  /**
   * 配置全局http服务(所有的Angularjs异步请求ajax方法都会通过此方法统一设置header属性)
   * 
   */
  app.config(["$httpProvider", function($httpProvider) {
-   //  $httpProvider.defaults.headers.common["authorization"] = headertoken();
+   $httpProvider.defaults.headers.common["authorization"] = headertoken();
  }]);
 
  function handleError(data, callback) {
    if (data.errorMessage) {
      if (tool.alert != undefined) {
-       //  tool.alert("提示", data.errorMessage);
+       tool.alert("提示", data.errorMessage);
      }
    } else {
      callback(data);
