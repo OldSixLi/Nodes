@@ -2,6 +2,11 @@ $(function() {
   //初始化时间控件
   // $(".start_end_time").datetimepicker();
   tool.changeSelect($("#balanceSlt"), false);
+
+  $("#sel_menu2").select2({
+    tags: true,
+    maximumSelectionLength: 10　
+  });
 });
 (function() {
   var app = angular.module("myApp", ["w5c.validator"]);
@@ -60,6 +65,8 @@ $(function() {
       $scope.isShow = true; //显示新增按钮
     }
     vm.saveinfo = function($event) {
+      alert($("#sel_menu2").val());
+      console.log($("#sel_menu2").val());
       $(":submit").attr("disabled", true);
       var radioVal = $('input:radio[name=type]:checked').val();
       if (!radioVal) {
