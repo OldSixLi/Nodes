@@ -111,6 +111,7 @@ app.controller('customersCtrl', function($scope, $http) {
       return false;
     }
 
+
     var saveInfo = {
       userId: parseInt($("input[type='radio']:checked").val()),
       appointmentTime: Date.parse(new Date($("#date").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#date").val())),

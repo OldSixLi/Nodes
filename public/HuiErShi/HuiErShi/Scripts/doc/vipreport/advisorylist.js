@@ -708,7 +708,12 @@
    //分页方法声明
    var pageing = function(pageindex, params) {
        //请求地址
-       var id = login.identifier.match(/\d+/)[0];
+       var admindata = getAdmin();
+       var id = "";
+       if (admindata.role == 2 || admindata.role == 3) {
+         var id = login.identifier.match(/\d+/)[0];
+       }
+
        var url = BasicUrl + "IMConsult?" + params + "page=" + pageindex + "&pageNum=10&expertId=" + id; //请求的参数和地址
        $http.get(url).success(function(data) {
          if (data != null && data != "" && data != "null") {

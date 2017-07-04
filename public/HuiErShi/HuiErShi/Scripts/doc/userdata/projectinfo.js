@@ -65,7 +65,8 @@ $(function() {
       $scope.isShow = true; //显示新增按钮
     }
     vm.saveinfo = function($event) {
-      alert($("#sel_menu2").val());
+      // alert($("#sel_menu2").val());
+      $("#selections").val($("#sel_menu2").val())
       console.log($("#sel_menu2").val());
       $(":submit").attr("disabled", true);
       var radioVal = $('input:radio[name=type]:checked').val();
@@ -88,13 +89,19 @@ $(function() {
         }
 
       }
+
+      var sendData;
+
+      // selections
+      // isRadio
+      sendData = $("[name='validateForm']").serialize();
       $http({
           method: 'POST',
           url: BasicUrl + "item",
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
-          data: $("[name='validateForm']").serialize()
+          data: sendData
         })
         .success(function(data, xhr) {
           if (xhr == 200) {

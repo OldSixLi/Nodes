@@ -214,7 +214,7 @@
        tool.alert("提示", "请选择用户！");
        return false;
      }
-
+     alert("DietAnalysis.html?userId=" + $("#username").val() + "&username=" + UserName + "&date=" + $("#txtStartTime").val())
      window.location.href = "DietAnalysis.html?userId=" + $("#username").val() + "&username=" + UserName + "&date=" + $("#txtStartTime").val();
    }
 

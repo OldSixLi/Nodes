@@ -237,13 +237,12 @@
                       <label for="txtSelections" class="control-label">标签：</label>
                     </div>
                     <div class="col-xs-4">
-                      <!--<input type="text" class="form-control" id="txtSelections" name="selections" placeholder="请选择标签" ng-model="vm.data.selections" ng-disabled='!(type=="3")'>-->
 
 
-                      <select id="sel_menu2" multiple="multiple" ng-model="vm.data.selections" class="form-control" ng-disabled='!(type=="3")'>
+                      <select id="sel_menu2" multiple="multiple" name="select" ng-model="vm.data.selections" class="form-control" ng-disabled='!(type=="3")'>
 
 
-                    
+                    <input type="hidden" name="selections" value="" id="selections">
                   </select>
 
 
@@ -252,24 +251,25 @@
                       <label for="rdbIsRadio" class="control-label">只许单选：</label>
                     </div>
                     <div class="col-xs-4" style="line-height:38px;">
-                      <input id="rdbIsRadio" type="radio" name="isRadio" value="0" ng-model="vm.data.isRadio" ng-disabled='!(type=="3")' />是
-                      <input id="rdbIsRadio" type="radio" name="isRadio" value="1" ng-model="vm.data.isRadio" ng-disabled='!(type=="3")' />否
+                      <input id="rdbIsRadio" type="radio" name="isRadio" value="1" ng-checked='true' ng-model="vm.data.isRadio" ng-disabled='!(type=="3")' />是
+                      <input id="rdbIsRadio" type="radio" name="isRadio" value="0" ng-model="vm.data.isRadio" ng-disabled='!(type=="3")' />否
                     </div>
                   </div>
                 </fieldset>
               </div>
             </div>
+            <!--1-数值型，2-文本型，3-选择型，4-多值型 ,5-图片型，6-阴阳型，7-时间型-->
             <!--图片型-->
             <div class="row">
               <div class="col-md-12 col-sm-12">
                 <fieldset>
                   <legend>
-                    <input id="Radio1" type="radio" name="type" value="0" ng-model="type" />
+                    <input id="Radio1" type="radio" name="type" value="5" ng-model="type" />
                     <label class="control-label">图片：</label>
                   </legend>
                   <div class="row form-groups">
                     <div class="col-xs-2 text-right">
-                      <label for="txtBalance" class="control-label">图片：</label>
+                      <!--<label for="txtBalance" class="control-label">图片：</label>-->
                     </div>
                     <div class="col-xs-4">
                       <!--<input type="file" id="txtImage" name="image" ng-model="vm.data.image" ng-disabled='!(type=="4")' />-->
@@ -283,7 +283,7 @@
               <div class="col-md-12 col-sm-12">
                 <fieldset>
                   <legend>
-                    <input id="Radio1" type="radio" name="type" value="5" ng-model="type" />
+                    <input id="Radio1" type="radio" name="type" value="6" ng-model="type" />
                     <label class="control-label">阴阳：</label>
                   </legend>
                   <div class="row form-groups">
@@ -310,7 +310,7 @@
 
                 <fieldset>
                   <legend>
-                    <input id="Radio1" type="radio" name="type" value="6" ng-model="type" />
+                    <input id="Radio1" type="radio" name="type" value="7" ng-model="type" />
                     <label class="control-label">时间：</label>
                   </legend>
                   <div class="row form-groups">

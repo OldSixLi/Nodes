@@ -19,8 +19,13 @@
 
  function handleError(data, callback) {
    if (data.errorMessage) {
-     if (tool.alert != undefined) {
-       tool.alert("提示", data.errorMessage);
+     if (data.errorMessage == "Admin token 非法") {
+       //判断如果当前是否需回到登陆页面
+       location.replace('Login.html');
+     } else {
+       if (tool.alert != undefined) {
+         tool.alert("提示", data.errorMessage);
+       }
      }
    } else {
      callback(data);
