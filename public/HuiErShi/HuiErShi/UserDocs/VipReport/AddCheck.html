@@ -256,7 +256,6 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
                   <span ng-switch-when="5">图片型</span>
                   <span ng-switch-when="6">阴阳型</span>
                   <span ng-switch-when="7">时间型</span>
-
                   </span>
               </ul>
 
@@ -336,8 +335,6 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
                 <p ng-repeat="x in currentItemSelections">
                   <!--//单选框控件-->
                   <input type="radio" name="radioItem" value="{{x}}" ng-show="currentIsRadio" ng-checked="x==currentItemRadio">
-
-
                   <input type="checkbox" value="{{x}}" name="checkItem" ng-show="!currentIsRadio" ng-checked="itemList[x]"> &nbsp;&nbsp; {{x}}
                 </p>
               </div>
@@ -367,7 +364,6 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
         </div>
       </div>
       <!--脚本-->
-      <!-- 脚本 -->
       <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
       <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
       <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>

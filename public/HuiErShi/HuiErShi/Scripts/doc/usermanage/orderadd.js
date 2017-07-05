@@ -120,8 +120,12 @@ app.controller('customersCtrl', function($scope, $http) {
     }
     $.post(BasicUrl + 'appointment', saveInfo, function(data, status, jqXHR) {
       if (status == 'success' && jqXHR.status == 200) {
-        tool.alert('提示', '保存成功');
-        $('#orderForm')[0].reset();
+        tool.alert('提示', '保存成功', function() {
+          $('#orderForm')[0].reset();
+          $("input:radio[name=userId]").attr("checked", false);
+          // $("input[name='userId']").val("");
+        });
+
       } else {
         tool.alert('提示', '保存失败');
       }

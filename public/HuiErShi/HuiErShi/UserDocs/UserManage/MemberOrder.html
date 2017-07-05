@@ -2,150 +2,150 @@
 <!--当前页面没有接口-->
 <html>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>预约列表</title>
-  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/common.css" rel="stylesheet">
-  <style>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>预约列表</title>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/common.css" rel="stylesheet">
+    <style>
 
-  </style>
-</head>
+    </style>
+  </head>
 
-<body ng-app="myApp">
-  <div ng-controller="customersCtrl" class="container-fluid myload">
+  <body ng-app="myApp">
+    <div ng-controller="customersCtrl" class="container-fluid myload">
 
-    <!-- 面包屑导航 -->
-    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-      <li><a href="javascript:void(0)">客户管理</a></li>
-      <li class="active">预约列表 </li>
-    </ol>
+      <!-- 面包屑导航 -->
+      <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+        <li><a href="javascript:void(0)">客户管理</a></li>
+        <li class="active">预约列表 </li>
+      </ol>
 
-    <!--搜索-->
-    <div class="col-xs-12" id="search_block">
-      <form class="form-inline text-right" role="form">
-        <div class="form-group" style="margin:10px;">
-          <label class="lbl_search">预约日期：</label>
-          <div class="input-group timeblock">
-            <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" value={{starttime}}>
-            <div class="input-group-btn">
-              <button type="button" class="btn btn-default" id="btnStarttime">
+      <!--搜索-->
+      <div class="col-xs-12" id="search_block">
+        <form class="form-inline text-right" role="form">
+          <div class="form-group" style="margin:10px;">
+            <label class="lbl_search">预约日期：</label>
+            <div class="input-group timeblock">
+              <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" value={{starttime}}>
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" id="btnStarttime">
                 <span class="glyphicon glyphicon-calendar"></span></button>
-            </div>
-          </div> 至
-          <div class="input-group timeblock">
-            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
-            <div class="input-group-btn">
-              <button type="button" class="btn btn-default" id="btnEndtime">
+              </div>
+            </div> 至
+            <div class="input-group timeblock">
+              <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" id="btnEndtime">
                 <span class="glyphicon glyphicon-calendar"></span></button>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="form-group text-left">
-          <label class="">　预约情况： </label>
-          <select class="form-control" name="sltDistrict" id="sltDistrict">
+          <div class="form-group text-left">
+            <label class="">　预约情况： </label>
+            <select class="form-control" name="sltDistrict" id="sltDistrict">
               <option value="">所有</option>
               <option value="0">未确认</option>
               <option value="1">已预约</option> 
           </select>
-        </div>&nbsp;&nbsp;
-        <div class="form-group text-left">
-          <label class="">　预约项目：</label>
-          <select class="form-control" name="sltItem" id="sltItem" style="width:130px;" 　>
+          </div>&nbsp;&nbsp;
+          <div class="form-group text-left">
+            <label class="">　预约项目：</label>
+            <select class="form-control" name="sltItem" id="sltItem" style="width:130px;" 　>
               <option value="">所有</option>
              <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option>
           </select>
-        </div>&nbsp;&nbsp;
-        <div class="form-group text-left">
-          <label class="">&nbsp;&nbsp;关键字： </label>
-          <input id="txtKeyWord" name="keyword" class="form-control" placeholder="关键字" type="text" style="width: 120px;">
-        </div>
-        <div class="form-group text-left pull-right" style="margin:10px;">
-          <a ng-click="search()" class="btn btn-success" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
-          <a href="OrderAdd.html" class="btn btn-success pull-right" id="btnAddActivity"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加预约</a>
-        </div>
-      </form>
-    </div>
+          </div>&nbsp;&nbsp;
+          <div class="form-group text-left">
+            <label class="">&nbsp;&nbsp;关键字： </label>
+            <input id="txtKeyWord" name="keyword" class="form-control" placeholder="关键字" type="text" style="width: 120px;">
+          </div>
+          <div class="form-group text-left pull-right" style="margin:10px;">
+            <a ng-click="search()" class="btn btn-success" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
+            <a href="OrderAdd.html" class="btn btn-success pull-right" id="btnAddActivity"><i class=" glyphicon glyphicon-plus"></i>&nbsp;添加预约</a>
+          </div>
+        </form>
+      </div>
 
-    <!-- 数据显示 -->
-    <div class="ng-scope tab-content container-fluid">
-      <div class=" fixed-table-container">
-        <table class="table table-hover  ">
-          <!-- 表头 -->
-          <thead>
-            <tr>
-              <th>序号</th>
-              <th>姓名</th>
-              <th class="order" data-order='genders' ng-click="title='genders';desc=!desc;sort('genders')">
-                性别
-                <span class="glyphicon glyphicon-sort"></span>
-              </th>
-              <th data-order='time' class="order" ng-click="title='time';desc=!desc;sort('time')">预约日期<span class="glyphicon glyphicon-sort"></span></th>
-              <th class="order" data-order='isYes' ng-click="title='isYes';desc=!desc;sort('isYes')">预约确认<span class="glyphicon glyphicon-sort"></span></th>
-              <th>预约项目</th>
-              <th>预约报告号 / 备注</th>
-            </tr>
-          </thead>
-          <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in data.content|orderBy:title:desc">
-              <td>{{ $index+data.page*data.pageNum+1}}</td>
-              <td>
-                <a href="UserInfo.html?id={{ x.user.id}}">{{ x.user.vipEntity.realName }}</a></td>
-              <td>{{ x.genders= x.user.vipEntity.gender=="M"?"男":"女" }}</td>
-              <td>{{ x.time= x.createAt |date:"yyyy/MM/dd HH:mm:ss"}}</td>
-              <td>
-                <a ng-click='getEditModel(x.id)' href="" ng-if="x.status=='unconfirmed'">{{x.user.vipEntity.mobile||"确认签到"}}</a>
-                <a ng-click='getEditModel(x.id)' href="" ng-if="x.status=='confirmed'">{{x.isYes= x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}} 
+      <!-- 数据显示 -->
+      <div class="ng-scope tab-content container-fluid">
+        <div class=" fixed-table-container">
+          <table class="table table-hover  ">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th class="order" data-order='genders' ng-click="title='genders';desc=!desc;sort('genders')">
+                  性别
+                  <span class="glyphicon glyphicon-sort"></span>
+                </th>
+                <th data-order='time' class="order" ng-click="title='time';desc=!desc;sort('time')">预约日期<span class="glyphicon glyphicon-sort"></span></th>
+                <th class="order" data-order='isYes' ng-click="title='isYes';desc=!desc;sort('isYes')">预约确认<span class="glyphicon glyphicon-sort"></span></th>
+                <th>预约项目</th>
+                <th>预约报告号 / 备注</th>
+              </tr>
+            </thead>
+            <tbody id="databody">
+              <tr ng-show="dataLengths" ng-repeat="x in data.content|orderBy:title:desc">
+                <td>{{ $index+data.page*data.pageNum+1}}</td>
+                <td>
+                  <a href="UserInfo.html?id={{ x.user.id}}">{{ x.user.vipEntity.realName }}</a></td>
+                <td>{{ x.genders= x.user.vipEntity.gender=="M"?"男":"女" }}</td>
+                <td>{{ x.time= x.createAt |date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                <td>
+                  <a ng-click='getEditModel(x.id)' href="" ng-if="x.status=='unconfirmed'">{{x.user.vipEntity.mobile||"确认签到"}}</a>
+                  <a ng-click='getEditModel(x.id)' href="" ng-if="x.status=='confirmed'">{{x.isYes= x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}} 
                   </a>
-                <a ng-click='hasSignIn()' href="" ng-if="x.status=='signedIn'">{{x.isYes= x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}} 
+                  <a ng-click='hasSignIn()' href="" ng-if="x.status=='signedIn'">{{x.isYes= x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}} 
                   </a>
-              </td>
-              <td>
-                <a ng-repeat="c in x.appointmentItems" ng-click="searchAsItem(c.id)" href="javascript:;">{{c.name}}</a>
-              </td>
-              <!--备注/单号-->
-              <td>
-                <!--未确认-->
-                <span ng-if="x.status=='unconfirmed'">{{x.comment}}</span>
-                <!--已确认-->
-                <span ng-if="x.status=='confirmed'">
+                </td>
+                <td>
+                  <a ng-repeat="c in x.appointmentItems" ng-click="searchAsItem(c.id)" href="javascript:;">{{c.name}}</a>
+                </td>
+                <!--备注/单号-->
+                <td>
+                  <!--未确认-->
+                  <span ng-if="x.status=='unconfirmed'">{{x.comment}}</span>
+                  <!--已确认-->
+                  <span ng-if="x.status=='confirmed'">
                     <a class="btn btn-link" href="#" ng-click="menberSignUp(x.id)"  style="padding:0;">会员签到</a>
                   </span>
-                <!--已签到-->
-                <span ng-if="x.status=='signedIn'">
+                  <!--已签到-->
+                  <span ng-if="x.status=='signedIn'">
                     <a href="../VipReport/MemberReportInfo.html?id={{x.report.id}}">{{x.report.reportNo}}</a></span>
-              </td>
+                </td>
 
-            </tr>
-            <tr ng-show="!dataLengths">
-              <td colspan="100" class="text-center">暂无结果</td>
-            </tr>
-          </tbody>
-        </table>
+              </tr>
+              <tr ng-show="!dataLengths">
+                <td colspan="100" class="text-center">暂无结果</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
 
-    <!--分页控件-->
-    <div ng-show="dataLengths">
-      <div class="form-group pull-right topage_block">
-        <!-- 跳转至 -->
-        <label>{{totalRecord}}条/{{totalPage}}页</label>
-        <label>跳至</label>
-        <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
-        <label>页</label>
-        <button class="btn btn-success btn-sm" ng-click="skip()">确定</button>
+      <!--分页控件-->
+      <div ng-show="dataLengths">
+        <div class="form-group pull-right topage_block">
+          <!-- 跳转至 -->
+          <label>{{totalRecord}}条/{{totalPage}}页</label>
+          <label>跳至</label>
+          <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
+          <label>页</label>
+          <button class="btn btn-success btn-sm" ng-click="skip()">确定</button>
+        </div>
+        <!-- 分页控件 -->
+        <div class="pull-right">
+          <ul class="pagination" id="alreadyPage"></ul>
+        </div>
+        <div class="col-md-12"></div>
+        <!-- 当前页隐藏域 -->
+        <input id="currentPage" name="currentPage" value="1" type="hidden">
       </div>
-      <!-- 分页控件 -->
-      <div class="pull-right">
-        <ul class="pagination" id="alreadyPage"></ul>
-      </div>
-      <div class="col-md-12"></div>
-      <!-- 当前页隐藏域 -->
-      <input id="currentPage" name="currentPage" value="1" type="hidden">
-    </div>
-    <!--【前提】预约列表页面，确认预约
+      <!--【前提】预约列表页面，确认预约
 【现象】“确认预约”现在存在几个问题：
 bug 1.“确认预约”按钮不应是这四个字，而是会员的手机号码；
 bug 2.目前确认预约完成后，点击还可以再打开，修改或编辑预约信息的功能已做完，但是签到后已经生成报告编号了，还能再确认预约；
@@ -154,90 +154,90 @@ bug 3.确认预约窗口中，只能选择项目，不能选择专家。
 1.如附件图 1所示，这一栏显示会员的手机号；
 2.确认预约完成后，还是能够进行修改或编辑的，但是 当会员已经签到后生成报告单后，不能再进行预约确认了；
 3.需求如附件图 2所示，预约窗口中，出了项目，专家也可以选择。专家的数据来源为 系统管理-管理员设置中的所有专家。-->
-    <!--确认预约-->
-    <div class="modal fade" id="modal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title text-center">确认预约</h4>
-          </div>
-          <div class="modal-body">
-            <form class="form-inline" role="form">
-              <div class="row">
-                <!-- 消除外边距 -->
-                <div class="col-md-3">
-                  <img src='{{userData.iconUrl?userData.iconUrl:"http://iph.href.lu/200x200?text=用户头像"}}' class='img-responsive img-thumbnail' alt='用户头像'>
+      <!--确认预约-->
+      <div class="modal fade" id="modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title text-center">确认预约</h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-inline" role="form">
+                <div class="row">
+                  <!-- 消除外边距 -->
+                  <div class="col-md-3">
+                    <img src='{{userData.iconUrl?userData.iconUrl:"http://iph.href.lu/200x200?text=用户头像"}}' class='img-responsive img-thumbnail' alt='用户头像'>
+                  </div>
+                  <div class="col-md-5">
+                    <p>　　姓名：<span>{{userData.realName }}</span></p>
+                    <p>　　手机：<span>{{userData.mobile}}</span></p>
+                    <p>有效日期：<span>{{userData.vipCard.expiredAt | date:"yyyy/MM/dd HH:mm:ss"}}</span></p>
+                    <p>　　地址：<span>{{userData.contactAddress }}</span></p>
+                  </div>
+                  <div class="col-md-4">
+                    <p>编号：<span>{{userData.vipNo }}</span></p>
+                    <p>城市：<span>{{"天津" }}</span></p>
+                  </div>
                 </div>
-                <div class="col-md-5">
-                  <p>　　姓名：<span>{{userData.realName }}</span></p>
-                  <p>　　手机：<span>{{userData.mobile}}</span></p>
-                  <p>有效日期：<span>{{userData.vipCard.expiredAt | date:"yyyy/MM/dd HH:mm:ss"}}</span></p>
-                  <p>　　地址：<span>{{userData.contactAddress }}</span></p>
-                </div>
-                <div class="col-md-4">
-                  <p>编号：<span>{{userData.vipNo }}</span></p>
-                  <p>城市：<span>{{"天津" }}</span></p>
-                </div>
-              </div>
-              <div class="row">
-                <!-- 消除外边距 -->
-                <div class="col-md-6">
-                  <p style="line-height: 38px;">　　预约日期：{{models.appointmentTime | date:"yyyy/MM/dd HH:mm:ss"}} </p>
-                </div>
-                <div class="col-md-6 form-group">确认日期：
-                  <div class="input-group timeblock">
-                    <input id="modaltxtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" ng-value="models.confirmAt | date:'yyyy/MM/dd HH:mm:ss'" />
-                    <div class="input-group-btn">
-                      <button type="button" class="btn btn-default" id="btnStarttime">
+                <div class="row">
+                  <!-- 消除外边距 -->
+                  <div class="col-md-6">
+                    <p style="line-height: 38px;">　　预约日期：{{models.appointmentTime | date:"yyyy/MM/dd HH:mm:ss"}} </p>
+                  </div>
+                  <div class="col-md-6 form-group">确认日期：
+                    <div class="input-group timeblock">
+                      <input id="modaltxtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" ng-value="models.confirmAt | date:'yyyy/MM/dd HH:mm:ss'" />
+                      <div class="input-group-btn">
+                        <button type="button" class="btn btn-default" id="btnStarttime">
                           <span class="glyphicon glyphicon-calendar"></span></button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <!-- 消除外边距 -->
-                <div class="col-md-12">　　预约项目：
-                  <label ng-repeat="x in options">
+                <div class="row">
+                  <!-- 消除外边距 -->
+                  <div class="col-md-12">　　预约项目：
+                    <label ng-repeat="x in options">
                   
                       <input type="checkbox" name="orderItem" value="{{x.id}}" ng-checked="selectedItem['item'+x.id]" /><span> {{x.name}}&nbsp;&nbsp;</span>
                       <!--ng-disabled="models.confirmAt"-->
                     </label>·
+                  </div>
                 </div>
-              </div>
-              <div class="row" style="margin-top: 15px;">
-                <!-- 消除外边距 -->
-                <div class="col-md-12">
-                  <p><span>　　预约备注：</span><input type="text" name="" id="remark" ng-value="models.comment" placeholder="请输入备注" class="form-control" style="width: 50%;"></p>
-                  <p style="margin-top: 15px;">
-                    <span ng-if="models.status=='unconfirmed'">　　最后修改：{{models.modifyBy.name}}　{{models.modifyAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
-                    <span ng-if="models.status=='confirmed'">　　最后修改：{{models.confirmBy.name}}　{{models.confirmAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
-                    <span ng-if="models.status=='signedIn'">　　最后修改：{{models.confirmBy.name}}　{{models.confirmAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
-                  </p>
+                <div class="row" style="margin-top: 15px;">
+                  <!-- 消除外边距 -->
+                  <div class="col-md-12">
+                    <p><span>　　预约备注：</span><input type="text" name="" id="remark" ng-value="models.comment" placeholder="请输入备注" class="form-control" style="width: 50%;"></p>
+                    <p style="margin-top: 15px;">
+                      <span ng-if="models.status=='unconfirmed'">　　最后修改：{{models.modifyBy.name}}　{{models.modifyAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
+                      <span ng-if="models.status=='confirmed'">　　最后修改：{{models.confirmBy.name}}　{{models.confirmAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
+                      <span ng-if="models.status=='signedIn'">　　最后修改：{{models.confirmBy.name}}　{{models.confirmAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <a class="btn btn-default" data-dismiss="modal">关闭</a>
-            <a class="btn btn-primary" ng-click="save()" ng-disabled="models.status=='signedIn'">确定</a>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <a class="btn btn-default" data-dismiss="modal">关闭</a>
+              <a class="btn btn-primary" ng-click="save()" ng-disabled="models.status=='signedIn'">确定</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <script>
-    </script>
-  </div>
-  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-  <script type="text/javascript" src="../../Scripts/doc/usermanage/memberorder.js"></script>
-  <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
-</body>
+      <script>
+      </script>
+    </div>
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script type="text/javascript" src="../../Scripts/doc/usermanage/memberorder.js"></script>
+    <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
+  </body>
 
 </html>

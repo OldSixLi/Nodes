@@ -237,15 +237,10 @@
                       <label for="txtSelections" class="control-label">标签：</label>
                     </div>
                     <div class="col-xs-4">
-
-
-                      <select id="sel_menu2" multiple="multiple" name="select" ng-model="vm.data.selections" class="form-control" ng-disabled='!(type=="3")'>
-
-
-                    <input type="hidden" name="selections" value="" id="selections">
-                  </select>
-
-
+                      <select id="sel_menu2" multiple="multiple" name="select" class="form-control" ng-disabled='!(type=="3")'>
+                        <option  ng-repeat="x in vm.data.selections" value="{{x}}" selected="selected">{{x}}</option>
+                
+                  </select> <input type="hidden" name="selections" value="" id="selections">
                     </div>
                     <div class="col-xs-2 text-right">
                       <label for="rdbIsRadio" class="control-label">只许单选：</label>
@@ -258,21 +253,18 @@
                 </fieldset>
               </div>
             </div>
-            <!--1-数值型，2-文本型，3-选择型，4-多值型 ,5-图片型，6-阴阳型，7-时间型-->
             <!--图片型-->
             <div class="row">
               <div class="col-md-12 col-sm-12">
                 <fieldset>
                   <legend>
                     <input id="Radio1" type="radio" name="type" value="5" ng-model="type" />
-                    <label class="control-label">图片：</label>
+                    <label class="control-label">图片</label>
                   </legend>
                   <div class="row form-groups">
                     <div class="col-xs-2 text-right">
-                      <!--<label for="txtBalance" class="control-label">图片：</label>-->
                     </div>
                     <div class="col-xs-4">
-                      <!--<input type="file" id="txtImage" name="image" ng-model="vm.data.image" ng-disabled='!(type=="4")' />-->
                     </div>
                   </div>
                 </fieldset>
@@ -284,20 +276,14 @@
                 <fieldset>
                   <legend>
                     <input id="Radio1" type="radio" name="type" value="6" ng-model="type" />
-                    <label class="control-label">阴阳：</label>
+                    <label class="control-label">阴阳</label>
                   </legend>
                   <div class="row form-groups">
                     <div class="col-xs-2 text-right">
-                      <!--<label for="txtBalance" class="control-label">阴阳：</label>-->
                     </div>
                     <div class="col-xs-1">
-                      <!--<select class="form-control" id="balanceSlt" ng-disabled='!(type=="5")'>
-                      <option value="+">+</option>
-                      <option value="-">-</option>
-                    </select>-->
                     </div>
                     <div class="col-xs-3">
-                      <input type="text" class="form-control" id="txtBalance" name="balance" placeholder="请输入数值" ng-disabled='!(type=="5")'>
                     </div>
 
                   </div>
@@ -311,7 +297,7 @@
                 <fieldset>
                   <legend>
                     <input id="Radio1" type="radio" name="type" value="7" ng-model="type" />
-                    <label class="control-label">时间：</label>
+                    <label class="control-label">时间</label>
                   </legend>
                   <div class="row form-groups">
                     <div class="col-xs-2 text-right">
@@ -348,7 +334,7 @@
     <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
     <script type="text/javascript" src="../../Scripts/angular.js"></script>
     <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../../Scripts/select2.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
     <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
     <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
     <script type="text/javascript" src="../../Scripts/doc/userdata/projectinfo.js"></script>

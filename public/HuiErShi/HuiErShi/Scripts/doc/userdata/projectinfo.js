@@ -50,8 +50,13 @@ $(function() {
       $http.get(url).success(function(data) {
         if (data != null && data != "" && data != "null" && data.itemId) {
           $scope.vm.data = data;
+          $scope.vm.data.selections = data.selections ? data.selections.split(',') : [];
           $scope.vm.data.todo = "TODO";
           $scope.type = data.type;
+
+          $("#sel_menu2").select2({
+            tags: true
+          });
         } else {
           tool.alert("提示", "请求数据出错，请重试！");
         }
@@ -157,7 +162,7 @@ $(function() {
       }
       //修改按钮操作 
       var id = $scope.projectId;
-
+      var radioVal = $('input:radio[name=type]:checked').val();
       if (radioVal == "1") {
         if (!$("#txtMinReference").val() || !$("#txtUnit").val() || !$("#txtMaxReference").val()) {
           tool.alert("提示", "请完善数据后再进行提交");
@@ -166,7 +171,7 @@ $(function() {
 
       }
       if (radioVal == "4") {
-        if (!$("#subItemName").val() || !$("#txtUnit").val() || !$("#txtMinReference2").val() || !$("#txtMaxReference2").val()) {
+        if (!$("#subItemName").val() || !$("#txtUnit2").val() || !$("#txtMinReference2").val() || !$("#txtMaxReference2").val()) {
           tool.alert("提示", "请完善数据后再进行提交");
           return false;
         }
@@ -183,11 +188,15 @@ $(function() {
         })
         .success(function(data, xhr) {
           if (xhr == 200) {
-            //成功操作 
-            tool.alert("提示", "已保存修改！", function() {
-              //刷新当前页面.
-              window.location.reload();
-            });
+            if (data.errorMessage) {
+              tool.alert("提示", data.errorMessage);
+            } else {
+              //成功操作 
+              tool.alert("提示", "已保存修改！", function() {
+                window.location.reload();
+              });
+            }
+
             //回退至上一页面 
           } else {
             tool.alert("提示", "修改失败！");
