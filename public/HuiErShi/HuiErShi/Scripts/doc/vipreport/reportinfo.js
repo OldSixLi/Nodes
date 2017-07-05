@@ -172,11 +172,6 @@
      tool.changeSelect($("#chufanglist"), false);
    });
 
-
-
-
-
-
    //分页方法声明
    var pageing = function(pageindex, params) {
      //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../prescription?

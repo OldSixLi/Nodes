@@ -242,21 +242,22 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
             <div class="panel-heading">报告单号：{{data.inspectionNo}}</div>
             <div class="panel-body">
               <ul class="item-list" style="padding:0;">
-                <li class="item-class" ng-repeat="x in HaveOptions" ng-click="getEditItemDetail(x.item.itemId,x.val,x.id,x.item.type); " value="x.item.itemId" style="display:block;list-style: none;  height: 30px;">
+                <li class="item-class" ng-repeat="x in HaveOptions" ng-click="getEditItemDetail(x.item.itemId,x.val,x.id,x.item.type); " value="x.item.itemId" style="display:block;list-style: none;  min-height: 30px;cursor:pointer; ">
                   <span>{{x.item.itemId}}</span>
-                  <span>{{x.item.name}}</span>
-                  <span>{{x.val}}</span>
-                  <span ng-switch="x.item.type"> 
+                  <span><b>{{x.item.name}}</b></span>
+                  <span style='width:30%;'> 
+                    <span ng-if="x.item.type=='5'"><img src="{{x.val||'../../images/upload/upload-alert.png'}}" alt="项目数值" style="width:35px;height: 35px;"></span>
+                  <span ng-if="x.item.type!='5'">{{x.val}}</span></span>
+                  <span ng-switch="x.item.type" style='width:16%;'> 
                   <span ng-switch-when="1">数值型</span>
                   <span ng-switch-when="2">文本型</span>
                   <span ng-switch-when="3">选择型</span>
                   <span ng-switch-when="4">多值型</span>
                   <span ng-switch-when="5">图片型</span>
-                  <span ng-switch-when="6">时间型</span>
-                  <span ng-switch-when="7">阴阳型</span>
+                  <span ng-switch-when="6">阴阳型</span>
+                  <span ng-switch-when="7">时间型</span>
 
                   </span>
-                  <!--<span class="pull-right" style="min-width:100px;">{{x.val}}</span></li>-->
               </ul>
 
             </div>
@@ -264,12 +265,12 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
 
         </div>
         <div class="col-md-6">
-          <div class="row">
+          <div class="row" ng-show="currentItemType">
             <div class="col-md-4 text-right"><label for="" class="inputlabel">数据名称:</label></div>
             <div class="col-md-4"><span class="inputlabel">{{itemDetail.name}}</span></div>
             <div class="col-md-4"></div>
           </div>
-          <div class="row">
+          <div class="row" ng-show="currentItemType=='1'||currentItemType=='2'||currentItemType=='4'">
             <div class="col-md-4 text-right"><label for="" class="inputlabel">参考数值:</label></div>
             <div class="col-md-4"><span class="inputlabel">{{ itemDetail.minReference}} <span  ng-if="itemDetail.minReference&&itemDetail.maxReference">~</span>{{itemDetail.maxReference}}
               <span ng-if="itemDetail.minReference||itemDetail.maxReference">{{itemDetail.unit}}</span> </span>
@@ -277,25 +278,75 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
             <div class="col-md-4"></div>
           </div>
 
-          <div class="row">
-            <div class="col-md-4 text-right"><label for="" class="inputlabel">详情图片:</label></div>
-            <div class="col-md-4">
-              <img src='{{currentImg||"http://iph.href.lu/100x100?text=项目详情"}}' class='img-responsive img-thumbnail' alt='图片详情'>
+          <!--图片详情-->
+          <div ng-show="currentItemType=='5'">
+            <div class="row" ng-show="currentItemType=='5'&&isEditItem==1">
+              <div class="col-md-4 text-right"><label for="" class="inputlabel">详情图片:</label></div>
+              <div class="col-md-4">
+                <img src='{{currentImg||"http://iph.href.lu/100x100?text=项目详情"}}' class='img-responsive img-thumbnail' alt='图片详情'>
+              </div>
+              <div class="col-md-4"></div>
             </div>
-            <div class="col-md-4"></div>
-          </div>
-          <div class="row">
+            <div class="row">
 
-            <div class="col-md-4 text-right"><label for="" class="inputlabel">上传图片:</label></div>
-            <div class="col-md-4" id="btn-uploader1">
-              <img src='http://iph.href.lu/100x100?text=点击上传' class='img-responsive img-thumbnail' id="pickfiles1" alt='点击上传图片'>
-              <input type="hidden" name="itemImg" id="itemImg" value="">
-              <!--//在这存储当前的项目的类型-->
-              <input type="hidden" name="itemType" id="itemType" ng-value="currentItemType">
+              <div class="col-md-4 text-right"><label for="" class="inputlabel">上传图片:</label></div>
+              <div class="col-md-4" id="btn-uploader1" style="padding-top:10px;">
+                <img src='../../images/upload/upload-alert.png' class='img-responsive img-thumbnail' id="pickfiles1" alt='点击上传图片'>
+                <input type="hidden" name="itemImg" id="itemImg" value="">
+                <!--//在这存储当前的项目的类型-->
+                <input type="hidden" name="itemType" id="itemType" ng-value="currentItemType">
+              </div>
+              <div class="col-md-4"></div>
             </div>
-            <div class="col-md-4"></div>
           </div>
-          <div class="row">
+
+
+          <!--阴阳型-->
+          <!---->
+          <div ng-show="currentItemType=='6'">
+            <div class="row">
+              <div class="col-md-4 text-right"><label for="" class="inputlabel">阴阳型数值:</label></div>
+              <div class="col-md-4">
+                <input type="text" placeholder="请输入数值" class="form-control" id="balanceVal" ng-value="balanceVal"></div>
+              <div class="col-md-4">
+                <select class="form-control" style="width:80px;" id="sltBalance" ng-model="yinyang">
+                  <option value="+" selected>+</option>
+                  <option value="-">-</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!--时间类型-->
+          <div ng-show="currentItemType=='7'">
+            <div class="row">
+              <div class="col-md-4 text-right"><label for="" class="inputlabel">   日期:</label></div>
+              <div class="col-md-4"><input id="itemTime" name="itemTime" class="start_end_time form-control" placeholder="请选择时间" ng-value="currentItemTime"></div>
+              <div class="col-md-4"></div>
+            </div>
+          </div>
+
+          <!--选择类型-->
+          <div ng-show="currentItemType=='3'">
+            <div class="row">
+              <div class="col-md-4 text-right">
+                <label for="" class="inputlabel"> 数值:</label>
+              </div>
+              <div class="col-md-4" style="padding-top:5px;">
+                <p ng-repeat="x in currentItemSelections">
+                  <!--//单选框控件-->
+                  <input type="radio" name="radioItem" value="{{x}}" ng-show="currentIsRadio" ng-checked="x==currentItemRadio">
+
+
+                  <input type="checkbox" value="{{x}}" name="checkItem" ng-show="!currentIsRadio" ng-checked="itemList[x]"> &nbsp;&nbsp; {{x}}
+                </p>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+          </div>
+
+          <!--默认选项-->
+          <div class="row" ng-show="currentItemType=='1'||currentItemType=='2'||currentItemType=='4'">
             <div class="col-md-4 text-right"><label for="" class="inputlabel">数值:</label></div>
             <div class="col-md-4"><input class="form-control" type="text" name="" ng-model="itemDetail.value" placeholder="数值"></div>
             <div class="col-md-4"><span class="inputlabel">{{itemDetail.unit}}</span> </div>
@@ -303,8 +354,10 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
           <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4" style="margin-top:10px">
-              <button type="button" class="btn btn-primary btn-block" ng-click="saveItem()" ng-disabled="(itemDetail.value==null||itemDetail.value=='')||!itemDetail.itemId" ng-show="isEditItem==0">保存项目值</button>
-              <button type="button" class="btn btn-primary btn-block" ng-click="editItem()" ng-disabled="(itemDetail.value==null||itemDetail.value=='')||!itemDetail.itemId" ng-show="isEditItem==1">修改项目值</button>
+              <!--ng-disabled="(itemDetail.value==null||itemDetail.value=='')||!itemDetail.itemId"-->
+              <button type="button" class="btn btn-primary btn-block" ng-click="saveItem()" ng-show="isEditItem==0">保存项目值</button>
+              <!--ng-disabled="(itemDetail.value==null||itemDetail.value=='')||!itemDetail.itemId"-->
+              <button type="button" class="btn btn-primary btn-block" ng-click="editItem()" ng-show="isEditItem==1">修改项目值</button>
             </div>
             <div class="col-md-4"></div>
           </div>

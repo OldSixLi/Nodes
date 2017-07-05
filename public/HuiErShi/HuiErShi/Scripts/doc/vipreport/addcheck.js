@@ -499,6 +499,45 @@
          $scope.itemDetail.value = value;
          //当前验单下的项目ID（全局唯一）
          $scope.editItemId = item_Inspe_id;
+         $scope.currentImg = value;
+         //  alert(data.val)
+         $scope.currentItemType = data.type; //当前修改项目的类型 ，用于控制右侧显示的内容
+         $scope.currentItemSelections = data.selections ? data.selections.split(',') : []; //选择类型下的值
+         $scope.currentIsRadio = data.radio; //是否为单选 ，0-可多选，1-只能单选
+         if (data.type == 3) {
+           //时间
+           if (value) {
+
+             if (data.radio) { //单选
+               $scope.currentItemRadio = value;
+             } else {
+               $scope.itemList = {};
+               var selectedArr = value.split(',');
+               for (var index = 0; index < selectedArr.length; index++) {
+                 var element = selectedArr[index];
+                 $scope.itemList[element] = element;
+               }
+
+             }
+
+           }
+         }
+         if (data.type == 6) {
+           //阴阳类型
+           if (value) {
+             $scope.yinyang = value.charAt(0);
+             $scope.balanceVal = value.substring(1); //阴阳型的值
+           }
+         }
+         if (data.type == 7) {
+           //时间
+           if (value) {
+             $scope.currentItemTime = value;
+           }
+         }
+
+
+
        }
      }).error(function() {
        tool.alert("提示", "获取数据出错！");
@@ -513,6 +552,9 @@
          //数据不为空
          $scope.itemDetail = data;
          $scope.isEditItem = 0;
+         $scope.currentItemType = data.type; //当前修改项目的类型 ，用于控制右侧显示的内容
+         $scope.currentItemSelections = data.selections ? data.selections.split(',') : []; //选择类型下的值
+         $scope.currentIsRadio = data.radio; //是否为单选 ，0-可多选，1-只能单选
 
        }
      }).error(function() {
@@ -525,6 +567,55 @@
      var checkId = checkObj.id;
      var itemId = $scope.itemDetail.itemId;
      var val = $scope.itemDetail.value;
+
+     //  <!--1-数值型，2-文本型，3-选择型，4-多值型 ,5-图片型，6-阴阳型，7-时间型-->
+     switch ($scope.currentItemType) {
+       // 选择型
+       case 3:
+         if ($scope.currentIsRadio) { //radio类型
+           var radioVal = $('input:radio[name=radioItem]:checked').val();
+           val = radioVal;
+         } else {
+           var item = [];
+           $('[name="checkItem"]').each(function() {
+             if ($(this).is(":checked")) {
+               item.push($(this).val());
+             }
+           });
+           if (item.length <= 0) {
+             tool.alert("提示", "请选择数据后再进行保存操作！");
+             return false;
+           }
+           val = item.join(',');
+         }
+         break;
+         //  图片型
+       case 5:
+         val = $("#itemImg").val();
+         if (!val) {
+           tool.alert("提示", "请上传图片后再进行保存操作！");
+           return false;
+         }
+         break;
+         //  阴阳型
+       case 6:
+         if (!$("#balanceVal").val()) {
+           tool.alert("提示", "请输入数据后再进行操作！");
+           return false;
+         }
+         var val = $("#sltBalance").val() + $("#balanceVal").val();
+         break;
+         //  时间型
+       case 7:
+         val = $("#itemTime").val();
+         if (!val) {
+           tool.alert("提示", "请选择日期后再进行操作！");
+           return false;
+         }
+         break;
+       default:
+         break;
+     }
      var dataInfo = {
        id: checkId,
        itemId: itemId,
@@ -572,9 +663,64 @@
      //这个ID和itemId不是一个值
      var id = $scope.editItemId;
      var val = $scope.itemDetail.value;
+     //  <!--1-数值型，2-文本型，3-选择型，4-多值型 ,5-图片型，6-阴阳型，7-时间型-->
+     switch ($scope.currentItemType) {
+       // 选择型
+       case 3:
+         if ($scope.currentIsRadio) { //radio类型
+           var radioVal = $('input:radio[name=radioItem]:checked').val();
+           val = radioVal;
+         } else {
+           var item = [];
+           $('[name="checkItem"]').each(function() {
+             if ($(this).is(":checked")) {
+               item.push($(this).val());
+             }
+           });
+           if (item.length <= 0) {
+             tool.alert("提示", "请选择数据后再进行保存操作！");
+             return false;
+           }
+           val = item.join(',');
+         }
+         break;
+         //  图片型
+       case 5:
+         val = $("#itemImg").val();
+         if (!val) {
+           tool.alert("提示", "请上传图片后再进行保存操作！");
+           return false;
+         }
+         break;
+         //  阴阳型
+       case 6:
+         if (!$("#balanceVal").val()) {
+           tool.alert("提示", "请输入数据后再进行操作！");
+           return false;
+         }
+         var val = $("#sltBalance").val() + $("#balanceVal").val();
+         break;
+         //  时间型
+       case 7:
+         val = $("#itemTime").val();
+         if (!val) {
+           tool.alert("提示", "请选择日期后再进行操作！");
+           return false;
+         }
+         break;
+       default:
+         break;
+     }
+
+
+
+     if (!val) {
+       tool.alert("提示", "请输入数据后再进行操作！");
+       return false;
+     }
+
      var dataInfo = {
        id: id,
-       // itemId: itemId,
        val: val
      }
      $http({
