@@ -11,7 +11,7 @@
     <link href="../../Styles/common.css" rel="stylesheet">
   </head>
 
-  <body ng-app="myApp">
+  <body ng-app="myApp" style="overflow-x: scroll;">
     <!--检索项-->
     <div ng-controller="customersCtrl" class="container-fluid myload">
       <!-- 面包屑导航 -->
@@ -96,7 +96,7 @@
                 <span ng-if="x.type=='4'">零食</span></td>
               <td>{{ x.dietEntity.categories }}</td>
               <td>{{ x.dietEntity.subcategories }}</td>
-              <td>{{ x.dietEntity.subcategories }}</td>
+              <td>{{ x.dietEntity.name }}</td>
               <td>{{ x.quantity*x. unitWeight}}</td>
 
             </tr>
@@ -146,15 +146,15 @@
 
             <tr ng-show="dataLengths" ng-repeat="x in data">
               <td>{{x["日期"]}}</td>
-              <td>{{ x["早餐"]+x["午餐"]+x["晚餐"]+x["零食"]}}</td>
+              <td>{{x.total= x["早餐"]+x["午餐"]+x["晚餐"]+x["零食"]}}</td>
               <td>{{ x["早餐"] }}</td>
               <td>{{ x["午餐"] }}</td>
-              <td>{{ x["晚餐"]}}</td>
+              <td>{{ x["晚餐"] }}</td>
               <td>{{ x["零食"] }}</td>
-              <td>{{ x.FP_HM }}</td>
-              <td>{{ x.FP_HM }}</td>
-              <td>{{ x.ID }}</td>
-              <td>{{ x.FP_HM }}</td>
+              <td>{{ ((x["早餐"]/x.total)*100).toFixed(1)+'%' }}</td>
+              <td>{{ ((x["午餐"]/x.total)*100).toFixed(1)+'%' }}</td>
+              <td>{{ ((x["晚餐"]/x.total)*100).toFixed(1)+'%' }}</td>
+              <td>{{ ((x["零食"]/x.total)*100).toFixed(1)+'%' }}</td>
             </tr>
             <tr ng-show="!dataLengths">
               <td colspan="100" class="text-center ">暂无结果</td>
@@ -196,12 +196,12 @@
             <tr ng-show="dataLengths" ng-repeat="x in data">
               <td>{{x["日期"]}}</td>
               <td>{{ x.total=(x["脂肪"]+x["蛋白质"]+x["碳水化合物"]).toFixed(1) }}</td>
-              <td>{{ x["碳水化合物"] }}</td>
-              <td>{{ x["脂肪"] }}</td>
-              <td>{{ x["蛋白质"]}}</td>
-              <td>{{ (x["碳水化合物"]/x.total).toFixed(3)*100+'%'}}</td>
-              <td>{{ (x["脂肪"]/x.total-0).toFixed(3)*100+'%' }}</td>
-              <td>{{ (x["蛋白质"]/x.total-0).toFixed(3)*100+'%' }}</td>
+              <td>{{ x["碳水化合物"].toFixed(1) }}</td>
+              <td>{{ x["脂肪"].toFixed(1) }}</td>
+              <td>{{ x["蛋白质"].toFixed(1)}}</td>
+              <td>{{ ((x["碳水化合物"]/x.total)*100).toFixed(1)+'%'}}</td>
+              <td>{{((x["脂肪"]/x.total-0)*100).toFixed(1)+'%' }}</td>
+              <td>{{ ((x["蛋白质"]/x.total-0)*100).toFixed(1)+'%' }}</td>
             </tr>
             <tr ng-show="!dataLengths">
               <td colspan="100" class="text-center ">暂无结果</td>
@@ -287,7 +287,7 @@
         </table>
 
         <!--5-->
-        <table class="table table-hover table-bordered table-condensed " style="max-width:100%;width:100%;" ng-show="currentPanel=='nutritionalAnalysis'">
+        <table class="table table-hover table-bordered table-condensed " style="max-width:100%;width:100%;overflow-x: scroll;" ng-show="currentPanel=='nutritionalAnalysis'">
           <thead>
             <tr>
               <th>

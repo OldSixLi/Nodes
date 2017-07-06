@@ -33,7 +33,6 @@
            $scope.title = 'time';
            $scope.desc = 0;
            $scope.data = data;
-
            $scope.totalPage = data.totalPages;
            $scope.totalRecord = data.totalElements;
            initPageDiv($("#alreadyPage"),

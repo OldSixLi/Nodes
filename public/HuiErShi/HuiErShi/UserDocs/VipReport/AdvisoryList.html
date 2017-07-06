@@ -256,7 +256,7 @@
 
                 <td>{{$index+1}}</td>
                 <td>
-                  <img src="{{x.userIcon}}" />
+                  <img src="{{'http://usr.im/100x100?text=暂未提供'}}" />
                   <a href="">{{ x.userName}}</a>
                 </td>
                 <td>{{ x.gender=="M"?"男":"女"}}</td>
@@ -585,8 +585,10 @@
         function onFriendSystemNotifys(res) {}
         //newMsgList 为新消息数组，结构为[Msg]
         function onMsgNotify(newMsgList) {
-          console.warn('6666 收到新消息le');
-          console.log('小伙伴可以从这添加提醒回调');
+          console.log(
+            ' ▄█▀█● BUG避退!  ●█▀█▄'　
+          )
+          console.warn('小伙伴可以从这添加提醒回调');
           var sess, newMsg;
           //获取所有聊天会话
           var sessMap = webim.MsgStore.sessMap();
@@ -801,7 +803,7 @@
               sendPic(resp);
             },
             function(err) {
-              alert(err.ErrorInfo);
+              console.warn(err.ErrorInfo);
             }
           );
         }
@@ -844,7 +846,7 @@
               addMsg(msg);
             }
           }, function(err) {
-            alert(err.ErrorInfo);
+            console.warn(err.ErrorInfo);
           });
         }
         //检查文件类型和大小
@@ -880,12 +882,18 @@
           'isLogOn': false
         };
 
-        function onSendMsg(a) {
+        function onSendMsg(a, b) {
           var selType = 'GROUP';
           var selToID = groupId;
           var friendHeadUrl = '';
           //获取消息内容
           var msgtosend = document.getElementsByClassName("input")[0].value;
+          console.log(msgtosend.length + '-长度-' + msgtosend);
+          if (b) {
+            msgtosend = msgtosend.substr(0, msgtosend.length);
+            //                console.log(msgtosend.length+'-长度-'+msgtosend);
+
+          }
           var msgLen = webim.Tool.getStrBytes(msgtosend);
           if (msgtosend.length < 1) {　
             tool.alert("提示", "发送的消息不能为空!");
@@ -957,9 +965,9 @@
           }
           webim.sendMsg(msg, function(resp) {
             document.getElementsByClassName('input')[0].value = '';
-
             webim.Tool.setCookie("tmpmsg_" + selToID, '', 0);
           }, function(err) {
+            console.log('dddt');
             alert(err.ErrorInfo);
 
           });
@@ -967,6 +975,7 @@
         webim.login(
           loginInfo, listeners, options,
           function(resp) {
+            console.log(resp);
             login.identifierNick = resp.identifierNick
             var getMyGroup = function() {
               var options = {
@@ -1054,7 +1063,11 @@
             });
 
           },
-          function(err) {}
+          function(err) {
+            console.log(login.userSig);
+            console.log(err);
+
+          }
         );
 
 
@@ -1110,9 +1123,24 @@
         //
         // var params = "keyWord=DBZ&viewId=1"; //全局变量
         var params = ""; //全局变量
-        document.onkeyup = function(e) {
+        var enter = undefined;
+        var over = true;
+        document.onkeydown = function(e) {
           if (e.keyCode == '13') {
-            $scope.sendMsg();
+            clearTimeout(enter);
+            enter = setTimeout(
+              function() {
+                over = true;
+              }, 500)
+
+            if (over) {
+
+              var flag = true;
+              $scope.sendMsg(flag);
+              over = false;
+            }
+
+
           }
         }
 
@@ -1196,14 +1224,20 @@
 
 
 
-        $scope.sendMsg = function() {
-          onSendMsg(groupId)
+        $scope.sendMsg = function(a) {
+          if (a) {
+            onSendMsg(groupId, a)
+
+          } else {
+            onSendMsg(groupId)
+
+          }
+
         };
         $scope.msgList = {};
         $scope.showList = function(res) {
-          $scope.identifierNick = login.identifierNick
+          $scope.identifierNick = login.identifierNick;
           groupId = 'GROUP_REPORT' + res;
-
           var options = {
             'GroupIdList': [
               'GROUP_REPORT' + res
@@ -1238,6 +1272,7 @@
                 'ReqMsgSeq': resp.GroupInfo[0].NextMsgSeq,
                 'ReqMsgNumber': 50
               };
+              console.log(groupId);
               $scope.groupId = groupId;
               webim.syncGroupMsgs(
                 options,
@@ -1259,9 +1294,6 @@
                   $scope.$apply();
 
 
-
-
-
                 },
                 function(err) {
                   alert('不能展开对话')
@@ -1270,6 +1302,8 @@
               );
             },
             function(err) {
+              console.log(err);
+              console.log('dddtttt');
               alert(err.ErrorInfo);
             }
           );

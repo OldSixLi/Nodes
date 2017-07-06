@@ -238,7 +238,13 @@
 
    //无效
    $scope.notUseClick = function() {
+     if (!$('input:radio[name="reason"]:checked').val()) {
+       tool.alert("提示", "请选择失效原因！");
+       return false;
+     }
+
      var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+
      $.ajax({
        type: "PATCH",
        url: BasicUrl + 'inspection/' + checkObj.id,
@@ -321,7 +327,6 @@
          });
        },
        function() {});
-
    }
 
    $scope.seeDetail = function(url) {
@@ -334,7 +339,7 @@
      // var checkId = checkObj.id;
      // var itemId = $scope.itemDetail.itemId;
      // var val = $scope.itemDetail.value;
-
+     var checkObj = new UrlSearch();
 
 
      // 直接在该页面新建
@@ -348,6 +353,43 @@
          checkAt: minExpiredAt,
          picUrls: $scope.data.picUrl.join(',')
        }
+       $http({
+           method: 'PATCH',
+           url: BasicUrl + "inspection/" + checkObj.id,
+           data: dataInfo,
+           transformRequest: function(obj) {
+             var str = [];
+             for (var p in obj) {
+               str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+             }
+             return str.join("&");
+           },
+           headers: {
+             'Content-Type': 'application/x-www-form-urlencoded'
+           },
+         })
+         .success(function(data, xhr) {
+           if (xhr == 200 || xhr == 204) {
+             if (data.errorMessage) {
+               tool.alert("提示", data.errorMessage);
+             } else {
+               tool.alert("提示", "新建报告单成功!");
+               if (!$scope.reportId) {
+                 window.location.href = "CheckLists.html";
+               } else {
+                 window.location.href = "MemberReportInfo.html?id=" + $scope.reportId;
+               }
+             }
+
+           } else {
+             tool.alert("提示", "保存失败,请重试!");
+           }
+         }).error(function(response) {
+           if (response && response.errorMessage) {
+             tool.alert("提示", response.errorMessage);
+           }
+         });
+
      } else {
        //从会员报告详情页面进入
        var imgArr = [];
@@ -370,43 +412,45 @@
          tool.alert("提示", "请上传相关的验单图片！");
          return false;
        }
-     }
-     $http({
-         method: 'POST',
-         url: BasicUrl + "inspection",
-         data: dataInfo,
-         transformRequest: function(obj) {
-           var str = [];
-           for (var p in obj) {
-             str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-           }
-           return str.join("&");
-         },
-         headers: {
-           'Content-Type': 'application/x-www-form-urlencoded'
-         },
-       })
-       .success(function(data, xhr) {
-         if (xhr == 200 || xhr == 204) {
-           if (data.errorMessage) {
-             tool.alert("提示", data.errorMessage);
-           } else {
-             tool.alert("提示", "新建报告单成功!");
-             if (!$scope.reportId) {
-               window.location.href = "CheckLists.html";
-             } else {
-               window.location.href = "MemberReportInfo.html?id=" + $scope.reportId;
-             }
-           }
 
-         } else {
-           tool.alert("提示", "保存失败,请重试!");
-         }
-       }).error(function(response) {
-         if (response && response.errorMessage) {
-           tool.alert("提示", response.errorMessage);
-         }
-       });
+       $http({
+           method: 'POST',
+           url: BasicUrl + "inspection",
+           data: dataInfo,
+           transformRequest: function(obj) {
+             var str = [];
+             for (var p in obj) {
+               str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+             }
+             return str.join("&");
+           },
+           headers: {
+             'Content-Type': 'application/x-www-form-urlencoded'
+           },
+         })
+         .success(function(data, xhr) {
+           if (xhr == 200 || xhr == 204) {
+             if (data.errorMessage) {
+               tool.alert("提示", data.errorMessage);
+             } else {
+               tool.alert("提示", "新建报告单成功!");
+               if (!$scope.reportId) {
+                 window.location.href = "CheckLists.html";
+               } else {
+                 window.location.href = "MemberReportInfo.html?id=" + $scope.reportId;
+               }
+             }
+
+           } else {
+             tool.alert("提示", "保存失败,请重试!");
+           }
+         }).error(function(response) {
+           if (response && response.errorMessage) {
+             tool.alert("提示", response.errorMessage);
+           }
+         });
+
+     }
    }
 
    /**
@@ -763,7 +807,6 @@
    $scope.$watch("viewContentLoaded", function() {
      angular.element(".myload").removeClass("myload");
    });
-
  });
 
  /**

@@ -77,6 +77,7 @@ $(function() {
       var radioVal = $('input:radio[name=type]:checked').val();
       if (!radioVal) {
         tool.alert("提示", "请选择项目类型");
+        $(":submit").attr("disabled", false);
         return false;
       }
 
