@@ -263,18 +263,41 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
 
         </div>
         <div class="col-md-6">
-          <div class="row" ng-show="currentItemType">
+          <div class="row" ng-show="currentItemType!='4'">
             <div class="col-md-4 text-right"><label for="" class="inputlabel">数据名称:</label></div>
             <div class="col-md-4"><span class="inputlabel">{{itemDetail.name}}</span></div>
             <div class="col-md-4"></div>
           </div>
-          <div class="row" ng-show="currentItemType=='1'||currentItemType=='2'||currentItemType=='4'">
-            <div class="col-md-4 text-right"><label for="" class="inputlabel">参考数值:</label></div>
-            <div class="col-md-4"><span class="inputlabel">{{ itemDetail.minReference}} <span  ng-if="itemDetail.minReference&&itemDetail.maxReference">~</span>{{itemDetail.maxReference}}
+          <div class="row" ng-show="currentItemType=='1'||currentItemType=='2'">
+            <div class="col-md-4 text-right">
+              <label for="" class="inputlabel">参考数值:</label></div>
+            <div class="col-md-4">
+              <span class="inputlabel">{{ itemDetail.minReference}} <span  ng-if="itemDetail.minReference&&itemDetail.maxReference">~</span>{{itemDetail.maxReference}}
               <span ng-if="itemDetail.minReference||itemDetail.maxReference">{{itemDetail.unit}}</span> </span>
             </div>
             <div class="col-md-4"></div>
           </div>
+
+          <!--多数值型-->
+          <div ng-show="currentItemType=='4'" ng-repeat="s in itemDetail.subItemName.split(',')" style="margin-top: 20px;">
+            <div class="row">
+              <div class="col-md-4 text-right"><label for="" class="inputlabel" style="line-height: 25px;">数据名称:</label></div>
+              <div class="col-md-4">{{s}}</div>
+              <div class="col-md-4"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 text-right"><label for="" class="inputlabel">参考数值:</label></div>
+              <div class="col-md-4">
+                {{itemDetail.minReference.split(',')[$index]+'~'+itemDetail.maxReference.split(',')[$index]}}</div>
+              <div class="col-md-4"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 text-right"><label for="" class="inputlabel">　　数值:</label></div>
+              <div class="col-md-4"><input class="form-control multi-input" type="text" ng-value="multiVal.split(',')[$index]" placeholder="请填写数值"></div>
+              <div class="col-md-4"> <span class="inputlabel">{{itemDetail.unit}}</span></div>
+            </div>
+          </div>
+
 
           <!--图片详情-->
           <div ng-show="currentItemType=='5'">
@@ -297,7 +320,6 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
             </div>
           </div>
 
-
           <!--阴阳型-->
           <div ng-show="currentItemType=='6'">
             <div class="row">
@@ -316,7 +338,9 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
           <!--时间类型-->
           <div ng-show="currentItemType=='7'">
             <div class="row">
-              <div class="col-md-4 text-right"><label for="" class="inputlabel">   日期:</label></div>
+              <div class="col-md-4 text-right">
+                <label for="" class="inputlabel">   日期:</label>
+              </div>
               <div class="col-md-4"><input id="itemTime" name="itemTime" class="start_end_time form-control" placeholder="请选择时间" ng-value="currentItemTime"></div>
               <div class="col-md-4"></div>
             </div>
@@ -340,10 +364,12 @@ iii.	点击编辑部分的项目名称，在右侧显示项目名称、参考数
           </div>
 
           <!--默认选项-->
-          <div class="row" ng-show="currentItemType=='1'||currentItemType=='2'||currentItemType=='4'">
+          <div class="row" ng-show="currentItemType=='1'||currentItemType=='2'">
             <div class="col-md-4 text-right"><label for="" class="inputlabel">数值:</label></div>
-            <div class="col-md-4"><input class="form-control" type="text" name="" ng-model="itemDetail.value" placeholder="数值"></div>
-            <div class="col-md-4"><span class="inputlabel">{{itemDetail.unit}}</span> </div>
+            <div class="col-md-4">
+              <input class="form-control" type="text" name="" ng-model="itemDetail.value" placeholder="数值"></div>
+            <div class="col-md-4">
+              <span class="inputlabel">{{itemDetail.unit}}</span> </div>
           </div>
           <div class="row">
             <div class="col-md-4"></div>

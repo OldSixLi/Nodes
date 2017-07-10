@@ -136,7 +136,13 @@
  }
  var params = ""; //请求参数变量
  var app = angular.module('myApp', []);
+
+
  app.controller('customersCtrl', function($scope, $http) {
+
+   //全局变量，搜索用户ID以及当天时间
+   $scope.searchuserid = '';
+   $scope.searchdate = '';
    // 分页方法
    var pageing = function(pageindex, params) {　
      var url = BasicUrl + "sport?" + params + "page=" + pageindex + "&pageNum=10";　
@@ -171,9 +177,22 @@
      }).error(function(data) {
        $scope.dataLengths = false;
      });
-   }　
 
-   // pageing(0, params);
+     $http.get(BasicUrl + 'data?itemId=JXXL&userId=' + $scope.searchuserid + '&minCreatedAt=' + new Date($scope.searchdate).setHours(0) + '&maxCreatedAt=' + (new Date($scope.searchdate).setHours(0) + 86399000) + '&page=0&pageNum=10').success(function(data) {
+       if (data != null && data != "" && data != "null") {
+         if (data.content != null && data.content.length > 0) {
+           //静息心率
+           $scope.staticVal = data.content[0].val;
+         } else {
+           $scope.staticVal = 0;
+         }
+       }
+     }).error(function(data) {
+       $scope.dataLengths = false;
+     });
+
+   }
+
    $scope.search = function() {
      console.log("值:" + $("#userSlt").val());
      var userid = $("#userSlt").val();
@@ -182,6 +201,9 @@
        tool.alert("提示", "请选择用户和日期！");
        return false;
      }
+     $scope.searchuserid = userid;
+     $scope.searchdate = time;
+
      params = ""
      if (userid) {
        params += "userId=" + userid + "&";

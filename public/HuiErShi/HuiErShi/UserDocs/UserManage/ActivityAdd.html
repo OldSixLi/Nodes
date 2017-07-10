@@ -66,7 +66,7 @@
 
                       <div class="input-group timeblock">
                         <!--ng-model="vm.entity.startAt"-->
-                        <input type="text" class="form-control start_end_time" id="txtStartTime" name="startAt" placeholder="请选择时间" required value="{{vm.entity.startAt| date: 'yyyy/MM/dd HH:mm:ss'}}">
+                        <input type="text" class="form-control start_end_time" id="txtStartTime" name="startAt" placeholder="请选择时间" required value="{{vm.entity.startAt|date: 'yyyy/MM/dd HH:mm:ss'}}">
                         <div class="input-group-btn" style="vertical-align: top;">
                           <button type="button" class="btn btn-default" id="btnStarttime">
                 <span class="glyphicon glyphicon-calendar"></span></button>
@@ -118,7 +118,6 @@
                   <div class="form-group col-xs-6">
                     <div class="col-sm-3 text-right">
                       <label for="signByUser" class="control-label">自助签到：</label>
-
                     </div>
                     <div class="col-sm-6">
                       <div class="radio">

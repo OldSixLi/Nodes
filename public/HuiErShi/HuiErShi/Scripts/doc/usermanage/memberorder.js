@@ -207,6 +207,11 @@
        }
      });
      var minExpiredAt = Date.parse(new Date($("#modaltxtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#modaltxtStartTime").val()));
+     //  alert(minExpiredAt)
+     if (!minExpiredAt) {
+       tool.alert("提示", "请选择确认日期");
+       return false;
+     }
      var data = {
        id: $scope.orderId,
        itemId: item.join(','),
@@ -250,9 +255,6 @@
        }).error(function(response) {
          tool.alert("提示", response.errorMessage);
        });
-
-
-
    }
 
    //加载完毕后再显示 

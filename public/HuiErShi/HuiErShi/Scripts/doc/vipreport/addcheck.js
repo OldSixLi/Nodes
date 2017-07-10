@@ -551,7 +551,6 @@
          if (data.type == 3) {
            //时间
            if (value) {
-
              if (data.radio) { //单选
                $scope.currentItemRadio = value;
              } else {
@@ -564,6 +563,13 @@
 
              }
 
+           }
+         }
+
+         if (data.type == 4) {
+           //阴阳类型
+           if (value) {
+             $scope.multiVal = value;
            }
          }
          if (data.type == 6) {
@@ -595,6 +601,7 @@
        if (data != null && data != "" && data != "null") {
          //数据不为空
          $scope.itemDetail = data;
+         $scope.multiVal = ""; //清空值
          $scope.isEditItem = 0;
          $scope.currentItemType = data.type; //当前修改项目的类型 ，用于控制右侧显示的内容
          $scope.currentItemSelections = data.selections ? data.selections.split(',') : []; //选择类型下的值
@@ -633,6 +640,25 @@
            val = item.join(',');
          }
          break;
+         //多数值型
+       case 4:
+         var vals = [];
+         $('.multi-input').each(function(index, element) {
+           // element == this
+           if ($(element).val()) {
+             vals.push($(element).val());
+           }
+         });
+
+         if (vals.length != $scope.itemDetail.subItemName.split(',').length) {
+           tool.alert("提示", "请完善信息后再进行操作！");
+
+           return false;
+         }
+         val = vals.join(',');
+         break;
+
+
          //  图片型
        case 5:
          val = $("#itemImg").val();
@@ -728,6 +754,25 @@
            val = item.join(',');
          }
          break;
+         //多数值型
+       case 4:
+         var vals = [];
+         $('.multi-input').each(function(index, element) {
+           // element == this
+           if ($(element).val()) {
+             vals.push($(element).val());
+           }
+         });
+         if (vals.length != $scope.itemDetail.subItemName.split(',').length) {
+           tool.alert("提示", "请完善信息后再进行操作！");
+           return false;
+         }
+
+         val = vals.join(',');
+         break;
+
+
+
          //  图片型
        case 5:
          val = $("#itemImg").val();

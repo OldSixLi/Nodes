@@ -72,9 +72,9 @@
                   时间
                   <span></span>
                 </th>
-                <th class="order" ng-click="title='FP_HM';desc=!desc">
+                <!--<th class="order" ng-click="title='FP_HM';desc=!desc">
                   会员<span></span>
-                </th>
+                </th>-->
                 <th>
                   剂量
                 </th>
@@ -84,7 +84,7 @@
               <tr ng-show="dataLengths" ng-repeat="x in data.content">
                 <td>{{ x.medicineName}}</td>
                 <td>{{ x.createAt|date:"yyyy/MM/dd HH:mm:ss"}}</td>
-                <td>{{username}}</td>
+                <!--<td>{{username}}</td>-->
                 <td>{{x.quantity+" x "+x.unit}}</td>
               </tr>
               <tr ng-show="!dataLengths">

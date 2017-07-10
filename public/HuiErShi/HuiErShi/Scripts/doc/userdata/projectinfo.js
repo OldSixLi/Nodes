@@ -73,7 +73,7 @@ $(function() {
       // alert($("#sel_menu2").val());
       $("#selections").val($("#sel_menu2").val())
       console.log($("#sel_menu2").val());
-      $(":submit").attr("disabled", true);
+
       var radioVal = $('input:radio[name=type]:checked').val();
       if (!radioVal) {
         tool.alert("提示", "请选择项目类型");
@@ -89,7 +89,8 @@ $(function() {
 
       }
       if (radioVal == "4") {
-        if (!$("#subItemName").val() || !$("#txtUnit").val() || !$("#txtMinReference2").val() || !$("#txtMaxReference2").val()) {
+        //修改为对应的
+        if (!$("#subItemName").val() || !$("#txtUnit2").val() || !$("#txtMinReference2").val() || !$("#txtMaxReference2").val()) {
           tool.alert("提示", "请完善数据后再进行提交");
           return false;
         }
@@ -97,7 +98,7 @@ $(function() {
       }
 
       var sendData;
-
+      // $(":submit").attr("disabled", true);
       // selections
       // isRadio
       sendData = $("[name='validateForm']").serialize();
@@ -111,10 +112,16 @@ $(function() {
         })
         .success(function(data, xhr) {
           if (xhr == 200) {
-            //成功操作 
-            tool.alert("提示", "添加成功!", function() {
-              window.history.back(-1);
-            });
+
+            if (data.errorMessage) {
+              tool.alert("提示", data.errorMessage);
+            } else {
+              //成功操作 
+              tool.alert("提示", "添加成功!", function() {
+                window.history.back(-1);
+              });
+            }
+
             //回退至上一页面 
           }
         }).error(function(response) {

@@ -2,6 +2,7 @@
       // $(".start_end_time").datetimepicker();
       var tool = new JSTOOL();
       tool.changeSelect($("#username"), true);
+      tool.changeSelect($("#sltTag"), false);
     });
     //
     var params = ""; //全局变量  请求的参数
@@ -58,7 +59,7 @@
             params += "name=" + foodname + "&";
           }
           if (sltTag) {
-            params += "sltTag=" + sltTag + "&";
+            params += "categories=" + sltTag + "&";
           }
           pageing(0, params);
         }
