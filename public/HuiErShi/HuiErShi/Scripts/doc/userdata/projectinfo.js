@@ -164,6 +164,8 @@ $(function() {
 
     vm.editinfo = function() {
       var len = $(".w5c-error").length;
+      $("#selections").val($("#sel_menu2").val())
+      console.log($("#sel_menu2").val());
       if (len) {
         tool.alert("提示", "请修改数据后再进行提交！");
         return false;
