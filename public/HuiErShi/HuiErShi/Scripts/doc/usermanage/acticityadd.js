@@ -239,7 +239,7 @@
            iconUrl: $("#iconUrl").val(),
            coordinate: $("#coordinate").val(),
            announcement: vm.entity.announcement,
-           startAt: Date.parse(new Date(vm.entity.startAt)).toString() == "NaN" ? 0 : Date.parse(new Date(vm.entity.startAt)),
+           startAt: Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val())),
            lasted: vm.entity.lastedTime,
            signUpCost: vm.entity.signUpCost,
            maxApplyNumber: vm.entity.maxApplyNumber,
