@@ -39,11 +39,12 @@
           </div>
         </form>
       </div>
-      <div id="main" style="width: 80%;height:400px;margin:50px auto;"></div>
+      <!-- TODO 后期修改为显示 -->
+      <div id="main" style="width: 80%;height:400px;margin:50px auto;" ng-show="false;"></div>
       <!-- 数据显示 -->
       <div class="tab-content container-fluid">
 
-        <p>静息心率:{{staticVal}}</p>
+        <p ng-show="false">静息心率:{{staticVal}}</p>
 
         <div class=" fixed-table-container">
           <table class="table table-hover">

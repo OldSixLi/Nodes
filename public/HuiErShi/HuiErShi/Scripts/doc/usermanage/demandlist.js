@@ -166,7 +166,19 @@
               tool.alert("提示", "活动日期中结束时间不得早于起始时间");
               return false;
             }
-            params = "minCreateAt=" + minExpiredAt + "&maxCreateAt=" + maxExpiredAt + "&advisorId=" + advisorId + "&userId=" + userId + "&";
+            params = ""
+            if (minExpiredAt != 0) {
+              params += "minCreateAt=" + minExpiredAt + "&";
+            }
+            if (maxExpiredAt != 0) {
+              params += "maxCreateAt=" + maxExpiredAt + "&";
+            }
+            if (advisorId) {
+              params += "advisorId=" + advisorId + "&";
+            }
+            if (userId) {
+              params += "userId=" + userId + "&";
+            }
             pageing(0, params);
           }
 
