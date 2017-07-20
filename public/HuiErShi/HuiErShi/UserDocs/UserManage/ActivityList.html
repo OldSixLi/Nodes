@@ -41,7 +41,7 @@
             </div>
           </div>
           <div class="form-group text-left"><label class="">&nbsp;&nbsp;&nbsp;&nbsp;关键字： </label><input id="txtKeyWord" name="keyword" class="form-control" placeholder="关键字" type="text"> <select class="form-control" name="sltDistrict" id="sltDistrict">
-                    <option value="4">全部</option>
+                    <option value="">全部</option>
                     <option value="1">发布</option>
                     <option value="0">待发布</option>
                     <option value="3">已发布不可报名</option>
@@ -91,8 +91,8 @@
                 <td>{{ x.sponsorName }}</td>
                 <td>{{ x.signUpCost }}</td>
                 <td>
-                  <span ng-show="{{!x.released}}">未发布</span>
-                  <span ng-show="{{x.released}}">已发布</span>
+                  <span ng-show="{{!x.released}}">待发布</span>
+                  <span ng-show="{{x.released}}">{{x.currentApplyNumber+"/"+x.maxApplyNumber}}</span>
                 </td>
               </tr>
               <tr ng-show="!dataLengths">

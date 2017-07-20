@@ -99,9 +99,9 @@
                   <span ng-if="x.status==2">{{x.loadFailedReason}}</span>
                 </td>
                 <td>
-                  <span ng-if="x.status==0"><a href="AddCheck.html?id={{x.id}}">创建报告单 </a></span>
-                  <span ng-if="x.status==1||x.status==3"><a href="AddCheck.html?id={{x.id}}" >{{x.id}}</a></span>
-                  <span ng-if="x.status==2"> <a href="AddCheck.html?id={{x.id}}">创建报告单</a></span>
+                  <!-- <span ng-if="x.status==0"><a href="AddCheck.html?id={{x.id}}">创建报告单 </a></span> -->
+                  <span ng-if="x.status==1"><a href="AddCheck.html?id={{x.id}}" >{{x.id}}</a></span>
+                  <span ng-if="x.status==2||x.status==3"> <a href="AddCheck.html?id={{x.id}}">创建报告单</a></span>
                   <!--<span ng-show='!x.inspectionNo&&x.status==2'></span>
                 <span ng-show='x.inspectionNo '><a href="AddCheck.html?id={{x.id}}">{{x.inspectionNo }}</a></span>-->
                 </td>

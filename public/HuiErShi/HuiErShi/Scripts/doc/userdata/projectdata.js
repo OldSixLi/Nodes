@@ -266,6 +266,11 @@
          tool.alert("提示", "请至少输入一个搜索条件");
          return false;
        }
+
+       if (!userId) {
+         tool.alert("提示", "请选择会员姓名后再进行查询");
+         return false;
+       }
        params = "";
        if (userId) {
          params = "userId=" + userId + "&";

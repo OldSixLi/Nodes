@@ -24,18 +24,33 @@
         <form class="form-inline" role="form">
           <div class="form-group text-left">
             <label class="lbl_search">会员有效期：</label>
-            <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-              <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+            <!-- <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
+              
               <span class="add-on input-group-addon">
                 <i class="icon-th glyphicon glyphicon-calendar"></i>
             </span>
+            </div> -->
+
+
+            <div class="input-group timeblock">
+              <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" id="btnStarttime">
+                            <span class="glyphicon glyphicon-calendar"></span></button>
+              </div>
             </div>
             <label class="">至</label>
-            <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-              <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+            <!-- <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
               <span class="add-on input-group-addon">
               <i class="icon-th glyphicon glyphicon-calendar"></i>
             </span>
+            </div> -->
+            <div class="input-group timeblock">
+              <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" id="btnEndtime">
+                          <span class="glyphicon glyphicon-calendar"></span></button>
+              </div>
             </div>
           </div>
           <div class="form-group text-left">
@@ -76,10 +91,10 @@
                 <th data-order='nativePlace' class="order" ng-click="title='nativePlace';desc=!desc;sort('nativePlace')">
                   所属<span class="glyphicon glyphicon-sort"></span>
                 </th>
-                <th data-order='type' class="order" ng-click="title='type';desc=!desc;sort('type')">
+                <th data-order='sortCardIndex' class="order" ng-click="title='sortCardIndex';desc=!desc;sort('sortCardIndex')">
                   会员卡类型<span class="glyphicon glyphicon-sort"></span>
                 </th>
-                <th data-order='name' class="order" ng-click="title='adv';desc=!desc;sort('name')">
+                <th data-order='sortAdviserIndex' class="order" ng-click="title='sortAdviserIndex';desc=!desc;sort('sortAdviserIndex')">
                   会籍顾问<span class="glyphicon glyphicon-sort"></span>
                 </th>
                 <th data-order='date' class="order" ng-click="title='date';desc=!desc;sort('date')">

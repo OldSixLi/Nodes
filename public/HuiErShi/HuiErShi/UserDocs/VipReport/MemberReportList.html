@@ -2,145 +2,145 @@
 <!--备注：当前页面缺少检查项目相关搜索参数接口-->
 <html>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>报告列表</title>
-  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/common.css" rel="stylesheet">
-</head>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>报告列表</title>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/common.css" rel="stylesheet">
+  </head>
 
 
-<body ng-app="myApp">
-  <!--检索项-->
-  <div ng-controller="customersCtrl" class="container-fluid myload">
-    <!-- 面包屑导航 -->
-    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-      <li><a href="javascript:void(0)">会员报告</a></li>
-      <li class="active">报告列表</li>
-    </ol>
-    <!--搜索模块-->
-    <div class="col-xs-12" id="search_block">
-      <form class="form-inline" role="form">
-        <div class="form-group text-left">
-          <label class="lbl_search">报告日期：</label>
-          <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
-          <label class="">至</label>
-          <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
-        </div>
+  <body ng-app="myApp">
+    <!--检索项-->
+    <div ng-controller="customersCtrl" class="container-fluid myload">
+      <!-- 面包屑导航 -->
+      <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+        <li><a href="javascript:void(0)">会员报告</a></li>
+        <li class="active">报告列表</li>
+      </ol>
+      <!--搜索模块-->
+      <div class="col-xs-12" id="search_block">
+        <form class="form-inline" role="form">
+          <div class="form-group text-left">
+            <label class="lbl_search">报告日期：</label>
+            <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+            <label class="">至</label>
+            <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+          </div>
 
-        <div class="form-group text-left">
-          <label class="">&nbsp;&nbsp;&nbsp;&nbsp;报告状态： </label>
-          <select class=" form-control " id="sltStatus" style="width:150px;">
+          <div class="form-group text-left">
+            <label class="">&nbsp;&nbsp;&nbsp;&nbsp;报告状态： </label>
+            <select class=" form-control " id="sltStatus" style="width:150px;">
                 <option value="">所有</option>
                 <option value="0">检查登记</option>
                 <option value="1">专家填写</option>
                 <option value="2">待发布</option>
                 <option value="3">已发布</option> 
           </select>
-        </div>
-        <hr style="margin: 10px 0;" />
-        <div class="form-group text-left">
-          <label class="">会籍顾问： </label>
-          <select class="form-control" id="sltAdviser" style="width:150px;">
+          </div>
+          <hr style="margin: 10px 0;" />
+          <div class="form-group text-left">
+            <label class="">会籍顾问： </label>
+            <select class="form-control" id="sltAdviser" style="width:150px;">
              <option value="">全部</option>
              <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option> </select>
-          </select>
-        </div>
+            </select>
+          </div>
 
-        <div class="form-group text-left">
-          <label class="">&nbsp;&nbsp;&nbsp;&nbsp;检查项目： </label>
-          <select class=" form-control " id="sltTag" style="width:150px;">
+          <div class="form-group text-left">
+            <label class="">&nbsp;&nbsp;&nbsp;&nbsp;检查项目： </label>
+            <select class=" form-control " id="sltTag" style="width:150px;">
           <option value="">所有</option> 
       </select>
+          </div>
+          <div class="form-group text-left">
+            <label class="control-label">&nbsp;&nbsp;&nbsp;关键字：</label>
+            <input type="text" class="form-control" id="txtKeyWord" placeholder="报告编号、姓名、手机号  ">
+          </div>
+          <!-- 搜索按钮 -->
+          <a ng-click="search()" class="btn btn-primary pull-right" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+        </form>
+      </div>
+      <!-- 数据显示 -->
+      <div class="ng-scope tab-content container-fluid">
+        <div class=" fixed-table-container">
+          <table class="table table-hover  ">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <th>序号 </th>
+                <th>姓名 </th>
+                <th class="order" ng-click="title='FP_HM';desc=!desc">
+                  性别
+                  <span></span>
+                </th>
+                <th class="order" ng-click="title='FP_HM';desc=!desc">
+                  签到时间<span></span>
+                </th>
+                <th class="order" ng-click="title='FP_HM';desc=!desc">
+                  报告编号<span></span>
+                </th>
+                <th>
+                  状态
+                  <span></span>
+                </th>
+                <th>
+                  检查项目
+                  <span></span>
+                </th>
+              </tr>
+            </thead>
+            <tbody id="databody">
+              <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
+                <td>{{$index+1}}</td>
+                <td><img src="{{x.user.vipEntity.iconUrl}}" /><a href="../UserManage/UserInfo.html?id={{x.user.id}}">{{x.user.vipName}}</a></td>
+                <td>{{ x.user.gender=="M"?"男":"女"}}</td>
+                <td>{{ x.createAt|date:"yyyy/MM/dd HH:mm:ss"}}&nbsp;&nbsp;{{x.user.vipEntity.adviser.name}}</td>
+                <td><a href="MemberReportInfo.html?id={{x.id}}">{{x.reportNo}}</a></td>
+                <td><span ng-if="x.status=='0'">检查登记</span>
+                  <span ng-if="x.status=='1'">专家填写</span>
+                  <span ng-if="x.status=='2'">待发布</span><span ng-if="x.status=='3'">已发布</span></td>
+                <td>
+                  <a ng-repeat="v in x.appointment.appointmentItems" href="../SystemManage/ReservationItem.html?name={{v.name}}">{{ v.name }}</a>
+                </td>
+              </tr>
+              <tr ng-show="!dataLengths">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="form-group text-left">
-          <label class="control-label">&nbsp;&nbsp;&nbsp;关键字：</label>
-          <input type="text" class="form-control" id="txtKeyWord" placeholder="报告编号、姓名、手机号  ">
+      </div>
+      <!--分页-->
+      <div ng-show="dataLengths">
+        <div class="form-group pull-right topage_block">
+          <!-- 跳转至 -->
+          <label>{{totalRecord}}条/{{totalPage}}页</label>
+          <label>跳至</label>
+          <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
+          <label>页</label>
+          <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
         </div>
-        <!-- 搜索按钮 -->
-        <a ng-click="search()" class="btn btn-primary pull-right" id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
-      </form>
-    </div>
-    <!-- 数据显示 -->
-    <div class="ng-scope tab-content container-fluid">
-      <div class=" fixed-table-container">
-        <table class="table table-hover  ">
-          <!-- 表头 -->
-          <thead>
-            <tr>
-              <th>序号 </th>
-              <th>姓名 </th>
-              <th class="order" ng-click="title='FP_HM';desc=!desc">
-                性别
-                <span></span>
-              </th>
-              <th class="order" ng-click="title='FP_HM';desc=!desc">
-                签到时间<span></span>
-              </th>
-              <th class="order" ng-click="title='FP_HM';desc=!desc">
-                报告编号<span></span>
-              </th>
-              <th>
-                状态
-                <span></span>
-              </th>
-              <th>
-                检查项目
-                <span></span>
-              </th>
-            </tr>
-          </thead>
-          <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
-              <td>{{$index+1}}</td>
-              <td><img src="{{x.user.vipEntity.iconUrl}}" /><a href="../UserManage/UserInfo.html?id={{x.user.id}}">{{x.user.vipName}}</a></td>
-              <td>{{ x.user.gender=="M"?"男":"女"}}</td>
-              <td>{{ x.createAt|date:"yyyy/MM/dd HH:mm:ss"}}&nbsp;&nbsp;{{x.user.vipEntity.adviser.name}}</td>
-              <td><a href="MemberReportInfo.html?id={{x.id}}">{{x.reportNo}}</a></td>
-              <td><span ng-if="x.status=='0'">检查注册</span>
-                <span ng-if="x.status=='1'">专家填写</span>
-                <span ng-if="x.status=='2'">待发布</span><span ng-if="x.status=='3'">已发布</span></td>
-              <td>
-                <a ng-repeat="v in x.appointment.appointmentItems" href="../SystemManage/ReservationItem.html?name={{v.name}}">{{ v.name }}</a>
-              </td>
-            </tr>
-            <tr ng-show="!dataLengths">
-              <td colspan="100" class="text-center ">暂无结果</td>
-            </tr>
-          </tbody>
-        </table>
+        <!-- 分页控件 -->
+        <div class="pull-right">
+          <ul class="pagination" id="alreadyPage"></ul>
+        </div>
       </div>
+      <!-- 当前页隐藏域 -->
+      <input id="currentPage" name="currentPage" value="1" type="hidden">
     </div>
-    <!--分页-->
-    <div ng-show="dataLengths">
-      <div class="form-group pull-right topage_block">
-        <!-- 跳转至 -->
-        <label>{{totalRecord}}条/{{totalPage}}页</label>
-        <label>跳至</label>
-        <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
-        <label>页</label>
-        <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
-      </div>
-      <!-- 分页控件 -->
-      <div class="pull-right">
-        <ul class="pagination" id="alreadyPage"></ul>
-      </div>
-    </div>
-    <!-- 当前页隐藏域 -->
-    <input id="currentPage" name="currentPage" value="1" type="hidden">
-  </div>
-  <!--脚本-->
-  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-  <script type="text/javascript" src="../../Scripts/doc/vipreport/reportlist.js"></script>
-  <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
-</body>
+    <!--脚本-->
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script type="text/javascript" src="../../Scripts/doc/vipreport/reportlist.js"></script>
+    <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
+  </body>
 
 </html>

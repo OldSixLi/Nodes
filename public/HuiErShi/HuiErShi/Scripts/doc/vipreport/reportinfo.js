@@ -164,12 +164,12 @@
  app.controller('customersCtrl', function($scope, $http, $timeout) {
    //获取处方下拉菜单
 
-   var chufangurl = BasicUrl + "prescription?page=0&pageNum=10";
+   var chufangurl = BasicUrl + "prescription?page=0&pageNum=100";
    $http.get(chufangurl).success(function(data) {
      if (data != null && data != "" && data != "null") {
        $scope.options = data.content;
      }
-     tool.changeSelect($("#chufanglist"), false);
+     //  tool.changeSelect($("#chufanglist"), false);
    });
 
    //分页方法声明
@@ -307,6 +307,8 @@
            }
            $scope.expertData.sportUrl = data.experts.SportExpert.iconUrl;
            $scope.expertData.foodUrl = data.experts.DietitianExpert.iconUrl;
+           $scope.expertData.sportUserName = data.experts.SportExpert.name;
+           $scope.expertData.foodUserName = data.experts.DietitianExpert.name;
 
          }
 

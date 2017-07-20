@@ -80,7 +80,7 @@
                pageing($("#currentPage").val() - 1, params);
              });
          } else {
-           tool.alert("提示", "未获取到数据，请重试");
+           tool.alert("提示", "该条件下没有相关数据");
          }
        }
      });

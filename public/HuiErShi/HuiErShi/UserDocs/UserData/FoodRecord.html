@@ -113,14 +113,14 @@
             <tbody>
               <tr ng-show="dataLengths" ng-repeat="x in data ">
                 <td> {{ x["用餐类型"]}}</td>
-                <td> {{x["脂肪cal"]}}</td>
-                <td>{{ x["用餐类型"]}}</td>
-                <td> {{x["碳水化合物"]}}</td>
-                <td>{{ (x["碳水化合物"]/x["碳水化合物cal"]).toFixed(3)*100+'%'}}</td>
-                <td> {{x["蛋白质"]}}</td>
-                <td>{{ (x["蛋白质"]/x["蛋白质cal"]).toFixed(3)*100+'%'}}</td>
-                <td> {{x["脂肪"]}}</td>
-                <td>{{(x["脂肪"]/x["脂肪cal"]).toFixed(3)*100+'%'}}</td>
+                <td> {{x.totalCal=(x["碳水化合物"]*4+x["脂肪"]*9+x["蛋白质"]*4).toFixed(1)}}</td>
+                <td>{{ ((x.totalCal/totalCalAll)*100).toFixed(1)+'%'}}</td>
+                <td> {{x["碳水化合物"].toFixed(1)}}</td>
+                <td>{{ ((x["碳水化合物"]*4/totalCalAll)*100).toFixed(1)+'%'}}</td>
+                <td> {{x["蛋白质"].toFixed(1)}}</td>
+                <td>{{( (x["蛋白质"]*4/totalCalAll)*100).toFixed(1)+'%'}}</td>
+                <td> {{x["脂肪"].toFixed(1)}}</td>
+                <td>{{((x["脂肪"]*9/totalCalAll)*100).toFixed(1)+'%'}}</td>
               </tr>
               <tr ng-show="!dataLengths">
                 <td colspan="100" class="text-center ">暂无结果</td>
@@ -145,72 +145,72 @@
 
                   <tr>
                     <td>总量</td>
-                    <td>1308</td>
+                    <td>{{(x["谷类"]+x["杂豆"]+x["薯类"]+x["蔬菜"]+x["水果"]+x["畜禽肉"]+x["水产品"]+x["奶制品"]+x["蛋类"]+x["豆制品"]+x["坚果类"]+x["储能量食物"]+x["其他"]).toFixed(1)}}</td>
                     <td></td>
                   </tr>
                   <tr>
                     <td>谷类</td>
-                    <td>{{x["谷类"]}}</td>
+                    <td>{{x["谷类"].toFixed(1)}}</td>
                     <td>50-150</td>
                   </tr>
                   <tr>
                     <td>杂豆</td>
-                    <td>{{x["杂豆"]}}</td>
+                    <td>{{x["杂豆"].toFixed(1)}}</td>
                     <td>50-150</td>
                   </tr>
                   <tr>
                     <td>薯类</td>
-                    <td>{{x["薯类"]}}</td>
+                    <td>{{x["薯类"].toFixed(1)}}</td>
                     <td>50-100</td>
                   </tr>
                   <tr>
                     <td>蔬菜</td>
-                    <td>{{x["蔬菜"]}}</td>
+                    <td>{{x["蔬菜"].toFixed(1)}}</td>
                     <td>300-500</td>
                   </tr>
                   <tr>
                     <td>水果</td>
-                    <td>{{x["水果"]}}</td>
+                    <td>{{x["水果"].toFixed(1)}}</td>
                     <td>200-350</td>
                   </tr>
                   <tr>
                     <td>畜禽肉</td>
-                    <td>{{x["畜禽肉"]}}</td>
+                    <td>{{x["畜禽肉"].toFixed(1)}}</td>
                     <td>40-75</td>
                   </tr>
                   <tr>
                     <td>水产品</td>
-                    <td>{{x["水产品"]}}</td>
+                    <td>{{x["水产品"].toFixed(1)}}</td>
                     <td>40-75</td>
                   </tr>
                   <tr>
                     <td>奶制品</td>
-                    <td>{{x["奶制品"]}}</td>
+                    <td>{{x["奶制品"].toFixed(1)}}</td>
                     <td>300</td>
                   </tr>
                   <tr>
                     <td>蛋类</td>
-                    <td>{{x["蛋类"]}}</td>
+                    <td>{{x["蛋类"].toFixed(1)}}</td>
                     <td>40-50</td>
                   </tr>
                   <tr>
                     <td>豆制品</td>
-                    <td>{{x["豆制品"]}}</td>
+                    <td>{{x["豆制品"].toFixed(1)}}</td>
                     <td>25-35</td>
                   </tr>
                   <tr>
                     <td>坚果类</td>
-                    <td>{{x["坚果类"]}}</td>
+                    <td>{{x["坚果类"].toFixed(1)}}</td>
                     <td>25-35</td>
                   </tr>
                   <tr>
                     <td>储能量食物</td>
-                    <td>{{x["储能量食物"]}}</td>
+                    <td>{{x["储能量食物"].toFixed(1)}}</td>
                     <td>盐&lt;6g 油25-30g</td>
                   </tr>
                   <tr>
                     <td>其他</td>
-                    <td>{{x["其他"]}}</td>
+                    <td>{{x["其他"].toFixed(1)}}</td>
                     <td>水1500-1700ml</td>
                   </tr>
                 </tbody>

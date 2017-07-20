@@ -1,5 +1,15 @@
  $(function() {
    tool.changeSelect($("#sltDistrict"), false);
+
+   //  shown.bs.modal
+
+   $('#modal').on('shown.bs.modal', function() {
+     // 执行一些动作...
+     if ($("#modaltxtStartTime").hasClass('unconfirmed')) {
+       // alert('a')
+       $("#modaltxtStartTime").val('');
+     }
+   })
  });　
 
  var params = ""; //全局变量
@@ -76,10 +86,16 @@
            },
            complete: function(xhr, textStatus) {
              if (xhr.status == 200) {
-               tool.alert("提示", "签到成功！", function() {
-                 //刷新当前页面.
-                 window.location.reload();
-               });
+               if (xhr.responseText && JSON.parse(xhr.responseText)) {
+                 tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
+               } else {
+
+                 tool.alert("提示", "签到成功！", function() {
+                   //刷新当前页面.
+                   window.location.reload();
+                 });
+               }
+
              }
            }
          });

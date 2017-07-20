@@ -202,6 +202,62 @@
      $scope.hasSign = function() {
        tool.alert("提示", "此会员已签到，不可再取消报名!");
      }
+     $scope.qiandao = function(userId) {
+       //  http://60.205.170.209:8080/admin/api/api-docs/../activity/1/member/1/sign
+
+       //  adminId
+       //  1
+       //  已登录管理员, 用于测试， 如已登录则留空
+       //  form integer
+       //  id
+       //  1
+       //  活动id
+       //  path integer
+       //  userId
+       //  tool.alert("提示", "此会员已签到，不可再取消报名!");
+       var id = urlObj.id;
+       tool.confirm(
+         "提示",
+         "确认为此会员签到？",
+         function() {
+           //用户点击确认按钮时操作
+           $http({
+               method: 'PATCH',
+               url: BasicUrl + "activity/" + id + "/member/" + userId + "/sign",
+               data: {
+                 id: id,
+                 userId: userId,
+                 adminId: adminId()
+               },
+               transformRequest: function(obj) {
+                 var str = [];
+                 for (var p in obj) {
+                   str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                 }
+                 return str.join("&");
+               },
+               headers: {
+                 'Content-Type': 'application/x-www-form-urlencoded'
+               }
+             })
+             .success(function(data, xhr) {
+               if (xhr == 200) {
+                 tool.alert("提示", "签到成功!");　
+                 window.location.reload();
+               } else {
+                 tool.alert("提示", "操作失败,请重试!");
+               }
+             }).error(function(response) {
+               tool.alert("提示", response.errorMessage);
+             });
+         },
+         function() {
+           //用户点击取消按钮时操作
+
+         });
+     }
+
+
 
      //新增按钮操作
      vm.saveinfo = function($event) {

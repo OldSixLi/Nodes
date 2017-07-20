@@ -25,18 +25,38 @@
         <form class="form-inline" role="form">
           <div class="form-group text-left">
             <label class="lbl_search">注册时间：</label>
-            <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-              <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+
+
+            <!-- <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
+
               <span class="add-on input-group-addon">
                 <i class="icon-th glyphicon glyphicon-calendar"></i>
             </span>
+            </div> -->
+
+            <div class="input-group timeblock">
+              <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" id="btnStarttime">
+                 <span class="glyphicon glyphicon-calendar"></span></button>
+              </div>
             </div>
+
+
             <label class="">至</label>
-            <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
-              <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+            <!-- <div class="input-group input-append date form_datetime" data-picker-position="bottom-left">
+
               <span class="add-on input-group-addon">
               <i class="icon-th glyphicon glyphicon-calendar"></i>
             </span>
+            </div> -->
+
+            <div class="input-group timeblock">
+              <input id="txtEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" id="btnEndtime">
+                            <span class="glyphicon glyphicon-calendar"></span></button>
+              </div>
             </div>
           </div>
           <div class="form-group text-left">
@@ -56,7 +76,7 @@
             <thead>
               <tr>
                 <th style="width:15%;">序号</th>
-                <th data-order='userName' class="order text-left" ng-click="title='userName';desc=!desc;sort('userName')">
+                <th data-order='sortIndex' class="order text-left" ng-click="title='sortIndex';desc=!desc;sort('sortIndex');">
                   昵称
                   <span class="glyphicon glyphicon-sort"></span></th>
                 <th data-order='gender' class="order" ng-click="title='gender';desc=!desc;sort('gender')">
@@ -75,7 +95,8 @@
             <!-- 数据主体部分 -->
             <tbody id="databody">
               <tr ng-show="dataLengths" ng-repeat="x in names.content|orderBy:title :desc">
-                <td> {{x.length=$index+names.page*names.pageNum+1}}</td>
+                <!--  -->
+                <td> {{x.length=$index+names.page*names.pageNum+1}} </td>
                 <td style="text-align: left;"><img src="{{x.iconUrl}}" alt="">
                   <a href="UserInfoEdit.html?id={{x.id}}&type=create">{{ x.userName }}</a></td>
                 <td>{{ x.gender=="M"?"男":"女" }}</td>
@@ -86,6 +107,20 @@
                 <td colspan="100" class="text-center ">暂无结果</td>
               </tr>
             </tbody>
+            <!-- <tbody id="databody">
+              <tr ng-show="dataLengths" ng-repeat="x in names.content">
+            
+                <td> {{x.length=$index+names.page*names.pageNum+1}}</td>
+                <td style="text-align: left;"><img src="{{x.iconUrl}}" alt="">
+                  <a href="UserInfoEdit.html?id={{x.id}}&type=create">{{ x.userName }}</a></td>
+                <td>{{ x.gender=="M"?"男":"女" }}</td>
+                <td>{{ x.district }}</td>
+                <td>{{ x.time=x.createAt| date:"yyyy/MM/dd HH:mm:ss"}}</td>
+              </tr>
+              <tr ng-show="!dataLengths">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tr>
+            </tbody> -->
           </table>
         </div>
       </div>

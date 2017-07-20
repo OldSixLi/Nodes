@@ -175,7 +175,7 @@
                 </p>
                 <p>
                   <label class="control-label">健康数据：</label>
-                  <a href="../UserData/ProjectList.html">{{vipInfo.healthData?vipInfo.healthData:0}}</a>项
+                  <a href="../UserData/ProjectData.html">{{vipInfo.healthData?vipInfo.healthData:0}}</a>项
                 </p>
                 <p>
                   <label class="control-label">用药记录：</label>
@@ -363,7 +363,7 @@
                   <div class="panel-heading" style="text-align: right"><b>已选专家列表</b></div>
                   <select name="to" id="multiselect_to" class="form-control" size="16" multiple="multiple"> 
                     <option value="{{data.experts.DietitianExpert.id}}" ng-if="data.experts.DietitianExpert.id" data-type="{{data.experts.DietitianExpert.role}}" >{{data.experts.DietitianExpert.name+"(饮食专家)"}}</option>
-                     <option value="{{data.experts.SportExpert.id}}" ng-if="data.experts.SportExpert.id" data-type="{{data.experts.SportExpert.role}}" >{{data.experts.SportExpert.name+"(饮食专家)"}}</option>
+                     <option value="{{data.experts.SportExpert.id}}" ng-if="data.experts.SportExpert.id" data-type="{{data.experts.SportExpert.role}}" >{{data.experts.SportExpert.name+"(运动专家)"}}</option>
                   </select>
                 </div>
               </div>

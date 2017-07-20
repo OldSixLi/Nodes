@@ -25,6 +25,33 @@
                   $scope.names = data;
                   $scope.totalPage = data.totalPages;
                   $scope.totalRecord = data.totalElements;
+
+
+                  //此处处理将列表按照名字排序，然后添加相关的字段值
+                  var arr = $scope.names.content;
+                  arr.sort(function(a, b) {
+                    if ($scope.desc) {
+                      return a.adviser.name.localeCompare(b.adviser.name, 'zh');
+                    } else {
+                      return b.adviser.name.localeCompare(a.adviser.name, 'zh');
+                    }
+                  });
+                  for (var index = 0; index < $scope.names.content.length; index++) {
+                    var element = $scope.names.content[index];
+                    element.sortAdviserIndex = index;
+                  }
+                  arr.sort(function(a, b) {
+                    if ($scope.desc) {
+                      return a.vipCard.vipCardEntity.name.localeCompare(b.vipCard.vipCardEntity.name, 'zh');
+                    } else {
+                      return b.vipCard.vipCardEntity.name.localeCompare(a.vipCard.vipCardEntity.name, 'zh');
+                    }
+                  });
+                  for (var index = 0; index < $scope.names.content.length; index++) {
+                    var element = $scope.names.content[index];
+                    element.sortCardIndex = index;
+                  }
+
                   //调用生成分页方法
                   initPageDiv($("#alreadyPage"), //在哪里生成页码
                     pageindex + 1, //当前页

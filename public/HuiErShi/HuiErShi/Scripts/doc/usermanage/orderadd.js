@@ -56,9 +56,10 @@ app.controller('customersCtrl', function($scope, $http) {
     }
     //分页方法
   pageing(0, params);
-
   //查询按钮
   $scope.search = function() {
+
+
     // alert('a');
     //用户名称
     var username = $("#keyword").val();
@@ -120,11 +121,18 @@ app.controller('customersCtrl', function($scope, $http) {
     }
     $.post(BasicUrl + 'appointment', saveInfo, function(data, status, jqXHR) {
       if (status == 'success' && jqXHR.status == 200) {
-        tool.alert('提示', '保存成功', function() {
-          $('#orderForm')[0].reset();
-          $("input:radio[name=userId]").attr("checked", false);
-          // $("input[name='userId']").val("");
-        });
+
+
+        if (data.errorMessage) {
+          tool.alert("提示", data.errorMessage);
+        } else {
+          tool.alert('提示', '保存成功', function() {
+            $('#orderForm')[0].reset();
+            $("input:radio[name=userId]").attr("checked", false);
+            // $("input[name='userId']").val(""); 
+          });
+        }
+
 
       } else {
         tool.alert('提示', '保存失败');

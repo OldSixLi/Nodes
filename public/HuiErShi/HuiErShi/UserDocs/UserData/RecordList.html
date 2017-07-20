@@ -29,15 +29,15 @@
           <div class="form-group text-left">
             <label class="control-label">会员姓名：</label>
             <select class=" form-control " id="userId" name="userId" style="width:150px;">
-        <option value="">请选择</option>
-    </select>
+          <option value="">请选择</option>
+          </select>
           </div>
           <div class="form-group text-left">
             <label class="control-label">项目名：</label>
             <select class="form-control" id="itemId" name="itemId" style="width:150px;">
           <option value="">请选择</option>
           <option ng-repeat="y in Itemoptions"  value="{{y.itemId}}" ng-selected="y.itemId==currentItemId"> {{y.name}}</option>
-      </select>
+          </select>
           </div>&nbsp;&nbsp;
           <div class="form-group text-left">
             <label class="lbl_search">
@@ -67,7 +67,7 @@
           <option value="">所有</option>
           <option value="PC">PC</option>
           <option value="APP">APP</option>
-      </select>
+        </select>
           </div>
           <!-- 搜索按钮 -->
           <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
@@ -132,7 +132,10 @@
           <ul class="pagination" id="alreadyPage"></ul>
         </div>
       </div>
-      <div id="main" ng-show="showTable" style="width: 80%;height:400px;margin:50px auto;"></div>
+      <!--  -->
+      <!-- <div class="" style="min-width:800px;"> -->
+      <div id="main" ng-show="showTable" style="width:800px;height:400px;margin:50px auto;"></div>
+      <!-- </div> -->
       <!-- 当前页隐藏域 -->
       <input id="currentPage" name="currentPage" value="1" type="hidden">
     </div>

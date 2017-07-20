@@ -40,7 +40,7 @@
             <p><b>报告单号:</b><span>{{data.reportNo}}</span></p>
           </div>
           <div class="col-md-2">
-            <p><b>性别:</b><span>女</span></p>
+            <p><b>性别:</b><span> {{data.user.gender=="M"?"男":"女"}}</span></p>
             <p><b>日期:</b><span>{{data.createAt|date:"yyyy/MM/dd" }}</span></p>
           </div>
           <div class="col-md-2">
@@ -71,7 +71,8 @@
               // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
           <!-- 消除外边距 -->
           <div class="col-md-2"><img src='{{expertData.foodUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.foodUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
-
+            <br>
+            <span>{{expertData.foodUserName}}</span><br>
             <button type="button" class="btn btn-primary" ng-click="addConsult('food')" style="margin-top:10px;" ng-disabled="!(experts.foodId>0)">确认提交</button>
           </div>
           <div class="col-md-10">
@@ -144,7 +145,8 @@
           <!-- 消除外边距 -->
           <div class="col-md-2">
             <img src='{{expertData.sportUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.sportUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
-
+            <br>
+            <span>{{expertData.sportUserName}}</span>
             <button type="button" class="btn btn-primary" ng-click="addConsult('sport')" style="margin-top:10px;" ng-disabled="!(experts.sportId>0)">确认提交</button>
           </div>
           <div class="col-md-10">
@@ -227,7 +229,7 @@
                   <label for="chufanglist" class="control-label">处方类别</label>
                 </div>
                 <div class="col-sm-3">
-                  <select id="chufangType" class="form-control" style="width:100%;">
+                  <select id="chufangType" class="form-control" style="width:100%;" ng-model="CurrentchufangType">
                     <option value="">所有</option>
                     <option value="Sport">运动处方</option>
                     <option value="Nutrition">营养处方</option>  
@@ -239,7 +241,7 @@
                 <div class="col-sm-3">
                   <select id="chufanglist" class="form-control" style="width:100%;">
                    <option  value="">请选择</option>
-                   <option ng-repeat="x in options" value="{{x.id}}">{{x.name}}</option>
+                   <option ng-repeat="x in options" value="{{x.id}}" ng-show="CurrentchufangType==''||x.prescriptionType==CurrentchufangType">{{x.name}}</option>
                 </select>
                 </div>
                 <div class="col-sm-2">

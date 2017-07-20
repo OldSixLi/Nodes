@@ -188,7 +188,7 @@
                   <button type="submit" class="btn btn-danger" ng-click="vm.deleteInfo($event)">删除活动信息</button>
                 </div>
                 <div class="col-md-6 col-sm-6 text-left">
-                  <button type="button" class="btn btn-default" ng-show="{{isSave}}" onclick="javascript:history.back(-1)">　　返回　　</button>
+                  <button type="button" class="btn btn-default" ng-show="{{isSave}}" onclick="javascript:history.back(-1)">　　返回 </button>
 
                   <!--<button type="submit" class="btn btn-primary" ng-show="{{!isSave}}" style="margin-right:30px;" ng-click="vm.show($event)">扫码预览（暂未实现）</button>-->
                   <button type="submit" class="btn btn-primary" ng-show="{{!isSave}}" ng-click="vm.notice($event)">群发通知</button>
@@ -218,7 +218,10 @@
                     <!--报名时间-->
                     <td>{{ x.signUpAt | date:"yyyy/MM/dd HH:mm:ss" }}</td>
                     <!--签到时间-->
-                    <td><span ng-if="!x.signed">未签到</span>
+                    <td>
+                      <span ng-if="!x.signed&&vm.entity.signByUser">未签到</span>
+                      <span ng-if="!x.signed&&!vm.entity.signByUser"><a href="javascript:;" ng-click="qiandao(x.user.id)">确认签到</a></span>
+
                       <span ng-if="x.signed">{{ x.signUpAt | date:"yyyy/MM/dd HH:mm:ss" }}</span></td>
                     <td>
                       <a href="#" class="btn btn-link" ng-click="vm.cancelSign(x.user.id)" style="padding:0;" ng-if="!x.signed">取消报名</a>

@@ -86,7 +86,10 @@
          tool.alert("提示", "请至少输入一个搜索条件！");
          return false;
        }
-
+       if (!username) {
+         tool.alert("提示", "请选择会员姓名后再进行查询");
+         return false;
+       }
        //起止日期校验
        if (minExpiredAt && maxExpiredAt && (minExpiredAt > maxExpiredAt)) {
          tool.alert("提示", "结束时间不得早于起始时间！");

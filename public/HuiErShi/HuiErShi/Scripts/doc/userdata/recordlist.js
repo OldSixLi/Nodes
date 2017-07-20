@@ -15,7 +15,8 @@
  var myChart = echarts.init(document.getElementById('main'));
 
  // 【04】指定图表的配置项和数据  
- var currentDate = getLocalTime(Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()))).substr(0, 9);
+ //  var currentDate = getLocalTime(Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()))).substr(0, 9);
+ var currentDate = "";
  var option = {
    title: {
      text: '项目数据图',
@@ -47,7 +48,8 @@
    xAxis: [{
      type: 'category',
      boundaryGap: false,
-     data: ["2017-4-23 14:13:04", "2017-4-23 10:19:05", "2017-4-23 10:19:02", "2017-4-23 10:18:22", "2017-4-10 21:50:11", "2017-3-21 10:34:09", "2017-3-10 15:26:32", "2017-3-7 23:57:29", "2017-3-6 22:58:11", "2017-3-6 12:02:00"]
+     //  data: ["2017-4-23 14:13:04", "2017-4-23 10:19:05", "2017-4-23 10:19:02", "2017-4-23 10:18:22", "2017-4-10 21:50:11", "2017-3-21 10:34:09", "2017-3-10 15:26:32", "2017-3-7 23:57:29", "2017-3-6 22:58:11", "2017-3-6 12:02:00"]
+     data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
    }],
    yAxis: [{
      type: 'value',
@@ -55,7 +57,8 @@
    series: [{
        name: '最大值',
        type: 'line',
-       data: [",", "10", "10", "10", "10", "1", "3.6", "60,100", "60,100", "10"],
+       data: [],
+       //  data: [",", "10", "10", "10", "10", "1", "3.6", "60,100", "60,100", "10"],
 
        markPoint: {
          data: [{
@@ -236,9 +239,20 @@
            }
 
            //调用生成分页方法
-           initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
-             pageing($("#currentPage").val() - 1, params);
-           });
+           //  initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
+           //    pageing($("#currentPage").val() - 1, params);
+           //  });
+
+
+           //调用生成分页方法
+           initPageDiv($("#alreadyPage"), //在哪里生成页码
+             pageindex + 1, //当前页
+             data.totalPages, //总页数
+             5, //每次显示多少页
+             $("#currentPage"), //隐藏域的值：当前页数
+             function() {
+               pageing($("#currentPage").val() - 1, params);
+             });
          } else {
            // tool.alert("提示", "当前条件下未获取到数据");
          }
@@ -289,8 +303,12 @@
        var itemId = $("#itemId").val();
 
        //校验只有一个搜索条件
-       if (!(minExpiredAt || maxExpiredAt || userId || from || itemId)) {
-         tool.alert("提示", "请至少输入一个搜索条件");
+       if (!(minExpiredAt || maxExpiredAt || from || itemId)) {
+         tool.alert("提示", "请至少选择一项搜索条件");
+         return false;
+       }
+       if (!userId) {
+         tool.alert("提示", "请选择会员姓名后再进行查询");
          return false;
        }
        //起止日期校验
@@ -324,13 +342,14 @@
        pageing(0, params);
      }
      //跳转至某页方法
+     //跳转至某页方法
    $scope.skip = function() {
      if ($scope.toPageValue <= 1) {
        $scope.toPageValue = 1;
      } else if ($scope.toPageValue > $scope.totalPage) {
        $scope.toPageValue = $scope.totalPage;
      }
-     pageing($scope.toPageValue, params);
+     pageing($scope.toPageValue - 1, params);
    }
 
    $scope.compare = function() {

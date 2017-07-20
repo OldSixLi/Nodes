@@ -17,6 +17,19 @@ app.controller('customersCtrl', function($scope, $http) {
           $scope.names = data;
           $scope.totalPage = data.totalPages;
           $scope.totalRecord = data.totalElements;
+          //此处处理将列表按照名字排序，然后添加相关的字段值
+          var arr = $scope.names.content;
+          arr.sort(function(a, b) {
+            if ($scope.desc) {
+              return a.userName.localeCompare(b.userName, 'zh');
+            } else {
+              return b.userName.localeCompare(a.userName, 'zh');
+            }
+          });
+          for (var index = 0; index < $scope.names.content.length; index++) {
+            var element = $scope.names.content[index];
+            element.sortIndex = index;
+          }
           //调用生成分页方法
           initPageDiv($("#alreadyPage"), //在哪里生成页码
             pageindex + 1, //当前页
@@ -69,12 +82,14 @@ app.controller('customersCtrl', function($scope, $http) {
 
   //排序方法
   $scope.sort = function(ziduan) {
+
     var classname = '';
     if ($scope.desc) {
       classname = 'glyphicon glyphicon-arrow-down';
     } else {
       classname = 'glyphicon glyphicon-arrow-up';
     }
+
     $("[data-order]").find('span').addClass('glyphicon glyphicon-sort');
     $("[data-order='" + ziduan + "']").find('span').removeClass().addClass(classname);
   }
@@ -88,7 +103,6 @@ app.controller('customersCtrl', function($scope, $http) {
     }
     pageing($scope.toPageValue - 1, params);
   }
-
 
   //加载完毕后再显示 
   $scope.$watch("viewContentLoaded", function() {

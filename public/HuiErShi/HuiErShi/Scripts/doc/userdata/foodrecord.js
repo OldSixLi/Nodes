@@ -46,6 +46,14 @@
          $scope.dataLengths = data.length > 0;
          if (data != null && data.length > 0) {
            $scope.data = data;
+
+           var totalCals = 0;
+           for (var index = 0; index < data.length; index++) {
+             var element = data[index];
+             totalCals += element["脂肪cal"] + element["蛋白质cal"] + element["碳水化合物cal"];
+           }
+           $scope.totalCalAll = totalCals;
+
          } else {
            $scope.dataLengths = false;
            // alert("未获取到数据，请重试");

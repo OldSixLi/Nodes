@@ -1,6 +1,6 @@
  var myChart = echarts.init(document.getElementById('main'));
  // 【04】指定图表的配置项和数据  
- var currentDate = "2017-04-25";
+ var currentDate = "";
  var option = {
    title: {
      text: '运动心率图',

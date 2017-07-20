@@ -94,12 +94,12 @@
                 <td>
                   <a href="UserInfo.html?id={{ x.user.id}}">{{ x.user.vipEntity.realName }}</a></td>
                 <td>{{ x.genders= x.user.vipEntity.gender=="M"?"男":"女" }}</td>
-                <td>{{ x.time= x.createAt |date:"yyyy/MM/dd HH:mm:ss"}}</td>
+                <td>{{ x.time= x.appointmentTime |date:"yyyy/MM/dd HH:mm:ss"}}</td>
                 <td>
                   <a ng-click='getEditModel(x.id)' href="" ng-if="x.status=='unconfirmed'">{{x.user.vipEntity.mobile||"确认签到"}}</a>
-                  <a ng-click='getEditModel(x.id)' href="" ng-if="x.status=='confirmed'">{{x.isYes= x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}} 
+                  <a ng-click='getEditModel(x.id)' href="" ng-if="x.status=='confirmed'">{{x.isYes= x.appointmentTime |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}} 
                   </a>
-                  <a ng-click='hasSignIn()' href="" ng-if="x.status=='signedIn'">{{x.isYes= x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}} 
+                  <a ng-click='hasSignIn()' href="" ng-if="x.status=='signedIn'">{{x.isYes= x.appointmentTime |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}} 
                   </a>
                 </td>
                 <td>
@@ -187,7 +187,8 @@ bug 3.确认预约窗口中，只能选择项目，不能选择专家。
                   </div>
                   <div class="col-md-6 form-group">确认日期：
                     <div class="input-group timeblock">
-                      <input id="modaltxtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间" ng-value="models.appointmentTime | date:'yyyy/MM/dd HH:mm:ss'" />
+
+                      <input id="modaltxtStartTime" name="minExpiredAt" class="start_end_time form-control {{models.status}}" placeholder="确认日期" ng-value="models.appointmentTime | date:'yyyy/MM/dd HH:mm:ss'" />
                       <div class="input-group-btn">
                         <button type="button" class="btn btn-default" id="btnStarttime">
                           <span class="glyphicon glyphicon-calendar"></span></button>
