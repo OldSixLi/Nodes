@@ -104,10 +104,15 @@
              }
            }).success(function(data, xhr) {
              if (xhr == 200) {
+               if(data.errorMessage){
+tool.alert("提示", data.errorMessage);
+               }else{
+
+            
                tool.alert("提示", "删除成功!", function() {
                  //刷新当前页面.
                  window.location.reload();
-               });　
+               });　   }
              } else {
                tool.alert("提示", "删除失败,请重试!");
              }

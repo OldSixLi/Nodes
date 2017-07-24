@@ -578,20 +578,15 @@
              }
            },
            success: function(data) {
-
-           },
-           complete: function(xhr, textStatus) {
-             if (xhr.status == 200) {
-               if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
-                 tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
-               } else {
-                 tool.alert("提示", "发布成功", function() {
-                   //刷新当前页面.
-                   window.location.reload();
-                 });
-               }
-             }
-           }
+            if(data.errorMessage){
+              tool.alert("提示", data.errorMessage);
+            }else{
+            tool.alert("提示", "发布成功", function() {
+                //刷新当前页面.
+                window.location.reload();
+              });
+            }
+           } 
          });
        },
        function() {});

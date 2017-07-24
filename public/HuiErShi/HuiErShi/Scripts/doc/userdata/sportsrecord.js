@@ -197,7 +197,7 @@
      console.log("值:" + $("#userSlt").val());
      var userid = $("#userSlt").val();
      var time = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-     if (!(userid || time)) {
+     if (!userid || !time) {
        tool.alert("提示", "请选择用户和日期！");
        return false;
      }
