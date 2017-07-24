@@ -116,11 +116,11 @@
                 <td> {{x.totalCal=(x["碳水化合物"]*4+x["脂肪"]*9+x["蛋白质"]*4).toFixed(1)}}</td>
                 <td>{{ ((x.totalCal/totalCalAll)*100).toFixed(1)+'%'}}</td>
                 <td> {{x["碳水化合物"].toFixed(1)}}</td>
-                <td>{{ ((x["碳水化合物"]*4/totalCalAll)*100).toFixed(1)+'%'}}</td>
+                <td>{{ ((x["碳水化合物"]*4/x.totalCal)*100).toFixed(1)+'%'}}</td>
                 <td> {{x["蛋白质"].toFixed(1)}}</td>
-                <td>{{( (x["蛋白质"]*4/totalCalAll)*100).toFixed(1)+'%'}}</td>
+                <td>{{( (x["蛋白质"]*4/x.totalCal)*100).toFixed(1)+'%'}}</td>
                 <td> {{x["脂肪"].toFixed(1)}}</td>
-                <td>{{((x["脂肪"]*9/totalCalAll)*100).toFixed(1)+'%'}}</td>
+                <td>{{((x["脂肪"]*9/x.totalCal)*100).toFixed(1)+'%'}}</td>
               </tr>
               <tr ng-show="!dataLengths">
                 <td colspan="100" class="text-center ">暂无结果</td>
