@@ -178,6 +178,9 @@
 
        }
      };
+     $scope.cancel = function() {
+       window.history.back(-1);
+     }
 
      $scope.$watch("viewContentLoaded", function() {
        angular.element(".myload").removeClass("myload");

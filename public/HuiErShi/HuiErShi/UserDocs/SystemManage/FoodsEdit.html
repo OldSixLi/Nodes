@@ -309,7 +309,7 @@
               <!---->
               <div class="form-group">
                 <div class="col-sm-6 col-md-4">
-                  <label for="txtUserPressure" class="control-label">酸（mg）：</label>
+                  <label for="txtUserPressure" class="control-label">锰（mg）：</label>
                 </div>
                 <div class="col-sm-6 col-md-7">
                   <input type="text" class="form-control" id="manganese" name="manganese" ng-model="data.dietNutrition.manganese" placeholder="酸含量">
@@ -331,7 +331,7 @@
                 <input type="submit" name="save" value="保存" class="btn btn-primary btn-block" ng-click="saveInfo()" />
               </div>
               <div class="col-sm-3 col-md-2">
-                <input type="button" name="cencel" value="取消" class="btn btn-default btn-block" />
+                <input type="button" name="cencel" ng-click="cancel()" value="取消" class="btn btn-default btn-block" />
               </div>
             </div>
           </form>

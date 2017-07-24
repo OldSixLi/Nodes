@@ -191,9 +191,15 @@ uploader = Qiniu.uploader({
         })
         .success(function(data, xhr) {
           if (xhr == 200) {
-            tool.alert("提示", "保存成功!");
-            $(":submit").attr("disabled", false);
-            window.location.reload();
+            if (data.errorMessage) {
+              tool.alert("提示", data.errorMessage);
+              //刷新当前页面.
+              window.location.reload();
+            } else {
+              tool.alert("提示", "保存成功!");
+              $(":submit").attr("disabled", false);
+              window.location.reload();
+            }
           } else {
             tool.alert("提示", "保存失败,请重试!");
             $(":submit").attr("disabled", false);

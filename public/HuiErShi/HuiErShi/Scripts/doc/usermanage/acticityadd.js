@@ -308,18 +308,25 @@
 
          dataType: "json",
          success: function(data, textStatus, request) {
-           if (data.success) {
-             tool.alert("提示", "成功");
-           }
-
-         },
-         complete: function(xhr, textStatus) {
-           console.log(xhr);
-           if (xhr.status == 200) {
-             tool.alert("提示", "数据保存成功", function() {});
+           //  if (data.success) {
+           if (data.errorMessage) {
+             tool.alert("提示", data.errorMessage);
+           } else {
+             tool.alert("提示", "保存成功");
              window.location.href = "ActivityList.html";
            }
+           //  }
+
          }
+
+         //   ,
+         //  complete: function(xhr, textStatus) {
+         //    console.log(xhr);
+         //    if (xhr.status == 200) {
+         //      tool.alert("提示", "数据保存成功", function() {});
+         //      
+         //    }
+         //  }
 
        });
 
@@ -373,25 +380,28 @@
 
          dataType: "json",
          success: function(data, textStatus, request) {
-           if (data.success) {
-             tool.alert("提示", "成功");
-           }
+           if (data.errorMessage) {
+             tool.alert("提示", data.errorMessage);
+           } else {
+             tool.alert("提示", "修改成功");
+             window.location.href = "ActivityList.html";
 
+           }
          },
          error: function(response) {
-           if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-             tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+             if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+               tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+             }
            }
-         },
-         complete: function(xhr, textStatus) {
-           console.log(xhr.status);
-           if (xhr.status == 200) {
-             tool.alert("提示", "数据保存成功");
-             window.location.href = "ActivityList.html";
-           } else {
-             // tool.alert("提示", "操作失败!");
-           }
-         }
+           //   ,
+           //  complete: function(xhr, textStatus) {
+           //    console.log(xhr.status);
+           //    if (xhr.status == 200) {
+           //      //  tool.alert("提示", "数据保存成功");
+           //    } else {
+           //      // tool.alert("提示", "操作失败!");
+           //    }
+           //  }
 
        });
 

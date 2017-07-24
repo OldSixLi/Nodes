@@ -294,15 +294,19 @@
          }
          $.ajax({
            type: "PATCH",
-           url: BasicUrl + 'inspection/' + checkObj.id,
+           url: BasicUrl + 'inspection/merge',
            data: {
-             id: checkObj.id,
-             isValid: true,
-             inspectionNo: $("#inspectionNo").val(),
-             name: $scope.data.name,
-             reportFrom: $("#reportFrom").val(),
-             checkAt: minExpiredAt,
-             invalidReason: "无"
+
+
+             reportId2: $("#inspectionNo").val(),
+             reportId1: checkObj.id
+               //  id: checkObj.id,
+               //  isValid: true,
+               //  inspectionNo: $("#inspectionNo").val(),
+               //  name: $scope.data.name,
+               //  reportFrom: $("#reportFrom").val(),
+               //  checkAt: minExpiredAt,
+               //  invalidReason: "无"
            },
            dataType: "json",
            error: function(response) {

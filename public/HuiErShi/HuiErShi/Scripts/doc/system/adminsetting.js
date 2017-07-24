@@ -96,7 +96,8 @@
            $scope.data = data;
            // }, 5000);
          } else {
-           alert("未获取到数据，请重试");
+           $scope.dataLengths = false;
+           //  tool.alert("提示", "暂无结果");
          }
        } else {
          $scope.dataLengths = false;

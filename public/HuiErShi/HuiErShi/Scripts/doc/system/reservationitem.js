@@ -144,20 +144,22 @@
            tool.alert("提示", response.errorMessage);
          }
        },
+       success: function(data) {
+         if (data.errorMessage) {
+           tool.alert("提示", data.errorMessage);
+           //刷新当前页面.
+           window.location.reload();
+         }
+       },
        complete: function(xhr, textStatus) {
          console.log(xhr.status);
-         if (xhr.status == 200) {
+         if (xhr.status == 200 && !data.errorMessage) {
            $('[name="addForm"]')[0].reset();
            $('#modal').modal('hide')
            tool.alert("提示", "新增项目成功", function() {
              //刷新当前页面.
              window.location.reload();
            });
-         } else {
-           if (xhr.responseText) {
-             var json = JSON.parse(xhr.responseText);
-             tool.alert("提示", json.errorMessage);
-           }
          }
        }
      });

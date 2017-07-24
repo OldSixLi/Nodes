@@ -268,7 +268,7 @@
                 <tbody>
                   <tr ng-repeat="x in reportInfo">
                     <td>{{x.reportDate}}</td>
-                    <td><a href="../VipReport/MemberReportList.html?reportId={{x.reportNo}}">{{x.reportNo}}</a></td>
+                    <td><a href="../VipReport/MemberReportInfo.html?id={{x.reportNo}}">{{x.reportNo}}</a></td>
                     <td>{{x.latestIM.RspMsgList[0].MsgSeq||0}}</td>
                     <td>{{x.experts?x.experts.split(',').join('　'):"未设置"}}</td>
 
