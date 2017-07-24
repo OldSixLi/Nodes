@@ -4,7 +4,11 @@
  var params = ""; //全局变量
  var app = angular.module('myApp', []);
 
-
+ // get /activity 接口
+ // isReleased 活动是否发布
+ // isAllowSignUp 活动是否可报名
+ // isAllowSignUp
+ //  活动是否可报名，0-不能报名，1-可已报名
  app.controller('customersCtrl', function($scope, $http) {
    //分页方法声明
    var pageing = function(pageindex, params) {
@@ -46,6 +50,10 @@
          tool.alert("提示", "请至少输入一个搜索条件");
          return false;
        }
+       if (district == "3") {
+         district = '1';
+         var isAllowSignUp = '0';
+       }
        //起止日期校验
        if (minExpiredAt && maxExpiredAt && (minExpiredAt > maxExpiredAt)) {
          tool.alert("提示", "活动日期中结束时间不得早于起始时间");
@@ -64,6 +72,9 @@
        }
        if (district) {
          params += "isReleased=" + district + '&';
+       }
+       if (isAllowSignUp && isAllowSignUp == '0') {
+         params += "isAllowSignUp=" + isAllowSignUp + '&';
        }
        pageing(0, params);
      }

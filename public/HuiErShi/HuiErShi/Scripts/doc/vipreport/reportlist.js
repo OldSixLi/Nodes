@@ -5,33 +5,33 @@
    //会籍顾问 TODO 
 
    //检查项目  TODO 
-   $("#sltTag").select2({
-     placeholder: '请选择',
-     allowClear: true,
-     ajax: {
-       // url: BasicUrl + "vip/name",
+   //  $("#sltTag").select2({
+   //    placeholder: '请选择',
+   //    allowClear: true,
+   //    ajax: {
+   //      // url: BasicUrl + "vip/name",
 
-       url: function(params) {
-         return BasicUrl + "vip/name/" + params.term;
-       },
-       dataType: 'json',
-       delay: 250,
-       processResults: function(data, page) {
-         return {
-           results: data
-         };
-       },
-       cache: false
-     },
-     // escapeMarkup: function(markup) {
-     //   return markup;
-     // },
-     minimumInputLength: 1,
-     minimumResultsForSearch: 1,
-     width: "220px",
-     templateResult: formatRepo,
-     templateSelection: formatRepoSelection,
-   });
+   //      url: function(params) {
+   //        return BasicUrl + "vip/name/" + params.term;
+   //      },
+   //      dataType: 'json',
+   //      delay: 250,
+   //      processResults: function(data, page) {
+   //        return {
+   //          results: data
+   //        };
+   //      },
+   //      cache: false
+   //    },
+   //    // escapeMarkup: function(markup) {
+   //    //   return markup;
+   //    // },
+   //    minimumInputLength: 1,
+   //    minimumResultsForSearch: 1,
+   //    width: "220px",
+   //    templateResult: formatRepo,
+   //    templateSelection: formatRepoSelection,
+   //  });
  });
 
  function formatRepo(repo) {
@@ -47,13 +47,21 @@
  app.controller('customersCtrl', function($scope, $http) {
    var obj = new UrlSearch();
 
+   //  项目列表
+   var url = BasicUrl + "item?page=0&pageNum=1000";
+   $http.get(url).success(function(data) {
+     if (data != null && data != "" && data != "null") {
+       $scope.Itemoptions = data.content;
+     }
+   });
+   tool.changeSelect($("#sltTag"), false);
 
+   //  专家列表
    $http.get(BasicUrl + "admin/advisers").success(function(data) {
      if (data != null && data != "" && data != "null") {
        $scope.options = data;
      }
    });
-
    tool.changeSelect($("#sltAdviser"), false);
    //分页方法声明
    var pageing = function(pageindex, params) {
@@ -109,9 +117,10 @@
      //会员类型
      var adviserId = $("#sltAdviser").val();
      var status = $("#sltStatus").val();
-
+     //  sltTag
+     var itemId = $("#sltTag").val();
      //校验只有一个搜索条件
-     if (!(minExpiredAt || maxExpiredAt || keyWord || adviserId || status)) {
+     if (!(minExpiredAt || maxExpiredAt || keyWord || adviserId || status || itemId)) {
        tool.alert("提示", "请至少输入一个搜索条件");
        return false;
      }
@@ -139,6 +148,8 @@
      }
      pageing(0, params);
    }
+
+
 
    //跳转至某页方法
    $scope.skip = function() {

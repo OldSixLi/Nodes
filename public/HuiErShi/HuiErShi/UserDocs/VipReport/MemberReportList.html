@@ -49,10 +49,14 @@
             </select>
           </div>
 
+
+
+          <!--  -->
           <div class="form-group text-left">
             <label class="">&nbsp;&nbsp;&nbsp;&nbsp;检查项目： </label>
             <select class=" form-control " id="sltTag" style="width:150px;">
-          <option value="">所有</option> 
+          <option value="">所有</option>
+          <option ng-repeat="y in Itemoptions"  value="{{y.itemId}}" > {{y.name}}</option>
       </select>
           </div>
           <div class="form-group text-left">

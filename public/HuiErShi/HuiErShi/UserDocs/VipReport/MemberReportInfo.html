@@ -58,7 +58,7 @@
           <div class="col-md-2"> </div>
           <div class="col-md-6 ">
             <p><b>　　验单:</b>
-              <a ng-repeat="x in data.inspections" href="#?id={{x.id}}">{{x.name+" "}}</a>
+              <a ng-repeat="x in data.inspections" href="AddCheck.html?id={{x.id}}">{{x.name+" "}}</a>
               <span>（<a href="AddCheck.html?reportId={{reportId}}&userid={{data.user.id}}">创建验单</a>）</span>
             </p>
           </div>
@@ -146,7 +146,7 @@
           <div class="col-md-2">
             <img src='{{expertData.sportUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.sportUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
             <br>
-            <span>{{expertData.sportUserName}}</span>
+            <span>{{expertData.sportUserName}}</span><br>
             <button type="button" class="btn btn-primary" ng-click="addConsult('sport')" style="margin-top:10px;" ng-disabled="!(experts.sportId>0)">确认提交</button>
           </div>
           <div class="col-md-10">
