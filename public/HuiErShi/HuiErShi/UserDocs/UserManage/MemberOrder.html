@@ -97,9 +97,9 @@
                 <td>{{ x.time= x.appointmentTime |date:"yyyy/MM/dd HH:mm:ss"}}</td>
                 <td>
                   <a ng-click='getEditModel(x.id)' href="" ng-if="x.status=='unconfirmed'">{{x.user.vipEntity.mobile||"确认签到"}}</a>
-                  <a ng-click='getEditModel(x.id)' href="" ng-if="x.status=='confirmed'">{{x.isYes= x.appointmentTime |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}} 
+                  <a ng-click='getEditModel(x.id)' href="" ng-if="x.status=='confirmed'">{{x.isYes= x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}} 
                   </a>
-                  <a ng-click='hasSignIn()' href="" ng-if="x.status=='signedIn'">{{x.isYes= x.appointmentTime |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}} 
+                  <a ng-click='hasSignIn()' href="" ng-if="x.status=='signedIn'">{{x.isYes= x.confirmAt |date:"yyyy/MM/dd HH:mm:ss"}}<span>/</span>{{x.confirmBy.name}} 
                   </a>
                 </td>
                 <td>
