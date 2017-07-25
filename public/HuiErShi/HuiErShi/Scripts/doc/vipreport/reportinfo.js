@@ -559,12 +559,15 @@
    //发布报告（手机端可见）
    $scope.publishReport = function(type) {
 
-     tool.confirm(
-       "提示",
-       "确认发布报告？",
-       function() {
-         //用户点击确认按钮时操作
-         $.ajax({
+    //  tool.confirm(
+    //    "提示",
+    //    "确认发布报告？",
+    //    function() {
+    //      //用户点击确认按钮时操作
+        
+    //    },
+    //    function() {});
+     $.ajax({
            type: "PATCH",
            url: BasicUrl + "report/" + $scope.reportId + "/publish",
            data: {
@@ -588,8 +591,6 @@
             }
            } 
          });
-       },
-       function() {});
 
    }
 

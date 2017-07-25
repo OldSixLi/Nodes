@@ -75,23 +75,10 @@
           </div>
           <div class="form-group col-xs-6">
             <label class="control-label">标签：</label>
-
+ <!-- {{TagsObj}}  -->
             <select id="sel_menu2" multiple="multiple" class="form-control" style="width: 400px;">
-            <optgroup label="标签组1">
-            <option value="1">标签1</option>
-            <option value="2">标签2</option>
-            <option value="3">标签3</option>
-            <option value="4">标签4</option>
-            </optgroup>
-            <optgroup label="标签组2">
-            <option value="5">标签5</option>
-            <option value="6">标签6</option>
-            <option value="7">标签7</option>
-            <option value="8">标签8</option>
-            </optgroup>
-            <optgroup label="标签组3">
-            <option value="9">标签9</option>
-            </optgroup>
+              <option ng-repeat="x in tagOptions"  value="{{x}}" ng-selected="TagsObj[x]">
+           {{x+TagsObj[x]}}</option>
             </select>
 
           </div>

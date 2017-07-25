@@ -110,7 +110,7 @@
                 <td>{{ x.gender=="M"?"男":"女" }}</td>
                 <td>{{ x.origin }}</td>
                 <td><span ng-if="x.vipCard.activated">{{ x.vipCard.vipCardEntity.name}}</span>
-                  <span ng-if="!x.vipCard.activated">{{ "未激活"}}</span></td>
+                  <span ng-if="!x.vipCard.activated">{{ x.vipCard.vipCardEntity.name+'(未激活)'}}</span></td>
                 <td>{{ x.adv=x.adviser.name}}</td>
                 <td>{{x.date=x.vipCard.expiredAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
               </tr>

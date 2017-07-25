@@ -69,8 +69,17 @@ app.controller('customersCtrl', function($scope, $http) {
     if (!(phone || username)) {
       tool.alert("提示", "请至少输入一个搜索条件");
       return false;
-    }　　
-    params = "name=" + username + "&phone=" + phone;
+    }
+    var keyword="";
+    if(username&&!phone){
+keyword=username;
+    }if(!username&&phone){
+keyword=phone;
+    }
+if(username&&phone){
+  keyword=username;
+}
+    params = "keyWord=" + keyword;
     pageing(0, params);
   }
 
