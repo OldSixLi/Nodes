@@ -422,12 +422,11 @@
                }
              })
              .success(function(data, xhr) {
-               if (xhr == 200) {
+               if (!data.errorMessage) {
                  tool.alert("提示", "删除成功!", function() {});　
-                 //刷新当前页面.
                  window.location.href = "ActivityList.html";
                } else {
-                 tool.alert("提示", "删除失败,请重试!");
+                 tool.alert("提示", data.errorMessage);
                }
              }).error(function(response) {
                tool.alert("提示", response.errorMessage);
@@ -455,11 +454,13 @@
                  tool.alert("提示", JSON.parse(response.responseText).errorMessage);
                }
              },
-             complete: function(xhr, textStatus) {
-               if (xhr.status == 200 && xhr.responseJSON && xhr.responseJSON.resultOK) {
-                 tool.alert("提示", "群发消息成功", function() {
+             success: function(data) {
+               if (data.resultOK) {
+                 tool.alert("提示", "群发消息成功！", function() {
                    window.location.reload();
                  });
+               } else {
+                 tool.alert("提示", "群发信息失败！");
                }
              }
            });

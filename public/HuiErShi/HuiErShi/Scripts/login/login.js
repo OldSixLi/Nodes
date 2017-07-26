@@ -74,7 +74,7 @@
               token = data.token;
               $http({
                   method: 'POST',
-                  url: 'http://60.205.170.209:8080/admin/api/IMConsult/userSig',
+                  url: 'http://60.205.170.209:80/admin/api/IMConsult/userSig',
                   headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                   },
@@ -89,7 +89,7 @@
                     setCookie('token', token);
                     setCookie('adminId', id);
                     //TODO 部署时此处需要修改
-                    window.location.href = "SlideHtml.html?hesid=" + id;
+                    window.location.href = "HuiErShi.html?hesid=" + id;
 
                   }
                 }).error(function(response) {

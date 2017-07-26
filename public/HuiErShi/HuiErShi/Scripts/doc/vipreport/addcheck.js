@@ -291,6 +291,7 @@
          var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
          if (!$("#inspectionNo").val()) {
            tool.alert("提示", "请填写报告单号后再进行合并！");
+           return false;
          }
          $.ajax({
            type: "PATCH",

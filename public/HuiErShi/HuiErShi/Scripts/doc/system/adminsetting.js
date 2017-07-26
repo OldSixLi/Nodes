@@ -113,7 +113,10 @@
 
    //查询按钮
    $scope.search = function() {　
-     var username = $("#sltName").find('option:selected').text();　
+     var username = '';
+     if ($("#sltName").val()) {
+       username = $("#sltName").find('option:selected').text();　
+     }
      var txtKeyWord = $("#txtKeyWord").val();　
      if (!(username || txtKeyWord)) {
        tool.alert("提示", "请至少输入一个搜索条件");

@@ -259,7 +259,7 @@
          //当前报告单的专家的ID
 
 
-
+         $scope.reportStatus = data.status;
 
          //当前报告单的专家建议的先关信息
          $scope.expertData = {
@@ -559,38 +559,40 @@
    //发布报告（手机端可见）
    $scope.publishReport = function(type) {
 
-    //  tool.confirm(
-    //    "提示",
-    //    "确认发布报告？",
-    //    function() {
-    //      //用户点击确认按钮时操作
-        
-    //    },
-    //    function() {});
+     //  tool.confirm(
+     //    "提示",
+     //    "确认发布报告？",
+     //    function() {
+     //      //用户点击确认按钮时操作
+
+     //    },
+     //    function() {});
+
+
      $.ajax({
-           type: "PATCH",
-           url: BasicUrl + "report/" + $scope.reportId + "/publish",
-           data: {
-             adminId: 1,
-             id: $scope.reportId
-           },
-           dataType: "json",
-           error: function(response) {
-             if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-               tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-             }
-           },
-           success: function(data) {
-            if(data.errorMessage){
-              tool.alert("提示", data.errorMessage);
-            }else{
-            tool.alert("提示", "发布成功", function() {
-                //刷新当前页面.
-                window.location.reload();
-              });
-            }
-           } 
-         });
+       type: "PATCH",
+       url: BasicUrl + "report/" + $scope.reportId + "/publish",
+       data: {
+         adminId: 1,
+         id: $scope.reportId
+       },
+       dataType: "json",
+       error: function(response) {
+         if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+           tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+         }
+       },
+       success: function(data) {
+         if (data.errorMessage) {
+           tool.alert("提示", data.errorMessage);
+         } else {
+           tool.alert("提示", "发布成功", function() {
+             //刷新当前页面.
+             window.location.reload();
+           });
+         }
+       }
+     });
 
    }
 
