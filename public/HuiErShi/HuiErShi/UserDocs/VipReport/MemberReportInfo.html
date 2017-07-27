@@ -44,7 +44,7 @@
             <p><b>日期:</b><span>{{data.createAt|date:"yyyy/MM/dd" }}</span></p>
           </div>
           <div class="col-md-2">
-            <p><b>年龄:</b><span>18</span></p>
+            <p><b>年龄:</b><span>{{data.user.vipEntity.age}}</span></p>
             <p><b>状态:</b>
               <span ng-if="data.status=='0'">检查登记</span>
               <span ng-if="data.status=='1'">专家填写</span>

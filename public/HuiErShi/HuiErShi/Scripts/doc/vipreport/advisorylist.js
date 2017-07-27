@@ -841,7 +841,8 @@
 
            },
            function(err) {
-             alert('不能展开对话')
+             //  alert('不能展开对话')
+             tool.alert("提示", "您暂时无法查看聊天内容");
              console.log(err);
            }
          );

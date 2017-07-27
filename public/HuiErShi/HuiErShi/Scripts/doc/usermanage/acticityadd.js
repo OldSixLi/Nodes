@@ -460,7 +460,11 @@
                    window.location.reload();
                  });
                } else {
-                 tool.alert("提示", "群发信息失败！");
+                 if (data.errorMessage) {
+                   tool.alert("提示", data.errorMessage);
+                 } else {
+                   tool.alert("提示", "群发消息失败！");
+                 }
                }
              }
            });

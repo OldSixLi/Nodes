@@ -78,6 +78,8 @@
        }
      }
    });
+
+
    uploader = Qiniu.uploader({
      runtimes: 'html5,flash,html4',
      browse_button: 'pickfiles1', //上传按钮的ID
@@ -345,6 +347,7 @@
      // var itemId = $scope.itemDetail.itemId;
      // var val = $scope.itemDetail.value;
      var checkObj = new UrlSearch();
+     //TODO 添加非空校验 验单名称、时间、来源
 
 
      // 直接在该页面新建

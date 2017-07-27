@@ -217,19 +217,15 @@
            tool.alert("提示", response.errorMessage);
          }
        },
-       complete: function(xhr, textStatus) {
-         console.log(xhr.status);
-         if (xhr.status == 200) {
+       success: function(data) {
+         if (data.errorMessage) {
+           tool.alert("提示", data.errorMessage);
+         } else {
            $('[name="addForm"]')[0].reset();
            $('#modal').modal('hide');
            tool.alert("提示", "新增管理员成功", function() {
              window.location.reload();
            });
-         } else {
-           if (xhr.responseText) {
-             var json = JSON.parse(xhr.responseText);
-             tool.alert("提示", json.errorMessage);
-           }
          }
        }
      });
