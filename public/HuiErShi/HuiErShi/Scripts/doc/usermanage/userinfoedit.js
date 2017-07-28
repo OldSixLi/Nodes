@@ -14,7 +14,7 @@ uploader = Qiniu.uploader({
     var token = "";
     $.ajax({
       type: "get",
-      url: "http://60.205.170.209:8080/admin/api/qnToken",
+      url: "http://healthshare.com.cn:80/admin/api/qnToken",
       async: false,
       dataType: "json",
       success: function(data) {

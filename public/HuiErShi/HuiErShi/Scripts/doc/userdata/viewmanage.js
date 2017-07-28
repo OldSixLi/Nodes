@@ -45,14 +45,14 @@
    });
 
 
-var tagurl = BasicUrl + "tag";
+   var tagurl = BasicUrl + "tag";
    $http.get(tagurl).success(function(data) {
      if (data != null && data != "" && data != "null") {
        $scope.tagOptions = data;
        tool.changeSelect($("#dataView"), false);
      }
    });
-  //  http://60.205.170.209:8080/admin/api/api-docs/../tag
+   //  http://healthshare.com.cn:80/admin/api/api-docs/../tag
    //添加新视图操作
    $scope.viewAdd = function() {
      var viewName = $("#txtKeyWord").val();
@@ -116,23 +116,24 @@ var tagurl = BasicUrl + "tag";
            $scope.itemList = data.items; //TODO 修改
            $scope.editViewName = data.name;
            $scope.itemListObj = {};
-           $scope.Tags=data.tags;$scope.TagsObj={};
+           $scope.Tags = data.tags;
+           $scope.TagsObj = {};
            for (var index = 0; index < $scope.itemList.length; index++) {
              var element = $scope.itemList[index];
              $scope.itemListObj[element.itemId] = element.itemId;
              console.log(element.itemId);
            }
 
-           for (var i = 0; i <  $scope.Tags.length; i++) {
-             var elements =  $scope.Tags[i];
-             $scope.TagsObj[elements]=true;
+           for (var i = 0; i < $scope.Tags.length; i++) {
+             var elements = $scope.Tags[i];
+             $scope.TagsObj[elements] = true;
            }
-          $("#sel_menu2").val(data.tags).trigger('change');
-         
+           $("#sel_menu2").val(data.tags).trigger('change');
+
          }
        });
 
-       
+
      }
    });
 

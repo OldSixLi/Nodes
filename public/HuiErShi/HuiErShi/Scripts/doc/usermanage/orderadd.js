@@ -28,7 +28,7 @@ app.controller('customersCtrl', function($scope, $http) {
   };
   //分页方法声明
   var pageing = function(pageindex, params) {
-      //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../vip?
+      //TODO  需要修改部分http://healthshare.com.cn:80/admin/api/api-docs/../vip?
       var url = BasicUrl + "vip?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
       $http.get(url).success(function(data) {
         if (data != null && data != "" && data != "null") {
@@ -70,15 +70,16 @@ app.controller('customersCtrl', function($scope, $http) {
       tool.alert("提示", "请至少输入一个搜索条件");
       return false;
     }
-    var keyword="";
-    if(username&&!phone){
-keyword=username;
-    }if(!username&&phone){
-keyword=phone;
+    var keyword = "";
+    if (username && !phone) {
+      keyword = username;
     }
-if(username&&phone){
-  keyword=username;
-}
+    if (!username && phone) {
+      keyword = phone;
+    }
+    if (username && phone) {
+      keyword = username;
+    }
     params = "keyWord=" + keyword;
     pageing(0, params);
   }

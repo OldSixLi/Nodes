@@ -14,7 +14,7 @@
      var token = "";
      $.ajax({
        type: "get",
-       url: "http://60.205.170.209:8080/admin/api/qnToken",
+       url: "http://healthshare.com.cn:80/admin/api/qnToken",
        async: false,
        dataType: "json",
        success: function(data) {
@@ -87,7 +87,7 @@
      var token = "";
      $.ajax({
        type: "get",
-       url: "http://60.205.170.209:8080/admin/api/qnToken",
+       url: "http://healthshare.com.cn:80/admin/api/qnToken",
        async: false,
        dataType: "json",
        success: function(data) {
@@ -174,7 +174,7 @@
 
    //分页方法声明
    var pageing = function(pageindex, params) {
-     //TODO  需要修改部分http://60.205.170.209:8080/admin/api/api-docs/../prescription?
+     //TODO  需要修改部分http://healthshare.com.cn:80/admin/api/api-docs/../prescription?
      var url = BasicUrl + "prescription?" + params + "page=" + pageindex + "&pageNum=5"; //请求的参数和地址
      $http.get(url).success(function(data) {
        if (data != null && data != "" && data != "null") {

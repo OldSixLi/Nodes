@@ -49,7 +49,7 @@
       vm.errorMessage = "";
       $http({
           method: 'POST',
-          url: 'http://60.205.170.209:8080/admin/api/token',
+          url: 'http://healthshare.com.cn:80/admin/api/token',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },

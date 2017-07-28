@@ -15,7 +15,7 @@
      var token = "";
      $.ajax({
        type: "get",
-       url: "http://60.205.170.209:8080/admin/api/qnToken",
+       url: "http://healthshare.com.cn:80/admin/api/qnToken",
        async: false,
        dataType: "json",
        success: function(data) {
@@ -203,7 +203,7 @@
        tool.alert("提示", "此会员已签到，不可再取消报名!");
      }
      $scope.qiandao = function(userId) {
-       //  http://60.205.170.209:8080/admin/api/api-docs/../activity/1/member/1/sign
+       //  http://healthshare.com.cn:80/admin/api/api-docs/../activity/1/member/1/sign
 
        //  adminId
        //  1
@@ -287,7 +287,7 @@
        }
        $.ajax({
          type: "post",
-         url: 'http://60.205.170.209:8080/admin/api/activity',
+         url: 'http://healthshare.com.cn:80/admin/api/activity',
          data: {
            adminId: 1,
            name: vm.entity.name,
@@ -444,7 +444,7 @@
          "提示",
          "是否进行群发通知？",
          function() {
-           //用户点击确认按钮时操作http://60.205.170.209:8080/admin/api/api-docs/../activity/2/notification
+           //用户点击确认按钮时操作http://healthshare.com.cn:80/admin/api/api-docs/../activity/2/notification
            $.ajax({
              type: "POST",
              url: BasicUrl + "activity/" + id + "/notification",

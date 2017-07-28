@@ -13,7 +13,7 @@
    //分页方法声明
    var pageing = function(pageindex, params) {
        //请求地址 
-       var url = "http://60.205.170.209:8080/admin/api/activity?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+       var url = "http://healthshare.com.cn:80/admin/api/activity?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
        $http.get(url).success(function(data) {
          if (data != null && data != "" && data != "null") {
            //判断当前是否存在记录

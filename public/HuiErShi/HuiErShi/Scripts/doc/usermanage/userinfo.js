@@ -122,7 +122,7 @@ app.controller('customersCtrl', function($scope, $http) {
      * 获取会员报告相关信息
      * @returns
      */
-    //  http://60.205.170.209:8080/admin/api/api-docs/../IMConsult?userId=1&&&page=0&pageNum=100
+    //  http://healthshare.com.cn:80/admin/api/api-docs/../IMConsult?userId=1&&&page=0&pageNum=100
     // $scope.adviser = $scope.data.adviser;
     $http.get(BasicUrl + "IMConsult?userId=" + urlObj.id + "&page=0&pageNum=100").success(function
 

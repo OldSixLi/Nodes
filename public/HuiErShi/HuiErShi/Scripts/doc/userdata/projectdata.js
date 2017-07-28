@@ -165,7 +165,7 @@
  // 　◆◆◆　　　　◆◆◆　◆◆◆　　◆◆◆◆　
  // 　◆◆◆　　　　◆◆◆◆◆◆◆　　　◆◆◆　
  var params = ""; //全局变量
- var basicUrl = "http://60.205.170.209:8080/admin/api/"; //统一接口地址
+ var basicUrl = "http://healthshare.com.cn:80/admin/api/"; //统一接口地址
  //  
  var params = "&viewId=&tag=&from=&"; //请求参数变量
  var app = angular.module('myApp', []);
