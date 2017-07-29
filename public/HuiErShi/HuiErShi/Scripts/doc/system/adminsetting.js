@@ -203,6 +203,10 @@
      if (saveInfo.adminNo == "") {
        __error.push("请输入用户名！");
      }
+     var reg = /^1\d{10}$/; //定义正则表达式
+     if (saveInfo.adminNo && !reg.test(saveInfo.adminNo)) {
+       __error.push("请输入正确的手机号码！");
+     }
      if (__error.length > 0) {
        tool.alert("提示", __error.join("<br />"));
        return false;

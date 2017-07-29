@@ -455,17 +455,19 @@
                }
              },
              success: function(data) {
-               if (data.resultOK) {
-                 tool.alert("提示", "群发消息成功！", function() {
-                   window.location.reload();
-                 });
+
+               if (data.errorMessage) {
+                 tool.alert("提示", data.errorMessage);
                } else {
-                 if (data.errorMessage) {
-                   tool.alert("提示", data.errorMessage);
+                 if (data.resultOK) {
+                   tool.alert("提示", "群发消息成功！", function() {
+                     window.location.reload();
+                   });
                  } else {
                    tool.alert("提示", "群发消息失败！");
                  }
                }
+
              }
            });
          },

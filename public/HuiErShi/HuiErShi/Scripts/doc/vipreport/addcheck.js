@@ -291,16 +291,17 @@
        function() {
          //用户点击确认按钮时操作
          var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+
          if (!$("#inspectionNo").val()) {
            tool.alert("提示", "请填写报告单号后再进行合并！");
            return false;
          }
+
+
          $.ajax({
            type: "PATCH",
            url: BasicUrl + 'inspection/merge',
            data: {
-
-
              reportId2: $("#inspectionNo").val(),
              reportId1: checkObj.id
                //  id: checkObj.id,
@@ -360,6 +361,21 @@
          reportFrom: $("#reportFrom").val(),
          checkAt: minExpiredAt,
          picUrls: $scope.data.picUrl.join(',')
+       }
+
+       var __error = [];
+       if (dataInfo.name == "") {
+         __error.push("请输入验单名称！");
+       }
+       if (dataInfo.reportFrom == "") {
+         __error.push("请输入来源名称！");
+       }
+       if (dataInfo.checkAt == "") {
+         __error.push("请输入验单日期！");
+       }
+       if (__error.length > 0) {
+         tool.alert("提示", __error.join("<br />"));
+         return false;
        }
        $http({
            method: 'PATCH',
@@ -467,6 +483,10 @@
     */
    $scope.viewItemAdd = function() {
      $scope.itemDetail = null;
+     if (!$scope.data.name) {
+       tool.alert("提示", "请先新建或合并报告单");
+       return false;
+     }
      var viewID = $("#dataView").val();
      if (!viewID) {
        tool.alert("提示", "请选择数据视图后再进行操作");
