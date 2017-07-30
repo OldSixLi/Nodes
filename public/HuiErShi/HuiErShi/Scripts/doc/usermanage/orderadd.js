@@ -1,4 +1,4 @@
-var params = "vipType=&minExpiredAt=&maxExpiredAt=&keyWord="; //全局变量
+var params = ""; //全局变量
 var app = angular.module('myApp', []);
 app.controller('customersCtrl', function($scope, $http) {
   $scope.selected = [];
@@ -29,7 +29,7 @@ app.controller('customersCtrl', function($scope, $http) {
   //分页方法声明
   var pageing = function(pageindex, params) {
       //TODO  需要修改部分http://healthshare.com.cn:80/admin/api/api-docs/../vip?
-      var url = BasicUrl + "vip?" + params + "&page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+      var url = BasicUrl + "vip?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
       $http.get(url).success(function(data) {
         if (data != null && data != "" && data != "null") {
           //判断当前是否存在记录
@@ -49,7 +49,7 @@ app.controller('customersCtrl', function($scope, $http) {
                 pageing($("#currentPage").val() - 1, params);
               });
           } else {
-            tool.alert("提示", "未获取到数据，请重试");
+            // tool.alert("提示", "未获取到数据，请重试");
           }
         }
       });
@@ -58,8 +58,6 @@ app.controller('customersCtrl', function($scope, $http) {
   pageing(0, params);
   //查询按钮
   $scope.search = function() {
-
-
     // alert('a');
     //用户名称
     var username = $("#keyword").val();
@@ -70,17 +68,17 @@ app.controller('customersCtrl', function($scope, $http) {
       tool.alert("提示", "请至少输入一个搜索条件");
       return false;
     }
+
+    params = "";
     var keyword = "";
-    if (username && !phone) {
-      keyword = username;
+    if (username) {
+      params = "realName=" + username + '&';
     }
-    if (!username && phone) {
-      keyword = phone;
+    if (phone) {
+      // keyword = phone;
+      params = "mobile=" + phone + '&';
     }
-    if (username && phone) {
-      keyword = username;
-    }
-    params = "keyWord=" + keyword;
+
     pageing(0, params);
   }
 

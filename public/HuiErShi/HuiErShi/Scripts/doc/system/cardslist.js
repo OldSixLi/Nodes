@@ -149,6 +149,8 @@
 
    //新增
    $scope.save = function() {
+
+
      var saveInfo = {
        //文本框,下拉菜单选择值
        name: $.trim($("#name").val()),

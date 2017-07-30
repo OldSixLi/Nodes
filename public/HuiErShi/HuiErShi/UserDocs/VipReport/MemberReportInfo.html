@@ -2,285 +2,285 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>报告详情</title>
-    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
-    <link href="../../Styles/common.css" rel="stylesheet">
-    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-    <style>
-      .user-icon {
-        max-width: 100px;
-        height: 100px;
-      }
-      
-      .button-file:hover {
-        text-decoration: none;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>报告详情</title>
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
+  <link href="../../Styles/common.css" rel="stylesheet">
+  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+  <style>
+    .user-icon {
+      max-width: 100px;
+      height: 100px;
+    }
+    
+    .button-file:hover {
+      text-decoration: none;
+    }
+  </style>
+</head>
 
-  <body ng-app="myApp" ng-controller="customersCtrl" class="myload">
-    <!-- 面包屑导航 -->
-    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-      <li><a href="javascript:void(0)">会员报告</a></li>
-      <li><a href="MemberReportList.html">报告列表</a></li>
-      <li class="active">{{"会员报告详情"}}</li>
-    </ol>
-    <!--会员详情-->
-    <div class="section">
-      <div class="container">
-        <div class="row">
-          <!-- 消除外边距 -->
-          <div class="col-md-2">
-            <img src='{{data.user.iconUrl==""?"http://usr.im/100x100?text=暂无图片":data.user.iconUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'></div>
-          <div class="col-md-3">
-            <p><b>　　姓名:</b><span><a href="../UserManage/UserInfo.html?id={{data.user.id}}"> {{data.user.vipName}}</a></span></p>
-            <p><b>报告单号:</b><span>{{data.reportNo}}</span></p>
-          </div>
-          <div class="col-md-2">
-            <p><b>性别:</b><span> {{data.user.gender=="M"?"男":"女"}}</span></p>
-            <p><b>日期:</b><span>{{data.createAt|date:"yyyy/MM/dd" }}</span></p>
-          </div>
-          <div class="col-md-2">
-            <p><b>年龄:</b><span>{{data.user.vipEntity.age}}</span></p>
-            <p><b>状态:</b>
-              <span ng-if="data.status=='0'">检查登记</span>
-              <span ng-if="data.status=='1'">专家填写</span>
-              <span ng-if="data.status=='2'">待发布</span>
-              <span ng-if="data.status=='3'">已发布</span></p>
-
-          </div>
-          <div class="col-md-3">
-            <button type="button" class="btn btn-primary pull-right" ng-click="publishReport()" ng-disabled="reportStatus!=2">发布报告</button>
-          </div>
-          <div class="col-md-2"> </div>
-          <div class="col-md-6 ">
-            <p><b>　　验单:</b>
-              <a ng-repeat="x in data.inspections" href="AddCheck.html?id={{x.id}}">{{x.name+" "}}</a>
-              <span>（<a href="AddCheck.html?reportId={{reportId}}&userid={{data.user.id}}">创建验单</a>）</span>
-            </p>
-          </div>
+<body ng-app="myApp" ng-controller="customersCtrl" class="myload">
+  <!-- 面包屑导航 -->
+  <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+    <li><a href="javascript:void(0)">会员报告</a></li>
+    <li><a href="MemberReportList.html">报告列表</a></li>
+    <li class="active">{{"会员报告详情"}}</li>
+  </ol>
+  <!--会员详情-->
+  <div class="section">
+    <div class="container">
+      <div class="row">
+        <!-- 消除外边距 -->
+        <div class="col-md-2">
+          <img src='{{data.user.vipEntity.iconUrl==""?"http://usr.im/100x100?text=暂无图片":data.user.vipEntity.iconUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'></div>
+        <div class="col-md-3">
+          <p><b>　　姓名:</b><span><a href="../UserManage/UserInfo.html?id={{data.user.id}}"> {{data.user.vipName}}</a></span></p>
+          <p><b>报告单号:</b><span>{{data.reportNo}}</span></p>
         </div>
-        <hr>
-        <div class="row">
-          <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+        <div class="col-md-2">
+          <p><b>性别:</b><span> {{data.user.gender=="M"?"男":"女"}}</span></p>
+          <p><b>日期:</b><span>{{data.createAt|date:"yyyy/MM/dd" }}</span></p>
+        </div>
+        <div class="col-md-2">
+          <p><b>年龄:</b><span>{{data.user.vipEntity.age}}</span></p>
+          <p><b>状态:</b>
+            <span ng-if="data.status=='0'">检查登记</span>
+            <span ng-if="data.status=='1'">专家填写</span>
+            <span ng-if="data.status=='2'">待发布</span>
+            <span ng-if="data.status=='3'">已发布</span></p>
+
+        </div>
+        <div class="col-md-3">
+          <button type="button" class="btn btn-primary pull-right" ng-click="publishReport()" ng-disabled="reportStatus!=2">发布报告</button>
+        </div>
+        <div class="col-md-2"> </div>
+        <div class="col-md-6 ">
+          <p><b>　　验单:</b>
+            <a ng-repeat="x in data.inspections" href="AddCheck.html?id={{x.id}}">{{x.name+" "}}</a>
+            <span>（<a href="AddCheck.html?reportId={{reportId}}&userid={{data.user.id}}">创建验单</a>）</span>
+          </p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
               // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
               // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
               // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
-          <!-- 消除外边距 -->
-          <div class="col-md-2"><img src='{{expertData.foodUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.foodUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
+        <!-- 消除外边距 -->
+        <div class="col-md-2"><img src='{{expertData.foodUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.foodUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
+          <br>
+          <span>{{expertData.foodUserName}}</span><br>
+          <button type="button" class="btn btn-primary" ng-click="addConsult('food')" style="margin-top:10px;" ng-disabled="!(experts.foodId>0)">确认提交</button>
+        </div>
+        <div class="col-md-10">
+          <p><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.foodReport,'food')">修改</a>)
             <br>
-            <span>{{expertData.foodUserName}}</span><br>
-            <button type="button" class="btn btn-primary" ng-click="addConsult('food')" style="margin-top:10px;" ng-disabled="!(experts.foodId>0)">确认提交</button>
-          </div>
-          <div class="col-md-10">
-            <p><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.foodReport,'food')">修改</a>)
-              <br>
-              <span>　　</span> <span>{{expertData.foodReport}}
+            <span>　　</span> <span>{{expertData.foodReport}}
              </span>
-            </p>
-            <p><b>专家建议:</b>(<a href="" ng-click="editAdvice(expertData.foodAdvice,'food')">修改</a>)
-              <br>
-              <span>　　</span> <span>{{expertData.foodAdvice}}</span>
-            </p>
-          </div>
-          <div class="col-md-10 col-md-offset-2">
-          </div>
-          <div class="col-md-2">
-            <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.foodId,'food')" style="position:relative;right:-27px;" ng-disabled="!(experts.foodId>0)"> 添加处方</a>
-            <div style="margin-top:35px;">
-              <!--$scope.-->
-              <p ng-repeat="a in expertData.foodModifyTime.split(',')">{{a}}</p>
+          </p>
+          <p><b>专家建议:</b>(<a href="" ng-click="editAdvice(expertData.foodAdvice,'food')">修改</a>)
+            <br>
+            <span>　　</span> <span>{{expertData.foodAdvice}}</span>
+          </p>
+        </div>
+        <div class="col-md-10 col-md-offset-2">
+        </div>
+        <div class="col-md-2">
+          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.foodId,'food')" style="position:relative;right:-27px;" ng-disabled="!(experts.foodId>0)"> 添加处方</a>
+          <div style="margin-top:35px;">
+            <!--$scope.-->
+            <p ng-repeat="a in expertData.foodModifyTime.split(',')">{{a}}</p>
 
-            </div>
-            <!--ng-disabled="experts.foodId<=0"-->
           </div>
-          <div class="col-md-10">
-            <table class="table  table-hover table-bordered">
-              <!-- 表头 -->
-              <thead>
-                <tr>
-                  <th> 处方名称 </th>
-                  <th> 处方类别 </th>
-                  <th> 拼音名 </th>
-                  <th> 操作 </th>
-                </tr>
-              </thead>
-              <tbody id="databody">
-                <tr ng-show="foodChufangArr.length>0" ng-repeat="x in foodChufangArr">
-                  <td>{{ x.name }}</td>
-                  <td>
-                    <span ng-if="x.prescriptionType ==''">处方类别</span>
-                    <span ng-if="x.prescriptionType =='Sport'">运动</span>
-                    <span ng-if="x.prescriptionType =='Nutrition'">营养</span>
-                  </td>
-                  <td>{{ x.spell }}</td>
-                  <td>
-                    <a href="" ng-click="deleteFoodArr(x.id)">删除</a></td>
-                </tr>
-                <tr ng-show="foodChufangArr.length<=0">
-                  <td colspan="100" class="text-center ">暂无结果</td>
-                </tr>
-              </tbody>
-            </table>
+          <!--ng-disabled="experts.foodId<=0"-->
+        </div>
+        <div class="col-md-10">
+          <table class="table  table-hover table-bordered">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <th> 处方名称 </th>
+                <th> 处方类别 </th>
+                <th> 拼音名 </th>
+                <th> 操作 </th>
+              </tr>
+            </thead>
+            <tbody id="databody">
+              <tr ng-show="foodChufangArr.length>0" ng-repeat="x in foodChufangArr">
+                <td>{{ x.name }}</td>
+                <td>
+                  <span ng-if="x.prescriptionType ==''">处方类别</span>
+                  <span ng-if="x.prescriptionType =='Sport'">运动</span>
+                  <span ng-if="x.prescriptionType =='Nutrition'">营养</span>
+                </td>
+                <td>{{ x.spell }}</td>
+                <td>
+                  <a href="" ng-click="deleteFoodArr(x.id)">删除</a></td>
+              </tr>
+              <tr ng-show="foodChufangArr.length<=0">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tr>
+            </tbody>
+          </table>
 
-            <div id="btn-uploader1">
-              <a id="pickfiles1" class="button-file">
-                <button type="button" class="btn btn-primary">上传PDF附件</button>
-              </a> <input type="text" name="foodiconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.foodAttach">
-              <a href="{{expertData.foodAttach}}" id="foodLink" download="fujian.pdf" class="pdf btn btn-link ">下载附件</a>
-            </div>
-          </div>
-          <div class="col-md-10 col-md-offset-2">
+          <div id="btn-uploader1">
+            <a id="pickfiles1" class="button-file">
+              <button type="button" class="btn btn-primary">上传PDF附件</button>
+            </a> <input type="text" name="foodiconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.foodAttach">
+            <a href="{{expertData.foodAttach}}" id="foodLink" download="fujian.pdf" class="pdf btn btn-link ">下载附件</a>
           </div>
         </div>
-        <hr>
-        <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+        <div class="col-md-10 col-md-offset-2">
+        </div>
+      </div>
+      <hr>
+      <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
             // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
             // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
             // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
-        <div class="row">
-          <!-- 消除外边距 -->
-          <div class="col-md-2">
-            <img src='{{expertData.sportUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.sportUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
+      <div class="row">
+        <!-- 消除外边距 -->
+        <div class="col-md-2">
+          <img src='{{expertData.sportUrl==""?"http://usr.im/100x100?text=暂无图片":expertData.sportUrl}}' class='img-responsive img-thumbnail user-icon' alt='自定义'>
+          <br>
+          <span>{{expertData.sportUserName}}</span><br>
+          <button type="button" class="btn btn-primary" ng-click="addConsult('sport')" style="margin-top:10px;" ng-disabled="!(experts.sportId>0)">确认提交</button>
+        </div>
+        <div class="col-md-10">
+          <p id="sportReport"><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.sportReport,'sport')">修改</a>)
             <br>
-            <span>{{expertData.sportUserName}}</span><br>
-            <button type="button" class="btn btn-primary" ng-click="addConsult('sport')" style="margin-top:10px;" ng-disabled="!(experts.sportId>0)">确认提交</button>
-          </div>
-          <div class="col-md-10">
-            <p id="sportReport"><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.sportReport,'sport')">修改</a>)
-              <br>
-              <span>　　</span> <span class="content">{{expertData.sportReport}}
+            <span>　　</span> <span class="content">{{expertData.sportReport}}
              </span>
-            </p>
-            <p id="sportAdvice"><b>专家建议:</b>(<a href="" ng-click="editAdvice(expertData.sportAdvice,'sport')">修改</a>)
-              <br>
-              <span>　　</span> <span class="content">{{expertData.sportAdvice}}</span>
-            </p>
-          </div>
-          <div class="col-md-10 col-md-offset-2">
-          </div>
-          <div class="col-md-2">
-            <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.sportId,'sport')" style="position:relative;right:-27px;" ng-disabled="!(experts.sportId>0)"> 添加处方</a>
-            <div style="margin-top:35px;">
-              <p ng-repeat="a in expertData.sportModifyTime.split(',')">{{a}}</p>
-
-            </div>
-          </div>
-          <div class="col-md-10">
-            <table class="table  table-hover table-bordered">
-              <!-- 表头 -->
-              <thead>
-                <tr>
-                  <th> 处方名称 </th>
-                  <th> 处方类别 </th>
-                  <th> 拼音名 </th>
-                  <th> 操作 </th>
-                </tr>
-              </thead>
-              <tbody id="databody">
-                <tr ng-show="sportChufangArr.length>0" ng-repeat="x in sportChufangArr">
-                  <td>{{ x.name }}</td>
-                  <td>
-                    <span ng-if="x.prescriptionType ==''">处方类别</span>
-                    <span ng-if="x.prescriptionType =='Sport'">运动</span>
-                    <span ng-if="x.prescriptionType =='Nutrition'">营养</span>
-                  </td>
-                  <td>{{ x.spell }}</td>
-                  <td>
-                    <a href="" ng-click="deleteSportArr(x.id)">删除</a></td>
-                </tr>
-                <tr ng-show="sportChufangArr.length<=0">
-                  <td colspan="100" class="text-center ">暂无结果</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div id="btn-uploader">
-              <a id="pickfiles" class="button-file">
-                <button type="button" class="btn btn-primary">上传PDF附件</button>
-              </a> <input type="text" name="sporticonUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.sportAttach">
-              <a href="{{expertData.sportAttach}}" id="sportLink" download="fujian.pdf" class="pdf btn btn-link">下载附件</a>
-            </div>
-          </div>
-          <div class="col-md-10 col-md-offset-2">
+          </p>
+          <p id="sportAdvice"><b>专家建议:</b>(<a href="" ng-click="editAdvice(expertData.sportAdvice,'sport')">修改</a>)
+            <br>
+            <span>　　</span> <span class="content">{{expertData.sportAdvice}}</span>
+          </p>
+        </div>
+        <div class="col-md-10 col-md-offset-2">
+        </div>
+        <div class="col-md-2">
+          <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.sportId,'sport')" style="position:relative;right:-27px;" ng-disabled="!(experts.sportId>0)"> 添加处方</a>
+          <div style="margin-top:35px;">
+            <p ng-repeat="a in expertData.sportModifyTime.split(',')">{{a}}</p>
 
           </div>
         </div>
+        <div class="col-md-10">
+          <table class="table  table-hover table-bordered">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <th> 处方名称 </th>
+                <th> 处方类别 </th>
+                <th> 拼音名 </th>
+                <th> 操作 </th>
+              </tr>
+            </thead>
+            <tbody id="databody">
+              <tr ng-show="sportChufangArr.length>0" ng-repeat="x in sportChufangArr">
+                <td>{{ x.name }}</td>
+                <td>
+                  <span ng-if="x.prescriptionType ==''">处方类别</span>
+                  <span ng-if="x.prescriptionType =='Sport'">运动</span>
+                  <span ng-if="x.prescriptionType =='Nutrition'">营养</span>
+                </td>
+                <td>{{ x.spell }}</td>
+                <td>
+                  <a href="" ng-click="deleteSportArr(x.id)">删除</a></td>
+              </tr>
+              <tr ng-show="sportChufangArr.length<=0">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tr>
+            </tbody>
+          </table>
 
-      </div>
-    </div>
-
-
-    <!--按钮END-->
-    <div class="modal fade bs-example-modal-lg" id="modal">
-      <div class="modal-dialog  modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title text-center">添加处方</h4>
+          <div id="btn-uploader">
+            <a id="pickfiles" class="button-file">
+              <button type="button" class="btn btn-primary">上传PDF附件</button>
+            </a> <input type="text" name="sporticonUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.sportAttach">
+            <a href="{{expertData.sportAttach}}" id="sportLink" download="fujian.pdf" class="pdf btn btn-link">下载附件</a>
           </div>
-          <div class="modal-body">
-            <form class="form-horizontal" role="form">
-              <div class="form-group">
-                <div class="col-sm-2 text-right">
-                  <label for="chufanglist" class="control-label">处方类别</label>
-                </div>
-                <div class="col-sm-3">
-                  <select id="chufangType" class="form-control" style="width:100%;" ng-model="CurrentchufangType">
+        </div>
+        <div class="col-md-10 col-md-offset-2">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!--按钮END-->
+  <div class="modal fade bs-example-modal-lg" id="modal">
+    <div class="modal-dialog  modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title text-center">添加处方</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-horizontal" role="form">
+            <div class="form-group">
+              <div class="col-sm-2 text-right">
+                <label for="chufanglist" class="control-label">处方类别</label>
+              </div>
+              <div class="col-sm-3">
+                <select id="chufangType" class="form-control" style="width:100%;" ng-model="CurrentchufangType">
                     <option value="">所有</option>
                     <option value="Sport">运动处方</option>
                     <option value="Nutrition">营养处方</option>  
                   </select>
-                </div>
-                <div class="col-sm-2 text-right">
-                  <label for="chufanglist" class="control-label">选择处方</label>
-                </div>
-                <div class="col-sm-3">
-                  <select id="chufanglist" class="form-control" style="width:100%;">
+              </div>
+              <div class="col-sm-2 text-right">
+                <label for="chufanglist" class="control-label">选择处方</label>
+              </div>
+              <div class="col-sm-3">
+                <select id="chufanglist" class="form-control" style="width:100%;">
                    <option  value="">请选择</option>
                    <option ng-repeat="x in options" value="{{x.id}}" ng-show="CurrentchufangType==''||x.prescriptionType==CurrentchufangType">{{x.name}}</option>
                 </select>
-                </div>
-                <div class="col-sm-2">
-                  <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
-                </div>
               </div>
-              <div class="form-group">
-                <div class="col-md-12">
-                  <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
-                  <div class="panel panel-default" style="margin-bottom:0;">
-                    <div class="panel-body" style="padding: 0;">
-                      <table class="table table-hover">
-                        <!-- 表头 -->
-                        <thead>
-                          <tr>
-                            <th> 序号 </th>
-                            <th> 处方名 </th>
-                            <th> 处方类别 </th>
-                            <th> 拼音 </th>
-                          </tr>
-                        </thead>
-                        <tbody id="databody">
-                          <tr ng-show="dataLengths" ng-repeat="x in datas.content">
-                            <td>{{ $index+1 }}</td>
-                            <td><a href="#" ng-click=getEditModel(x.id)>{{ x.name }}</a></td>
-                            <td>{{ x.prescriptionType=="Sport"?"运动":"营养" }}</td>
-                            <td>{{ x.spell}}</td>
-                          </tr>
-                          <tr ng-show="!dataLengths">
-                            <td colspan="100" class="text-center ">暂无结果</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+              <div class="col-sm-2">
+                <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-12">
+                <!--// ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆ // ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆-->
+                <div class="panel panel-default" style="margin-bottom:0;">
+                  <div class="panel-body" style="padding: 0;">
+                    <table class="table table-hover">
+                      <!-- 表头 -->
+                      <thead>
+                        <tr>
+                          <th> 序号 </th>
+                          <th> 处方名 </th>
+                          <th> 处方类别 </th>
+                          <th> 拼音 </th>
+                        </tr>
+                      </thead>
+                      <tbody id="databody">
+                        <tr ng-show="dataLengths" ng-repeat="x in datas.content">
+                          <td>{{ $index+1 }}</td>
+                          <td><a href="#" ng-click=getEditModel(x.id)>{{ x.name }}</a></td>
+                          <td>{{ x.prescriptionType=="Sport"?"运动":"营养" }}</td>
+                          <td>{{ x.spell}}</td>
+                        </tr>
+                        <tr ng-show="!dataLengths">
+                          <td colspan="100" class="text-center ">暂无结果</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
-
                 </div>
-                <div ng-show="dataLengths" class="col-md-12">
-                  <!--<div class="form-group pull-right topage_block">
+
+              </div>
+              <div ng-show="dataLengths" class="col-md-12">
+                <!--<div class="form-group pull-right topage_block">
  
                     <label>{{totalRecord}}条/{{totalPage}}页</label>
                     <label>跳至</label>
@@ -288,75 +288,75 @@
                     <label>页</label>
                     <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
                   </div>-->
-                  <!-- 分页控件 -->
-                  <input id="currentPage" name="currentPage" value="1" type="hidden">
-                  <div class="pull-right">
-                    <ul class="pagination" id="alreadyPage"></ul>
-                  </div>
+                <!-- 分页控件 -->
+                <input id="currentPage" name="currentPage" value="1" type="hidden">
+                <div class="pull-right">
+                  <ul class="pagination" id="alreadyPage"></ul>
                 </div>
               </div>
-              <hr>
-              <div ng-show="model.id>0">
+            </div>
+            <hr>
+            <div ng-show="model.id>0">
 
 
-                <input type="hidden" name="id" ng-model="model.id">
-                <form class="form-horizontal " role="form" id="addForm" name="addForm">
-                  <div class="form-group">
-                    <div class="col-sm-2 text-right "><label for="chufangName" class="control-label">处方名称</label></div>
-                    <div class="col-sm-4">
-                      <input type="text" class="form-control" id="chufangName" placeholder="处方名称" ng-model="model.name">
-                    </div>
-                    <div class="col-sm-2 text-right"><label for="spellName" class="control-label">拼音名称</label></div>
-                    <div class="col-sm-4"><input type="text" class="form-control" id="spellName" placeholder="拼音名称" ng-model="model.spell"></div>
+              <input type="hidden" name="id" ng-model="model.id">
+              <form class="form-horizontal " role="form" id="addForm" name="addForm">
+                <div class="form-group">
+                  <div class="col-sm-2 text-right "><label for="chufangName" class="control-label">处方名称</label></div>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control" id="chufangName" placeholder="处方名称" ng-model="model.name">
                   </div>
-                  <div class="form-group">
-                    <div class="col-sm-2 text-right"><label for="spellName" class="control-label">处方类别</label></div>
-                    <div class="col-sm-10">
-                      <select class="form-control" id="chufangTypes" ng-model="model.prescriptionType">
+                  <div class="col-sm-2 text-right"><label for="spellName" class="control-label">拼音名称</label></div>
+                  <div class="col-sm-4"><input type="text" class="form-control" id="spellName" placeholder="拼音名称" ng-model="model.spell"></div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-2 text-right"><label for="spellName" class="control-label">处方类别</label></div>
+                  <div class="col-sm-10">
+                    <select class="form-control" id="chufangTypes" ng-model="model.prescriptionType">
                   <option value="">请选择</option>
                   <option value="Nutrition">营养处方</option>
                   <option value="Sport">运动处方</option>
                 </select>
-                    </div>
                   </div>
+                </div>
 
-                  <div class="form-group">
-                    <div class="col-sm-2 text-right"><label for="spellName" class="control-label">　　内容</label></div>
-                    <div class="col-sm-10">
-                      <textarea rows="5" cols="5" class="form-control" id="chufangContent" placeholder="请输入处方内容" ng-model="model.description"></textarea>
-                    </div>
+                <div class="form-group">
+                  <div class="col-sm-2 text-right"><label for="spellName" class="control-label">　　内容</label></div>
+                  <div class="col-sm-10">
+                    <textarea rows="5" cols="5" class="form-control" id="chufangContent" placeholder="请输入处方内容" ng-model="model.description"></textarea>
                   </div>
-                </form>
-              </div>
-            </form>
-          </div>
+                </div>
+              </form>
+            </div>
+          </form>
+        </div>
 
-          <div class="modal-footer">
-            <!--<a class="btn  btn-primary pull-left" href="PrescriptionList.html?reportId={{reportId}}">添加新处方</a>-->
-            <a class="btn btn-default" data-dismiss="modal">取消</a>
-            <a class="btn btn-primary" ng-click='addChufangObj()'>添加</a>
-          </div>
+        <div class="modal-footer">
+          <!--<a class="btn  btn-primary pull-left" href="PrescriptionList.html?reportId={{reportId}}">添加新处方</a>-->
+          <a class="btn btn-default" data-dismiss="modal">取消</a>
+          <a class="btn btn-primary" ng-click='addChufangObj()'>添加</a>
         </div>
       </div>
     </div>
-    <script>
-    </script>
-    <!--脚本-->
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../../Scripts/select2.js"></script>
-    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
-    <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-    <script type="text/javascript" src="../../Scripts/doc/vipreport/reportinfo.js"></script>
-    <!--自定义脚本部分-->
-    <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
-  </body>
+  </div>
+  <script>
+  </script>
+  <!--脚本-->
+  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <script type="text/javascript" src="../../Scripts/doc/vipreport/reportinfo.js"></script>
+  <!--自定义脚本部分-->
+  <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
+</body>
 
 </html>
 </body>

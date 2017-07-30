@@ -70,8 +70,9 @@
      $http.get(url).success(function(data) {
        if (data != null && data != "" && data != "null") {
          //判断当前是否存在记录
-         $scope.dataLengths = data.content.length > 0;
+
          if (data.content != null && data.content.length > 0) {
+           $scope.dataLengths = data.content.length > 0;
            //赋值操作
            $scope.title = 'gender'; //排序字段
            $scope.desc = 0; //排序方式（默认升序）
@@ -88,8 +89,14 @@
                pageing($("#currentPage").val() - 1, params);
              });
          } else {
+           $scope.dataLengths = 0;
            tool.alert("提示", "该条件下没有相关数据");
          }
+       }
+     }).error(function(data) {
+       if (data.errorMessage) {
+         $scope.dataLengths = 0;
+         tool.alert("提示", data.errorMessage);
        }
      });
    }
@@ -143,6 +150,11 @@
      if (keyWord) {
        params += "keyWord=" + keyWord + "&";
      }
+     if (itemId) {
+       params += "appointmentItemId=" + itemId + "&";
+     }
+
+     //  appointmentItemId
      if (adviserId) {
        params += "adviserId=" + adviserId + "&";
      }
