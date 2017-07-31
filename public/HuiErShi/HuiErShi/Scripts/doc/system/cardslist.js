@@ -99,7 +99,8 @@
                pageing($("#currentPage").val() - 1, params);
              });
          } else {
-           alert("未获取到数据，请重试");
+           $scope.dataLengths = 0;
+           //  alert("未获取到数据，请重试");
          }
        }
      });

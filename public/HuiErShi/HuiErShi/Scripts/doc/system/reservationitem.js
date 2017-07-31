@@ -46,7 +46,8 @@
                  pageing($("#currentPage").val() - 1, params);
                });
            } else {
-             alert("未获取到数据，请重试");
+             //  alert("未获取到数据，请重试");
+             $scope.dataLengths = 0;
            }
          }
        });
@@ -104,15 +105,16 @@
              }
            }).success(function(data, xhr) {
              if (xhr == 200) {
-               if(data.errorMessage){
-tool.alert("提示", data.errorMessage);
-               }else{
+               if (data.errorMessage) {
+                 tool.alert("提示", data.errorMessage);
+               } else {
 
-            
-               tool.alert("提示", "删除成功!", function() {
-                 //刷新当前页面.
-                 window.location.reload();
-               });　   }
+
+                 tool.alert("提示", "删除成功!", function() {
+                   //刷新当前页面.
+                   window.location.reload();
+                 });　
+               }
              } else {
                tool.alert("提示", "删除失败,请重试!");
              }

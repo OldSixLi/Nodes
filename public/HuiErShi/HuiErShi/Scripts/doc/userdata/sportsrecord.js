@@ -171,7 +171,7 @@
            });
          } else {
            $scope.dataLengths = false;
-           tool.alert("提示", "当前条件下未获取到数据");
+           //  tool.alert("提示", "当前条件下未获取到数据");
          }
        }
      }).error(function(data) {

@@ -90,7 +90,7 @@
              });
          } else {
            $scope.dataLengths = 0;
-           tool.alert("提示", "该条件下没有相关数据");
+           //  tool.alert("提示", "该条件下没有相关数据");
          }
        }
      }).error(function(data) {

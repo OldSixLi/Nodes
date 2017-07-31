@@ -23,7 +23,8 @@
              pageing($("#currentPage").val() - 1, params);
            });
          } else {
-           tool.alert("提示", "当前条件下未获取到数据");
+           $scope.dataLengths = 0;
+           //  tool.alert("提示", "当前条件下未获取到数据");
          }
        }
      }).error(function(data) {

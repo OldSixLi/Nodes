@@ -201,6 +201,7 @@
                pageing($("#currentPage").val() - 1, params);
              });
            } else {
+             $scope.dataLengths = 0;
              // tool.alert("提示", "当前条件下未获取到数据");
            }
          }
