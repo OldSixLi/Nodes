@@ -128,6 +128,10 @@
 
 
               }
+            }).error(function(data) {
+              if (data.errorMessage) {
+                tool.alert("提示", data.errorMessage);
+              }
             });
           }
 
