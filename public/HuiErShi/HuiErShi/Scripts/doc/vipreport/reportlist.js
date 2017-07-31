@@ -48,7 +48,7 @@
    var obj = new UrlSearch();
 
    //  项目列表
-   var url = BasicUrl + "item?page=0&pageNum=1000";
+   var url = BasicUrl + "appointmentItems?page=0&pageNum=1000";
    $http.get(url).success(function(data) {
      if (data != null && data != "" && data != "null") {
        $scope.Itemoptions = data.content;

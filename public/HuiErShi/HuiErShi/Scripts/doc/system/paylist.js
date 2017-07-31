@@ -151,6 +151,16 @@
        id: $("#modalCardsList").val(),
        totalFee: $("#cardFee").val()
      }
+     if (data.totalFee == "") {
+       __error.push("请输入金额！");
+     }
+     if (data.totalFee && !/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(saveInfo.totalFee)) {
+       __error.push("请输入正确的金额！");
+     }
+     if (__error.length > 0) {
+       tool.alert("提示", __error.join("<br />"));
+       return false;
+     }
      var url = BasicUrl + "payment";
      $http({
          method: 'POST',
@@ -169,21 +179,18 @@
        })
        .success(function(data, xhr) {
          if (xhr == 200) {
-
            if (data.errorMessage) {
              tool.alert("提示", data.errorMessage);
            } else {
              tool.alert("提示", "添加成功!");　
              window.location.reload();
            }
-
          } else {
            tool.alert("提示", "添加失败,请重试!");
          }
        }).error(function(response) {
          tool.alert("提示", response.errorMessage);
        });
-
    }
 
 

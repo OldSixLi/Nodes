@@ -285,6 +285,11 @@
 
    //合并
    $scope.merge = function() {
+
+     if (!$("#inspectionNo").val()) {
+       tool.alert("提示", "请填写报告单号后再进行合并！");
+       return false;
+     }
      tool.confirm(
        "提示",
        "确认合并报告单？",
@@ -292,10 +297,7 @@
          //用户点击确认按钮时操作
          var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
 
-         if (!$("#inspectionNo").val()) {
-           tool.alert("提示", "请填写报告单号后再进行合并！");
-           return false;
-         }
+
 
 
          $.ajax({
@@ -364,13 +366,13 @@
        }
 
        var __error = [];
-       if (dataInfo.name == "") {
+       if (dataInfo.name == "" || !dataInfo.name) {
          __error.push("请输入验单名称！");
        }
-       if (dataInfo.reportFrom == "") {
+       if (dataInfo.reportFrom == "" || !dataInfo.reportFrom) {
          __error.push("请输入来源名称！");
        }
-       if (dataInfo.checkAt == "") {
+       if (dataInfo.checkAt == "" || !dataInfo.checkAt) {
          __error.push("请输入验单日期！");
        }
        if (__error.length > 0) {

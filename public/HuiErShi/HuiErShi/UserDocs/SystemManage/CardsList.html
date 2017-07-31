@@ -1,228 +1,228 @@
 ﻿<!DOCTYPE html>
 <html>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>卡券列表</title>
-  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/common.css" rel="stylesheet">
-</head>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>卡券列表</title>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/common.css" rel="stylesheet">
+  </head>
 
-<body ng-app="myApp">
-  <!--检索项-->
-  <div ng-controller="customersCtrl" class="container-fluid myload">
-    <!-- 面包屑导航 -->
-    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-      <li><a href="javascript:void(0)">系统管理</a></li>
-      <li class="active">卡券列表</li>
-    </ol>
+  <body ng-app="myApp">
+    <!--检索项-->
+    <div ng-controller="customersCtrl" class="container-fluid myload">
+      <!-- 面包屑导航 -->
+      <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+        <li><a href="javascript:void(0)">系统管理</a></li>
+        <li class="active">卡券列表</li>
+      </ol>
 
-    <div class="text-right col-xs-12" id="search_block">
-      <a data-toggle="modal" href="#modal" class="btn btn-primary" id="btnAddActivity"><i class=" glyphicon glyphicon-plus"></i>&nbsp;创建新卡券</a>
-    </div>
+      <div class="text-right col-xs-12" id="search_block">
+        <a data-toggle="modal" href="#modal" class="btn btn-primary" id="btnAddActivity"><i class=" glyphicon glyphicon-plus"></i>&nbsp;创建新卡券</a>
+      </div>
 
-    <!--按钮END-->
-    <div class="modal fade" id="modal">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title text-center" ng-if="isSave">新增卡券</h4>
-            <h4 class="modal-title text-center" ng-if="!isSave">编辑卡券</h4>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <form name="addForm">
-                <div class="col-lg-9">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-horizontal" role="form">
+      <!--按钮END-->
+      <div class="modal fade" id="modal">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title text-center" ng-if="isSave">新增卡券</h4>
+              <h4 class="modal-title text-center" ng-if="!isSave">编辑卡券</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <form name="addForm">
+                  <div class="col-lg-9">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-horizontal" role="form">
 
-                        <div class="form-group">
-                          <div class="col-md-2 col-sm-4 text-right">
-                            <label for="name" class="control-label">名称</label>
-                          </div>
-                          <div class="col-sm-8 col-md-10">
-                            <input type="text" class="form-control" id="name" name="name" ng-model="model.name" placeholder="请输入卡券名称，请限制15字以内" maxlength="15">
+                          <div class="form-group">
+                            <div class="col-md-2 col-sm-4 text-right">
+                              <label for="name" class="control-label">名称</label>
+                            </div>
+                            <div class="col-sm-8 col-md-10">
+                              <input type="text" class="form-control" id="name" name="name" ng-model="model.name" placeholder="请输入卡券名称，请限制15字以内" maxlength="15">
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-horizontal" role="form">
-                        <div class="form-group">
-                          <div class="col-sm-4 text-right">
-                            <label for="price" class="control-label">价格</label>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-horizontal" role="form">
+                          <div class="form-group">
+                            <div class="col-sm-4 text-right">
+                              <label for="price" class="control-label">价格</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control" id="price" name="price" ng-model="model.price" placeholder="请输入价格（元）">
+                            </div>
                           </div>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" id="price" name="price" ng-model="model.price" placeholder="请输入价格（元）">
+                          <div class="form-group">
+                            <div class="col-sm-4 text-right">
+                              <label for="validityPeriod" class="control-label">有效期</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control" id="validityPeriod" name="validityPeriod" ng-model="model.validityPeriod" placeholder="请输入有效期（月）">
+                            </div>
                           </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="col-sm-4 text-right">
-                            <label for="validityPeriod" class="control-label">有效期</label>
-                          </div>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" id="validityPeriod" name="validityPeriod" ng-model="model.validityPeriod" placeholder="请输入有效期（月）">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="col-sm-4 text-right">
-                            <label for="outpatientCount" class="control-label">门诊</label>
-                          </div>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" id="outpatientCount" name="outpatientCount" ng-model="model.outpatientCount" placeholder="请输入门诊次数（次）">
+                          <div class="form-group">
+                            <div class="col-sm-4 text-right">
+                              <label for="outpatientCount" class="control-label">门诊</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control" id="outpatientCount" name="outpatientCount" ng-model="model.outpatientCount" placeholder="请输入门诊次数（次）">
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-horizontal" role="form">
-                        <div class="form-group">
-                          <div class="col-sm-4 text-right">
-                            <label class="control-label">类型</label>
-                          </div>
-                          <div class="col-sm-8">
-                            <!--0: 无类型，1: : 关爱型-->
-                            <!--<input type="radio" name="cardType" id="cardType" checked ng-model="model.vipType" value="considerate">体验型&nbsp;&nbsp;
+                      <div class="col-md-6">
+                        <div class="form-horizontal" role="form">
+                          <div class="form-group">
+                            <div class="col-sm-4 text-right">
+                              <label class="control-label">类型</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <!--0: 无类型，1: : 关爱型-->
+                              <!--<input type="radio" name="cardType" id="cardType" checked ng-model="model.vipType" value="considerate">体验型&nbsp;&nbsp;
                               <input type="radio" name="cardType" id="cardType" ng-model="model.vipType" value="caring">关爱型&nbsp;&nbsp;-->
 
 
-                            <label class="control-label" style="font-weight:normal;">会员卡</label>
+                              <label class="control-label" style="font-weight:normal;">会员卡</label>
+                            </div>
                           </div>
-                        </div>
-                        <div class="form-group">
-                          <div class="col-sm-4 text-right">
-                            <label for="shortName" class="control-label">缩写</label>
-                          </div>
-                          <div class="col-sm-8">
-                            <input type="text" class="form-control" id="shortName" name="shortName" ng-model="model.shortName" placeholder="缩写">
+                          <div class="form-group">
+                            <div class="col-sm-4 text-right">
+                              <label for="shortName" class="control-label">缩写</label>
+                            </div>
+                            <div class="col-sm-8">
+                              <input type="text" class="form-control" id="shortName" name="shortName" ng-model="model.shortName" placeholder="缩写">
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-horizontal" role="form">
-                        <div class="form-group">
-                          <div class="col-md-2 text-right">
-                            <label for="remark" class="control-label">备注</label>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-horizontal" role="form">
+                          <div class="form-group">
+                            <div class="col-md-2 text-right">
+                              <label for="remark" class="control-label">备注</label>
+                            </div>
+                            <div class="col-sm-10">
+                              <textarea class="form-control" id="remark" name="remark" ng-model="model.remark" placeholder="请输入备注"></textarea>
+                            </div>
                           </div>
-                          <div class="col-sm-10">
-                            <textarea class="form-control" id="remark" name="remark" ng-model="model.remark" placeholder="请输入备注"></textarea>
-                          </div>
+
                         </div>
-
                       </div>
+                    </div>
+
+                    <div class="row" ng-if="model.modifyBy">
+                      <!-- 消除外边距 -->
+                      <div class="col-md-2 text-right"> <label for="remark" class="control-label">最后修改</label></div>
+                      <div class="col-md-10">{{model.modifyBy.name}}　{{model.modifyAt| date:"yyyy/MM/dd HH:mm:ss"}}</div>
                     </div>
                   </div>
 
-                  <div class="row" ng-if="model.modifyBy">
-                    <!-- 消除外边距 -->
-                    <div class="col-md-2 text-right"> <label for="remark" class="control-label">最后修改</label></div>
-                    <div class="col-md-10">{{model.modifyBy.name}}　{{model.modifyAt| date:"yyyy/MM/dd HH:mm:ss"}}</div>
+                  <div class="col-lg-3 text-center img-container" id="btn-uploader">
+
+                    <a id="pickfiles">
+                      <img id="img" src='{{model.imageUrl ==null?"../../images/upload/upload-alert.png":model.imageUrl}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;"></a>
+                    <input type="text" name="iconUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-model="model.imageUrl">
+                    <input type="text" name="id" class="" id="id" style="opacity:0;width:0;height:0;" ng-model="model.id">
+
                   </div>
-                </div>
 
-                <div class="col-lg-3 text-center img-container" id="btn-uploader">
-
-                  <a id="pickfiles">
-                    <img id="img" src='{{model.imageUrl ==null?"../../images/upload/upload-alert.png":model.imageUrl}}' class='img-responsive img-thumbnail' alt='自定义' style="width:100px;height:100px;"></a>
-                  <input type="text" name="iconUrl" class="" id="iconUrl" style="opacity:0;width:0;height:0;" ng-model="model.imageUrl">
-                  <input type="text" name="id" class="" id="id" style="opacity:0;width:0;height:0;" ng-model="model.id">
-
-                </div>
-
-              </form>
+                </form>
+              </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <a class="btn btn-default" data-dismiss="modal">取消</a>
-            <a class="btn btn-primary" ng-click="save()" ng-show="isSave">添加</a>
-            <a class="btn btn-primary" id="btnEdit" ng-click="saveEdit()" ng-show="!isSave">保存修改</a>
+            <div class="modal-footer">
+              <a class="btn btn-default" data-dismiss="modal">取消</a>
+              <a class="btn btn-primary" ng-click="save()" ng-show="isSave">添加</a>
+              <a class="btn btn-primary" id="btnEdit" ng-click="saveEdit()" ng-show="!isSave">保存修改</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- 数据显示 -->
-    <div class="ng-scope tab-content container-fluid">
-      <div class=" fixed-table-container">
-        <table class="table table-hover  ">
-          <!-- 表头 -->
-          <thead>
-            <tr>
-              <th>序号</th>
-              <th>卡券名称</th>
-              <th>有效期</th>
-              <th>价格</th>
-              <th>门诊次数</th>
-              <th>类型</th>
-              <th>备注</th>
-              <th>使用情况</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in data.content">
-              <td>{{ $index+(data.page+1)*data.pageNum-data.pageNum+1}}</td>
-              <td><a href="#" ng-click=getEditModel(x.id)>{{x.name}}</a></td>
-              <td>{{ x.validity_period }}</td>
-              <td>{{ x.price +"元"}}</td>
-              <td>{{ x.outpatient_count }}</td>
-              <td>{{x.vip_type=="considerate"?"体验型":"关爱型"}}</td>
-              <td> {{x.remark}}</td>
-              <td>
-                <a href="IssueDetails.html?id={{x.id}}">{{x.actived_count+'/'+x.total_count}}</a> </td>
-              <td> <a ng-click="deleteItem(x.id)"><span class="glyphicon glyphicon-trash"></span></a></td>
-            </tr>
-            <tr ng-show="!dataLengths">
-              <td colspan="100" class="text-center ">暂无结果</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- 数据显示 -->
+      <div class="ng-scope tab-content container-fluid">
+        <div class=" fixed-table-container">
+          <table class="table table-hover  ">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <th>序号</th>
+                <th>卡券名称</th>
+                <th>有效期</th>
+                <th>价格</th>
+                <th>门诊次数</th>
+                <th>类型</th>
+                <th>备注</th>
+                <th>使用情况</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="databody">
+              <tr ng-show="dataLengths" ng-repeat="x in data.content">
+                <td>{{ $index+(data.page+1)*data.pageNum-data.pageNum+1}}</td>
+                <td><a href="#" ng-click=getEditModel(x.id)>{{x.name}}</a></td>
+                <td>{{ x.validity_period }}</td>
+                <td>{{ x.price +"元"}}</td>
+                <td>{{ x.outpatient_count }}</td>
+                <td>{{x.vip_type=="considerate"?"体验型":"关爱型"}}</td>
+                <td> {{x.remark}}</td>
+                <td>
+                  <a href="IssueDetails.html?id={{x.id}}">{{x.actived_count+'/'+x.total_count}}</a> </td>
+                <td> <a ng-click="deleteItem(x.id)"><span class="glyphicon glyphicon-trash"></span></a></td>
+              </tr>
+              <tr ng-show="!dataLengths">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
 
 
-    <div ng-show="dataLengths">
-      <div class="form-group pull-right topage_block">
-        <label>{{totalRecord}}条/{{totalPage}}页</label>
-        <label>跳至</label>
-        <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
-        <label>页</label>
-        <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+      <div ng-show="dataLengths">
+        <div class="form-group pull-right topage_block">
+          <label>{{totalRecord}}条/{{totalPage}}页</label>
+          <label>跳至</label>
+          <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
+          <label>页</label>
+          <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+        </div>
+        <div class="pull-right">
+          <ul class="pagination" id="alreadyPage"></ul>
+        </div>
       </div>
-      <div class="pull-right">
-        <ul class="pagination" id="alreadyPage"></ul>
-      </div>
+
+
+      <!-- 当前页隐藏域 -->
+      <input id="currentPage" name="currentPage" value="1" type="hidden">
     </div>
+    <!--脚本-->
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
+    <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script type="text/javascript" src="../../Scripts/doc/system/cardslist.js"></script>
+    <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
 
-
-    <!-- 当前页隐藏域 -->
-    <input id="currentPage" name="currentPage" value="1" type="hidden">
-  </div>
-  <!--脚本-->
-  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
-  <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-  <script type="text/javascript" src="../../Scripts/doc/system/cardslist.js"></script>
-  <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
-
-</body>
+  </body>
 
 </html>

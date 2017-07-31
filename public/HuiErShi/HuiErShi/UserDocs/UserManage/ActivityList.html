@@ -92,7 +92,7 @@
                 <td>{{ x.signUpCost }}</td>
                 <td>
                   <span ng-show="{{!x.released}}">待发布</span>
-                  <span ng-show="{{x.released&&x.allowSignUp}}">{{x.currentApplyNumber+"/"+x.maxApplyNumber}}</span>
+                  <span ng-show="{{x.released&&x.allowSignUp}}">{{x.totalSignedNumber+"/"+x.currentApplyNumber}}</span>
                   <!-- 已发布不可报名 -->
                   <span ng-show="{{x.released&&!x.allowSignUp}}"></span>
                 </td>

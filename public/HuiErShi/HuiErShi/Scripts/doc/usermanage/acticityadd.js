@@ -285,6 +285,19 @@
          obj.allowSignUp = false;
          obj.isReleased = true;
        }
+       var startstime = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+       if (startstime < Date.parse(new Date())) {
+         tool.alert("提示", "不能设置已过时的时间！");
+         return false;
+       }
+       if ($scope.vm.entity.lastedTime < 0) {
+         tool.alert("提示", "持续时间不能设置为负数！");
+         return false;
+       }
+       if ($scope.vm.entity.maxApplyNumber < 0) {
+         tool.alert("提示", "活动人数不能设置为负数！");
+         return false;
+       }
        $.ajax({
          type: "post",
          url: 'http://healthshare.com.cn:80/admin/api/activity',
@@ -355,6 +368,21 @@
        if (val == "2") {
          obj.allowSignUp = false;
          obj.isReleased = true;
+       }
+
+
+       var startstime = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+       if (startstime < Date.parse(new Date())) {
+         tool.alert("提示", "不能设置已过时的时间！");
+         return false;
+       }
+       if ($scope.vm.entity.lastedTime < 0) {
+         tool.alert("提示", "持续时间不能设置为负数！");
+         return false;
+       }
+       if ($scope.vm.entity.maxApplyNumber < 0) {
+         tool.alert("提示", "活动人数不能设置为负数！");
+         return false;
        }
        $.ajax({
          type: "PATCH",

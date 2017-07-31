@@ -171,16 +171,29 @@
        __error.push("请输入卡券名称！");
      }
      if (saveInfo.price == "") {
-       __error.push("请输入价格！");
+       __error.push("请输入卡券价格！");
+     }
+     if (saveInfo.price && !/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(saveInfo.price)) {
+       __error.push("请输入正确的卡券价格！");
+
      }
      if (saveInfo.validityPeriod == "") {
        __error.push("请输入有效期！");
      }
+
+     if (saveInfo.validityPeriod && !/^(0|[1-9]\d*)$/.test(saveInfo.validityPeriod)) {
+       __error.push("请输入正确的有效期！");
+     }
+
      if (saveInfo.shortName == "") {
        __error.push("请输入缩写！");
      }
      if (saveInfo.outpatientCount == "") {
        __error.push("请输入门诊次数！");
+     }
+
+     if (saveInfo.outpatientCount && !/^(0|[1-9]\d*)$/.test(saveInfo.outpatientCount)) {
+       __error.push("请输入正确的门诊次数！");
      }
      if (saveInfo.adminNo == "") {
        __error.push("请输入用户名！");

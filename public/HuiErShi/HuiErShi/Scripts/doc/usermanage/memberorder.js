@@ -234,7 +234,7 @@
        // itemId: "",
        adminId: adminId(),
        comment: $("#remark").val().trim(),
-       comfirmAt: minExpiredAt
+       confirmAt: minExpiredAt
      }
 
      var status = $scope.currentStatus == 'unconfirmed'

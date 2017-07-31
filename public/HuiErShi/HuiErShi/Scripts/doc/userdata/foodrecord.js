@@ -82,6 +82,13 @@
          }
        }
      });
+
+     $http.get(BasicUrl + "diary?" + params).success(function(data) {
+       if (data != null && data != "" && data != "null") {
+         $scope.remark = data;
+       }
+     });
+     //  diary?userId=1&date=2017-03-01
    }
 
    var index = 0;

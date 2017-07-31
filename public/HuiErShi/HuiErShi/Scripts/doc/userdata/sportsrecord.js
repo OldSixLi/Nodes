@@ -191,6 +191,12 @@
        $scope.dataLengths = false;
      });
 
+     $http.get(BasicUrl + "diary?" + params).success(function(data) {
+       if (data != null && data != "" && data != "null") {
+         $scope.remark = data;
+       }
+     });
+
    }
 
    $scope.search = function() {
