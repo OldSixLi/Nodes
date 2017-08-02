@@ -212,7 +212,7 @@
           </select>
         </div>
         <div class="col-md-2">
-          <button type="button" class="btn btn-primary" ng-click="viewItemAdd()" ng-disabled="HaveOptions.length>0||(data.status==3&&data.name=='')||data.status==2">多项导入数据视图</button>
+          <button type="button" class="btn btn-primary" ng-click="viewItemAdd()" ng-disabled="HaveOptions.length>0||(data.status==3&&data.name==null)||data.status==2">多项导入数据视图</button>
         </div>
         <!--右边-->
         <div class="col-md-2 text-right">
@@ -226,7 +226,7 @@
           </select>
         </div>
         <div class="col-md-2">
-          <button type="button" class="btn btn-primary" ng-click="getSingleItemDetail()" ng-disabled="data.status==2||(data.status==3&&data.name=='')">单项导入数据视图</button>
+          <button type="button" class="btn btn-primary" ng-click="getSingleItemDetail()" ng-disabled="data.status==2||(data.status==3&&data.name==null)">单项导入数据视图</button>
         </div>
       </div>
       <!--第二层-->

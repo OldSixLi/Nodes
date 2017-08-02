@@ -171,7 +171,7 @@
    $scope.getEditModel = function(id) {
      //获取相关信息
      $scope.orderId = id;
-     $http.get(BasicUrl + "appointment/{id}?id=" + id)
+     $http.get(BasicUrl + "appointment/id?id=" + id)
        .success(function(data) {
          if (data != null && data != "" && data != "null") {
            $scope.models = data;

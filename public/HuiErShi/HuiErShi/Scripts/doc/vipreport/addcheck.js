@@ -301,7 +301,7 @@
 
 
          $.ajax({
-           type: "PATCH",
+           type: "POST",
            url: BasicUrl + 'inspection/merge',
            data: {
              reportId2: $("#inspectionNo").val(),
