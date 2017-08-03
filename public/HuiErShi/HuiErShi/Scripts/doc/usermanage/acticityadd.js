@@ -302,7 +302,7 @@
          type: "post",
          url: 'http://healthshare.com.cn:80/admin/api/activity',
          data: {
-           adminId: 1,
+           adminId: adminId(),
            name: vm.entity.name,
            sponsorName: vm.entity.sponsorName,
            iconUrl: $("#iconUrl").val(),
@@ -389,7 +389,7 @@
          url: BasicUrl + 'activity/' + $scope.activityId,
          data: {
            id: $scope.activityId,
-           adminId: 1,
+           adminId: adminId(),
            name: vm.entity.name,
            sponsorName: vm.entity.sponsorName,
            iconUrl: $("#iconUrl").val(),
