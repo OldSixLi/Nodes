@@ -226,8 +226,14 @@
    $http.get(BasicUrl + "view").success(function(data) {
      if (data != null && data != "" && data != "null") {
        $scope.views = data;
+
+       for (var index = 0; index < data.length; index++) {
+         var element = data[index];
+
+       }
      }
    });
+
    //分页方法
    pageing(0, params);
    $scope.compare = function() {
@@ -239,7 +245,9 @@
        tool.alert("提示", "请选择数据后再进行比较");
      }
    }
-
+   $scope.isInArray = function(val, arr) {
+     return $.inArray(val, arr);
+   }
    $scope.redirectRecord = function(itemId, userId) {
 
      var url = "RecordList.html?itemId=" + itemId + "&userId=" + userId;

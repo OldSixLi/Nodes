@@ -192,8 +192,9 @@
    $http.get(BasicUrl + "item?page=0&pageNum=1000").success(function(data) {
      if (data != null && data != "" && data != "null") {
        $scope.Itemoptions = data.content;
-       tool.changeSelect($("#allItem"), true);
+
      }
+     tool.changeSelect($("#allItem"), true);
    });
    $scope.itemClassItemId = '';
    var checkObj = new UrlSearch();
@@ -627,6 +628,10 @@
    //获取右侧单项数据项目详情
    $scope.getSingleItemDetail = function() {
      var id = $("#allItem").val();
+     if (!id) {
+       tool.alert("提示", "请选择项目");
+       return false;
+     }
      $http.get(BasicUrl + "item/" + id).success(function(data) {
        if (data != null && data != "" && data != "null") {
          //数据不为空
@@ -839,6 +844,7 @@
      }
 
      var dataInfo = {
+       reportId: checkObj.id,
        id: id,
        val: val
      }
