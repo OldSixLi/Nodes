@@ -326,20 +326,19 @@
              tool.alert("提示", data.errorMessage);
            } else {
              tool.alert("提示", "保存成功");
-             window.location.href = "ActivityList.html";
+             window.location.href = "../../../UserDocs/UserManage/ActivityList.html";
            }
            //  }
 
+         },
+         complete: function(xhr, textStatus) {
+           console.log(xhr);
+           if (xhr.status == 200) {
+             tool.alert("提示", "数据保存成功", function() {
+               window.location.href = "../../../UserDocs/UserManage/ActivityList.html";
+             });
+           }
          }
-
-         //   ,
-         //  complete: function(xhr, textStatus) {
-         //    console.log(xhr);
-         //    if (xhr.status == 200) {
-         //      tool.alert("提示", "数据保存成功", function() {});
-         //      
-         //    }
-         //  }
 
        });
 
@@ -412,24 +411,26 @@
              tool.alert("提示", data.errorMessage);
            } else {
              tool.alert("提示", "修改成功");
-             window.location.href = "ActivityList.html";
+             //  ../../../UserDocs/UserManage/ActivityList.html
+             window.location.href = "UserManage/ActivityList.html";
 
            }
          },
          error: function(response) {
-             if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-               tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-             }
+           if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+             tool.alert("提示", JSON.parse(response.responseText).errorMessage);
            }
-           //   ,
-           //  complete: function(xhr, textStatus) {
-           //    console.log(xhr.status);
-           //    if (xhr.status == 200) {
-           //      //  tool.alert("提示", "数据保存成功");
-           //    } else {
-           //      // tool.alert("提示", "操作失败!");
-           //    }
-           //  }
+         },
+         complete: function(xhr, textStatus) {
+           console.log(xhr.status);
+           if (xhr.status == 200) {
+             tool.alert("提示", "数据保存成功", function() {
+               window.location.href = "UserManage/ActivityList.html";
+             });
+           } else {
+             // tool.alert("提示", "操作失败!");
+           }
+         }
 
        });
 

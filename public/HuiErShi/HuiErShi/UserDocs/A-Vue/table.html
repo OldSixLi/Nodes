@@ -195,56 +195,6 @@
        * 
        */
       Vue.component('ht-table', {
-        // template: "<div>" +
-        //   "        <table class=\"table table-hover\">" +
-        //   "          <thead>" +
-        //   "            <tr>" +
-        //   "              <!-- 展示序列号 -->" +
-        //   "              <th v-show=\"!!showindex\">#</th>" +
-        //   "              <!-- 遍历当前的列名，进行展示，同时设置列的style样式 -->" +
-        //   "              <th v-for=\"x in rule\" :width=\"x.width\" :style=\"{textAlign:x.align,width:x.width}\">{{x.name}}</th>" +
-        //   "            </tr>" +
-        //   "          </thead>" +
-        //   "          <tbody>" +
-        //   "            <!-- 搜索结果进行处理 -->" +
-        //   "            <tr v-for=\"(x,index) in valuelist\" v-show=\"!showLoading&&valuelist!=null&&valuelist.length>0\">" +
-        //   "              <td v-show=\"!!showindex\">{{index+1}}</td>" +
-        //   "              <td v-for=\"y in rule\" :style=\"{textAlign:y.align,width:y.width}\">" +
-        //   "                <!--Begin: If当前的参数为多参数，进行多参数处理操作 -->" +
-        //   "                <span v-if=\"y.dataKey.split(\',\').length>1\"> " +
-        //   "                  <!--NOTE 此处的逻辑有点不正常，难描述。" +
-        //   "                    每个td中的params参数，先置为空数组，再往数组中逐个添加当前td中的参数。" +
-        //   "                    目的是防止其他td中多参数与当前td参数拼接到一起 -->" +
-        //   "                <span v-show=\'false\'>{{x.params=[]}}</span>" +
-        //   "                <span v-for=\"singleKey in y.dataKey.split(\',\')\" style=\"display:none;\"> " +
-        //   "                        {{x.params.push(x[singleKey])}}" +
-        //   "                    </span>" +
-        //   "                <span v-html=\"render(x.params,y.filter)\"> </span>" +
-        //   "                </span>" +
-        //   "                <!-- End:结束多参数判断 -->" +
-        //   "                <!-- Else当前的参数为单个参数，直接进行处理 -->" +
-        //   "                <span v-else v-html=\"render(x[y.dataKey],y.filter)\"> </span>" +
-        //   "              </td>" +
-        //   "            </tr>" +
-        //   "            <!-- 当前搜索结果为空时，提示没有搜索结果 -->" +
-        //   "            <tr v-show=\"!showLoading&&(valuelist==null||valuelist.length==0)\">" +
-        //   "              <td colspan=\"100\">" +
-        //   "                <h2 class=\"text-center\" style=\"color:#a78989;\">暂无结果</h2>" +
-        //   "              </td>" +
-        //   "            </tr>" +
-        //   "          </tbody>" +
-        //   "        </table>" +
-        //   "        <!-- 加载动画区域 NOTE: 通过修改样式 .cssload-loader 相关参数可以更改动画-->" +
-        //   "        <div v-show=\"showLoading\" :style=\"loadingHeight\" class=\"relative\">" +
-        //   "          <div class=\"cssload-loader\"></div>" +
-        //   "        </div>" +
-        //   "        <!-- 分页控件模块 -->" +
-        //   "        <div class=\"pull-right page\">" +
-        //   "          <ul class=\"pagination\" v-show=\"valuelist!=null&&valuelist.length>0\"></ul>" +
-        //   "        </div>" +
-        //   "        <!-- 搜索参数 -->" +
-        //   "        <span style=\"display:none;\">{{searchDatas}}</span>" +
-        //   "      </div>",
         template: "#ht-table",
         //获取当前的过滤器并进行处理
         props: {
