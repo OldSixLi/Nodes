@@ -69,13 +69,14 @@
           <div class="form-group col-xs-4 text-left">
             <label class="control-label">当前视图:</label>
             <select class="form-control" id="dataView" style="width:200px;" ng-model="dataView">
+              <option value="">请选择</option>
               <option ng-repeat="x in viewOptions"  value="{{x.id}}" ng-selected="x.id==currentViewId">
            {{x.name}}</option>
               </select>
           </div>
           <div class="form-group col-xs-6">
             <label class="control-label">标签：</label>
- <!-- {{TagsObj}}  -->
+            <!-- {{TagsObj}}  -->
             <select id="sel_menu2" multiple="multiple" class="form-control" style="width: 400px;">
               <option ng-repeat="x in tagOptions"  value="{{x}}" ng-selected="TagsObj[x]">
            {{x+TagsObj[x]}}</option>

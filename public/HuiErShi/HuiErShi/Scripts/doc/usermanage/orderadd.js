@@ -49,8 +49,11 @@ app.controller('customersCtrl', function($scope, $http) {
                 pageing($("#currentPage").val() - 1, params);
               });
           } else {
+            $scope.dataLengths = false;
             // tool.alert("提示", "未获取到数据，请重试");
           }
+        } else {
+          $scope.dataLengths = false;
         }
       });
     }
@@ -72,11 +75,11 @@ app.controller('customersCtrl', function($scope, $http) {
     params = "";
     var keyword = "";
     if (username) {
-      params = "realName=" + username + '&';
+      params += "realName=" + username + '&';
     }
     if (phone) {
       // keyword = phone;
-      params = "mobile=" + phone + '&';
+      params += "mobile=" + phone + '&';
     }
 
     pageing(0, params);

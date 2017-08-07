@@ -120,6 +120,19 @@
    // tool.changeSelect($("#itemId"), false);
    tool.changeSelect($("#from"), false);
 
+   $("#btnStarttime").click(function() {
+     if ($("#txtStartTime")) {
+       $("#txtStartTime").datetimepicker('show');
+     }
+   });
+   $("#btnEndtime").click(function() {
+     if ($("#txtEndTime")) {
+       $("#txtEndTime").datetimepicker('show');
+     }
+   });
+
+
+
    $("#userId").select2({
      placeholder: '请选择',
      allowClear: true,
@@ -235,7 +248,6 @@
              //重新添加数据
              $scope.tabledata.push(singledata.val);
              $scope.timedata.push(getLocalTime(singledata.createAt));
-
            }
 
            //调用生成分页方法
@@ -379,7 +391,49 @@
      }
    };
 
-   //加载完毕后再显示 
+   /**
+    * 时间转化为时间戳
+    * 
+    * @param {any} timestr 
+    * @returns 
+    */
+   function toTimestamp(timestr) {
+     return Date.parse(new Date(timestr)).toString() == "NaN" ? 0 : Date.parse(new Date(timestr));
+   }
+
+   /**
+    * 生成新图片
+    * 
+    * @returns 
+    */
+   $scope.newImage = function() {
+       var imgStartTime = $.trim($("#imageStartTime").val()),
+         imgEndTime = $.trim($("#imageEndTime").val());
+
+       if (!imgStartTime || !imgEndTime) {
+         tool.alert("提示", "请选择起始日期！");
+         return false;
+       }
+       if (toTimestamp(imgStartTime) > toTimestamp(imgEndTime)) {
+         tool.alert("提示", "起始日期不能大于结束日期！");
+         return false;
+       }
+
+       $scope.timedata = [];
+       $scope.tabledata = [];
+       for (var index = 0; index < $scope.data.content.length; index++) {
+         var element = $scope.data.content[index];
+         if (element.createAt >= toTimestamp(imgStartTime) && element.createAt <= toTimestamp(imgEndTime)) {
+           $scope.timedata.push(getLocalTime(element.createAt));
+           $scope.tabledata.push(element.val);
+         }
+       }
+
+       option.xAxis[0].data = $scope.timedata;
+       option.series[0].data = $scope.tabledata;
+       myChart.setOption(option);
+     }
+     //加载完毕后再显示 
    $scope.$watch("viewContentLoaded", function() {
      angular.element(".myload").removeClass("myload");
    });

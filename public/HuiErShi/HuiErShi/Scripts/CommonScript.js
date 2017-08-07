@@ -34,15 +34,12 @@ $(function() {
     $(".start_end_time").datetimepicker();
   }
 
-  $("#btnStarttime").click(function() {
-    if ($("#txtStartTime")) {
-      $("#txtStartTime").datetimepicker('show');
-    }
+  $("#imageStartBtn").click(function() {
+    $("#imageStartTime").datetimepicker('show');
   });
-  $("#btnEndtime").click(function() {
-    if ($("#txtEndTime")) {
-      $("#txtEndTime").datetimepicker('show');
-    }
+
+  $("#imageEndBtn").click(function() {
+    $("#imageEndTime").datetimepicker('show');
   });
   if ($.datetimepicker) {
     $.datetimepicker.setLocale('ch'); //时间选择控件默认设置中文

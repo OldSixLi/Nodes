@@ -135,6 +135,31 @@
       <!--  -->
       <!-- <div class="" style="min-width:800px;"> -->
       <div id="main" ng-show="showTable" style="width:800px;height:400px;margin:50px auto;"></div>
+      <!-- 选择时间 -->
+      <div class="form-inline">
+        <div id="time" ng-show="showTable" style="width:800px;height:50px;margin:10px auto;">
+          <div class="pull-right">
+
+            <div class="input-group timeblock">
+              <input id="imageStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" id="imageStartBtn">
+                          <span class="glyphicon glyphicon-calendar"></span></button>
+              </div>
+            </div>
+            <label class="">至</label>
+            <div class="input-group timeblock">
+              <input id="imageEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" id="imageEndBtn">
+                          <span class="glyphicon glyphicon-calendar"></span></button>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary" ng-click="newImage()">生成</button>
+
+          </div>
+        </div>
+      </div>
       <!-- </div> -->
       <!-- 当前页隐藏域 -->
       <input id="currentPage" name="currentPage" value="1" type="hidden">

@@ -231,6 +231,13 @@
              window.location.reload();
            });
          }
+       },
+       complete: function(xhr) {
+         if (xhr.status == 200 && xhr.responseText == "") {
+           tool.alert("提示", "新增管理员成功", function() {
+             window.location.reload();
+           });
+         }
        }
      });
    }
@@ -270,7 +277,7 @@
        },
        complete: function(xhr, textStatus) {
          console.log(JSON.stringify(xhr));
-         if (xhr.status == 200) {
+         if (xhr.status == 200 && xhr.responseText == "") {
            $('[name="addForm"]')[0].reset();
            $('#modal').modal('hide');
            tool.alert("提示", "修改成功", function() {
