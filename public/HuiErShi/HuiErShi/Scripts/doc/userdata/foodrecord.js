@@ -58,7 +58,12 @@
            $scope.dataLengths = false;
            // alert("未获取到数据，请重试");
          }
+       } else {
+         $scope.dataLengths = false;
+         // alert("未获取到数据，请重试");
        }
+     }).error(function() {
+       $scope.dataLengths = false;
      });
      $http.get(BasicUrl + "dietAnalysis/dailyClassificationOfFoodIntake?" + params).success(function(data) {
        if (data != null && data != "" && data != "null") {
@@ -69,7 +74,11 @@
          } else {
            $scope.fenleidataLengths = false;
          }
+       } else {
+         $scope.fenleidataLengths = false;
        }
+     }).error(function() {
+       $scope.dataLengths = false;
      });
      $http.get(BasicUrl + "dietRecord?" + params).success(function(data) {
        if (data != null && data != "" && data != "null") {
@@ -80,13 +89,19 @@
          } else {
            $scope.foodRecordDataLengths = false;
          }
+       } else {
+         $scope.foodRecordDataLengths = false;
        }
+     }).error(function() {
+       $scope.dataLengths = false;
      });
 
      $http.get(BasicUrl + "diary?" + params).success(function(data) {
        if (data != null && data != "" && data != "null") {
          $scope.remark = data;
        }
+     }).error(function() {
+       $scope.dataLengths = false;
      });
      //  diary?userId=1&date=2017-03-01
    }

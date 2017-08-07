@@ -326,16 +326,16 @@
              tool.alert("提示", data.errorMessage);
            } else {
              tool.alert("提示", "保存成功");
-             window.location.href = "../../../UserDocs/UserManage/ActivityList.html";
+             window.location.href = "UserManage/ActivityList.html";
            }
            //  }
 
          },
          complete: function(xhr, textStatus) {
            console.log(xhr);
-           if (xhr.status == 200) {
+           if (xhr.status == 200 && xhr.responseText == "") {
              tool.alert("提示", "数据保存成功", function() {
-               window.location.href = "../../../UserDocs/UserManage/ActivityList.html";
+               window.location.href = "UserManage/ActivityList.html";
              });
            }
          }
@@ -409,11 +409,6 @@
          success: function(data, textStatus, request) {
            if (data.errorMessage) {
              tool.alert("提示", data.errorMessage);
-           } else {
-             tool.alert("提示", "修改成功");
-             //  ../../../UserDocs/UserManage/ActivityList.html
-             window.location.href = "UserManage/ActivityList.html";
-
            }
          },
          error: function(response) {
@@ -423,13 +418,11 @@
          },
          complete: function(xhr, textStatus) {
            console.log(xhr.status);
-           if (xhr.status == 200) {
+           if (xhr.status == 200 && xhr.responseText == "") {
              tool.alert("提示", "数据保存成功", function() {
                window.location.href = "UserManage/ActivityList.html";
              });
-           } else {
-             // tool.alert("提示", "操作失败!");
-           }
+           } else {}
          }
 
        });

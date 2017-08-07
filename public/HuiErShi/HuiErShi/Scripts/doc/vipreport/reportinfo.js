@@ -737,11 +737,16 @@
              }
            },
            complete: function(xhr, textStatus) {
-             if (xhr.status == 200) {
+             if (xhr.status == 200 && xhr.responseText == "") {
                tool.alert("提示", "删除处方成功", function() {
                  //刷新当前页面.
                  window.location.reload();
                });
+             }
+           },
+           success: function(data) {
+             if (data.errorMessage) {
+               tool.alert("提示", data.errorMessage);
              }
            }
          });
@@ -769,11 +774,16 @@
              }
            },
            complete: function(xhr, textStatus) {
-             if (xhr.status == 200) {
+             if (xhr.status == 200 && xhr.responseText == "") {
                tool.alert("提示", "删除处方成功", function() {
                  //刷新当前页面.
                  window.location.reload();
                });
+             }
+           },
+           success: function(data) {
+             if (data.errorMessage) {
+               tool.alert("提示", data.errorMessage);
              }
            }
          });

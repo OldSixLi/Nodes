@@ -44,7 +44,7 @@
  var app = angular.module('myApp', []);
  app.controller('customersCtrl', function($scope, $http) {
    //分页方法声明 
-   var url = BasicUrl + "admin/advisers";
+   var url = BasicUrl + "admin?role=0,1";
    $http.get(url).success(function(data) {
      if (data != null && data != "" && data != "null") {
        $scope.options = data;

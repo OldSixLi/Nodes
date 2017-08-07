@@ -315,15 +315,21 @@
        var from = $("#from").val();
        var itemId = $("#itemId").val();
 
-       //校验只有一个搜索条件
-       if (!(minExpiredAt || maxExpiredAt || from || itemId)) {
-         tool.alert("提示", "请至少选择一项搜索条件");
-         return false;
-       }
        if (!userId) {
          tool.alert("提示", "请选择会员姓名后再进行查询");
          return false;
        }
+
+       if (!itemId) {
+         tool.alert("提示", "请选择项目后再进行查询");
+         return false;
+       }
+       //校验只有一个搜索条件
+       //  if (!(minExpiredAt || maxExpiredAt || from || itemId)) {
+       //    tool.alert("提示", "请至少选择一项搜索条件");
+       //    return false;
+       //  }
+
        //起止日期校验
        if (!minExpiredAt && !maxExpiredAt) {
          if (minExpiredAt > maxExpiredAt) {
