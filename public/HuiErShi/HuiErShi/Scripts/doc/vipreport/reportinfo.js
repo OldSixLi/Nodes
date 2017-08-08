@@ -591,8 +591,19 @@
              window.location.reload();
            });
          }
+       },
+       complete: function(xhr) {
+         if (xhr.status == '200' && xhr.responseText == "") {
+           tool.alert("提示", "发布成功", function() {
+             //刷新当前页面.
+             window.location.reload();
+           });
+         }
        }
      });
+
+
+
 
    }
 

@@ -209,6 +209,37 @@
          $scope.reason = data.loadFailedReason;
          $scope.HaveOptions = data.itemDataEntities;
 
+         $scope.vipId = data.user.vipEntity.id; //获取当前验单所属会员ID
+
+         //根据此ID去进行请求，获取当前会员对应的会籍顾问的ID
+         //  然后判断ID是否和当前登录的用户的ID是否相同
+         var admindata = getAdmin();
+         if (admindata.role == 1) { //判断当前是否为会籍顾问
+           //获取当前会籍顾问下的会员列表ID
+           $http.get(BasicUrl + "vip/adviser/" + adminId()).success(function(data) {
+             if (data != null && data != "" && data != "null") {
+
+               $scope.MemberOptions = data;
+               var num = 0;
+               for (var index = 0; index < data.length; index++) {
+                 var element = data[index];
+                 if (element.id == $scope.vipId) {
+                   num += 1;
+                 }
+               }
+               if (num > 0) {
+                 //  alert("是他的会员")
+                 $scope.isOwnVipUser = true; //是否拥有此会员
+
+               } else {
+                 //  alert("不是他的会员")
+                 $scope.isOwnVipUser = false; //是否拥有此会员
+                 //  tool.alert("提示", "当前验单所属会员不是您的会员，您没有权限进行操作",);
+
+               }
+             }
+           });
+         }
        } else {
          tool.alert("提示", data.errorMessage);
        }
@@ -241,6 +272,7 @@
 
    //无效
    $scope.notUseClick = function() {
+
      if (!$('input:radio[name="reason"]:checked').val()) {
        tool.alert("提示", "请选择失效原因！");
        return false;

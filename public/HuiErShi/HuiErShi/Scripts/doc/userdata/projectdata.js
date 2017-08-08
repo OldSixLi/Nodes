@@ -235,7 +235,7 @@
    });
 
    //分页方法
-   pageing(0, params);
+   //  pageing(0, params);
    $scope.compare = function() {
 
      if ($scope.selected.length != 0) {

@@ -2,150 +2,150 @@
 <!--当前页面没有接口-->
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>项目数据</title>
-  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-  <!-- 个人维护样式库 -->
-  <link href="../../Styles/common.css" rel="stylesheet">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>项目数据</title>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+    <!-- 个人维护样式库 -->
+    <link href="../../Styles/common.css" rel="stylesheet">
 
-  <style>
-    .form-group .form-control {
-      width: 150px;
-    }
-    
-    .form-control.topage {
-      width: 50px;
-    }
-    
-    .form-group {
-      margin-left: 10px;
-    }
-  </style>
-</head>
+    <style>
+      .form-group .form-control {
+        width: 150px;
+      }
+      
+      .form-control.topage {
+        width: 50px;
+      }
+      
+      .form-group {
+        margin-left: 10px;
+      }
+    </style>
+  </head>
 
-<body ng-app="myApp">
-  <!--检索项-->
-  <div ng-controller="customersCtrl" class="container-fluid myload">
-    <!-- 面包屑导航 -->
-    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-      <li><a href="javascript:void(0)">用户数据</a></li>
-      <li class="active">项目数据</li>
-    </ol>
-    <div class="text-right col-xs-12" id="search_block">
-      <form class="form-inline" role="form">
-        <div class="form-group text-left">
-          <label class="control-label">会员姓名：</label>
-          <select class=" form-control " name="userId" id="userId">
+  <body ng-app="myApp">
+    <!--检索项-->
+    <div ng-controller="customersCtrl" class="container-fluid myload">
+      <!-- 面包屑导航 -->
+      <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+        <li><a href="javascript:void(0)">用户数据</a></li>
+        <li class="active">项目数据</li>
+      </ol>
+      <div class="text-right col-xs-12" id="search_block">
+        <form class="form-inline" role="form">
+          <div class="form-group text-left">
+            <label class="control-label">会员姓名：</label>
+            <select class=" form-control " name="userId" id="userId">
           <option value="">所有</option> 
       </select>
-        </div>
-        <div class="form-group text-left">
-          <label class="">视图标签： </label>
-          <select class=" form-control " name="tag" id="tag" ng-model="currentTag">
+          </div>
+          <div class="form-group text-left">
+            <label class="">视图标签： </label>
+            <select class=" form-control " name="tag" id="tag" ng-model="currentTag">
         <option value="">请选择</option>
         <option ng-repeat="x in tag">{{x}}</option>      
       </select>
-        </div>
-        <div class="form-group text-left">
-          <label class="">数据视图： </label>
-          <select class="form-control" name="viewId" id="viewId">
+          </div>
+          <div class="form-group text-left">
+            <label class="">数据视图： </label>
+            <select class="form-control" name="viewId" id="viewId">
         <option value="">请选择</option>
         <option ng-repeat="x in views" value="{{x.id}}" ng-if="!currentTag||(isInArray(currentTag,x.tags)>-1)">{{x.name}}</option>     
       </select>
-        </div>
-        <div class="form-group text-left">
-          <label class="">来源筛选： </label>
-          <select class=" form-control " name="from" id="from">
+          </div>
+          <div class="form-group text-left">
+            <label class="">来源筛选： </label>
+            <select class=" form-control " name="from" id="from">
         , 、
         <option  value="">所有</option>  
         <option  value="PC">PC</option>  
         <option  value="APP">APP</option>  
       </select>
+          </div>
+          <!-- 搜索按钮 -->
+          <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
+        </form>
+      </div>
+      <!-- 数据显示 -->
+      <div class="ng-scope tab-content container-fluid">
+        <div class=" fixed-table-container">
+          <table class="table table-hover  ">
+            <!-- 表头 -->
+            <thead>
+              <tr>
+                <th> 选择 </th>
+                <th> 序号 </th>
+                <th> 项目名 </th>
+                <th> 参考值 </th>
+                <th> 最后记录 </th>
+                <th> 最后记录时间 / 来源 </th>
+                <th> 记录数量 </th>
+                <th> 关联视图 </th>
+              </tr>
+            </thead>
+            <tbody id="databody">
+              <tr ng-show="dataLengths" ng-repeat="x in data.content">
+                <td><input type="checkbox" name="peojectDataId" checked="{{checked}}" ng-checked="isChecked(x.id)" ng-click="updateSelection($event,x.id)" /></td>
+
+                <td>{{ $index+data.page*data.pageNum+1}}</td>
+                <td>{{ x.itemName}}</td>
+                <td>
+                  <span ng-if="x.itemType=='1'">{{ x.minNum+'~'+x.maxNum}}</span>
+                  <span ng-if="x.itemType=='2'">{{ x.minStr+'~'+x.maxStr}}</span>
+                  <span ng-if="x.itemType=='3'">{{ x.selections}}</span>
+                  <span ng-if="x.itemType=='4'">{{ x.minStr+'~'+x.maxStr}}</span></td>
+                <td>{{x.val}}</td>
+                <td>{{ x.createAt|date:"yyyy-MM-dd HH:mm:ss" +"　/　"+x.fromWhere}}</td>
+                <td>
+                  <a href="javascript:;" ng-click="redirectRecord(x.itemId,userId)">{{x.totalCount}}</a> </td>
+                <td>
+                  <a href="ViewManage.html?viewId={{c.id}}" ng-repeat="c in x.viewSet">{{c.name}}</a> </td>
+              </tr>
+              <tr ng-show="!dataLengths">
+                <td colspan="100" class="text-center ">暂无结果</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <!-- 搜索按钮 -->
-        <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>
-      </form>
-    </div>
-    <!-- 数据显示 -->
-    <div class="ng-scope tab-content container-fluid">
-      <div class=" fixed-table-container">
-        <table class="table table-hover  ">
-          <!-- 表头 -->
-          <thead>
-            <tr>
-              <th> 选择 </th>
-              <th> 序号 </th>
-              <th> 项目名 </th>
-              <th> 参考值 </th>
-              <th> 最后记录 </th>
-              <th> 最后记录时间 / 来源 </th>
-              <th> 记录数量 </th>
-              <th> 关联视图 </th>
-            </tr>
-          </thead>
-          <tbody id="databody">
-            <tr ng-show="dataLengths" ng-repeat="x in data.content">
-              <td><input type="checkbox" name="peojectDataId" checked="{{checked}}" ng-checked="isChecked(x.id)" ng-click="updateSelection($event,x.id)" /></td>
 
-              <td>{{ $index+data.page*data.pageNum+1}}</td>
-              <td>{{ x.itemName}}</td>
-              <td>
-                <span ng-if="x.itemType=='1'">{{ x.minNum+'~'+x.maxNum}}</span>
-                <span ng-if="x.itemType=='2'">{{ x.minStr+'~'+x.maxStr}}</span>
-                <span ng-if="x.itemType=='3'">{{ x.selections}}</span>
-                <span ng-if="x.itemType=='4'">{{ x.minStr+'~'+x.maxStr}}</span></td>
-              <td>{{x.val}}</td>
-              <td>{{ x.createAt|date:"yyyy-MM-dd HH:mm:ss" +"　/　"+x.fromWhere}}</td>
-              <td>
-                <a href="javascript:;" ng-click="redirectRecord(x.itemId,userId)">{{x.totalCount}}</a> </td>
-              <td>
-                <a href="ViewManage.html?viewId={{c.id}}" ng-repeat="c in x.viewSet">{{c.name}}</a> </td>
-            </tr>
-            <tr ng-show="!dataLengths">
-              <td colspan="100" class="text-center ">暂无结果</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
 
-    </div>
-
-    <!--分页控件-->
-    <div ng-show="dataLengths">
-      <div class="topage_block pull-left">
-        {{selected.length+"/10"}}
-        <button type="button" class="btn btn-primary" ng-click="compare()">比较变化情况</button></div>
-      <div class="form-group pull-right topage_block">
-        <!-- 跳转至 -->
-        <label>{{totalRecord}}条/{{totalPage}}页</label>
-        <label>跳至</label>
-        <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
-        <label>页</label>
-        <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+      <!--分页控件-->
+      <div ng-show="dataLengths">
+        <div class="topage_block pull-left">
+          {{selected.length+"/10"}}
+          <button type="button" class="btn btn-primary" ng-click="compare()">比较变化情况</button></div>
+        <div class="form-group pull-right topage_block">
+          <!-- 跳转至 -->
+          <label>{{totalRecord}}条/{{totalPage}}页</label>
+          <label>跳至</label>
+          <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
+          <label>页</label>
+          <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+        </div>
+        <!-- 分页控件 -->
+        <div class="pull-right">
+          <ul class="pagination" id="alreadyPage"></ul>
+        </div>
       </div>
-      <!-- 分页控件 -->
-      <div class="pull-right">
-        <ul class="pagination" id="alreadyPage"></ul>
-      </div>
+      <div id="main" ng-show="showTable" style="width: 800px;height:400px;margin:50px auto;"></div>
+      <!-- 当前页隐藏域 -->
+      <input id="currentPage" name="currentPage" value="1" type="hidden">
     </div>
-    <div id="main" ng-show="showTable" style="width: 800px;height:400px;margin:50px auto;"></div>
-    <!-- 当前页隐藏域 -->
-    <input id="currentPage" name="currentPage" value="1" type="hidden">
-  </div>
-  <!--脚本-->
-  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/angular.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
-  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-  <script type="text/javascript" src="../../Scripts/echarts/echarts.js"></script>
-  <script type="text/javascript" src="../../Scripts/doc/userdata/projectdata.js"></script>
-  <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
-</body>
+    <!--脚本-->
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script type="text/javascript" src="../../Scripts/echarts/echarts.js"></script>
+    <script type="text/javascript" src="../../Scripts/doc/userdata/projectdata.js"></script>
+    <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
+  </body>
 
 </html>
