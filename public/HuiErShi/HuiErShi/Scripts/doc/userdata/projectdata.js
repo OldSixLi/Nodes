@@ -167,7 +167,7 @@
  var params = ""; //全局变量
  var basicUrl = "http://healthshare.com.cn:80/admin/api/"; //统一接口地址
  //  
- var params = "&viewId=&tag=&from=&"; //请求参数变量
+ //  var params = "&viewId=&tag=&from=&"; //请求参数变量
  var app = angular.module('myApp', []);
  var projectObj = new UrlSearch();
 
@@ -206,6 +206,10 @@
            }
          }
        }).error(function(data) {
+         $scope.dataLengths = 0;
+         if (data.errorMessage) {
+           tool.alert("提示", data.errorMessage);
+         }
          //处理响应失败
          // tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
        });
@@ -235,7 +239,7 @@
    });
 
    //分页方法
-   //  pageing(0, params);
+   pageing(0, params);
    $scope.compare = function() {
 
      if ($scope.selected.length != 0) {

@@ -45,14 +45,70 @@
       <div class="panel panel-default">
         <div class="panel-heading">表格复用组件示例</div>
         <!--外部组件-->
-        <ht-table :ajaxurl="ajaxurl" :search-data="searchData" :showindex='true'>
+        <ht-table :ajaxurl="ajaxurl" :search-data="searchData">
           <!--内部组件-->
-          <column slot name="名称" data-key="id,userName" width="15%" filter="getName"></column>
-          <column slot name="性别" data-key="gender" align="center" width="20%" filter="toGender"></column>
-          <column slot name="时间" data-key="createAt" align="center" width="20%" filter="toNormalTime"></column>
-          <column slot name="头像" data-key="iconUrl" align="center" width="20%" filter="toImg"></column>
-          <column slot name="编辑" data-key="id,userName,gender" align="center" width="20%" filter="testMultiParams"></column>
+          <column slot name="名称" data-key="id,userName"></column>
+          <column slot name="性别" data-key="gender"></column>
+          <column slot name="时间" data-key="createAt"></column>
+          <column slot name="头像" data-key="iconUrl"></column>
+          <column slot name="编辑" data-key="id,userName,gender" align="center" width="25%" filter="TODO"></column>
         </ht-table>
+        <script>
+          /**
+           * 当前对象为将参数转化为Html的方法集合
+           * @returns
+           */
+          var HtmlFun = {
+            /**
+             * 转化为图片代码
+             * @returns
+             */
+            toImg: function(value) {
+              return "<img src='" + value + "'/>";
+            },
+
+            /**
+             * 时间戳转化为正常时间 
+             * @param {any} shijianchuo  时间戳 精确到毫秒
+             * @returns 正常时间
+             */
+            toNormalTime: function(shijianchuo) {
+              var time = new Date(parseInt(shijianchuo));
+              var y = time.getFullYear();
+              var m = time.getMonth() + 1;
+              var d = time.getDate();
+              var h = time.getHours();
+              var mm = time.getMinutes();
+              var s = time.getSeconds();
+              return y + '-' + this.add0(m) + '-' + this.add0(d) + ' ' + this.add0(h) + ':' + this.add0(mm) + ':' + this.add0(s);
+            },
+            toGender: function(value) {
+              return value == "M" ? "男" : "女";
+            }
+          }
+
+          var TODO = new Vue({
+            el: "#TODO",
+            //数据部分
+            data: {
+              ajaxurl: "TODO",
+              searchData: {
+                currentPage: 0
+              }
+            },
+
+            //方法
+            methods: {
+              toSearch: function() {
+                //NOTE 此处调用时必须声明page的参数
+                this.searchData = {
+                  currentPage: 0
+                };
+
+              }
+            }
+          });
+        </script>
       </div>
 
     </div>
