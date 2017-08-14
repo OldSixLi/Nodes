@@ -6,9 +6,11 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='shortcut icon' href='https://raw.githubusercontent.com/OldSixLi/ListPage/master/public/images/my.ico' />
     <title> 标题</title>
-    <link href='http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css' rel='stylesheet'>
+    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="../../Styles/common.css" rel="stylesheet">
   </head>
 
   <body>
@@ -22,17 +24,33 @@
               <a href="../SystemManage/AdminSetting.html">列表页面</a>
             </h2>
           </div>
-          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <select id="select" multiple="multiple" class="form-control" placeholder="请选择审核人员">
+              <option value="1" selected>花粥</option><option value="2">陈粒</option><option value="3">王建芳</option>
+            </select>
+          </div>
         </div>
       </div>
       <div class="col-md-2"></div>
     </div>
     <!-- 脚本 -->
-    <!-- <script src='http://cdn.bootcss.com/angular.js/1.4.1/angular.js'></script> -->
-    <!-- <script src='https://cdn.bootcss.com/vue/2.3.3/vue.js'></script> -->
-    <script src='http://cdn.bootcss.com/jquery/1.9.1/jquery.min.js'></script>
-    <script src='http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/angular.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="../../Styles/jquery-confirm/jquery-confirm.min.js"></script>
+    <script type="text/javascript" src="../../Scripts/select2.js"></script>
+    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+    <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
+    <script>
+      $(document).ready(function() {
 
+        $("#select").select2({
+          placeholder: "请选择审核人员",
+        });
+      });
+    </script>
   </body>
 
 </html>

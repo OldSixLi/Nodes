@@ -55,49 +55,47 @@
      type: 'value',
    }],
    series: [{
-       name: '最大值',
-       type: 'line',
-       data: [],
-       //  data: [",", "10", "10", "10", "10", "1", "3.6", "60,100", "60,100", "10"],
+     name: '最大值',
+     type: 'line',
+     //  data: [],
+     data: ["10", "10", "10", "10", "1", "3.6", "15"],
 
-       markPoint: {
-         data: [{
-           type: 'max',
-           name: '最大值'
-         }, {
-           type: 'min',
-           name: '最小值'
-         }]
-       },
-       markLine: {
-         data: [{
-           type: 'average',
-           name: '平均值'
-         }]
-       }
+     markPoint: {
+       data: [{
+         type: 'max',
+         name: '最大值'
+       }, {
+         type: 'min',
+         name: '最小值'
+       }]
+     },
+     markLine: {
+       data: [{
+         type: 'average',
+         name: '平均值'
+       }]
      }
-     // , {
-     // name: '最大值',
-     // type: 'line',
-     // data: [132, 132, 112, 11, 122, 11, 19],
+   }, {
+     name: '最大值',
+     type: 'line',
+     data: [132, 132, 112, 11, 122, 11, 19],
 
-     // markPoint: {
-     //   data: [{
-     //     type: 'max',
-     //     name: '最大值'
-     //   }, {
-     //     type: 'min',
-     //     name: '最小值'
-     //   }]
-     // },
-     // markLine: {
-     //   data: [{
-     //     type: 'average',
-     //     name: '平均值'
-     //   }]
-     // }
-     // }
-   ]
+     markPoint: {
+       data: [{
+         type: 'max',
+         name: '最大值'
+       }, {
+         type: 'min',
+         name: '最小值'
+       }]
+     },
+     markLine: {
+       data: [{
+         type: 'average',
+         name: '平均值'
+       }]
+     }
+   }]
  };
 
  myChart.setOption(option);
@@ -246,7 +244,13 @@
            for (var i = 0; i < data.content.length; i++) {
              var singledata = data.content[i];
              //重新添加数据
-             $scope.tabledata.push(singledata.val);
+             if (singledata.val.split(',').length > 0) {
+               $scope.tabledata.push(singledata.val.split(',')[0]);
+               $scope.tabledata2.push(singledata.val.split(',')[0]);
+             } else {
+               $scope.tabledata.push(singledata.val);
+             }
+
              $scope.timedata.push(getLocalTime(singledata.createAt));
            }
 
@@ -376,6 +380,7 @@
      //显示折线图
      option.xAxis[0].data = $scope.timedata;
      option.series[0].data = $scope.tabledata;
+     option.series[1].data = $scope.tabledata2;
      myChart.setOption(option);
 
    }
