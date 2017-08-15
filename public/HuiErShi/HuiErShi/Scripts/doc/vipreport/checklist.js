@@ -53,6 +53,7 @@
    });
 
    var pageing = function(pageindex, params) {
+
      var url = BasicUrl + "inspection?" + params + "page=" + pageindex + "&pageNum=10";
      $http.get(url).success(function(data) {
        if (data != null && data != "" && data != "null") {

@@ -241,23 +241,7 @@
            arrayData.sort(function(a, b) {
              return a.createAt > b.createAt;
            })
-           for (var i = 0; i < data.content.length; i++) {
-             var singledata = data.content[i];
-             //重新添加数据
-             if (singledata.val.split(',').length > 0) {
-               $scope.tabledata.push(singledata.val.split(',')[0]);
-               $scope.tabledata2.push(singledata.val.split(',')[0]);
-             } else {
-               $scope.tabledata.push(singledata.val);
-             }
 
-             $scope.timedata.push(getLocalTime(singledata.createAt));
-           }
-
-           //调用生成分页方法
-           //  initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
-           //    pageing($("#currentPage").val() - 1, params);
-           //  });
 
 
            //调用生成分页方法
@@ -377,6 +361,22 @@
 
    $scope.compare = function() {
      $scope.showTable = !$scope.showTable;
+     $scope.tabledata = [];
+     $scope.tabledata2 = [];
+
+     for (var i = 0; i < $scope.data.content.length; i++) {
+       var singledata = $scope.data.content[i];
+       //重新添加数据
+       if (singledata.val.split(',').length > 0) {
+         $scope.tabledata.push(singledata.val.split(',')[0]);
+         $scope.tabledata2.push(singledata.val.split(',')[1]);
+       } else {
+         $scope.tabledata.push(singledata.val);
+       }
+
+       $scope.timedata.push(getLocalTime(singledata.createAt));
+     }
+
      //显示折线图
      option.xAxis[0].data = $scope.timedata;
      option.series[0].data = $scope.tabledata;
