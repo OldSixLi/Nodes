@@ -55,7 +55,7 @@
      type: 'value',
    }],
    series: [{
-     name: '最大值',
+     name: '数值',
      type: 'line',
      //  data: [],
      data: ["10", "10", "10", "10", "1", "3.6", "15"],
@@ -243,7 +243,26 @@
            })
 
 
+           $scope.tabledata = [];
+           $scope.tabledata2 = [];
+           $scope.timedata = [];
+           for (var i = 0; i < $scope.data.content.length; i++) {
+             var singledata = $scope.data.content[i];
+             //重新添加数据
+             if (singledata.val.split(',').length > 0) {
+               $scope.tabledata.push(singledata.val.split(',')[0]);
+               $scope.tabledata2.push(singledata.val.split(',')[1]);
+             } else {
+               $scope.tabledata.push(singledata.val);
+             }
+             $scope.timedata.push(getLocalTime(singledata.createAt));
+           }
 
+           //显示折线图
+           option.xAxis[0].data = $scope.timedata;
+           option.series[0].data = $scope.tabledata;
+           option.series[1].data = $scope.tabledata2;
+           myChart.setOption(option);
            //调用生成分页方法
            initPageDiv($("#alreadyPage"), //在哪里生成页码
              pageindex + 1, //当前页
@@ -359,11 +378,12 @@
      pageing($scope.toPageValue - 1, params);
    }
 
+
    $scope.compare = function() {
      $scope.showTable = !$scope.showTable;
      $scope.tabledata = [];
      $scope.tabledata2 = [];
-
+     $scope.timedata = [];
      for (var i = 0; i < $scope.data.content.length; i++) {
        var singledata = $scope.data.content[i];
        //重新添加数据
@@ -373,7 +393,6 @@
        } else {
          $scope.tabledata.push(singledata.val);
        }
-
        $scope.timedata.push(getLocalTime(singledata.createAt));
      }
 
@@ -384,6 +403,7 @@
      myChart.setOption(option);
 
    }
+
 
    $scope.selected = [];
    $scope.isChecked = function(x) {

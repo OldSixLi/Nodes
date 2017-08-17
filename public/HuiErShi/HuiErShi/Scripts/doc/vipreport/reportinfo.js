@@ -342,7 +342,6 @@
 
      tool.confirm("请修改内容", htmlstr, function() {
        var vals = window.top.$("#editReport").val();
-       // $scope.data.consults.analysis = vals;
        $scope.expertData[type + 'Report'] = vals;
        $scope.$apply();
      }, function() {})
