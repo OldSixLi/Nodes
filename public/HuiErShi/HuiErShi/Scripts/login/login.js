@@ -63,25 +63,8 @@
           if (xhr == 200) {
             if (data.errorMessage) {
               $scope.errors = data.errorMessage;
-
-              // alert(data.errorMessage);
-
-              // $.alert({
-              //   title: "提示",
-              //   content: data.errorMessage,
-              //   confirmButton: '确定',
-              //   backgroundDismiss: false,
-              //   confirmButtonClass: 'btn-success',
-              //   animation: 'zoom',
-              //   closeAnimation: 'scale',
-              //   columnClass: 'offset4 col-md-4 col-md-offset-4'
-              // });
               $(":submit").attr("disabled", false);
             } else {
-
-              //   "userId": 36,
-              //   "token": "0737947964606487390279591774052233608530431821039044416448665402"
-
               //成功操作
               id = data.userId;
               token = data.token;
@@ -107,17 +90,14 @@
                   }
                 }).error(function(response) {
                   $scope.errors = response.errorMessage;
-
                 });
               // TODO  保存COOKIE
               vm.errorMessage = "";
               $scope.vm.data = {};
             }
-
           }
         }).error(function(response) {
           $scope.errors = response.errorMessage;
-
         });
     };
 
