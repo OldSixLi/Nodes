@@ -62,7 +62,20 @@
         .success(function(data, xhr) {
           if (xhr == 200) {
             if (data.errorMessage) {
-              alert(data.errorMessage);
+              $scope.errors = data.errorMessage;
+
+              // alert(data.errorMessage);
+
+              // $.alert({
+              //   title: "提示",
+              //   content: data.errorMessage,
+              //   confirmButton: '确定',
+              //   backgroundDismiss: false,
+              //   confirmButtonClass: 'btn-success',
+              //   animation: 'zoom',
+              //   closeAnimation: 'scale',
+              //   columnClass: 'offset4 col-md-4 col-md-offset-4'
+              // });
               $(":submit").attr("disabled", false);
             } else {
 
@@ -93,7 +106,8 @@
                     // window.location.href = "SlideHtml.html?hesid=" + id;
                   }
                 }).error(function(response) {
-                  alert(response.errorMessage);
+                  $scope.errors = response.errorMessage;
+
                 });
               // TODO  保存COOKIE
               vm.errorMessage = "";
@@ -102,10 +116,18 @@
 
           }
         }).error(function(response) {
-          alert(response.errorMessage);
+          $scope.errors = response.errorMessage;
+
         });
     };
 
+
+    $scope.$watch('vm.data.username', function(newVal, oldVal) {
+      $scope.errors = "";
+    }, true);
+    $scope.$watch('vm.data.password', function(newVal, oldVal) {
+      $scope.errors = "";
+    }, true);
     //加载完毕后执行
     $scope.$watch("$viewContentLoaded", function() {
       angular.element(".myload").removeClass("myload");

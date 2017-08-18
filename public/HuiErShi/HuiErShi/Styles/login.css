@@ -104,3 +104,18 @@ button {
 .myload {
     display: none;
 }
+
+.col-md-offset-4 {
+    margin-left: 33.33333333%;
+}
+
+.col-lg-4 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-lg-4 {
+    width: 33.33333333%;
+}

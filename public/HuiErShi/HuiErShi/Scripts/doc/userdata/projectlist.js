@@ -2,7 +2,6 @@
    //TODO 获取全部视图的数据 
    tool.changeSelect($("#sltViewList"), true);
 
-
    function formatState(state) {
      if (!state.id) {
        return state.text;

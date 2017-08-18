@@ -160,7 +160,7 @@
        },
        complete: function(xhr, textStatus) {
          console.log(xhr.status);
-         if (xhr.status == 200 && !data.errorMessage) {
+         if (xhr.status == 200) {
            $('[name="addForm"]')[0].reset();
            $('#modal').modal('hide')
            tool.alert("提示", "新增项目成功", function() {

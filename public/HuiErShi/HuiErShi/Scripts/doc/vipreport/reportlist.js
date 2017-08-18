@@ -134,7 +134,8 @@
 
      //起止日期校验
      if (minExpiredAt != 0 && maxExpiredAt != 0 && minExpiredAt > maxExpiredAt) {
-       alert("报告日期中结束时间不得早于起始时间");
+       tool.alert("提示", "报告日期中结束时间不得早于起始时间");
+
        return false;
      }
      params = ""
@@ -161,7 +162,12 @@
      pageing(0, params);
    }
 
-
+   $scope.ItemClick = function(id) {
+     $("#sltTag").val(id);
+     tool.changeSelect($("#sltTag"), true);
+     params = "appointmentItemId=" + id + "&";
+     pageing(0, params);
+   }
 
    //跳转至某页方法
    $scope.skip = function() {
