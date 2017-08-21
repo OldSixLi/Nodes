@@ -93,6 +93,7 @@
    window.app = app;
    app.config(["w5cValidatorProvider", function(w5cValidatorProvider) {
      // 全局配置
+
      w5cValidatorProvider.config({
        blurTrig: true,
        showError: true,
@@ -151,6 +152,7 @@
          iconUrl: ""
        }
      };
+     $scope.isPreview = false;
      var urlObj = new UrlSearch();
      //判断当前为修改页面还是新增页面
 
@@ -166,7 +168,7 @@
            // vm.entity.startAt
            vm.entity.startAt = vm.entity.startAt;
            $scope.dataLengths = vm.entity.members.length;
-
+           $scope.imgurl = vm.entity.iconUrl;
            // $scope.vm.entity.signByUser = data.signByUser;
 
            // if (data.signByUser) {
@@ -346,86 +348,109 @@
 
      //修改按钮操作
      vm.editInfo = function() {
-       console.log("表单开始提交");
-       var val = vm.entity.isReleased;
-       var obj = {
-         allowSignUp: false, //是否允许报名，允许则客户端可报名
-         isReleased: false, //是否发布， 发布则客户端可见
-         signByUser: false //是否允许用户自主签到
-       };
+         console.log("表单开始提交");
+         var val = vm.entity.isReleased;
+         var obj = {
+           allowSignUp: false, //是否允许报名，允许则客户端可报名
+           isReleased: false, //是否发布， 发布则客户端可见
+           signByUser: false //是否允许用户自主签到
+         };
 
-       obj.signByUser = vm.entity.signByUser;
-       // 待发布(用户不可见)
-       if (val == "0") {
-         obj.allowSignUp = false;
-         obj.isReleased = false;
-       }
-       if (val == "1") {
-         obj.allowSignUp = true;
-         obj.isReleased = true;
-       }
-       if (val == "2") {
-         obj.allowSignUp = false;
-         obj.isReleased = true;
-       }
-
-
-       var startstime = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
-       if (startstime < Date.parse(new Date())) {
-         tool.alert("提示", "不能设置已过时的时间！");
-         return false;
-       }
-       if ($scope.vm.entity.lastedTime < 0) {
-         tool.alert("提示", "持续时间不能设置为负数！");
-         return false;
-       }
-       if ($scope.vm.entity.maxApplyNumber < 0) {
-         tool.alert("提示", "活动人数不能设置为负数！");
-         return false;
-       }
-       $.ajax({
-         type: "PATCH",
-         url: BasicUrl + 'activity/' + $scope.activityId,
-         data: {
-           id: $scope.activityId,
-           adminId: adminId(),
-           name: vm.entity.name,
-           sponsorName: vm.entity.sponsorName,
-           iconUrl: $("#iconUrl").val(),
-           coordinate: $("#coordinate").val(),
-           announcement: vm.entity.announcement,
-           startAt: Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val())),
-           lasted: vm.entity.lastedTime,
-           signUpCost: vm.entity.signUpCost,
-           maxApplyNumber: vm.entity.maxApplyNumber,
-           description: vm.entity.description,
-           location: vm.entity.location,
-           allowSignUp: obj.allowSignUp, //允许报名
-           isReleased: obj.isReleased, //可见
-           signByUser: obj.signByUser //自助
-         },
-
-         dataType: "json",
-         success: function(data, textStatus, request) {
-           if (data.errorMessage) {
-             tool.alert("提示", data.errorMessage);
-           }
-         },
-         error: function(response) {
-           if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-             tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-           }
-         },
-         complete: function(xhr, textStatus) {
-           console.log(xhr.status);
-           if (xhr.status == 200 && xhr.responseText == "") {
-             tool.alert("提示", "数据保存成功", function() {
-               window.location.href = "UserManage/ActivityList.html";
-             });
-           } else {}
+         obj.signByUser = vm.entity.signByUser;
+         // 待发布(用户不可见)
+         if (val == "0") {
+           obj.allowSignUp = false;
+           obj.isReleased = false;
+         }
+         if (val == "1") {
+           obj.allowSignUp = true;
+           obj.isReleased = true;
+         }
+         if (val == "2") {
+           obj.allowSignUp = false;
+           obj.isReleased = true;
          }
 
-       });
+
+         var startstime = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+         if (startstime < Date.parse(new Date())) {
+           tool.alert("提示", "不能设置已过时的时间！");
+           return false;
+         }
+         if ($scope.vm.entity.lastedTime < 0) {
+           tool.alert("提示", "持续时间不能设置为负数！");
+           return false;
+         }
+         if ($scope.vm.entity.maxApplyNumber < 0) {
+           tool.alert("提示", "活动人数不能设置为负数！");
+           return false;
+         }
+         $.ajax({
+           type: "PATCH",
+           url: BasicUrl + 'activity/' + $scope.activityId,
+           data: {
+             id: $scope.activityId,
+             adminId: adminId(),
+             name: vm.entity.name,
+             sponsorName: vm.entity.sponsorName,
+             iconUrl: $("#iconUrl").val(),
+             coordinate: $("#coordinate").val(),
+             announcement: vm.entity.announcement,
+             startAt: Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val())),
+             lasted: vm.entity.lastedTime,
+             signUpCost: vm.entity.signUpCost,
+             maxApplyNumber: vm.entity.maxApplyNumber,
+             description: vm.entity.description,
+             location: vm.entity.location,
+             allowSignUp: obj.allowSignUp, //允许报名
+             isReleased: obj.isReleased, //可见
+             signByUser: obj.signByUser //自助
+           },
+
+           dataType: "json",
+           success: function(data, textStatus, request) {
+             if (data.errorMessage) {
+               tool.alert("提示", data.errorMessage);
+             }
+           },
+           error: function(response) {
+             if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+               tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+             }
+           },
+           complete: function(xhr, textStatus) {
+             console.log(xhr.status);
+             if (xhr.status == 200 && xhr.responseText == "") {
+               tool.alert("提示", "数据保存成功", function() {
+                 window.location.href = "UserManage/ActivityList.html";
+               });
+             } else {}
+           }
+
+         });
+
+       }
+       //  　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+       //  　　◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆　　　　　　◆◆　　　◆◆◆　　　　　　　
+       //  　　　　　　　◆◆◆　　　◆◆◆　　　　　　　◆◆◆◆◆◆◆　　◆◆◆　　　　　　　
+       //  　　　　◆　◆◆◆　　　　◆◆◆　　　　　　　◆◆◆　◆◆◆　◆◆◆◆◆◆◆◆◆　　
+       //  　　　　◆◆◆◆　　　　　◆◆　　　　　　　　◆◆◆　◆◆◆　◆◆◆◆　　　　　　　
+       //  　　　　　◆◆◆　　◆◆◆◆◆◆◆◆◆◆　　　◆◆◆　◆◆◆　◆◆◆◆◆◆　　　　　
+       //  　　　　　◆◆◆　　◆◆◆　　　　◆◆　　　　◆◆◆　◆◆◆◆◆　　　◆◆◆　　　　
+       //  　◆◆◆◆◆◆◆◆◆◆◆◆　◆◆　◆◆　　　　　　　　◆◆◆◆　　　　　◆◆　　　　
+       //  　　　　　◆◆◆◆◆◆◆◆　◆◆◆◆◆　　　　　　◆◆◆◆◆◆◆◆◆◆◆◆◆　　　　
+       //  　　　　　◆◆◆◆◆◆◆◆　◆◆　◆◆　　　　　　◆◆◆　　　　　　　◆◆　　　　　
+       //  　　　　　◆◆◆◆　◆◆◆　◆◆　◆◆　　　　　　◆◆◆　　◆◆　　　◆◆　　　　　
+       //  　　　　　◆◆◆　　◆◆◆　◆◆　◆◆　　　　　　◆◆◆　◆◆◆◆　　◆◆　　　　　
+       //  　　　　　◆◆◆　　◆◆◆◆◆◆　◆◆◆　　　　　◆◆◆　◆◆◆◆　　◆◆　　　　　
+       //  　　　　　◆◆◆　　◆◆◆◆◆◆　◆◆◆　　　　　◆◆◆　◆◆◆◆◆　◆◆　　　　　
+       //  　　　　　◆◆◆　　◆◆　◆◆◆◆　　　　　　　　◆◆　　◆◆◆◆　　　　　◆◆　　
+       //  　　　　　◆◆◆　　　　◆◆◆　◆◆◆　　　　　　　　　◆◆◆◆◆　　　　　◆◆　　
+       //  　　　◆　◆◆◆　　　　◆◆　　　◆◆◆　　　　　　　◆◆◆　◆◆　　　　　◆◆　　
+       //  　　　◆◆◆◆　　　◆◆◆　　　　　◆◆◆　　　　◆◆◆◆　　◆◆◆◆◆◆◆◆◆◆　
+       //  　　　　◆◆　　◆◆◆　　　　　　　◆◆　　◆◆◆◆◆　　　　　　　　　　　　　　　
+       //预览
+     vm.show = function() {
 
      }
 
@@ -499,9 +524,30 @@
 
      }
 
+     //  　　◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆　　　　　　◆◆　　　◆◆◆　　　　　　　
+     //  　　　　　　　◆◆◆　　　◆◆◆　　　　　　　◆◆◆◆◆◆◆　　◆◆◆　　　　　　　
+     //  　　　　◆　◆◆◆　　　　◆◆◆　　　　　　　◆◆◆　◆◆◆　◆◆◆◆◆◆◆◆◆　　
+     //  　　　　◆◆◆◆　　　　　◆◆　　　　　　　　◆◆◆　◆◆◆　◆◆◆◆　　　　　　　
+     //  　　　　　◆◆◆　　◆◆◆◆◆◆◆◆◆◆　　　◆◆◆　◆◆◆　◆◆◆◆◆◆　　　　　
+     //  　　　　　◆◆◆　　◆◆◆　　　　◆◆　　　　◆◆◆　◆◆◆◆◆　　　◆◆◆　　　　
+     //  　◆◆◆◆◆◆◆◆◆◆◆◆　◆◆　◆◆　　　　　　　　◆◆◆◆　　　　　◆◆　　　　
+     //  　　　　　◆◆◆◆◆◆◆◆　◆◆◆◆◆　　　　　　◆◆◆◆◆◆◆◆◆◆◆◆◆　　　　
+     //  　　　　　◆◆◆◆◆◆◆◆　◆◆　◆◆　　　　　　◆◆◆　　　　　　　◆◆　　　　　
+     //  　　　　　◆◆◆◆　◆◆◆　◆◆　◆◆　　　　　　◆◆◆　　◆◆　　　◆◆　　　　　
+     //  　　　　　◆◆◆　　◆◆◆　◆◆　◆◆　　　　　　◆◆◆　◆◆◆◆　　◆◆　　　　　
+     //  　　　　　◆◆◆　　◆◆◆◆◆◆　◆◆◆　　　　　◆◆◆　◆◆◆◆　　◆◆　　　　　
+     //  　　　　　◆◆◆　　◆◆◆◆◆◆　◆◆◆　　　　　◆◆◆　◆◆◆◆◆　◆◆　　　　　
+     //  　　　　　◆◆◆　　◆◆　◆◆◆◆　　　　　　　　◆◆　　◆◆◆◆　　　　　◆◆　　
+     //  　　　　　◆◆◆　　　　◆◆◆　◆◆◆　　　　　　　　　◆◆◆◆◆　　　　　◆◆　　
+     //  　　　◆　◆◆◆　　　　◆◆　　　◆◆◆　　　　　　　◆◆◆　◆◆　　　　　◆◆　　
+     //  　　　◆◆◆◆　　　◆◆◆　　　　　◆◆◆　　　　◆◆◆◆　　◆◆◆◆◆◆◆◆◆◆　
+     //  　　　　◆◆　　◆◆◆　　　　　　　◆◆　　◆◆◆◆◆　　　　　　　　　　　　　　　
      //TODO 扫码预览
      vm.show = function() {
-
+       $scope.isPreview = true;
+       $scope.imgurl = $("#iconUrl").val(); //图片
+       //  $scope.imgurl = $("#iconUrl").val(); //图片
+       //  txtStartTime
      }
 
      //取消报名

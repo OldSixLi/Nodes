@@ -42,6 +42,8 @@
  // keyWord=&adviserId=&minCreatedAt=&maxCreatedAt=
  var params = ""; //全局变量  请求的参数
  var app = angular.module('myApp', []);
+ var adminData = getAdmin();
+ var currentRole = adminData.role;
  app.controller('customersCtrl', function($scope, $http) {
    //分页方法声明 
    var url = BasicUrl + "admin?role=0,1";
@@ -53,8 +55,13 @@
    });
 
    var pageing = function(pageindex, params) {
+     if (currentRole == "1") {
+       var url = BasicUrl + "inspection?" + params + 'adviserId=' + adminId() + "&page=" + pageindex + "&pageNum=10";
+     } else {
+       var url = BasicUrl + "inspection?" + params + "page=" + pageindex + "&pageNum=10";
+     }
 
-     var url = BasicUrl + "inspection?" + params + "page=" + pageindex + "&pageNum=10";
+     //  var url = BasicUrl + "inspection?" + params + "page=" + pageindex + "&pageNum=10";
      $http.get(url).success(function(data) {
        if (data != null && data != "" && data != "null") {
          //判断当前是否存在记录
@@ -110,8 +117,15 @@
      if (keyWord) {
        params += 'keyWord=' + keyWord + '&';
      }
+
      if (adviserId) {
-       params += 'adviserId=' + adviserId + '&';
+
+       if (currentRole == "1") {
+         params += 'adviserId=' + adminId() + '&';
+       } else {
+         params += 'adviserId=' + adviserId + '&';
+       }
+
      }
      if (type) {
        params += 'type=' + type + '&';
