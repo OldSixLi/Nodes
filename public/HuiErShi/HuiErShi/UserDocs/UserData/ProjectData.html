@@ -88,7 +88,8 @@
             </thead>
             <tbody id="databody">
               <tr ng-show="dataLengths" ng-repeat="x in data.content">
-                <td><input type="checkbox" name="peojectDataId" checked="{{checked}}" ng-checked="isChecked(x.id)" ng-click="updateSelection($event,x.id)" /></td>
+                <td>
+                  <input type="checkbox" name="peojectDataId" checked="{{checked}}" ng-checked="isChecked(x.itemId)" ng-click="updateSelection($event,x.itemId)" /></td>
 
                 <td>{{ $index+data.page*data.pageNum+1}}</td>
                 <td>{{ x.itemName}}</td>
@@ -102,13 +103,17 @@
                 <td>
                   <a href="javascript:;" ng-click="redirectRecord(x.itemId,userId)">{{x.totalCount}}</a> </td>
                 <td>
-                  <a href="ViewManage.html?viewId={{c.id}}" ng-repeat="c in x.viewSet">{{c.name}}</a> </td>
+                  <a href="javascript:;" ng-repeat="c in x.viewSet" ng-click="viewNameClick(c.id)">{{c.name}}</a>
+                  <!-- <a ng-repeat="v in x.views" href-="javascript:;" ng-click="viewClick(v.id)">{{ v.name }}</a> -->
+
+                </td>
               </tr>
               <tr ng-show="!dataLengths">
                 <td colspan="100" class="text-center ">暂无结果</td>
               </tr>
             </tbody>
           </table>
+          {{selected}}
         </div>
 
       </div>
@@ -132,6 +137,33 @@
         </div>
       </div>
       <div id="main" ng-show="showTable" style="width: 800px;height:400px;margin:50px auto;"></div>
+
+
+      <div class="form-inline">
+
+        <div id="time" ng-show="showTable" style="width:800px;height:50px;margin:10px auto;">
+          <div class="pull-right">
+
+            <div class="input-group timeblock">
+              <input id="imageStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" id="imageStartBtn">
+                          <span class="glyphicon glyphicon-calendar"></span></button>
+              </div>
+            </div>
+            <label class="">至</label>
+            <div class="input-group timeblock">
+              <input id="imageEndTime" name="maxExpiredAt" class="start_end_time form-control" placeholder="截止时间">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" id="imageEndBtn">
+                          <span class="glyphicon glyphicon-calendar"></span></button>
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary" ng-click="newImage()">生成</button>
+
+          </div>
+        </div>
+      </div>
       <!-- 当前页隐藏域 -->
       <input id="currentPage" name="currentPage" value="1" type="hidden">
     </div>

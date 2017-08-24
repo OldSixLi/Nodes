@@ -5,7 +5,10 @@
  * @version 1.0
  */
 //将form表单内容序列化为JSON
-var BasicUrl = "http://healthshare.com.cn:80/admin/api/";
+// var BasicUrl = "http://healthshare.com.cn:80/admin/api/";
+
+var BasicUrl = "http://114.55.67.92:8080/admin/api/";
+
 (function($) {
   $.fn.serializeJson = function() {
     var serializeObj = {};

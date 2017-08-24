@@ -186,7 +186,7 @@
      //如果存在项目ID
      projectObj.id = 'DBZ';
      if (projectObj.id) {
-       var url = basicUrl + "dataView?" + params + "page=" + pageindex + "&pageNum=10"; //请求地址
+       var url = BasicUrl + "dataView?" + params + "page=" + pageindex + "&pageNum=10"; //请求地址
        $http.get(url).success(function(data) {
          if (data != null && data != "" && data != "null") {
            $scope.dataLengths = data.content.length > 0; //判断当前是否存在记录
@@ -244,6 +244,57 @@
 
      if ($scope.selected.length != 0) {
        $scope.showTable = true;
+
+       //进行请求操作
+
+
+       var valueList = [];
+
+       for (var index = 0; index < $scope.selected.length; index++) {
+         var element = $scope.selected[index];
+         //获取当前项目ID
+         //  {
+         //    name: '最大值',
+         //    type: 'line',
+         //    data: [11, 11, 15, 13, 12, 13, 10],
+         //    markPoint: {
+         //      data: [{
+         //        type: 'max',
+         //        name: '最大值'
+         //      }, {
+         //        type: 'min',
+         //        name: '最小值'
+         //      }]
+         //    },
+         //    markLine: {
+         //      data: [{
+         //        type: 'average',
+         //        name: '平均值'
+         //      }]
+         //    }
+         //  }
+         valueList.push({
+           name: '最大值',
+           type: 'line',
+           data: [11, 11, 15, 13, 12, 13, 10],
+           markPoint: {
+             data: [{
+               type: 'max',
+               name: '最大值'
+             }, {
+               type: 'min',
+               name: '最小值'
+             }]
+           },
+           markLine: {
+             data: [{
+               type: 'average',
+               name: '平均值'
+             }]
+           }
+         })
+       } //hu 
+
      } else {
        $scope.showTable = false;
        tool.alert("提示", "请选择数据后再进行比较");
@@ -256,6 +307,24 @@
 
      var url = "RecordList.html?itemId=" + itemId + "&userId=" + userId;
      window.location.href = url;
+   }
+
+
+   $scope.viewNameClick = function(id) {
+     $("#viewId").val(id);
+     tool.changeSelect($("#viewId"), false);
+     $("#tag").val('');
+     var viewId = id;
+     var userId = $("#userId").val();
+     params = "";
+
+     if (userId) {
+       params = "userId=" + userId + "&";
+     }
+     if (viewId) {
+       params += "viewId=" + viewId + "&";
+     }
+     pageing(0, params);
    }
 
    //查询按钮
