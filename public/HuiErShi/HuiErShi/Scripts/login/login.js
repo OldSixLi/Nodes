@@ -85,8 +85,8 @@
                     setCookie('token', token);
                     setCookie('adminId', id);
                     //TODO 部署时此处需要修改
-                    window.location.href = "HuiErShi.html?hesid=" + id;
-                    // window.location.href = "SlideHtml.html?hesid=" + id;
+                    // window.location.href = "HuiErShi.html?hesid=" + id;
+                    window.location.href = "SlideHtml.html?hesid=" + id;
                   }
                 }).error(function(response) {
                   $scope.errors = response.errorMessage;
