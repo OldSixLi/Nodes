@@ -202,7 +202,7 @@
              });
            } else {
              $scope.dataLengths = 0;
-             // tool.alert("提示", "当前条件下未获取到数据");
+
            }
          }
        }).error(function(data) {
@@ -210,13 +210,10 @@
          if (data.errorMessage) {
            tool.alert("提示", data.errorMessage);
          }
-         //处理响应失败
-         // tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+
        });
        //视图标签赋值
      } else {
-       //不存在项目ID
-       // window.history.back(-1);
        tool.alert("提示", "当前项目数据参数错误!");
      }
    }
@@ -242,41 +239,20 @@
    //  pageing(0, params);
    $scope.compare = function() {
 
+     var userId = $scope.userId; //获取当前用户的ID
+
      if ($scope.selected.length != 0) {
        $scope.showTable = true;
 
        //进行请求操作
-
-
        var valueList = [];
-
+       var AllObj = {};
+       var AllList = [];
        for (var index = 0; index < $scope.selected.length; index++) {
-         var element = $scope.selected[index];
-         //获取当前项目ID
-         //  {
-         //    name: '最大值',
-         //    type: 'line',
-         //    data: [11, 11, 15, 13, 12, 13, 10],
-         //    markPoint: {
-         //      data: [{
-         //        type: 'max',
-         //        name: '最大值'
-         //      }, {
-         //        type: 'min',
-         //        name: '最小值'
-         //      }]
-         //    },
-         //    markLine: {
-         //      data: [{
-         //        type: 'average',
-         //        name: '平均值'
-         //      }]
-         //    }
-         //  }
-         valueList.push({
-           name: '最大值',
+         var obj = {
+           name: "",
            type: 'line',
-           data: [11, 11, 15, 13, 12, 13, 10],
+           data: [],
            markPoint: {
              data: [{
                type: 'max',
@@ -285,30 +261,158 @@
                type: 'min',
                name: '最小值'
              }]
-           },
-           markLine: {
-             data: [{
-               type: 'average',
-               name: '平均值'
-             }]
            }
-         })
-       } //hu 
+         }
+         var element = $scope.selected[index];
+         var url = BasicUrl + "data?itemId=" + element + "&userId=" + userId + "&page=0&pageNum=1000";
 
+         $.ajax({
+           type: "GET",
+           url: url,
+           dataType: "json",
+           async: false, //设置为同步操作
+           success: function(data) {
+
+             if (data && data.content && data.content.length > 0) {
+               var singleData = []; //单条数据
+               obj.name = data.content[0].item.name; //当前名称
+
+               for (var m = 0; m < data.content.length; m++) {
+                 var elements = data.content[m];
+                 //添加进数组中
+                 if (!AllObj[elements.createAt]) {
+                   AllObj[elements.createAt] = "0"
+                 }
+
+                 var littleObj = {};
+                 littleObj.createAt = elements.createAt;
+                 littleObj.val = elements.val;
+                 obj.data.push(littleObj);
+
+                 elements.val = 0;
+                 elements.id = 0;
+                 elements.fromWhere = "";
+                 elements.item.itemId = "";
+                 elements.item.name = "";
+               }
+               //获取到了所有时间段
+               //  $.extend(true, AllObj, singleData);
+             }
+           }
+         });
+
+         valueList.push(obj);
+       }
+
+       console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
+       console.log(JSON.stringify(valueList));
+       console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
+       //FOR 循环结束
+       for (var a = 0; a < valueList.length; a++) {
+         var aelement = valueList[a];
+         var newObj = cloneObj(AllObj);
+         for (var b = 0; b < aelement.data.length; b++) {
+           var belement = aelement.data[b];
+           //获取当前时间
+           //  if ()
+           if (newObj[belement.createAt]) {
+             newObj[belement.createAt] == "data";
+           }
+         }
+         //数据判断结束
+         jQuery.each(newObj, function(i, val) {
+           if (val != "data") {
+             //如果不存在此数据
+             aelement.data.push({ createAt: i, val: "0" });
+           }
+         });
+
+       }
+
+       console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
+       console.log(JSON.stringify(valueList));
+       console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
+
+
+
+
+
+       //  var newvalueList = [];
+
+       //  for (var p = 0; p < valueList.length; p++) {
+       //    newvalueList.push(newobj);
+       //    //  var line = valueList[p];
+       //    //  var result = $.extend(false, {}, line, newobj);
+       //    //  valueList[p] = result;
+       //  }
+
+       //  var LASTLIST = [];
+       //  for (var z = 0; z < valueList.length; z++) {
+       //    var loop = valueList[z];
+       //    //  var newloop = newvalueList[z];
+
+       //    var newloop = cloneObj(newobj);
+       //    var resultss = $.extend(true, newloop, loop);
+       //    console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
+       //    console.log(JSON.stringify(resultss));
+       //    console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
+
+       //    LASTLIST.push(cloneObj(resultss));
+       //  }
+
+
+       console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
+       console.log(JSON.stringify(valueList));
+       console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
      } else {
        $scope.showTable = false;
        tool.alert("提示", "请选择数据后再进行比较");
      }
    }
+
+
+
+   /**
+    * 生成新图片
+    * 
+    * @returns 
+    */
+   $scope.newImage = function() {
+     var imgStartTime = $.trim($("#imageStartTime").val()),
+       imgEndTime = $.trim($("#imageEndTime").val());
+
+     if (!imgStartTime || !imgEndTime) {
+       tool.alert("提示", "请选择起始日期！");
+       return false;
+     }
+     if (toTimestamp(imgStartTime) > toTimestamp(imgEndTime)) {
+       tool.alert("提示", "起始日期不能大于结束日期！");
+       return false;
+     }
+
+     $scope.timedata = [];
+     $scope.tabledata = [];
+     for (var index = 0; index < $scope.data.content.length; index++) {
+       var element = $scope.data.content[index];
+       if (element.createAt >= toTimestamp(imgStartTime) && element.createAt <= toTimestamp(imgEndTime)) {
+         $scope.timedata.push(getLocalTime(element.createAt));
+         $scope.tabledata.push(element.val);
+       }
+     }
+
+     option.xAxis[0].data = $scope.timedata;
+     option.series[0].data = $scope.tabledata;
+     myChart.setOption(option);
+   }
+
    $scope.isInArray = function(val, arr) {
      return $.inArray(val, arr);
    }
-   $scope.redirectRecord = function(itemId, userId) {
 
+   $scope.redirectRecord = function(itemId, userId) {
      var url = "RecordList.html?itemId=" + itemId + "&userId=" + userId;
      window.location.href = url;
    }
-
 
    $scope.viewNameClick = function(id) {
      $("#viewId").val(id);
@@ -329,46 +433,48 @@
 
    //查询按钮
    $scope.search = function() {
-       //TODO  需要修改部分
-       //起始时间时间戳
-       // var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
-       // //结束时间时间戳
-       // var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
-       //用户id
-       var userId = $("#userId").val();
-       $scope.userId = userId;
-       //视图id
-       var viewId = $("#viewId").val();
-       // 视图标签id
-       var tag = $("#tag").val();
-       // 来源筛选
-       var from = $("#from").val();
-       //校验只有一个搜索条件
-       if (!(userId || viewId || tag || from)) {
-         tool.alert("提示", "请至少输入一个搜索条件");
-         return false;
-       }
-
-       if (!userId) {
-         tool.alert("提示", "请选择会员姓名后再进行查询");
-         return false;
-       }
-       params = "";
-       if (userId) {
-         params = "userId=" + userId + "&";
-       }
-       if (viewId) {
-         params += "viewId=" + viewId + "&";
-       }
-       if (tag) {
-         params += "tag=" + tag + "&";
-       }
-       if (from) {
-         params += "from=" + from + "&";
-       }
-       pageing(0, params);
+     //TODO  需要修改部分
+     //起始时间时间戳
+     // var minExpiredAt = Date.parse(new Date($("#txtStartTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtStartTime").val()));
+     // //结束时间时间戳
+     // var maxExpiredAt = Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#txtEndTime").val()));
+     //用户id
+     var userId = $("#userId").val();
+     $scope.userId = userId;
+     //视图id
+     var viewId = $("#viewId").val();
+     // 视图标签id
+     var tag = $("#tag").val();
+     // 来源筛选
+     var from = $("#from").val();
+     //校验只有一个搜索条件
+     if (!(userId || viewId || tag || from)) {
+       tool.alert("提示", "请至少输入一个搜索条件");
+       return false;
      }
-     //跳转至某页方法
+
+     if (!userId) {
+       tool.alert("提示", "请选择会员姓名后再进行查询");
+       return false;
+     }
+     params = "";
+     if (userId) {
+       params = "userId=" + userId + "&";
+     }
+     if (viewId) {
+       params += "viewId=" + viewId + "&";
+     }
+     if (tag) {
+       params += "tag=" + tag + "&";
+     }
+     if (from) {
+       params += "from=" + from + "&";
+     }
+     pageing(0, params);
+   }
+
+
+   //跳转至某页方法
    $scope.skip = function() {
      if ($scope.toPageValue <= 1) {
        $scope.toPageValue = 1;
@@ -377,10 +483,12 @@
      }
      pageing($scope.toPageValue, params);
    }
+
    $scope.selected = [];
    $scope.isChecked = function(x) {
      return $scope.selected.indexOf(x) >= 0;
    };
+
    $scope.updateSelection = function($event, x) {
      var checkbox = $event.target;
      var checked = checkbox.checked;
@@ -399,3 +507,22 @@
      angular.element(".myload").removeClass("myload");
    });
  });
+
+
+
+
+
+ function cloneObj(obj) {
+   var str, newobj = obj.constructor === Array ? [] : {};
+   if (typeof obj !== 'object') {
+     return;
+   } else if (window.JSON) {
+     str = JSON.stringify(obj), //序列化对象
+       newobj = JSON.parse(str); //还原
+   } else { //如果不支持以上方法
+     for (var i in obj) {
+       newobj[i] = typeof obj[i] === 'object' ? cloneObj(obj[i]) : obj[i];
+     }
+   }
+   return newobj;
+ };

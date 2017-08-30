@@ -438,33 +438,34 @@
     * @returns 
     */
    $scope.newImage = function() {
-       var imgStartTime = $.trim($("#imageStartTime").val()),
-         imgEndTime = $.trim($("#imageEndTime").val());
+     var imgStartTime = $.trim($("#imageStartTime").val()),
+       imgEndTime = $.trim($("#imageEndTime").val());
 
-       if (!imgStartTime || !imgEndTime) {
-         tool.alert("提示", "请选择起始日期！");
-         return false;
-       }
-       if (toTimestamp(imgStartTime) > toTimestamp(imgEndTime)) {
-         tool.alert("提示", "起始日期不能大于结束日期！");
-         return false;
-       }
-
-       $scope.timedata = [];
-       $scope.tabledata = [];
-       for (var index = 0; index < $scope.data.content.length; index++) {
-         var element = $scope.data.content[index];
-         if (element.createAt >= toTimestamp(imgStartTime) && element.createAt <= toTimestamp(imgEndTime)) {
-           $scope.timedata.push(getLocalTime(element.createAt));
-           $scope.tabledata.push(element.val);
-         }
-       }
-
-       option.xAxis[0].data = $scope.timedata;
-       option.series[0].data = $scope.tabledata;
-       myChart.setOption(option);
+     if (!imgStartTime || !imgEndTime) {
+       tool.alert("提示", "请选择起始日期！");
+       return false;
      }
-     //加载完毕后再显示 
+     if (toTimestamp(imgStartTime) > toTimestamp(imgEndTime)) {
+       tool.alert("提示", "起始日期不能大于结束日期！");
+       return false;
+     }
+
+     $scope.timedata = [];
+     $scope.tabledata = [];
+     for (var index = 0; index < $scope.data.content.length; index++) {
+       var element = $scope.data.content[index];
+       if (element.createAt >= toTimestamp(imgStartTime) && element.createAt <= toTimestamp(imgEndTime)) {
+         $scope.timedata.push(getLocalTime(element.createAt));
+         $scope.tabledata.push(element.val);
+       }
+     }
+
+     option.xAxis[0].data = $scope.timedata;
+     option.series[0].data = $scope.tabledata;
+     myChart.setOption(option);
+   }
+
+   //加载完毕后再显示 
    $scope.$watch("viewContentLoaded", function() {
      angular.element(".myload").removeClass("myload");
    });
