@@ -203,7 +203,6 @@
                if (!$scope.ItemObject[singleData.itemId]) {
                  $scope.ItemObject[singleData.itemId] = singleData.itemName; //将数组进行遍历  项目名和项目ID对应
                }
-
              }
              //赋值操作
              $scope.data = data;
@@ -244,7 +243,6 @@
 
        for (var index = 0; index < data.length; index++) {
          var element = data[index];
-
        }
      }
    });
@@ -392,18 +390,6 @@
      $scope.end = imgEndTime;
      $scope.currentSelected = cloneObj($scope.littleSelected)
      $scope.getNewImage();
-     //  $scope.timedata = [];
-     //  $scope.tabledata = [];
-
-
-     //  for (var index = 0; index < $scope.data.content.length; index++) {
-     //    var element = $scope.data.content[index];
-     //    if (element.createAt >= toTimestamp(imgStartTime) && element.createAt <= toTimestamp(imgEndTime)) {
-     //      $scope.timedata.push(getLocalTime(element.createAt));
-     //      $scope.tabledata.push(element.val);
-     //    }
-     //  }
-
    }
 
    $scope.isInArray = function(val, arr) {
@@ -485,39 +471,35 @@
      pageing($scope.toPageValue, params);
    }
 
+   // 用户选择的十个项目
    $scope.selected = [];
    $scope.isChecked = function(x) {
      return $scope.selected.indexOf(x) >= 0;
    };
-
    $scope.updateSelection = function($event, x) {
      var checkbox = $event.target;
      var checked = checkbox.checked;
      if (checked) {
        $scope.selected.push(x);
-       console.log($scope.selected.join(','));
      } else {
        var idx = $scope.selected.indexOf(x);
        $scope.selected.splice(idx, 1);
-       console.log($scope.selected.join(','));
      }
    };
 
+   // 关于下方选择框的选择值
    $scope.littleSelected = [];
    $scope.islittleChecked = function(x) {
      return $scope.littleSelected.indexOf(x) >= 0;
    };
-
    $scope.updatelittleSelection = function($event, x) {
      var checkbox = $event.target;
      var checked = checkbox.checked;
      if (checked) {
        $scope.littleselected.push(x);
-       console.log($scope.littleSelected.join(','));
      } else {
        var idx = $scope.littleSelected.indexOf(x);
        $scope.littleSelected.splice(idx, 1);
-       console.log($scope.littleSelected.join(','));
      }
    };
 
