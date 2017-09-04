@@ -113,7 +113,7 @@
               </tr>
             </tbody>
           </table>
-          {{selected}}
+          <!-- {{selected}} -->
         </div>
 
       </div>
@@ -138,12 +138,14 @@
       </div>
       <div id="main" ng-show="showTable" style="width: 800px;height:400px;margin:50px auto;"></div>
 
+      <div class="checkboxBlock" ng-show="showTable" style="width: 800px;margin:50px auto;padding-left: 80px;">
+        <span ng-repeat="y in selected" style="display:inline-block;width:19%;">
+        <input  type="checkbox" name="littlepeojectDataId"  ng-checked="islittleChecked(y)" ng-click="updatelittleSelection($event,y)" />{{ItemObject[y]}}</span>
 
+      </div>
       <div class="form-inline">
-
-        <div id="time" ng-show="showTable" style="width:800px;height:50px;margin:10px auto;">
+        <div id="time" ng-show="showTable" style="width:800px;height:50px;margin:10px auto;padding-right:50px;">
           <div class="pull-right">
-
             <div class="input-group timeblock">
               <input id="imageStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
               <div class="input-group-btn">

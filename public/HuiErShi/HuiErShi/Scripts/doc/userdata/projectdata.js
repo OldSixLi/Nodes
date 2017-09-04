@@ -15,7 +15,7 @@
  var myChart = echarts.init(document.getElementById('main'));
 
  // 【04】指定图表的配置项和数据  
- var currentDate = "2017-04-25";
+ var currentDate = "";
  var option = {
    title: {
      text: '项目数据图',
@@ -147,6 +147,12 @@
      return repo.realName;
    }
 
+   //设置日期格式
+   $("#imageStartTime,#imageEndTime").datetimepicker({
+     timepicker: false,
+     format: 'Y-m-d',
+   });
+
  });
 
  //     　　　　　　　　　　　　　　　　　　　　　　
@@ -180,7 +186,7 @@
      }
    });
 
-
+   $scope.ItemObject = {};
    //分页方法声明
    var pageing = function(pageindex, params) {
      //如果存在项目ID
@@ -191,6 +197,14 @@
          if (data != null && data != "" && data != "null") {
            $scope.dataLengths = data.content.length > 0; //判断当前是否存在记录
            if (data.content != null && data.content.length > 0) {
+
+             for (var x = 0; x < data.content.length; x++) {
+               var singleData = data.content[x];
+               if (!$scope.ItemObject[singleData.itemId]) {
+                 $scope.ItemObject[singleData.itemId] = singleData.itemName; //将数组进行遍历  项目名和项目ID对应
+               }
+
+             }
              //赋值操作
              $scope.data = data;
              $scope.totalPage = data.totalPages;
@@ -238,17 +252,24 @@
    //分页方法
    //  pageing(0, params);
    $scope.compare = function() {
+     $scope.begin = new Date(); //获取当前月份
+     $scope.end = new Date();
+     $scope.begin.setYear($scope.begin.getFullYear() - 1);
+     $scope.currentSelected = cloneObj($scope.selected);
+     $scope.getNewImage();
+   }
 
+   $scope.getNewImage = function() {
      var userId = $scope.userId; //获取当前用户的ID
-
-     if ($scope.selected.length != 0) {
+     if ($scope.currentSelected.length != 0) {
        $scope.showTable = true;
-
-       //进行请求操作
        var valueList = [];
-       var AllObj = {};
-       var AllList = [];
-       for (var index = 0; index < $scope.selected.length; index++) {
+       var result = getYearAndMonth(toNormalTime(Date.parse($scope.begin)), toNormalTime(Date.parse($scope.end)));
+       console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
+       console.log(result);
+       console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
+       for (var index = 0; index < $scope.currentSelected.length; index++) {
+         //单条数据对象
          var obj = {
            name: "",
            type: 'line',
@@ -262,9 +283,26 @@
                name: '最小值'
              }]
            }
+         };
+
+         var dobleObj = {
+           name: "",
+           type: 'line',
+           data: [],
+           markPoint: {
+             data: [{
+               type: 'max',
+               name: '最大值'
+             }, {
+               type: 'min',
+               name: '最小值'
+             }]
+           }
          }
-         var element = $scope.selected[index];
-         var url = BasicUrl + "data?itemId=" + element + "&userId=" + userId + "&page=0&pageNum=1000";
+
+         var isHaveSecond = false;
+         var element = $scope.currentSelected[index];
+         var url = BasicUrl + "data/statistics?itemId=" + element + "&userId=" + userId + "&start=" + toNormalTime(Date.parse($scope.begin)) + "&end=" + toNormalTime(Date.parse($scope.end)) + "&page=0&pageNum=1000";
 
          $.ajax({
            type: "GET",
@@ -273,104 +311,64 @@
            async: false, //设置为同步操作
            success: function(data) {
 
-             if (data && data.content && data.content.length > 0) {
-               var singleData = []; //单条数据
-               obj.name = data.content[0].item.name; //当前名称
+             if (data && data.length > 0) {
 
-               for (var m = 0; m < data.content.length; m++) {
-                 var elements = data.content[m];
-                 //添加进数组中
-                 if (!AllObj[elements.createAt]) {
-                   AllObj[elements.createAt] = "0"
-                 }
-
-                 var littleObj = {};
-                 littleObj.createAt = elements.createAt;
-                 littleObj.val = elements.val;
-                 obj.data.push(littleObj);
-
-                 elements.val = 0;
-                 elements.id = 0;
-                 elements.fromWhere = "";
-                 elements.item.itemId = "";
-                 elements.item.name = "";
+               if (data[0].val.split(',').length > 1) {
+                 isHaveSecond = true;
+               } else {
+                 isHaveSecond = false;
                }
-               //获取到了所有时间段
-               //  $.extend(true, AllObj, singleData);
+               var singleData = []; //单条数据
+               for (var index = 0; index < result.length; index++) {
+                 var element = result[index];
+                 var valuenum = 0;
+                 var doublenum = 0;
+                 for (var m = 0; m < data.length; m++) {
+                   var elements = data[m];
+                   //判断是不是多数值型
+                   //如果是
+
+                   if (element == elements.month) {
+                     obj.name = $scope.ItemObject[elements.itemId];
+                     if (isHaveSecond) {
+                       //是多数值型
+                       dobleObj.name = $scope.ItemObject[elements.itemId];
+                       valuenum = elements.val.split(',')[0];
+                       doublenum = elements.val.split(',')[1];
+                     } else {
+                       //不是 直接设置
+                       valuenum = elements.val;
+                     }
+                   }
+                 }
+                 obj.data.push(tofixed(valuenum));
+                 if (isHaveSecond) {
+                   dobleObj.data.push(tofixed(doublenum));
+                 }
+               }
              }
            }
          });
 
          valueList.push(obj);
-       }
 
-       console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
-       console.log(JSON.stringify(valueList));
-       console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
-       //FOR 循环结束
-       for (var a = 0; a < valueList.length; a++) {
-         var aelement = valueList[a];
-         var newObj = cloneObj(AllObj);
-         for (var b = 0; b < aelement.data.length; b++) {
-           var belement = aelement.data[b];
-           //获取当前时间
-           //  if ()
-           if (newObj[belement.createAt]) {
-             newObj[belement.createAt] == "data";
-           }
+         //如果为多数值  添加进数组中
+         if (isHaveSecond) {
+           valueList.push(dobleObj);
          }
-         //数据判断结束
-         jQuery.each(newObj, function(i, val) {
-           if (val != "data") {
-             //如果不存在此数据
-             aelement.data.push({ createAt: i, val: "0" });
-           }
-         });
-
        }
 
-       console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
-       console.log(JSON.stringify(valueList));
-       console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
-
-
-
-
-
-       //  var newvalueList = [];
-
-       //  for (var p = 0; p < valueList.length; p++) {
-       //    newvalueList.push(newobj);
-       //    //  var line = valueList[p];
-       //    //  var result = $.extend(false, {}, line, newobj);
-       //    //  valueList[p] = result;
-       //  }
-
-       //  var LASTLIST = [];
-       //  for (var z = 0; z < valueList.length; z++) {
-       //    var loop = valueList[z];
-       //    //  var newloop = newvalueList[z];
-
-       //    var newloop = cloneObj(newobj);
-       //    var resultss = $.extend(true, newloop, loop);
-       //    console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
-       //    console.log(JSON.stringify(resultss));
-       //    console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
-
-       //    LASTLIST.push(cloneObj(resultss));
-       //  }
-
-
-       console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
-       console.log(JSON.stringify(valueList));
-       console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
+       option.xAxis[0].data = result;
+       option.series = [];
+       option.series = valueList;
+       myChart.clear();
+       myChart.setOption(option);
+       $scope.littleSelected = cloneObj($scope.currentSelected);
      } else {
        $scope.showTable = false;
        tool.alert("提示", "请选择数据后再进行比较");
      }
    }
-
-
 
    /**
     * 生成新图片
@@ -390,19 +388,22 @@
        return false;
      }
 
-     $scope.timedata = [];
-     $scope.tabledata = [];
-     for (var index = 0; index < $scope.data.content.length; index++) {
-       var element = $scope.data.content[index];
-       if (element.createAt >= toTimestamp(imgStartTime) && element.createAt <= toTimestamp(imgEndTime)) {
-         $scope.timedata.push(getLocalTime(element.createAt));
-         $scope.tabledata.push(element.val);
-       }
-     }
+     $scope.begin = imgStartTime; //获取当前月份
+     $scope.end = imgEndTime;
+     $scope.currentSelected = cloneObj($scope.littleSelected)
+     $scope.getNewImage();
+     //  $scope.timedata = [];
+     //  $scope.tabledata = [];
 
-     option.xAxis[0].data = $scope.timedata;
-     option.series[0].data = $scope.tabledata;
-     myChart.setOption(option);
+
+     //  for (var index = 0; index < $scope.data.content.length; index++) {
+     //    var element = $scope.data.content[index];
+     //    if (element.createAt >= toTimestamp(imgStartTime) && element.createAt <= toTimestamp(imgEndTime)) {
+     //      $scope.timedata.push(getLocalTime(element.createAt));
+     //      $scope.tabledata.push(element.val);
+     //    }
+     //  }
+
    }
 
    $scope.isInArray = function(val, arr) {
@@ -502,6 +503,24 @@
      }
    };
 
+   $scope.littleSelected = [];
+   $scope.islittleChecked = function(x) {
+     return $scope.littleSelected.indexOf(x) >= 0;
+   };
+
+   $scope.updatelittleSelection = function($event, x) {
+     var checkbox = $event.target;
+     var checked = checkbox.checked;
+     if (checked) {
+       $scope.littleselected.push(x);
+       console.log($scope.littleSelected.join(','));
+     } else {
+       var idx = $scope.littleSelected.indexOf(x);
+       $scope.littleSelected.splice(idx, 1);
+       console.log($scope.littleSelected.join(','));
+     }
+   };
+
    //加载完毕后再显示 
    $scope.$watch("viewContentLoaded", function() {
      angular.element(".myload").removeClass("myload");
@@ -526,3 +545,75 @@
    }
    return newobj;
  };
+
+
+ /**
+  * 时间戳转化为正常时间 
+  * @param {any} shijianchuo  时间戳 精确到毫秒
+  * @returns 正常时间
+  */
+ function toNormalTime(shijianchuo) {
+   var time = new Date(parseInt(shijianchuo));
+   var y = time.getFullYear();
+   var m = time.getMonth() + 1;
+   var d = time.getDate();
+   var h = time.getHours();
+   var mm = time.getMinutes();
+   var s = time.getSeconds();
+   return y + '-' + add0(m) + '-' + add0(d);
+ }
+
+ function add0(m) { return m < 10 ? '0' + m : m; }
+
+ function getYearAndMonth(start, end) {
+   var result = [];
+   var starts = start.split('-');
+   var ends = end.split('-');
+   var staYear = parseInt(starts[0]);
+   var staMon = parseInt(starts[1]);
+   var endYear = parseInt(ends[0]);
+   var endMon = parseInt(ends[1]);
+   while (staYear <= endYear) {
+     if (staYear === endYear) {
+       while (staMon <= endMon) {
+
+         //  result.push({ year: staYear, month: staMon });
+         result.push(staYear + '-' + add0(staMon));
+         staMon++;
+       }
+       staYear++;
+     } else {
+
+       if (staMon > 12) {
+         staMon = 1;
+         staYear++;
+       }
+       //  result.push({ year: staYear, month: staMon });
+       result.push(staYear + '-' + add0(staMon));
+       staMon++;
+     }
+   }
+
+   return result;
+ }
+
+ function toTimestamp(timestr) {
+   return Date.parse(new Date(timestr)).toString() == "NaN" ? 0 : Date.parse(new Date(timestr));
+ }
+
+ function resolveNum(val) {
+   try {
+     return Math.floor(val * 100) / 100;
+   } catch (error) {
+     return 0;
+   }
+ }
+
+ function tofixed(num) {
+   try {
+     return (num - 0).toFixed(2);
+   } catch (error) {
+     return 0;
+   }
+
+ }
