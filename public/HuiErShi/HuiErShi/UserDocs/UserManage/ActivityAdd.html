@@ -9,6 +9,11 @@
     <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
     <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
     <link href="../../Styles/common.css" rel="stylesheet">
+    <style>
+    #previewHtml div{
+      background-color:#fff;
+    }
+    </style>
   </head>
 
   <body onload="setCurrent()">
@@ -242,44 +247,53 @@
         </form>
 
 
-        <div id="previewHtml" class="mobilepreview" style="width:450px;margin-left:35%;height:95%;position:fixed;background-color: #fff;z-index: 100;top:10px;padding:0;border: 1px solid #ddd;border-radius: 4px;    box-shadow: #000 0 5px 10px;" ng-show="isPreview">
+        <div id="previewHtml" class="mobilepreview" style="width:450px;margin-left:35%;height:95%;position:fixed;    background-color: #EEEEEE;z-index: 100;top:10px;padding:0;border: 1px solid #ddd;border-radius: 4px;    box-shadow: #000 0 5px 10px;" ng-show="isPreview">
           <button type="button" class="close" ng-click="isPreview=false" title="关闭预览">
               <span aria-hidden="true">&times;</span></button>
           <img src="../../images/activity/header.png" alt="" class="img-responsive" style="width:100%;">
-          <img src="{{imgurl}}" alt="活动宣传图" class="img-responsive" style="max-height:200px;width:100%;height: 200px;" >
-          <div class="mobile-content" style="padding: 0 10px;">
-            <h4><b>{{vm.entity.name}}</b></h4>
-            <p><span>{{vm.entity.startAt|date: 'yyyy/MM/dd HH:mm:ss'}}</span>
+          <img src="{{imgurl}}" alt="活动宣传图" class="img-responsive" style="max-height:200px;width:100%;height: 200px;">
+          <div class="mobile-content" style="padding: 0 10px;    border-top: 1px solid #ccc;
+          margin-top: 10px;    padding-bottom: 10px;
+          border-bottom: 1px solid #ccc;">
+            <h4 style="    margin-bottom: 25px;"><b style="    font-size: 20px;
+              color: #333333;">{{vm.entity.name}}</b></h4>
+            <p style="font-size: 16px;
+            color: #333333;"><span style="    color: #999;">{{vm.entity.startAt|date: 'yyyy/MM/dd HH:mm:ss'}}</span>
               <span class="pull-right">
-                <span ng-if="vm.entity.isReleased=='0'">待发布</span>
-                <span ng-if="vm.entity.isReleased=='1'">已发布</span>
-                <span ng-if="vm.entity.isReleased=='2'">不可报名</span>
-              </span></p>
-          
-            <hr style="margin:0 0 10px 0;">
-            <p style="font-size: 18px;"> <img src='../../images/activity/location.png' class='img-responsive' style="display: inline;margin-right:10px;" alt='自定义'>{{vm.entity.location}}<span class="glyphicon glyphicon-chevron-right pull-right"></span></p>
-          </div>
-          <div style="height:10px;border:1px solid #ddd;background-color: #EEEEEE;border-left:none;border-right:none;"> </div>
-          <div class="mobile-detail" style="padding: 0 10px;background-color:#fff;border-bottom: 1px solid #eee;">
-            <div>
-            <h4><b>活动详情</b></h4>
-            <hr style="margin:0 0 10px 0;">
-            <p>{{vm.entity.description}}</p>
-            <hr style="    margin: 10px 0;">
-            <p class="">
-              <img src='../../images/2.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
-              <img src='../../images/3.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
-              <img src='../../images/5.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
-              <img src='../../images/7.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
-              <img src='../../images/2.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
-              <img src='../../images/3.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
+                <img src="../../images/activity/weiqiandao.png" alt="" style="height:15px;width:15px;">
+                <span ng-if="vm.entity.isReleased=='0'" style="color: #999;">待发布</span>
+              <span ng-if="vm.entity.isReleased=='1'" style="color: #999;">已发布</span>
+              <span ng-if="vm.entity.isReleased=='2'" style="color: #999;">不可报名</span>
+              </span>
             </p>
 
+            <hr style="margin:0 0 10px 0;">
+            <p style="font-size: 18px;color: #333333;"> <img src='../../images/activity/location.png' class='img-responsive' style="display: inline;margin-right:10px;" alt='自定义'>{{vm.entity.location}}<span class="glyphicon glyphicon-chevron-right pull-right"></span></p>
           </div>
+          <!-- <div style="height:10px;border:1px solid #ddd;background-color: #EEEEEE;border-left:none;border-right:none;"> </div> -->
+          <div class="mobile-detail" style="padding: 0 10px;background-color:#fff;border-bottom: 1px solid #ccc;    
+          padding: 10px;
+          margin-top: 10px;
+          border-top: 1px solid #ccc;">
+            <div>
+              <h4 style="font-size: 18px;color: #333333;"> 活动详情 </h4>
+              <hr style="margin:0 0 10px 0;">
+              <p>{{vm.entity.description}}</p>
+             
+              <!-- <p class="">
+                <img src='../../images/2.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
+                <img src='../../images/3.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
+                <img src='../../images/5.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
+                <img src='../../images/7.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
+                <img src='../../images/2.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
+                <img src='../../images/3.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
+              </p> -->
+
+            </div>
           </div>
 
-          <div class="mobile-bottom" style="border-top: 1px solid #eee;height: 50px;position: absolute;bottom: 0;padding: 10px;width: 100%;">
-            <span style="font-size: 18px;">报名费:{{vm.entity.signUpCost}}元</span>
+          <div class="mobile-bottom" style="border-top: 1px solid #ccc;height: 50px;position: absolute;bottom: 0;padding: 10px;width: 100%;">
+            <span style="font-size: 18px;line-height: 30px;color:#33333;">报名费:{{vm.entity.signUpCost}}元</span>
             <button type="button" class="btn btn-primary pull-right">立即报名</button>
 
           </div>
