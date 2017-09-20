@@ -480,7 +480,14 @@
      var checkbox = $event.target;
      var checked = checkbox.checked;
      if (checked) {
-       $scope.selected.push(x);
+       if ($scope.selected.length >= 10) {
+         tool.alert("提示", "每次最多选择十项数据");
+         checkbox.checked = false;
+         return false;
+       } else {
+         $scope.selected.push(x);
+       }
+
      } else {
        var idx = $scope.selected.indexOf(x);
        $scope.selected.splice(idx, 1);

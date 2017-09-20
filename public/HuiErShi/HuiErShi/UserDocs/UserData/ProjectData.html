@@ -89,7 +89,7 @@
             <tbody id="databody">
               <tr ng-show="dataLengths" ng-repeat="x in data.content">
                 <td>
-                  <input type="checkbox" name="peojectDataId" checked="{{checked}}" ng-checked="isChecked(x.itemId)" ng-click="updateSelection($event,x.itemId)" /></td>
+                  <input type="checkbox" name="peojectDataId" checked="{{checked}}" ng-disabled="x.itemType!=1&&x.itemType!=4" ng-checked="isChecked(x.itemId)" ng-click="updateSelection($event,x.itemId)" /></td>
 
                 <td>{{ $index+data.page*data.pageNum+1}}</td>
                 <td>{{ x.itemName}}</td>
