@@ -524,7 +524,7 @@
      }
 
      if ($scope.data.status == 2) {
-       tool.alert("提示", "当前验单状态为录入失败状态,无法进行操作");
+       tool.alert("提示", "无效验单不能录入项目数据");
        return false;
      }
      var viewID = $("#dataView").val();
@@ -676,7 +676,7 @@
        return false;
      }
      if ($scope.data.status == 2) {
-       tool.alert("提示", "当前验单状态为录入失败状态,无法进行操作");
+       tool.alert("提示", "无效验单不能录入项目数据");
        return false;
      }
      var id = $("#allItem").val();
