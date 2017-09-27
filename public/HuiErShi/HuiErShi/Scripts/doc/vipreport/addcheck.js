@@ -518,8 +518,13 @@
     */
    $scope.viewItemAdd = function() {
      $scope.itemDetail = null;
-     if (!$scope.data.name) {
+     if ($scope.data.status == 3 && !$scope.data.name) {
        tool.alert("提示", "请先新建或合并报告单");
+       return false;
+     }
+
+     if ($scope.data.status == 2) {
+       tool.alert("提示", "当前验单状态为录入失败状态,无法进行操作");
        return false;
      }
      var viewID = $("#dataView").val();
@@ -575,11 +580,18 @@
        .success(function(data, xhr) {
          if (xhr == 200 || xhr == 202) {
            if (islast) {
-             window.location.reload();
+             if (data.errorMessage) {
+               tool.alert("提示", data.errorMessage);
+               window.location.reload();
+             } else {
+               window.location.reload();
+             }
            }
          } else {}
        }).error(function(response) {
-         if (response && response.errorMessage) {}
+         if (response && response.errorMessage) {
+           tool.alert("提示", response.errorMessage);
+         }
        })
    }
 
@@ -659,6 +671,14 @@
 
    //获取右侧单项数据项目详情
    $scope.getSingleItemDetail = function() {
+     if ($scope.data.status == 3 && !$scope.data.name) {
+       tool.alert("提示", "请先新建或合并报告单");
+       return false;
+     }
+     if ($scope.data.status == 2) {
+       tool.alert("提示", "当前验单状态为录入失败状态,无法进行操作");
+       return false;
+     }
      var id = $("#allItem").val();
      if (!id) {
        tool.alert("提示", "请选择项目");

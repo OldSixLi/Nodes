@@ -257,8 +257,6 @@
        if (data != null && data != "" && data != "null" && data.id) {
          $scope.data = data;
          //当前报告单的专家的ID
-
-
          $scope.reportStatus = data.status;
 
          //当前报告单的专家建议的先关信息
@@ -555,56 +553,89 @@
      pageing(0, params);
    }
 
-   //发布报告（手机端可见）
-   $scope.publishReport = function(type) {
-
-     //  tool.confirm(
-     //    "提示",
-     //    "确认发布报告？",
-     //    function() {
-     //      //用户点击确认按钮时操作
-
-     //    },
-     //    function() {});
-
-
-     $.ajax({
-       type: "PATCH",
-       url: BasicUrl + "report/" + $scope.reportId + "/publish",
-       data: {
-         adminId: 1,
-         id: $scope.reportId
-       },
-       dataType: "json",
-       error: function(response) {
-         if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-           tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-         }
-       },
-       success: function(data) {
-         if (data.errorMessage) {
-           tool.alert("提示", data.errorMessage);
-         } else {
-           tool.alert("提示", "发布成功", function() {
-             //刷新当前页面.
-             window.location.reload();
-           });
-         }
-       },
-       complete: function(xhr) {
-         if (xhr.status == '200' && xhr.responseText == "") {
-           tool.alert("提示", "发布成功", function() {
-             //刷新当前页面.
-             window.location.reload();
-           });
-         }
+   $scope.createCheck = function(reportId, userid) {
+       // （<a class="btn" href="" ng-disabled="reportStatus==3" class="{{reportStatus==3?'disabled':''}}" style="padding:0;">创建验单</a>）
+       if ($scope.reportStatus == 3) {
+         tool.alert("提示", "报告已发布，内容不可修改");
+         return false;
        }
-     });
+       window.location.href = "AddCheck.html?reportId=" + reportId + "&userid=" + userid
+
+     },
+
+     //发布报告（手机端可见）
+     $scope.publishReport = function(type) {
+
+       //  tool.confirm(
+       //    "提示",
+       //    "确认发布报告？",
+       //    function() {
+       //      //用户点击确认按钮时操作
+
+       //    },
+       //    function() {});
+       //  ng-disabled="reportStatus!=2"
+
+       //  作提示， 根据不同状态作不同提示：
+       //  1） 检查登记、 专家填写状态下点击“ 发布” 就提示“ 专家还未填写信息， 无法发布报告”；
+       //  2） 已发布状态下点击“ 发布” 就提示“ 您已发布该报告”；
+       if ($scope.reportStatus != 2) {
+         var toolStr = "";
+         switch ($scope.reportStatus) {
+           case 0:
+             toolStr = "专家还未填写信息，无法发布报告";
+             break;
+           case 1:
+             toolStr = "专家还未填写信息，无法发布报告";
+             break;
+           case 3:
+             toolStr = "您已发布该报告";
+             break;
+           default:
+             break;
+         }
+
+         tool.alert("提示", toolStr);
+         return false;
+       }
+
+       $.ajax({
+         type: "PATCH",
+         url: BasicUrl + "report/" + $scope.reportId + "/publish",
+         data: {
+           adminId: 1,
+           id: $scope.reportId
+         },
+         dataType: "json",
+         error: function(response) {
+           if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+             tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+           }
+         },
+         success: function(data) {
+           if (data.errorMessage) {
+             tool.alert("提示", data.errorMessage);
+           } else {
+             tool.alert("提示", "发布成功", function() {
+               //刷新当前页面.
+               window.location.reload();
+             });
+           }
+         },
+         complete: function(xhr) {
+           if (xhr.status == '200' && xhr.responseText == "") {
+             tool.alert("提示", "发布成功", function() {
+               //刷新当前页面.
+               window.location.reload();
+             });
+           }
+         }
+       });
 
 
 
 
-   }
+     }
 
    //专家添加建议
    $scope.addConsult = function(type) {

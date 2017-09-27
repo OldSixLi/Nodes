@@ -179,6 +179,11 @@ uploader = Qiniu.uploader({
     }
     // 保存信息
     vm.saveinfo = function($event) {
+
+      if (!vm.entity.vipcards || vm.entity.vipcards.length <= 0) {
+        tool.alert("提示", "当前用户未购买会员卡,无法创建会籍资料");
+        return false;
+      }
       $(":submit").attr("disabled", true);
       vm.entity.todo = "1";
       $http({

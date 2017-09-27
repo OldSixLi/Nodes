@@ -516,10 +516,6 @@
    });
  });
 
-
-
-
-
  function cloneObj(obj) {
    var str, newobj = obj.constructor === Array ? [] : {};
    if (typeof obj !== 'object') {

@@ -137,7 +137,7 @@ app.controller('customersCtrl', function($scope, $http) {
       })
 
   } else {
-    tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
+    // tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
   }
 
   /**
@@ -185,6 +185,16 @@ app.controller('customersCtrl', function($scope, $http) {
       },
       function() {});
   }
+
+  $scope.isHaveExpert = function(id) {
+
+    if (!$scope.data.experts.DietitianExpert || !$scope.data.experts.SportExpert) {
+      tool.alert("提示", "请完善专家团队信息！");
+      return false;
+    } else {
+      window.location.href = "UserInfoEdit.html?id=" + id
+    }
+  };
 
   /**
    * 设置专家
