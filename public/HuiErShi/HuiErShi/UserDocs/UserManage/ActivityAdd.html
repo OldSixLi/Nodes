@@ -230,7 +230,7 @@
                       <span ng-if="!x.signed&&vm.entity.signByUser">未签到</span>
                       <span ng-if="!x.signed&&!vm.entity.signByUser"><a href="javascript:;" ng-click="qiandao(x.user.id)">确认签到</a></span>
 
-                      <span ng-if="x.signed">{{ x.signAt | date:"yyyy/MM/dd HH:mm:ss" }}</span></td>
+                      <span ng-if="x.signed">{{ x.signUpAt | date:"yyyy/MM/dd HH:mm:ss" }}</span></td>
                     <td>
                       <a href="#" class="btn btn-link" ng-click="vm.cancelSign(x.user.id)" style="padding:0;" ng-if="!x.signed">取消报名</a>
                       <a href="#" class="btn btn-link" ng-click="hasSign()" style="padding:0;" ng-if="x.signed">取消报名</a>
