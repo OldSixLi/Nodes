@@ -653,9 +653,7 @@
                  var element = selectedArr[index];
                  $scope.itemList[element] = element;
                }
-
              }
-
            }
          }
 
