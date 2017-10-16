@@ -247,7 +247,8 @@
         </form>
 
 
-        <div id="previewHtml" class="mobilepreview" style="width:450px;margin-left:35%;height:95%;position:fixed;    background-color: #EEEEEE;z-index: 100;top:10px;padding:0;border: 1px solid #ddd;border-radius: 4px;    box-shadow: #000 0 5px 10px;" ng-show="isPreview">
+        <div id="previewHtml" class="mobilepreview" style="width:450px;margin-left:35%;height:95%;position:fixed;    background-color: #EEEEEE;z-index: 100;top:10px;padding:0;border: 1px solid #ddd;border-radius: 4px;    box-shadow: #000 0 5px 10px;overflow-y:scroll;"
+          ng-show="isPreview">
           <button type="button" class="close" ng-click="isPreview=false" title="关闭预览">
               <span aria-hidden="true">&times;</span></button>
           <img src="../../images/activity/header.png" alt="" class="img-responsive" style="width:100%;">

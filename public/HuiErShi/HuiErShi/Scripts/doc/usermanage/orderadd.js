@@ -124,9 +124,15 @@ app.controller('customersCtrl', function($scope, $http) {
     }
 
 
+    var appointmenttime = Date.parse(new Date($("#date").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#date").val()));
+    if (appointmenttime == 0) {
+      tool.alert("提示", "请选择预约时间");
+      return false;
+    }
+
     var saveInfo = {
       userId: parseInt($("input[type='radio']:checked").val()),
-      appointmentTime: Date.parse(new Date($("#date").val())).toString() == "NaN" ? 0 : Date.parse(new Date($("#date").val())),
+      appointmentTime: appointmenttime,
       itemId: getCheckBoxValue('orderItems'),
       comment: $scope.notes
     }
@@ -139,6 +145,7 @@ app.controller('customersCtrl', function($scope, $http) {
         } else {
           tool.alert('提示', '保存成功', function() {
             $('#orderForm')[0].reset();
+            $scope.notes = "";
             $("input:radio[name=userId]").attr("checked", false);
             // $("input[name='userId']").val(""); 
           });
