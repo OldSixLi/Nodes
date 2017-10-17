@@ -201,7 +201,6 @@ bug 3.确认预约窗口中，只能选择项目，不能选择专家。
                     <label ng-repeat="x in options">
                   
                       <input type="checkbox" name="orderItem" value="{{x.id}}" ng-checked="selectedItem['item'+x.id]" /><span> {{x.name}}&nbsp;&nbsp;</span>
-                      <!--ng-disabled="models.confirmAt"-->
                     </label>·
                   </div>
                 </div>
@@ -211,8 +210,8 @@ bug 3.确认预约窗口中，只能选择项目，不能选择专家。
                     <p><span>　　预约备注：</span><input type="text" name="" id="remark" ng-value="models.comment" placeholder="请输入备注" class="form-control" style="width: 50%;"></p>
                     <p style="margin-top: 15px;">
                       <span ng-if="models.status=='unconfirmed'">　　最后修改：{{models.modifyBy.name}}　{{models.modifyAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
-                      <span ng-if="models.status=='confirmed'">　　最后修改：{{models.confirmBy.name}}　{{models.confirmAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
-                      <span ng-if="models.status=='signedIn'">　　最后修改：{{models.confirmBy.name}}　{{models.confirmAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
+                      <span ng-if="models.status=='confirmed'">　　最后修改：{{models.confirmBy.name}}　{{models.modifyAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
+                      <span ng-if="models.status=='signedIn'">　　最后修改：{{models.confirmBy.name}}　{{models.modifyAt| date:"yyyy/MM/dd HH:mm:ss"}}</span>
                     </p>
                   </div>
                 </div>
