@@ -302,7 +302,7 @@
        }
        $.ajax({
          type: "post",
-         url: 'http://healthshare.com.cn:80/admin/api/activity',
+         url:BasicUrl+ 'activity',
          data: {
            adminId: adminId(),
            name: vm.entity.name,

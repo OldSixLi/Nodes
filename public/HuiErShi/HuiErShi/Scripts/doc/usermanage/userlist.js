@@ -5,7 +5,7 @@ app.controller('customersCtrl', function($scope, $http) {
   //分页方法声明
   var pageing = function(pageindex, params) {
     //请求地址
-    var url = "http://healthshare.com.cn:80/admin/api/user?" + params + "page=" + pageindex + "&pageNum=10";
+    var url = BasicUrl+"user?" + params + "page=" + pageindex + "&pageNum=10";
     $http.get(url).success(function(data) {
       if (data != null && data != "" && data != "null") {
         //判断当前是否存在记录
