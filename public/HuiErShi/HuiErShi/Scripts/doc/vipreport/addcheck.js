@@ -15,7 +15,7 @@
        var token = "";
        $.ajax({
          type: "get",
-         url: "http://healthshare.com.cn:80/admin/api/qnToken",
+         url: BasicUrl+"qnToken",
          async: false,
          dataType: "json",
          success: function(data) {
@@ -94,7 +94,7 @@
        var token = "";
        $.ajax({
          type: "get",
-         url: "http://healthshare.com.cn:80/admin/api/qnToken",
+         url: BasicUrl+"qnToken",
          async: false,
          dataType: "json",
          success: function(data) {

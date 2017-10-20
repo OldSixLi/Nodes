@@ -561,24 +561,19 @@
    while (staYear <= endYear) {
      if (staYear === endYear) {
        while (staMon <= endMon) {
-
-         //  result.push({ year: staYear, month: staMon });
          result.push(staYear + '-' + add0(staMon));
          staMon++;
        }
        staYear++;
      } else {
-
        if (staMon > 12) {
          staMon = 1;
          staYear++;
        }
-       //  result.push({ year: staYear, month: staMon });
        result.push(staYear + '-' + add0(staMon));
        staMon++;
      }
    }
-
    return result;
  }
 
