@@ -15,7 +15,7 @@
        var token = "";
        $.ajax({
          type: "get",
-         url: BasicUrl+"qnToken",
+         url: BasicUrl + "qnToken",
          async: false,
          dataType: "json",
          success: function(data) {
@@ -94,7 +94,7 @@
        var token = "";
        $.ajax({
          type: "get",
-         url: BasicUrl+"qnToken",
+         url: BasicUrl + "qnToken",
          async: false,
          dataType: "json",
          success: function(data) {
@@ -541,35 +541,37 @@
        }
      }).success(function(data, xhr) {
        if (xhr == 200) {
-         //获取当前视图下的项目内容
-         $http.get(BasicUrl + "view/" + viewID).success(function(data) {
-           if (data != null && data != "" && data != "null") {
-             $scope.itemList = data.items;
-             for (var index = 0; index < data.items.length; index++) {
-               var element = data.items[index];
-               //闭包传入index
-               (function(i) {
-                 var dataInfo = {
-                   id: checkObj.id,
-                   itemId: data.items[i].itemId,
-                   val: "0"
-                 }
-                 setTimeout(function() {
-                   islast = (i == data.items.length - 1)
-                   $scope.createItem(dataInfo, islast);
-                 }, 500 * i);
-               })(index);
+         if (data.errorCode && data.errorCode == 400) {
+           tool.alert("提示", data.errorMessage);
+           return false;
+         } else {
+           //获取当前视图下的项目内容
+           $http.get(BasicUrl + "view/" + viewID).success(function(data) {
+             if (data != null && data != "" && data != "null") {
+               $scope.itemList = data.items;
+               for (var index = 0; index < data.items.length; index++) {
+                 var element = data.items[index];
+                 //闭包传入index
+                 (function(i) {
+                   var dataInfo = {
+                     id: checkObj.id,
+                     itemId: data.items[i].itemId,
+                     val: "0"
+                   }
+                   setTimeout(function() {
+                     islast = (i == data.items.length - 1)
+                     $scope.createItem(dataInfo, islast);
+                   }, 500 * i);
+                 })(index);
+               }
              }
-           }
-         });
+           });
+
+         }
        }
      }).error(function(response) {
        tool.alert("提示", response.errorMessage);
      });
-
-
-
-
    }
 
    /**

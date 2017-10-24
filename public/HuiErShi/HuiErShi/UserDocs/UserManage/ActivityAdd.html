@@ -2,285 +2,285 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>活动详情</title>
-    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
-    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-    <link href="../../Styles/common.css" rel="stylesheet">
-    <style>
-      #previewHtml div {
-        background-color: #fff;
-      }
-    </style>
-  </head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>活动详情</title>
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
+  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/common.css" rel="stylesheet">
+  <style>
+    #previewHtml div {
+      background-color: #fff;
+    }
+  </style>
+</head>
 
-  <body onload="setCurrent()">
-    <div class="container-fluid">
-      <div class="row">
-        <!-- 面包屑导航 -->
-        <ol class="breadcrumb col-xs-12" style="-ms-border-radius:0; border-radius:0;background-color:white;">
-          <li><a href="javascript:void(0)">客户管理</a></li>
-          <li class="active">活动列表</li>
-        </ol>
-      </div>
+<body onload="setCurrent()">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- 面包屑导航 -->
+      <ol class="breadcrumb col-xs-12" style="-ms-border-radius:0; border-radius:0;background-color:white;">
+        <li><a href="javascript:void(0)">客户管理</a></li>
+        <li class="active">活动列表</li>
+      </ol>
     </div>
-    <!--页面主体-->
-    <div class="container-fluid myload" ng-app="myApp" ng-controller="validateCtrl">
-      <div class="row">
+  </div>
+  <!--页面主体-->
+  <div class="container-fluid myload" ng-app="myApp" ng-controller="validateCtrl">
+    <div class="row">
 
-        <!--表单元素-->
-        <form class="form-horizontal w5c-form demo-form" w5c-form-validate="vm.validateOptions" novalidate name="validateForm">
-          <!--活动图片上传-->
-          <div class="col-md-2 col-sm-2">
-            <!-- 点击上传图片 -->
-            <div id="btn-uploader">
-              <a id="pickfiles" href="javascript:void 0;">
-                <img src='{{vm.entity.iconUrl == ""?"../../images/upload/upload-alert.png" : vm.entity.iconUrl}}' id="img" class='img-responsive img-thumbnail img-block' alt='自定义'></a>
-              <input type="hidden" name="iconUrl" id="iconUrl" ng-value="vm.entity.iconUrl" />
-            </div>
+      <!--表单元素-->
+      <form class="form-horizontal w5c-form demo-form" w5c-form-validate="vm.validateOptions" novalidate name="validateForm">
+        <!--活动图片上传-->
+        <div class="col-md-2 col-sm-2">
+          <!-- 点击上传图片 -->
+          <div id="btn-uploader">
+            <a id="pickfiles" href="javascript:void 0;">
+              <img src='{{vm.entity.iconUrl == ""?"../../images/upload/upload-alert.png" : vm.entity.iconUrl}}' id="img" class='img-responsive img-thumbnail img-block' alt='自定义'></a>
+            <input type="hidden" name="iconUrl" id="iconUrl" ng-value="vm.entity.iconUrl" />
           </div>
+        </div>
 
-          <div class="col-md-10 col-sm-10">
-            <div class="form-horizontal">
-              <!--输入项-->
-              <div class="form-group">
-                <div class="col-sm-2 col-md-2 text-right">
-                  <label for="sponsorName" class="control-label">主办方：</label>
-                </div>
-                <div class="col-sm-8 col-md-8">
-                  <input type="text" class="form-control" id="sponsorName" name="sponsorName" placeholder="主办方单位名称" required ng-model="vm.entity.sponsorName">
-                </div>
+        <div class="col-md-10 col-sm-10">
+          <div class="form-horizontal">
+            <!--输入项-->
+            <div class="form-group">
+              <div class="col-sm-2 col-md-2 text-right">
+                <label for="sponsorName" class="control-label">主办方：</label>
               </div>
-              <div class="form-group">
-                <div class="col-sm-2 text-right">
-                  <label for="name" class="control-label">活动名称：</label>
-                </div>
-                <div class="col-sm-8 col-md-8">
-                  <input type="text" class="form-control" id="name" name="name" placeholder="请输入活动名称" required ng-model="vm.entity.name">
-                </div>
+              <div class="col-sm-8 col-md-8">
+                <input type="text" class="form-control" id="sponsorName" name="sponsorName" placeholder="主办方单位名称" required ng-model="vm.entity.sponsorName">
               </div>
-              <div class="row ">
-                <div class="col-xs-12">
-                  <div class="form-group col-xs-6">
-                    <div class="col-sm-4 text-right">
-                      <label for="startAt" class="control-label">活动时间：</label>
-                    </div>
-                    <div class="col-sm-7 text-left">
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 text-right">
+                <label for="name" class="control-label">活动名称：</label>
+              </div>
+              <div class="col-sm-8 col-md-8">
+                <input type="text" class="form-control" id="name" name="name" placeholder="请输入活动名称" required ng-model="vm.entity.name">
+              </div>
+            </div>
+            <div class="row ">
+              <div class="col-xs-12">
+                <div class="form-group col-xs-6">
+                  <div class="col-sm-4 text-right">
+                    <label for="startAt" class="control-label">活动时间：</label>
+                  </div>
+                  <div class="col-sm-7 text-left">
 
-                      <div class="input-group timeblock">
-                        <!--ng-model="vm.entity.startAt"-->
-                        <input type="text" class="form-control start_end_time" id="txtStartTime" name="startAt" placeholder="请选择时间" required value="{{vm.entity.startAt|date: 'yyyy/MM/dd HH:mm:ss'}}">
-                        <div class="input-group-btn" style="vertical-align: top;">
-                          <button type="button" class="btn btn-default" id="btnStarttime">
+                    <div class="input-group timeblock">
+                      <!--ng-model="vm.entity.startAt"-->
+                      <input type="text" class="form-control start_end_time" id="txtStartTime" name="startAt" placeholder="请选择时间" required value="{{vm.entity.startAt|date: 'yyyy/MM/dd HH:mm:ss'}}">
+                      <div class="input-group-btn" style="vertical-align: top;">
+                        <button type="button" class="btn btn-default" id="btnStarttime">
                 <span class="glyphicon glyphicon-calendar"></span></button>
-                        </div>
                       </div>
+                    </div>
 
-                    </div>
                   </div>
-                  <div class="form-group col-xs-6">
-                    <div class="col-sm-3 text-right">
-                      <label for="lasted" class="control-label">持续：</label>
-                    </div>
-                    <div class="col-sm-6 col-md-6" style="padding-right: 0;">
-                      <input type="number" class="form-control" id="lasted" name="lasted" placeholder="单位：小时" required ng-model="vm.entity.lastedTime">
+                </div>
+                <div class="form-group col-xs-6">
+                  <div class="col-sm-3 text-right">
+                    <label for="lasted" class="control-label">持续：</label>
+                  </div>
+                  <div class="col-sm-6 col-md-6" style="padding-right: 0;">
+                    <input type="number" class="form-control" id="lasted" name="lasted" placeholder="单位：小时" required ng-model="vm.entity.lastedTime">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row ">
+              <div class="col-xs-12">
+                <div class="form-group col-xs-6">
+                  <div class="col-sm-4 text-right">
+                    <label for="signUpCost" class="control-label">报名费：</label>
+                  </div>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control vipprices" id="signUpCost" name="signUpCost" placeholder="报名费用" required ng-model="vm.entity.signUpCost">
+                  </div>
+                </div>
+                <div class="form-group col-xs-6">
+                  <div class="col-sm-3 text-right">
+                    <label for="maxApplyNumber" class="control-label">活动人数：</label>
+                  </div>
+                  <div class="col-sm-6 col-md-6" style="padding-right: 0;">
+                    <input type="number" class="form-control" id="maxApplyNumber" name="maxApplyNumber" placeholder="单位：人" required ng-model="vm.entity.maxApplyNumber">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row ">
+              <div class="col-xs-12">
+                <div class="form-group col-xs-6">
+                  <div class="col-sm-4 text-right">
+                    <label for="txtActivityPlace" class="control-label">活动地点：</label>
+                  </div>
+                  <div class="col-sm-7">
+                    <input type="text" class="form-control" id="location" name="location" required placeholder="活动详细地址" ng-model="vm.entity.location">
+                  </div>
+                </div>
+                <div class="form-group col-xs-6">
+                  <div class="col-sm-3 text-right">
+                    <label for="signByUser" class="control-label">自助签到：</label>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="radio">
+                      <label> <input type="radio" name="signByUser" id="isReleased1" ng-checked="true" ng-value="true" ng-model="vm.entity.signByUser">是</label>
+                      <label> <input type="radio" name="signByUser" id="isReleased2" ng-value="false" ng-model="vm.entity.signByUser">否</label>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="row ">
-                <div class="col-xs-12">
-                  <div class="form-group col-xs-6">
-                    <div class="col-sm-4 text-right">
-                      <label for="signUpCost" class="control-label">报名费：</label>
-                    </div>
-                    <div class="col-sm-7">
-                      <input type="text" class="form-control vipprices" id="signUpCost" name="signUpCost" placeholder="报名费用" required ng-model="vm.entity.signUpCost">
-                    </div>
-                  </div>
-                  <div class="form-group col-xs-6">
-                    <div class="col-sm-3 text-right">
-                      <label for="maxApplyNumber" class="control-label">活动人数：</label>
-                    </div>
-                    <div class="col-sm-6 col-md-6" style="padding-right: 0;">
-                      <input type="number" class="form-control" id="maxApplyNumber" name="maxApplyNumber" placeholder="单位：人" required ng-model="vm.entity.maxApplyNumber">
-                    </div>
-                  </div>
-                </div>
+            </div>
+            <div class="form-group" ng-class="point_className">
+              <div class="col-sm-2 text-right">
+                <label for="coordinate" class="control-label">地点坐标：</label>
               </div>
-              <div class="row ">
-                <div class="col-xs-12">
-                  <div class="form-group col-xs-6">
-                    <div class="col-sm-4 text-right">
-                      <label for="txtActivityPlace" class="control-label">活动地点：</label>
-                    </div>
-                    <div class="col-sm-7">
-                      <input type="text" class="form-control" id="location" name="location" required placeholder="活动详细地址" ng-model="vm.entity.location">
-                    </div>
-                  </div>
-                  <div class="form-group col-xs-6">
-                    <div class="col-sm-3 text-right">
-                      <label for="signByUser" class="control-label">自助签到：</label>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="radio">
-                        <label> <input type="radio" name="signByUser" id="isReleased1" ng-checked="true" ng-value="true" ng-model="vm.entity.signByUser">是</label>
-                        <label> <input type="radio" name="signByUser" id="isReleased2" ng-value="false" ng-model="vm.entity.signByUser">否</label>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div class="col-sm-8 col-md-8">
+                <input type="text" class="form-control" id="coordinate" name="coordinate" placeholder="活动坐标" ng-model="vm.entity.coordinate" onclick="openMap()">
               </div>
-              <div class="form-group" ng-class="point_className">
-                <div class="col-sm-2 text-right">
-                  <label for="coordinate" class="control-label">地点坐标：</label>
-                </div>
-                <div class="col-sm-8 col-md-8">
-                  <input type="text" class="form-control" id="coordinate" name="coordinate" placeholder="活动坐标" ng-model="vm.entity.coordinate" onclick="openMap()">
-                </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 text-right">
+                <label for="announcement" class="control-label">通知公告：</label>
               </div>
-              <div class="form-group">
-                <div class="col-sm-2 text-right">
-                  <label for="announcement" class="control-label">通知公告：</label>
-                </div>
-                <div class="col-sm-8 col-md-8">
-                  <input type="text" class="form-control" id="announcement" name="announcement" placeholder="例：慢性病管理健康常识知多点！欢迎参加！" required ng-model="vm.entity.announcement">
-                </div>
+              <div class="col-sm-8 col-md-8">
+                <input type="text" class="form-control" id="announcement" name="announcement" placeholder="例：慢性病管理健康常识知多点！欢迎参加！" required ng-model="vm.entity.announcement">
               </div>
-              <div class="form-group">
-                <div class="col-sm-2 text-right">
-                  <label for="description" class="control-label">活动详情：</label>
-                </div>
-                <div class="col-sm-8 col-md-8">
-                  <textarea class="form-control" name="description" id="description" rows="5" placeholder="请输入活动详细内容" required ng-model="vm.entity.description"></textarea>
-                </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 text-right">
+                <label for="description" class="control-label">活动详情：</label>
               </div>
-              <div class="form-group">
-                <div class="col-sm-2 text-right">
-                  <label for="isReleased" class="control-label">状态：</label>
-                </div>
-                <div class="col-sm-10">
-                  <div class="radio">
-                    <label>
+              <div class="col-sm-8 col-md-8">
+                <textarea class="form-control" name="description" id="description" rows="5" placeholder="请输入活动详细内容" required ng-model="vm.entity.description"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-2 text-right">
+                <label for="isReleased" class="control-label">状态：</label>
+              </div>
+              <div class="col-sm-10">
+                <div class="radio">
+                  <label>
                   <input type="radio" name="isReleased" id="isReleased1" ng-checked="true"
                           ng-value="0" ng-model="vm.entity.isReleased">待发布 (用户不可见)
                   &nbsp;&nbsp;&nbsp;&nbsp;
               </label>
-                    <label>
+                  <label>
                 <input type="radio" name="isReleased" id="isReleased2"
                         ng-value="1" ng-model="vm.entity.isReleased">
                 发布 (用户可见)&nbsp;&nbsp;&nbsp;&nbsp;
             </label>
-                    <label>
+                  <label>
                       <input type="radio" name="isReleased" id="isReleased3" 
                               ng-value="2" ng-model="vm.entity.isReleased" checked>发布 (可见不可报名)&nbsp;&nbsp;&nbsp;&nbsp;
                   </label>
-                  </div>
                 </div>
               </div>
             </div>
-            <!--提交按钮-->
-            <div class="row" style="margin-bottom: 5px;">
-              <!-- 消除外边距 -->
-              <div class="col-md-12">
-                <div class="col-md-6 col-sm-6 text-right" ng-show="{{isSave}}">
-                  <button type="submit" class="btn  btn-success" w5c-form-submit="vm.saveinfo($event)">保存活动信息</button>
-                </div>
-                <div class="col-md-6 col-sm-6 text-right" ng-show="{{!isSave}}">
-                  <button type="submit" class="btn  btn-primary" style="margin-right:30px;" ng-click="vm.editInfo($event)">修改活动信息</button>
-                  <button type="submit" class="btn btn-danger" ng-click="vm.deleteInfo($event)">删除活动信息</button>
-                </div>
-                <div class="col-md-6 col-sm-6 text-left">
-                  <button type="button" class="btn btn-default" ng-show="{{isSave}}" onclick="javascript:history.back(-1)">　返回　</button>
-
-                  <button type="submit" class="btn btn-primary" ng-show="{{!isSave}}" style="margin-right:30px;" ng-click="vm.show($event)">活动预览</button>
-                  <button type="submit" class="btn btn-primary" ng-show="{{!isSave}}" ng-click="vm.notice($event)">群发通知</button>
-                </div>
-
-              </div>
-            </div>
-
-
-
-            <!-- Angularjs 表格相关HTML代码 -->
-            <div class="tab-content container-fluid">
-              <table class="table table-hover">
-                <!-- 表头 -->
-                <thead>
-                  <tr>
-                    <th> # </th>
-                    <th> 昵称 </th>
-                    <th> 性别 </th>
-                    <th> 报名时间 </th>
-                    <th> 签到时间 </th>
-                    <th> 操作 </th>
-                  </tr>
-                </thead>
-                <tbody id="databody">
-                  <tr ng-show="dataLengths" ng-repeat="x in vm.entity.members">
-                    <td>{{ $index+1 }}</td>
-                    <td>{{ x.user.userName }}</td>
-                    <td>{{ x.user.gender=="M"?"男":"女" }}</td>
-                    <!--报名时间-->
-                    <td>{{ x.signUpAt | date:"yyyy/MM/dd HH:mm:ss" }}</td>
-                    <!--签到时间-->
-                    <td>
-                      <span ng-if="!x.signed&&vm.entity.signByUser">未签到</span>
-                      <span ng-if="!x.signed&&!vm.entity.signByUser"><a href="javascript:;" ng-click="qiandao(x.user.id)">确认签到</a></span>
-                      <span ng-if="x.signed">{{ x.signUpAt | date:"yyyy/MM/dd HH:mm:ss" }}</span></td>
-                    <td>
-                      <a href="#" class="btn btn-link" ng-click="vm.cancelSign(x.user.id)" style="padding:0;" ng-if="!x.signed">取消报名</a>
-                      <a href="#" class="btn btn-link" ng-click="hasSign()" style="padding:0;" ng-if="x.signed">取消报名</a>
-                    </td>
-                  </tr>
-                  <tr ng-show="!dataLengths">
-                    <td colspan="100" class="text-center">暂无成员报名</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
           </div>
-        </form>
+          <!--提交按钮-->
+          <div class="row" style="margin-bottom: 5px;">
+            <!-- 消除外边距 -->
+            <div class="col-md-12">
+              <div class="col-md-6 col-sm-6 text-right" ng-show="{{isSave}}">
+                <button type="submit" class="btn  btn-success" w5c-form-submit="vm.saveinfo($event)">保存活动信息</button>
+              </div>
+              <div class="col-md-6 col-sm-6 text-right" ng-show="{{!isSave}}">
+                <button type="submit" class="btn  btn-primary" style="margin-right:30px;" ng-click="vm.editInfo($event)">修改活动信息</button>
+                <button type="submit" class="btn btn-danger" ng-click="vm.deleteInfo($event)">删除活动信息</button>
+              </div>
+              <div class="col-md-6 col-sm-6 text-left">
+                <button type="button" class="btn btn-default" ng-show="{{isSave}}" onclick="javascript:history.back(-1)">　返回　</button>
+
+                <button type="submit" class="btn btn-primary" ng-show="{{!isSave}}" style="margin-right:30px;" ng-click="vm.show($event)">活动预览</button>
+                <button type="submit" class="btn btn-primary" ng-show="{{!isSave}}" ng-click="vm.notice($event)">群发通知</button>
+              </div>
+
+            </div>
+          </div>
 
 
-        <div id="previewHtml" class="mobilepreview" style="width:450px;margin-left:35%;max-height:95%;position:fixed;    background-color: #EEEEEE;z-index: 100;top:10px;padding:0;border: 1px solid #ddd;border-radius: 4px;    box-shadow: #000 0 5px 10px;overflow-y:scroll;"
-          ng-show="isPreview">
-          <button type="button" class="close" ng-click="isPreview=false" title="关闭预览">
+
+          <!-- Angularjs 表格相关HTML代码 -->
+          <div class="tab-content container-fluid">
+            <table class="table table-hover">
+              <!-- 表头 -->
+              <thead>
+                <tr>
+                  <th> # </th>
+                  <th> 昵称 </th>
+                  <th> 性别 </th>
+                  <th> 报名时间 </th>
+                  <th> 签到时间 </th>
+                  <th> 操作 </th>
+                </tr>
+              </thead>
+              <tbody id="databody">
+                <tr ng-show="dataLengths" ng-repeat="x in vm.entity.members">
+                  <td>{{ $index+1 }}</td>
+                  <td>{{ x.user.userName }}</td>
+                  <td>{{ x.user.gender=="M"?"男":"女" }}</td>
+                  <!--报名时间-->
+                  <td>{{ x.signUpAt | date:"yyyy/MM/dd HH:mm:ss" }}</td>
+                  <!--签到时间-->
+                  <td>
+                    <span ng-if="!x.signed&&vm.entity.signByUser">未签到</span>
+                    <span ng-if="!x.signed&&!vm.entity.signByUser"><a href="javascript:;" ng-click="qiandao(x.user.id)">确认签到</a></span>
+                    <span ng-if="x.signed">{{ x.signAt | date:"yyyy/MM/dd HH:mm:ss" }}</span></td>
+                  <td>
+                    <a href="#" class="btn btn-link" ng-click="vm.cancelSign(x.user.id)" style="padding:0;" ng-if="!x.signed">取消报名</a>
+                    <a href="#" class="btn btn-link" ng-click="hasSign()" style="padding:0;" ng-if="x.signed">取消报名</a>
+                  </td>
+                </tr>
+                <tr ng-show="!dataLengths">
+                  <td colspan="100" class="text-center">暂无成员报名</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </form>
+
+
+      <div id="previewHtml" class="mobilepreview" style="width:450px;margin-left:35%;max-height:95%;position:fixed;    background-color: #EEEEEE;z-index: 100;top:10px;padding:0;border: 1px solid #ddd;border-radius: 4px;    box-shadow: #000 0 5px 10px;overflow-y:scroll;"
+        ng-show="isPreview">
+        <button type="button" class="close" ng-click="isPreview=false" title="关闭预览">
               <span aria-hidden="true">&times;</span></button>
-          <img src="../../images/activity/header.png" alt="" class="img-responsive" style="width:100%;">
-          <img src="{{imgurl}}" alt="活动宣传图" class="img-responsive" style="max-height:200px;width:100%;height: 200px;">
-          <div class="mobile-content" style="padding: 0 10px;    border-top: 1px solid #ccc;
+        <img src="../../images/activity/header.png" alt="" class="img-responsive" style="width:100%;">
+        <img src="{{imgurl}}" alt="活动宣传图" class="img-responsive" style="max-height:200px;width:100%;height: 200px;">
+        <div class="mobile-content" style="padding: 0 10px;    border-top: 1px solid #ccc;
           margin-top: 10px;    padding-bottom: 10px;
           border-bottom: 1px solid #ccc;">
-            <h4 style="    margin-bottom: 25px;"><b style="    font-size: 20px;
+          <h4 style="    margin-bottom: 25px;"><b style="    font-size: 20px;
               color: #333333;">{{vm.entity.name}}</b></h4>
-            <p style="font-size: 16px;
+          <p style="font-size: 16px;
             color: #333333;"><span style="    color: #999;">{{vm.entity.startAt|date: 'yyyy/MM/dd HH:mm:ss'}}</span>
-              <span class="pull-right">
+            <span class="pull-right">
                 <img src="../../images/activity/weiqiandao.png" alt="" style="height:15px;width:15px;">
                 <span ng-if="vm.entity.isReleased=='0'" style="color: #999;">待发布</span>
-              <span ng-if="vm.entity.isReleased=='1'" style="color: #999;">已发布</span>
-              <span ng-if="vm.entity.isReleased=='2'" style="color: #999;">不可报名</span>
-              </span>
-            </p>
+            <span ng-if="vm.entity.isReleased=='1'" style="color: #999;">已发布</span>
+            <span ng-if="vm.entity.isReleased=='2'" style="color: #999;">不可报名</span>
+            </span>
+          </p>
 
-            <hr style="margin:0 0 10px 0;">
-            <p style="font-size: 18px;color: #333333;"> <img src='../../images/activity/location.png' class='img-responsive' style="display: inline;margin-right:10px;" alt='自定义'>{{vm.entity.location}}<span class="glyphicon glyphicon-chevron-right pull-right"></span></p>
-          </div>
-          <!-- <div style="height:10px;border:1px solid #ddd;background-color: #EEEEEE;border-left:none;border-right:none;"> </div> -->
-          <div class="mobile-detail" style="padding: 0 10px;background-color:#fff;border-bottom: 1px solid #ccc;    
+          <hr style="margin:0 0 10px 0;">
+          <p style="font-size: 18px;color: #333333;"> <img src='../../images/activity/location.png' class='img-responsive' style="display: inline;margin-right:10px;" alt='自定义'>{{vm.entity.location}}<span class="glyphicon glyphicon-chevron-right pull-right"></span></p>
+        </div>
+        <!-- <div style="height:10px;border:1px solid #ddd;background-color: #EEEEEE;border-left:none;border-right:none;"> </div> -->
+        <div class="mobile-detail" style="padding: 0 10px;background-color:#fff;border-bottom: 1px solid #ccc;    
           padding: 10px;
           margin-top: 10px;margin-bottom:30px;
           border-top: 1px solid #ccc;">
-            <div>
-              <h4 style="font-size: 18px;color: #333333;"> 活动详情 </h4>
-              <hr style="margin:0 0 10px 0;">
-              <p>{{vm.entity.description}}</p>
+          <div>
+            <h4 style="font-size: 18px;color: #333333;"> 活动详情 </h4>
+            <hr style="margin:0 0 10px 0;">
+            <p>{{vm.entity.description}}</p>
 
-              <!-- <p class="">
+            <!-- <p class="">
                 <img src='../../images/2.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
                 <img src='../../images/3.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
                 <img src='../../images/5.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
@@ -289,31 +289,31 @@
                 <img src='../../images/3.png' class='img-responsive  img-circle' style="width:30px;height: 30px;display:inline-block;margin-left:10px;" alt='自定义'>
               </p> -->
 
-            </div>
           </div>
+        </div>
 
-          <div class="mobile-bottom" style="border-top: 1px solid #ccc;height: 50px;padding: 10px;width: 100%;">
-            <span style="font-size: 18px;line-height: 30px;color:#333333;">报名费:{{vm.entity.signUpCost}}元</span>
-            <button type="button" class="btn btn-primary pull-right">立即报名</button>
+        <div class="mobile-bottom" style="border-top: 1px solid #ccc;height: 50px;padding: 10px;width: 100%;">
+          <span style="font-size: 18px;line-height: 30px;color:#333333;">报名费:{{vm.entity.signUpCost}}元</span>
+          <button type="button" class="btn btn-primary pull-right">立即报名</button>
 
-          </div>
         </div>
       </div>
     </div>
-    <!-- 脚本 -->
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
-    <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../../Scripts/select2.js"></script>
-    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-    <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
-    <script type="text/javascript" src="../../Scripts/doc/usermanage/acticityadd.js"></script>
-    <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
-  </body>
+  </div>
+  <!-- 脚本 -->
+  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/plupload.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/moxie.js"></script>
+  <script type="text/javascript" src="../../Scripts/QiniuCloud/qiniu.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <script type="text/javascript" src="../../Scripts/w5cValidator.js"></script>
+  <script type="text/javascript" src="../../Scripts/doc/usermanage/acticityadd.js"></script>
+  <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
+</body>
 
 </html>
