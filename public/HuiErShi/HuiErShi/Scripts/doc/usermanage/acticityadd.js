@@ -573,9 +573,14 @@
            })
            .success(function(data, xhr) {
              if (xhr == 200) {
-               tool.alert("提示", "取消报名成功!");　
-               //刷新当前页面.
-               window.location.reload();
+               if(data.errorCode&&data.errorMessage){
+                tool.alert("提示", data.errorMessage);
+                return false;
+               }else{
+                tool.alert("提示", "取消报名成功!");　
+                //刷新当前页面.
+                window.location.reload();
+               }
              } else {
                tool.alert("提示", "操作失败,请重试!");
              }
