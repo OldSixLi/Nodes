@@ -573,8 +573,8 @@
            })
            .success(function(data, xhr) {
              if (xhr == 200) {
-               if(data.errorCode&&data.errorMessage){
-                tool.alert("提示", data.errorMessage);
+               if(data.errorCode=='400'&&data.errorMessage){
+                tool.alert("提示", "活动已开始，不能取消报名");
                 return false;
                }else{
                 tool.alert("提示", "取消报名成功!");　
