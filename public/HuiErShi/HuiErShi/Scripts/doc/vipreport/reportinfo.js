@@ -14,7 +14,7 @@
      var token = "";
      $.ajax({
        type: "get",
-       url: BasicUrl+"qnToken",
+       url: BasicUrl + "qnToken",
        async: false,
        dataType: "json",
        success: function(data) {
@@ -87,7 +87,7 @@
      var token = "";
      $.ajax({
        type: "get",
-       url: BasicUrl+"qnToken",
+       url: BasicUrl + "qnToken",
        async: false,
        dataType: "json",
        success: function(data) {
@@ -294,15 +294,17 @@
              }
            }
          }
-
-
-
-
          if (data.experts.SportExpert) {
            $scope.experts = {
              sportId: data.experts.SportExpert.id,
              foodId: data.experts.DietitianExpert.id
            }
+
+           $scope.expertData = {
+             sportId: data.experts.SportExpert.id,
+             foodId: data.experts.DietitianExpert.id
+           }
+
            $scope.expertData.sportUrl = data.experts.SportExpert.iconUrl;
            $scope.expertData.foodUrl = data.experts.DietitianExpert.iconUrl;
            $scope.expertData.sportUserName = data.experts.SportExpert.name;
