@@ -42,9 +42,7 @@
             <a ng-click="search()" class="btn btn-primary" id="btnSearch">
               <i class=" glyphicon glyphicon-search"></i>&nbsp;搜索
             </a> &nbsp;&nbsp;&nbsp;
-            <a href="FoodsEdit.html" class="btn btn-primary" id="btnAddActivity">
-              <i class=" glyphicon glyphicon-plus"></i>&nbsp;添加
-            </a>
+
           </div>
 
 
@@ -96,8 +94,10 @@
                 <td>{{ x.dietNutrition.protein }}</td>
                 <td>{{ x.dietNutrition.carbohydrate }}</td>
                 <td>{{x.dietNutrition.fat}}</td>
-                <td><a href="FoodsEdit.html?id={{x.id}}" title="修改信息"><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;
-                  <a href="#" ng-click="deleteItem(x.id)" title="删除信息"><span class="glyphicon glyphicon-trash"></span></a></td>
+                <td><a href="FoodsEdit.html?id={{x.id}}" title="修改信息">
+                  查看
+                </a>
+                </td>
               </tr>
               <tr ng-show="!dataLengths">
                 <td colspan="100" class="text-center">暂无结果</td>
