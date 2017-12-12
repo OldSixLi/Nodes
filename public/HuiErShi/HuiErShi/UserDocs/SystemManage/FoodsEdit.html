@@ -8,12 +8,15 @@
     <title>编辑食物</title>
     <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet">
     <link href="../../Styles/common.css" rel="stylesheet">
+    <style>
+      #foodAbout .col-sm-6.col-md-4 {
+        text-align: right;
+      }
+    </style>
   </head>
 
   <body ng-app="myApp" ng-controller="validateCtrl" class="myload">
     <div>
-
-
       <!-- 面包屑导航 -->
       <div class="container-fluid">
         <div class="row">
@@ -46,7 +49,15 @@
               <hr>
             </div>
             <!--左侧表单-->
-            <div class="col-md-offset-1 col-md-5 col-sm-6 col-sm-offset-0 form-horizontal">
+            <div class="col-md-offset-1 col-md-8 col-sm-12 col-sm-offset-0 form-horizontal" id="foodAbout">
+              <div class="form-group">
+                <div class="col-sm-6 col-md-4">
+                  <label for="name" class="control-label">食物名称：</label>
+                </div>
+                <div class="col-sm-6 col-md-7">
+                  <input type="text" class="form-control" id="name" name="name" ng-model="data.name" placeholder="食物名称">
+                </div>
+              </div>
               <div class="form-group">
                 <div class="col-sm-6 col-md-4">
                   <label for="announcement" class="control-label">食物类型：</label>
@@ -135,185 +146,13 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-6 col-md-4">
-                  <label for="dietaryFiber" class="control-label">膳食纤维：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control" id="dietaryFiber" name="dietaryFiber" ng-model="data.dietNutrition.dietaryFiber" placeholder="膳食纤维">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="ashContent" class="control-label">灰分（g）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="ashContent" name="ashContent" ng-model="data.dietNutrition.ashContent" placeholder="灰分">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="vitaminA" class="control-label">维生素A(μgRE)：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="vitaminA" name="vitaminA" ng-model="data.dietNutrition.vitaminA" placeholder="维生素A含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="txtUserPressure" class="control-label">胡萝卜素（μg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="carotene" name="carotene" ng-model="data.dietNutrition.carotene" placeholder="胡萝卜素含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="thiamine" class="control-label">硫胺素（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="thiamine" name="thiamine" ng-model="data.dietNutrition.thiamine" placeholder="硫胺素含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="riboflavin" class="control-label">核黄素（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="riboflavin" name="riboflavin" ng-model="data.dietNutrition.riboflavin" placeholder="核黄素含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
                   <label for="description" class="control-label">食物描述：</label>
                 </div>
                 <div class="col-sm-6 col-md-7">
                   <textarea class="form-control" id="description" name="description" ng-model="data.description" rows="5" placeholder="请输入食物描述">{{data.description}}</textarea>
                 </div>
               </div>
-            </div>
-            <!-- 右侧表单 -->
-            <div class="  col-md-5 col-sm-6 form-horizontal">
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="name" class="control-label">食物名称：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control" id="name" name="name" ng-model="data.name" placeholder="食物名称">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="niacin" class="control-label">烟酸（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="niacin" name="niacin" ng-model="data.dietNutrition.niacin" placeholder="烟酸含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="vitaminC" class="control-label">维生素C（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="vitaminC" name="vitaminC" ng-model="data.dietNutrition.vitaminC" placeholder="维生素C含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="vitaminE" class="control-label">维生素E（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="vitaminE" name="vitaminE" ng-model="data.dietNutrition.vitaminE" placeholder="维生素E含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="alphaTE" class="control-label">α-TE（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="alphaTE" name="alphaTE" ng-model="data.dietNutrition.alphaTE" placeholder="α-TE含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="calcium" class="control-label">钙（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="calcium" name="calcium" ng-model="data.dietNutrition.calcium" placeholder="钙含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="phosphorus" class="control-label">磷（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="phosphorus" name="phosphorus" ng-model="data.dietNutrition.phosphorus" placeholder="磷含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="sodium" class="control-label">钠（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="sodium" name="sodium" ng-model="data.dietNutrition.sodium" placeholder="钠含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="magnesium" class="control-label">镁（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="magnesium" name="magnesium" ng-model="data.dietNutrition.magnesium" placeholder="镁含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="iron" class="control-label">铁（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="iron" name="iron" ng-model="data.dietNutrition.iron" placeholder="铁含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="zinc" class="control-label">锌（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="zinc" name="zinc" ng-model="data.dietNutrition.zinc" placeholder="锌含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="selenium" class="control-label">硒（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="selenium" name="selenium" ng-model="data.dietNutrition.selenium" placeholder="硒含量">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="copper" class="control-label">铜（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="copper" name="copper" ng-model="data.dietNutrition.copper" placeholder="铜含量">
-                </div>
-              </div>
-              <!--<div class="form-group">
-            <div class="col-sm-6 col-md-4">
-              <label for="txtUserPressure" class="control-label">锰（mg）：</label>
-            </div>
-            <div class="col-sm-6 col-md-7">
-              <input type="text" class="form-control" id="txtMg" placeholder="锰含量">
-            </div>
-          </div>-->
 
-              <!---->
-              <div class="form-group">
-                <div class="col-sm-6 col-md-4">
-                  <label for="txtUserPressure" class="control-label">锰（mg）：</label>
-                </div>
-                <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control  vipprices" id="manganese" name="manganese" ng-model="data.dietNutrition.manganese" placeholder="锰含量">
-                </div>
-              </div>
               <div class="form-group">
                 <div class="col-sm-6 col-md-4">
                   <label for="instruction" class="control-label">食物说明：</label>
@@ -322,6 +161,11 @@
                   <textarea class="form-control" name="instruction" id="instruction" rows="5" ng-model="data.instruction" placeholder="食物说明"></textarea>
                 </div>
               </div>
+
+            </div>
+            <!-- 右侧表单 -->
+            <div class="  col-md-5 col-sm-6 form-horizontal">
+
             </div>
             <!--提交按钮-->
             <div class="col-md-12 col-sm-12">

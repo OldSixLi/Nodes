@@ -56,7 +56,7 @@
 
          } else {
            $scope.dataLengths = false;
-           // alert("未获取到数据，请重试");
+
          }
        } else {
          $scope.dataLengths = false;
@@ -208,7 +208,6 @@
    $scope.search = function() {
 
      //用户名称
-     // var username = $("#username").val();
      var username = UserID;
      //会员类型
      var time = $("#txtStartTime").val();

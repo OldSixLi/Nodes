@@ -17,9 +17,6 @@ function toNormalTime(shijianchuo) {
 
 function add0(m) { return m < 10 ? '0' + m : m; }
 
-//
-// var time = '2015-06-27';\r\nconsole.log(Date.parse(new Date(time)));
-
 console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
 console.log(toTimestamp('2015-06-27'));
 console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
@@ -31,7 +28,6 @@ console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑�
  * @returns 
  */
 function toTimestamp(timestr) {
-  //   return new Date(timestr).setHours(0); //设置时间为一天开始
   return Date.parse(new Date(timestr)).toString() == "NaN" ? 0 : Date.parse(new Date(timestr));
 }
 

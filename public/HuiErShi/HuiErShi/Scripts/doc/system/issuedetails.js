@@ -9,10 +9,6 @@
    //分页方法声明
    var pageing = function(pageindex, params) {
        //请求地址
-       //TODO  需要修改部分
-       // vipCard/delivery?
-       // http://healthshare.com.cn:80/admin/api/api-docs/../activity?
-       // http://healthshare.com.cn:80/admin/api/api-docs/../vipCard/delivery/1?page=0&pageNum=10
        var url = BasicUrl + "vipCard/delivery?" + params + "page=" + pageindex + "&pageNum=10&sortName=vipCardEntity.name&sortType=ASC"; //请求的参数和地址
        $http.get(url).success(function(data) {
          if (data != null && data != "" && data != "null") {
@@ -32,9 +28,7 @@
                function() {
                  pageing($("#currentPage").val() - 1, params);
                });
-           } else {
-             // alert("未获取到数据，请重试");
-           }
+           } else {}
          }
        });
      }
@@ -64,7 +58,7 @@
                pageing($("#currentPage").val() - 1, params);
              });
          } else {
-           // alert("未获取到数据，请重试");
+
          }
        }
      });

@@ -1,5 +1,4 @@
     $(function() {
-      // $(".start_end_time").datetimepicker();
       var tool = new JSTOOL();
       tool.changeSelect($("#username"), true);
       tool.changeSelect($("#sltTag"), false);
@@ -31,7 +30,7 @@
                   });
               } else {
                 $scope.dataLengths = false;
-                // alert("未获取到数据，请重试");
+
               }
             }
           });

@@ -373,7 +373,7 @@
    }
 
    $scope.seeDetail = function(url) {
-     tool.alert("图片详情", "<img src='" + url + "' class='img-responsive img-thumbnail' style='max-width:800px;width:auto;height:auto;margin:0 auto;'/>", function() {}, 'col-md-10 col-md-offset-1 imgContent');
+     tool.alertImg("图片详情", "<img src='" + url + "' class='img-responsives img-thumbnail' style='max-width:800px;width:auto;height:auto;margin:0 auto;transform:rotate(0);' data-deg='0'/>", function() {}, 'col-md-10 col-md-offset-1 imgContent');
    }
 
    //新建报告单

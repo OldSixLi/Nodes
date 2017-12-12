@@ -14,7 +14,7 @@
      var token = "";
      $.ajax({
        type: "get",
-       url: BasicUrl+"qnToken",
+       url: BasicUrl + "qnToken",
        async: false,
        dataType: "json",
        success: function(data) {
@@ -91,13 +91,9 @@
          //判断当前是否存在记录
          $scope.dataLengths = data.length > 0;
          if (data != null && data.length > 0) {
-           //赋值操作
-           // $timeout(function() {
            $scope.data = data;
-           // }, 5000);
          } else {
            $scope.dataLengths = false;
-           //  tool.alert("提示", "暂无结果");
          }
        } else {
          $scope.dataLengths = false;

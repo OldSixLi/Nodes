@@ -5,7 +5,7 @@
  * @version 1.0
  */
 //将form表单内容序列化为JSON
-var BasicUrl = "http://healthshare.com.cn:80/admin/api/";//正式环境地址
+var BasicUrl = "http://healthshare.com.cn:80/admin/api/"; //正式环境地址
 // var BasicUrl = "http://114.55.67.92:8080/admin/api/";//测试环境地址
 
 (function($) {
@@ -265,10 +265,6 @@ function headertoken() {
 }
 
 
-// var currentHeader={
-//   header:
-// }
-
 /**
  * 判断当前操作的用户是否为正常登陆
  * 
@@ -402,6 +398,71 @@ var JSTOOL = function() {
       });
     }
   };
+
+  // 确认框
+  this.alertImg = function(title, content, okCallback, cancelCallback) {
+    var confirm =
+      function() {
+        // alert(window.top.$(".imgContent").find("img.img-responsive").attr('src'));
+        var $img = window.top.$(".imgContent").find("img.img-responsives");
+        console.log($img);
+        var jiaodu = $img.attr("data-deg") - 0 + 90;
+        var translates = 'rotateZ(' + jiaodu + 'deg) ';
+        $img.attr("data-deg", jiaodu);
+        $img.css('transform', translates);
+        return false;
+      };
+    var cancel = cancelCallback && typeof cancelCallback === "function" ? cancelCallback :
+      function() {};
+    if (myBrowser() == "IE8") {
+      window.top.bootbox.confirm({
+        buttons: {
+          confirm: {
+            label: '旋转',
+            className: 'btn-success'
+          },
+          cancel: {
+            label: '关闭',
+            className: 'btn-danger'
+          }
+        },
+        message: content,
+        callback: function(result) {
+          if (result) {
+            confirm();
+          } else {
+            cancel();
+          }
+        },
+        title: title,
+        columnClass: "col-md-10 col-md-offset-1 imgContent"
+      });
+    } else {
+      var confirm = function() {
+        var $img = window.top.$(".imgContent").find("img.img-responsives");
+        var jiaodu = $img.attr("data-deg") - 0 + 90;
+        var translates = 'rotateZ(' + jiaodu + 'deg) ';
+        $img.attr("data-deg", jiaodu);
+        $img.css('transform', translates);
+        return false;
+      };
+      var cancel = cancelCallback && typeof cancelCallback === "function" ? cancelCallback : function() {};
+      window.top.window.top.$.confirm({
+        title: title,
+        content: content,
+        confirm: confirm,
+        cancel: cancel,
+        confirmButton: '旋转',
+        cancelButton: '关闭',
+        confirmButtonClass: 'btn-success',
+        cancelButtonClass: 'btn btn-default',
+        backgroundDismiss: false,
+        animation: 'zoom',
+        closeAnimation: 'scale',
+        columnClass: "col-md-10 col-md-offset-1 imgContent"
+      });
+    }
+  };
   // 对话框
   this.dialog = function(title, content) {
     window.top.$.dialog({
@@ -446,23 +507,3 @@ function getCookie(name) {
   else
     return null;
 }
-
-
-// NOTE: 这个方法不能用中文参数
-// $.ajax({
-//   type: "GET",
-//   url: "http://localhost:3001/users/users",
-//   dataType: "json",
-//   success: function(data) {
-//     if (data != null && data != "") {
-//       if (data.dataSuccess) {
-//         tool.alert("提示", "保存成功");
-//       } else {
-//         tool.alert("提示", "保存失败");
-//       }
-//     }
-//   },
-//   error: function(response) {
-//     tool.alert("提示", "请求服务失败,请重试!");
-//   }
-// });

@@ -86,7 +86,7 @@
                     setCookie('identifier', 'USER_MEMBER' + id);
                     setCookie('userSig', data);
                     setCookie('token', token);
-                    setCookie('adminId', id); 
+                    setCookie('adminId', id);
                     window.location.href = "HuiErShi.html?hesid=" + id;
                     // window.location.href = "SlideHtml.html?hesid=" + id;
                   }
