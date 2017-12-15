@@ -260,16 +260,22 @@
          $scope.reportStatus = data.status;
 
          //当前报告单的专家建议的先关信息
-         $scope.expertData = {};
+         $scope.expertData = {
+           sportReport: "",
+           sportAdvice: "",
+           sportUrl: "",
+           sportId: 0,
+           foodReport: "",
+           foodAdvice: "",
+           foodUrl: "",
+           foodId: 0
+         };
          $scope.foodChufangArr = [];
          $scope.sportChufangArr = [];
 
          if (data.consults && data.consults.length > 0) {
            for (var index = 0; index < data.consults.length; index++) {
              var element = data.consults[index];
-             console.log("↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓");
-             console.log(element);
-             console.log("↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑");
              if (element.admin.role == 2) {
                $scope.expertData.sportReport = element.analysis;
                $scope.expertData.sportAdvice = element.advice;
@@ -277,7 +283,6 @@
                $scope.expertData.sportId = element.id;
                $scope.sportChufangArr = element.prescriptions;
                $scope.expertData.sportAttach = element.attach;
-               $scope.expertData.sportConsultId = element.id;
              }
              if (element.admin.role == 3) {
                $scope.expertData.foodReport = element.analysis;
@@ -286,25 +291,26 @@
                $scope.expertData.foodId = element.id;
                $scope.foodChufangArr = element.prescriptions;
                $scope.expertData.foodAttach = element.attach;
-               $scope.expertData.foodConsultId = element.id;
              }
            }
-         } else {
-           $scope.expertData.foodConsultId = 0;
-           $scope.expertData.sportConsultId = 0;
          }
          if (data.experts.SportExpert) {
-           $scope.experts.sportId = data.experts.SportExpert.id;
-           $scope.experts.foodId = data.experts.DietitianExpert.id;
-           $scope.expertData.sportId = data.experts.SportExpert.id;
-           $scope.expertData.foodId = data.experts.DietitianExpert.id;
+           $scope.experts = {
+             sportId: data.experts.SportExpert.id,
+             foodId: data.experts.DietitianExpert.id
+           }
+
+           $scope.expertData = {
+             sportId: data.experts.SportExpert.id,
+             foodId: data.experts.DietitianExpert.id
+           }
+
+           $scope.expertData.sportUrl = data.experts.SportExpert.iconUrl;
+           $scope.expertData.foodUrl = data.experts.DietitianExpert.iconUrl;
+           $scope.expertData.sportUserName = data.experts.SportExpert.name;
+           $scope.expertData.foodUserName = data.experts.DietitianExpert.name;
+
          }
-
-         $scope.expertData.sportUrl = data.experts.SportExpert.iconUrl;
-         $scope.expertData.foodUrl = data.experts.DietitianExpert.iconUrl;
-         $scope.expertData.sportUserName = data.experts.SportExpert.name;
-         $scope.expertData.foodUserName = data.experts.DietitianExpert.name;
-
 
          if (!$scope.expertData.foodAttach) {
            $("#foodLink").addClass('disabled');
@@ -313,6 +319,7 @@
          if (!$scope.expertData.sportAttach) {
            $("#sportLink").addClass('disabled');
          }
+
        } else {
          tool.alert("提示", data.errorMessage);
        }
@@ -357,7 +364,7 @@
 
    //添加处方时改变相关ID
    $scope.addChufang = function(id, type) {
-     $scope.expertAdviceReportId = id; //即typeConsultId
+     $scope.expertAdviceReportId = id;
      $scope.expertType = type;
    }
 
@@ -375,48 +382,46 @@
        ($scope.model.description == chufangObj.description)) {
        // 相同时操作 
        var chufangID = $scope.model.id;
-
-       tool.alert("提示", "添加成功", function() {
-         //根据添加的类别进行判断然后添加数据
-         if ($scope.expertType == 'food') {
-           $scope.foodChufangArr.push($scope.getChufangObj(chufangID));
-           $scope.$apply();
-           $("#chufanglist").val('');
-           $('#modal').modal('hide');
-         }
-         if ($scope.expertType == 'sport') {
-           $scope.sportChufangArr.push($scope.getChufangObj(chufangID));
-           $scope.$apply();
-           $("#chufanglist").val('');
-           $('#modal').modal('hide');
+       //异步请求操作
+       $.ajax({
+         type: "POST",
+         url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertAdviceReportId + "/prescription",
+         data: {
+           reportId: $scope.reportId - 0,
+           consultId: $scope.expertAdviceReportId,
+           prescriptionId: chufangID
+         },
+         dataType: "json",
+         error: function(response) {
+           if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+             tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+           }
+         },
+         success: function(data) {},
+         complete: function(xhr, textStatus) {
+           if (xhr.status == 200) {
+             if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
+               tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
+             } else {
+               tool.alert("提示", "添加成功", function() {
+                 //根据添加的类别进行判断然后添加数据
+                 if ($scope.expertType == 'food') {
+                   $scope.foodChufangArr.push($scope.getChufangObj(chufangID));
+                   $scope.$apply();
+                   $("#chufanglist").val('');
+                   $('#modal').modal('hide');
+                 }
+                 if ($scope.expertType == 'sport') {
+                   $scope.sportChufangArr.push($scope.getChufangObj(chufangID));
+                   $scope.$apply();
+                   $("#chufanglist").val('');
+                   $('#modal').modal('hide');
+                 }
+               });
+             }
+           }
          }
        });
-       //异步请求操作
-       //  $.ajax({
-       //    type: "POST",
-       //    url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertAdviceReportId + "/prescription",
-       //    data: {
-       //      reportId: $scope.reportId - 0,
-       //      consultId: $scope.foodConsultId,
-       //      prescriptionId: chufangID
-       //    },
-       //    dataType: "json",
-       //    error: function(response) {
-       //      if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-       //        tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-       //      }
-       //    },
-       //    success: function(data) {},
-       //    complete: function(xhr, textStatus) {
-       //      if (xhr.status == 200) {
-       //        if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
-       //          tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
-       //        } else {
-
-       //        }
-       //      }
-       //    }
-       //  });
      } else {
        //  不同时操作 
 
@@ -457,64 +462,63 @@
          complete: function(xhr, textStatus) {
            console.log(xhr.status);
            if (xhr.status == 200) {
+             // $('[name="addForm"]')[0].reset();
+             // $('#modal').modal('hide')
+             // tool.alert("提示", "数据保存成功", function() {
+             //刷新当前页面.
+             // window.location.reload();
+             // });
+
+             // {
+             // "id": 23,
+             // "name": "132",
+             // "spell": "312321",
+             // "description": "231321",
+             // "prescriptionType": "Sport"
+             // }
+
              var data = JSON.parse(xhr.responseText);
              if (!data.id) {
                return false;
              }
              var chufangID = data.id;
-             //  $.ajax({
-             //    type: "POST",
-             //    url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertAdviceReportId + "/prescription",
-             //    data: {
-             //      reportId: $scope.reportId - 0,
-             //      consultId: $scope.expertAdviceReportId,
-             //      prescriptionId: chufangID
-             //    },
-             //    dataType: "json",
-             //    error: function(response) {
-             //      if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
-             //        tool.alert("提示", JSON.parse(response.responseText).errorMessage);
-             //      }
-             //    },
-             //    success: function(data) {},
-             //    complete: function(xhr, textStatus) {
-             //      if (xhr.status == 200) {
-             //        if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
-             //          tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
-             //        } else {
-             //          tool.alert("提示", "添加成功", function() {
-             //            // 根据添加的类别进行判断然后添加数据
-             //            if ($scope.expertType == 'food') {
-             //              $scope.foodChufangArr.push($scope.model);
-             //              $scope.$apply();
-             //              $("#chufanglist").val('');
-             //              $('#modal').modal('hide');
-             //            }
-             //            if ($scope.expertType == 'sport') {
-             //              $scope.sportChufangArr.push($scope.model);
-             //              $scope.$apply();
-             //              $("#chufanglist").val('');
-             //              $('#modal').modal('hide');
-             //            }
-             //          });
-             //        }
-             //      }
-             //    }
-             //  });
-
-             tool.alert("提示", "添加成功", function() {
-               //根据添加的类别进行判断然后添加数据
-               if ($scope.expertType == 'food') {
-                 $scope.foodChufangArr.push($scope.getChufangObj(chufangID));
-                 $scope.$apply();
-                 $("#chufanglist").val('');
-                 $('#modal').modal('hide');
-               }
-               if ($scope.expertType == 'sport') {
-                 $scope.sportChufangArr.push($scope.getChufangObj(chufangID));
-                 $scope.$apply();
-                 $("#chufanglist").val('');
-                 $('#modal').modal('hide');
+             $.ajax({
+               type: "POST",
+               url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertAdviceReportId + "/prescription",
+               data: {
+                 reportId: $scope.reportId - 0,
+                 consultId: $scope.expertAdviceReportId,
+                 prescriptionId: chufangID
+               },
+               dataType: "json",
+               error: function(response) {
+                 if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
+                   tool.alert("提示", JSON.parse(response.responseText).errorMessage);
+                 }
+               },
+               success: function(data) {},
+               complete: function(xhr, textStatus) {
+                 if (xhr.status == 200) {
+                   if (xhr.responseText && JSON.parse(xhr.responseText) && JSON.parse(xhr.responseText).errorMessage) {
+                     tool.alert("提示", JSON.parse(xhr.responseText).errorMessage);
+                   } else {
+                     tool.alert("提示", "添加成功", function() {
+                       // 根据添加的类别进行判断然后添加数据
+                       if ($scope.expertType == 'food') {
+                         $scope.foodChufangArr.push($scope.model);
+                         $scope.$apply();
+                         $("#chufanglist").val('');
+                         $('#modal').modal('hide');
+                       }
+                       if ($scope.expertType == 'sport') {
+                         $scope.sportChufangArr.push($scope.model);
+                         $scope.$apply();
+                         $("#chufanglist").val('');
+                         $('#modal').modal('hide');
+                       }
+                     });
+                   }
+                 }
                }
              });
            } else {
@@ -639,31 +643,18 @@
    $scope.addConsult = function(type) {
      var adminId = 0;　
      var chufang = [];
-     var method = "PATCH",
-       Url = "";
      if (type == 'food') {
        adminId = $scope.experts.foodId;
        for (var o = 0; o < $scope.foodChufangArr.length; o++) {
          var ele = $scope.foodChufangArr[o];
          chufang.push(ele.id);
        }
-       if ($scope.expertData.foodConsultId == 0) {
-         method = "POST"
-       } else {
-         Url = "/" + $scope.expertData.foodConsultId;
-       }
 
-     } else
-     if (type == 'sport') {
+     } else if (type == 'sport') {
        adminId = $scope.experts.sportId;
        for (var o = 0; o < $scope.sportChufangArr.length; o++) {
          var ele = $scope.sportChufangArr[o];
          chufang.push(ele.id);
-       }
-       if ($scope.expertData.sportConsultId == 0) {
-         method = "POST";
-       } else {
-         Url = "/" + $scope.expertData.sportConsultId;
        }
      }
 
@@ -674,16 +665,17 @@
          function() {
            var data = {
              reportId: $scope.reportId,
-             adminId: $scope.expertData[type + 'Id'] - 0,
-             analysis: $scope.expertData[type + 'Report'] == undefined ? "" : $scope.expertData[type + 'Report'],
-             advice: $scope.expertData[type + 'Advice'] == undefined ? "" : $scope.expertData[type + 'Advice'],
+             consultId: $scope.expertData[type + 'Id'] - 0,
+             adminId: adminId, //TODO  修改
+             analysis: $scope.expertData[type + 'Report'],
+             advice: $scope.expertData[type + 'Advice'],
              prescriptions: chufang.join(','), //处方
              attach: $("[name='" + type + "iconUrl']").val() //附件
            }
 
            $http({
-               method: method,
-               url: BasicUrl + "report/" + $scope.reportId + "/consult" + Url,
+               method: 'PATCH',
+               url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData[type + 'Id'],
                data: data,
                transformRequest: function(obj) {
                  var str = [];
@@ -722,13 +714,18 @@
          "提示",
          "确认添加建议？",
          function() {
+
            var attachUrl = $("[name='" + type + "iconUrl']").val();
+           // if (!attachUrl) {
+           //   tool.alert("提示", "请上传附件！");
+           //   return false;
+           // }
            $.ajax({
-             type: method,
-             url: BasicUrl + "report/" + $scope.reportId + "/consult" + Url,
+             type: "POST",
+             url: BasicUrl + "report/" + $scope.reportId + "/consult",
              data: {
                reportId: $scope.reportId - 0,
-               adminId: adminId,
+               adminId: adminId, //TODO  修改
                analysis: $scope.expertData[type + 'Report'],
                advice: $scope.expertData[type + 'Advice'],
                attach: attachUrl //附件
@@ -766,7 +763,7 @@
    }
 
    //删除营养专家处方
-   $scope.deleteFoodArr = function(id, consultId) {
+   $scope.deleteFoodArr = function(id) {
      var url = BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData.foodId + "/prescription/" + id;
      tool.confirm(
        "提示",
@@ -775,12 +772,7 @@
          //用户点击确认按钮时操作
          $.ajax({
            type: "DELETE",
-           url: BasicUrl + "report/" + $scope.reportId + "/consult/" + consultId + "/prescription/" + id,
-           data: {
-             reportId: $scope.reportId,
-             consultId: consultId,
-             prescriptionId: id
-           },
+           url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData.foodId + "/prescription/" + id,
            dataType: "json",
            error: function(response) {
              if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
@@ -808,7 +800,7 @@
    }
 
    //删除运动专家处方
-   $scope.deleteSportArr = function(id, consultId) {
+   $scope.deleteSportArr = function(id) {
      var url = BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData.sportId + "/prescription/" + id
      tool.confirm(
        "提示",
@@ -817,12 +809,7 @@
          //用户点击确认按钮时操作
          $.ajax({
            type: "DELETE",
-           url: BasicUrl + "report/" + $scope.reportId + "/consult/" + consultId + "/prescription/" + id,
-           data: {
-             reportId: $scope.reportId,
-             consultId: consultId,
-             prescriptionId: id
-           },
+           url: BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData.sportId + "/prescription/" + id,
            dataType: "json",
            error: function(response) {
              if (response && response.responseText && JSON.parse(response.responseText) && JSON.parse(response.responseText).errorMessage) {
@@ -843,7 +830,8 @@
              }
            }
          });
-       });
+       },
+       function() {});
    }
 
    //获取处方详情

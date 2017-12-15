@@ -53,7 +53,6 @@
               <tr>
                 <th>序号</th>
                 <th>运动名称</th>
-                <th>运动类别</th>
                 <th>运动开始时间</th>
                 <th>运动结束时间</th>
                 <th>持续时长</th>
@@ -68,7 +67,6 @@
               <tr ng-show="dataLengths" ng-repeat="x in data.content | orderBy : title : desc">
                 <td>{{$index+data.page*data.pageNum+1}}</td>
                 <td>{{ x.name }}</td>
-                <td>{{ x.Sport.typeName }}</td>
                 <td>{{ x.startAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
                 <td>{{ x.endAt|date:"yyyy/MM/dd HH:mm:ss" }}</td>
                 <td>{{(x.lasted/60)+"分"}}</td>

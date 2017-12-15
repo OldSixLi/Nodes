@@ -97,9 +97,6 @@
                 <th data-order='sortAdviserIndex' class="order" ng-click="title='sortAdviserIndex';desc=!desc;sort('sortAdviserIndex')">
                   会籍顾问<span class="glyphicon glyphicon-sort"></span>
                 </th>
-                <th>
-                  激活日期
-                </th>
                 <th data-order='date' class="order" ng-click="title='date';desc=!desc;sort('date')">
                   会员有效期<span class="glyphicon glyphicon-sort"></span>
                 </th>
@@ -115,7 +112,6 @@
                 <td><span ng-if="x.vipCard.activated">{{ x.vipCard.vipCardEntity.name}}</span>
                   <span ng-if="!x.vipCard.activated">{{ x.vipCard.vipCardEntity.name+'(未激活)'}}</span></td>
                 <td>{{ x.adv=x.adviser.name}}</td>
-                <td>{{ x.vipCard.activeAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
                 <td>{{x.date=x.vipCard.expiredAt | date:"yyyy/MM/dd HH:mm:ss"}}</td>
               </tr>
               <tr ng-show="!dataLengths">

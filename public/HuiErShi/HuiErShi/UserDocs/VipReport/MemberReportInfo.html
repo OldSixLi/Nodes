@@ -72,12 +72,12 @@
             <button type="button" class="btn btn-primary" ng-click="addConsult('food')" style="margin-top:10px;" ng-disabled="!(experts.foodId>0)">确认提交</button>
           </div>
           <div class="col-md-10">
-            <p><b>报告分析:</b>(<a href="javascript:;" ng-click="editReport(expertData.foodReport,'food')">修改</a>)
+            <p><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.foodReport,'food')">修改</a>)
               <br>
               <span>　　</span> <span>{{expertData.foodReport}}
              </span>
             </p>
-            <p><b>专家建议:</b>(<a href="javascript:;" ng-click="editAdvice(expertData.foodAdvice,'food')">修改</a>)
+            <p><b>专家建议:</b>(<a href="" ng-click="editAdvice(expertData.foodAdvice,'food')">修改</a>)
               <br>
               <span>　　</span> <span>{{expertData.foodAdvice}}</span>
             </p>
@@ -85,7 +85,7 @@
           <div class="col-md-10 col-md-offset-2">
           </div>
           <div class="col-md-2">
-            <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.foodConsultId,'food')" style="position:relative;right:-27px;" ng-disabled="!(experts.foodId>0)"> 添加处方</a>
+            <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.foodId,'food')" style="position:relative;right:-27px;" ng-disabled="!(experts.foodId>0)"> 添加处方</a>
             <div style="margin-top:35px;">
               <!--$scope.-->
               <p ng-repeat="a in expertData.foodModifyTime.split(',')">{{a}}</p>
@@ -114,7 +114,7 @@
                   </td>
                   <td>{{ x.spell }}</td>
                   <td>
-                    <a href="javascript:;" ng-click="deleteFoodArr(x.id)">删除</a></td>
+                    <a href="" ng-click="deleteFoodArr(x.id)">删除</a></td>
                 </tr>
                 <tr ng-show="foodChufangArr.length<=0">
                   <td colspan="100" class="text-center ">暂无结果</td>
@@ -143,21 +143,20 @@
             <button type="button" class="btn btn-primary" ng-click="addConsult('sport')" style="margin-top:10px;" ng-disabled="!(experts.sportId>0)">确认提交</button>
           </div>
           <div class="col-md-10">
-            <p id="sportReport"><b>报告分析:</b>(<a href="javascript:;" ng-click="editReport(expertData.sportReport,'sport')">修改</a>)
+            <p id="sportReport"><b>报告分析:</b>(<a href="" ng-click="editReport(expertData.sportReport,'sport')">修改</a>)
               <br>
               <span>　　</span> <span class="content">{{expertData.sportReport}}
              </span>
             </p>
-            <p id="sportAdvice"><b>专家建议:</b>(<a href="javascript:;" ng-click="editAdvice(expertData.sportAdvice,'sport')">修改</a>)
+            <p id="sportAdvice"><b>专家建议:</b>(<a href="" ng-click="editAdvice(expertData.sportAdvice,'sport')">修改</a>)
               <br>
-              <span>　　</span> <span class="content">
-                {{expertData.sportAdvice}}</span>
+              <span>　　</span> <span class="content">{{expertData.sportAdvice}}</span>
             </p>
           </div>
           <div class="col-md-10 col-md-offset-2">
           </div>
           <div class="col-md-2">
-            <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.sportConsultId,'sport')" style="position:relative;right:-27px;" ng-disabled="!(experts.sportId>0)"> 添加处方</a>
+            <a class="btn btn-primary pull-right btn-sm" data-toggle="modal" href="#modal" ng-click="addChufang(expertData.sportId,'sport')" style="position:relative;right:-27px;" ng-disabled="!(experts.sportId>0)"> 添加处方</a>
             <div style="margin-top:35px;">
               <p ng-repeat="a in expertData.sportModifyTime.split(',')">{{a}}</p>
 
@@ -184,7 +183,7 @@
                   </td>
                   <td>{{ x.spell }}</td>
                   <td>
-                    <a href="javascript:;" ng-click="deleteSportArr(x.id,expertData.sportConsultId)">删除</a></td>
+                    <a href="" ng-click="deleteSportArr(x.id)">删除</a></td>
                 </tr>
                 <tr ng-show="sportChufangArr.length<=0">
                   <td colspan="100" class="text-center ">暂无结果</td>
@@ -260,7 +259,7 @@
                         <tbody id="databody">
                           <tr ng-show="dataLengths" ng-repeat="x in datas.content">
                             <td>{{ $index+1 }}</td>
-                            <td><a href="javascript:;" ng-click=getEditModel(x.id)>{{ x.name }}</a></td>
+                            <td><a href="#" ng-click=getEditModel(x.id)>{{ x.name }}</a></td>
                             <td>{{ x.prescriptionType=="Sport"?"运动":"营养" }}</td>
                             <td>{{ x.spell}}</td>
                           </tr>
@@ -274,6 +273,15 @@
 
                 </div>
                 <div ng-show="dataLengths" class="col-md-12">
+                  <!--<div class="form-group pull-right topage_block">
+ 
+                    <label>{{totalRecord}}条/{{totalPage}}页</label>
+                    <label>跳至</label>
+                    <input type="text" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" class="form-control topage" ng-model="toPageValue" />
+                    <label>页</label>
+                    <button class="btn btn-primary btn-sm" ng-click="skip()">确定</button>
+                  </div>-->
+                  <!-- 分页控件 -->
                   <input id="currentPage" name="currentPage" value="1" type="hidden">
                   <div class="pull-right">
                     <ul class="pagination" id="alreadyPage"></ul>
