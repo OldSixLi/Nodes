@@ -49,7 +49,7 @@
       vm.errorMessage = "";
       $http({
           method: 'POST',
-          url: 'http://localhost:8080/admin/api/token',
+          url: 'http://localhost/admin/api/token',
           // url: 'http://114.55.67.92:8080/admin/api/token',
           // url: 'http://healthshare.com.cn:80/admin/api/token',
           headers: {
