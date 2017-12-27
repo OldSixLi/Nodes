@@ -660,7 +660,7 @@ app.controller('customersCtrl', function($scope, $http, $timeout) {
         var ele = $scope.sportChufangArr[o];
         chufang.push(ele.id);
       }
-      if ($scope.expertData.sportConsultId == 0) {
+      if (!$scope.expertData.sportConsultId) {
         method = "POST";
       } else {
         Url = "/" + $scope.expertData.sportConsultId;
