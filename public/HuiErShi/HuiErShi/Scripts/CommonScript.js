@@ -5,9 +5,9 @@
  * @version 1.0
  */
 //将form表单内容序列化为JSON
-var BasicUrl = "http://localhost/admin/api/"; //测试环境地址
+// var BasicUrl = "http://localhost/admin/api/"; //测试环境地址
 // var BasicUrl = "http://healthshare.com.cn:80/admin/api/"; //正式环境地址
-// var BasicUrl = "http://114.55.67.92:8080/admin/api/"; //测试环境地址
+var BasicUrl = "http://114.55.67.92:8080/admin/api/"; //测试环境地址
 
 
 (function($) {

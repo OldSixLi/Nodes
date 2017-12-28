@@ -49,8 +49,8 @@
       vm.errorMessage = "";
       $http({
           method: 'POST',
-          url: 'http://localhost/admin/api/token',
-          // url: 'http://114.55.67.92:8080/admin/api/token',
+          // url: 'http://localhost/admin/api/token',
+          url: 'http://114.55.67.92:8080/admin/api/token',
           // url: 'http://healthshare.com.cn:80/admin/api/token',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -72,8 +72,8 @@
               token = data.token;
               $http({
                   method: 'POST',
-                  url: 'http://localhost/admin/api/IMConsult/userSig',
-                  // url: 'http://114.55.67.92:8080/admin/api/IMConsult/userSig',
+                  // url: 'http://localhost/admin/api/IMConsult/userSig',
+                  url: 'http://114.55.67.92:8080/admin/api/IMConsult/userSig',
                   // url: 'http://healthshare.com.cn:80/admin/api/IMConsult/userSig',
                   headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
