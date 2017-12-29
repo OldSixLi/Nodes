@@ -552,8 +552,12 @@
                for (var index = 0; index < data.items.length; index++) {
                  var element = data.items[index];
                  var val = "";
-                 if (element.subItemName.split('，').length > 0) {
-                   var len = element.subItemName.split('，').length;
+                 console.log("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+                 console.log(element.subItemName);
+                 console.log("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+                 if (element.subItemName && element.subItemName.split(',').length > 0) {
+                   var len = element.subItemName.split(',').length;
+                   console.log(len);
                    var lenArr = [];
                    for (let index = 0; index < len; index++) {
                      lenArr.push("0");
@@ -562,6 +566,9 @@
                  } else {
                    val = "0";
                  }
+                 console.log("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
+                 console.log(val);
+                 console.log("■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
                  //闭包传入index
                  //此处其实应该使用promise
                  (function(i) {
