@@ -32,6 +32,9 @@
      value: time
    });
  }
+
+
+
  var params = ""; //全局变量
  var app = angular.module('myApp', []);
  app.controller('customersCtrl', function($scope, $http) {
@@ -46,17 +49,14 @@
          $scope.dataLengths = data.length > 0;
          if (data != null && data.length > 0) {
            $scope.data = data;
-
            var totalCals = 0;
            for (var index = 0; index < data.length; index++) {
              var element = data[index];
              totalCals += element["脂肪cal"] + element["蛋白质cal"] + element["碳水化合物cal"];
            }
            $scope.totalCalAll = totalCals;
-
          } else {
            $scope.dataLengths = false;
-
          }
        } else {
          $scope.dataLengths = false;
@@ -203,10 +203,15 @@
      });
    }
    //分页方法
-   pageing(0, params);
+   if (obj.USERID) {
+     params = "userId=" + obj.USERID + "&date=" + getToday();
+     $("#txtStartTime").val(getToday());
+     $("#username").val('李峰');
+     pageing(0, params);
+   }
+
    //查询按钮
    $scope.search = function() {
-
      //用户名称
      var username = UserID;
      //会员类型
@@ -251,3 +256,17 @@
      angular.element(".myload").removeClass("myload");
    });
  });
+
+
+ function getToday() {
+   var time = new Date();
+   var y = time.getFullYear();
+   var m = time.getMonth() + 1;
+   var d = time.getDate();
+   var h = time.getHours();
+   var mm = time.getMinutes();
+   var s = time.getSeconds();
+   return y + '-' + add0(m) + '-' + add0(d);
+ }
+
+ function add0(m) { return m < 10 ? '0' + m : m; }

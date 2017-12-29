@@ -222,6 +222,10 @@
 
    if (urlObj.userid) {
      params += "userId=" + urlObj.userid + "&";
+     // getToday()
+     $("#txtEndTime").val(getToday());
+     var time = Date.parse(getToday());
+     params += "minCreatedAt=" + time + "&";
      pageing(0, params);
    }
 
@@ -244,7 +248,10 @@
        params += "minCreatedAt=" + time + "&";
      }
      pageing(0, params);
+
    }
+
+
 
    //跳转至某页方法
    $scope.skip = function() {
@@ -256,3 +263,17 @@
      pageing($scope.toPageValue - 1, params);
    }
  });
+
+
+ function getToday() {
+   var time = new Date();
+   var y = time.getFullYear();
+   var m = time.getMonth() + 1;
+   var d = time.getDate();
+   var h = time.getHours();
+   var mm = time.getMinutes();
+   var s = time.getSeconds();
+   return y + '-' + add0(m) + '-' + add0(d);
+ }
+
+ function add0(m) { return m < 10 ? '0' + m : m; }
