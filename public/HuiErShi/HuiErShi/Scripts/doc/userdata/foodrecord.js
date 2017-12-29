@@ -119,21 +119,16 @@
      function formatRepo(repo) {
        return repo.realName;
      }
-
-
-
-     $("#username").select2({
-
+     var $slt2 = $("#username").select2({
        ajax: {
          url: function(params) {
            return BasicUrl + "vip/name/" + params.term;
          },
          dataType: 'json',
          delay: 250,
+         placeholder: { id: "2", text: "text2" },
          processResults: function(data, page) {
-
            return {
-
              results: data
            };
          },
@@ -148,7 +143,6 @@
        templateResult: formatRepo,
        templateSelection: function(repo) {
          index++;
-         // alert(index);  
          if (index == 2) {
            UserName = decodeURI(obj.username);
            return decodeURI(obj.username);
@@ -156,7 +150,6 @@
            if (repo.id && repo.id < 10000) {
              UserID = repo.id;
            }
-
            // console.log(repo.id)
            UserName = repo.realName;
            return repo.realName;
@@ -178,13 +171,14 @@
        UserName = repo.realName;
        return repo.realName;
      }
-     $("#username").select2({
+     var $slt2 = $("#username").select2({
        ajax: {
          url: function(params) {
            return BasicUrl + "vip/name/" + params.term;
          },
          dataType: 'json',
          delay: 250,
+         placeholder: { id: "2", text: "text2" },
          processResults: function(data, page) {
            return {
              results: data
@@ -206,7 +200,11 @@
    if (obj.USERID) {
      params = "userId=" + obj.USERID + "&date=" + getToday();
      $("#txtStartTime").val(getToday());
-     $("#username").val('李峰');
+     //  $("#username").val(obj.USERID).trigger('change');
+     //  select2("data", { "id": "2" });+
+     var option = ("张三", 19, true, true)
+     $slt2.append(option);
+     $slt2.trigger('change');
      pageing(0, params);
    }
 
