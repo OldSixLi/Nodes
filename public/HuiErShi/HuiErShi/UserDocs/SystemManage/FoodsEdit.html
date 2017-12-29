@@ -12,6 +12,13 @@
       #foodAbout .col-sm-6.col-md-4 {
         text-align: right;
       }
+      
+      .form-control[disabled],
+      .form-control[readonly],
+      fieldset[disabled] .form-control {
+        background-color: #fff;
+        opacity: 1;
+      }
     </style>
   </head>
 
@@ -55,7 +62,7 @@
                   <label for="name" class="control-label">食物名称：</label>
                 </div>
                 <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control" id="name" name="name" ng-model="data.name" placeholder="食物名称">
+                  <input type="text" class="form-control" readonly id="name" name="name" ng-model="data.name" placeholder="暂无描述">
                 </div>
               </div>
               <div class="form-group">
@@ -63,14 +70,18 @@
                   <label for="announcement" class="control-label">食物类型：</label>
                 </div>
                 <div class="col-sm-6 col-md-7">
-                  <select class="form-control" name="announcement" ng-model="data.categories">
-                      <option value="谷薯类">谷薯类</option>
+                  <!-- <select class="form-control" name="announcement" ng-model="data.categories">
+                    <option value="谷薯类">谷薯类</option>
+                    <option value="谷类及制品">谷类及制品</option>
+                      
                       <option value="豆奶类">豆奶类</option> 
                       <option value="蔬菜水果类">蔬菜水果类</option>
                       <option value="鸡鱼肉蛋类">鸡鱼肉蛋类</option>
                       <option value="坚果油脂类">坚果油脂类</option>
+                      
                       <option value="其他类">其他类</option>
-                  </select>
+                  </select> -->
+                  <input type="text" readonly class="form-control" ng-model="data.categories" placeholder="暂无分类">
                 </div>
               </div>
               <div class="form-group">
@@ -78,8 +89,9 @@
                   <label for="subcategories" class="control-label">二级类型：</label>
                 </div>
                 <div class="col-sm-6 col-md-7">
-                  <select class="form-control" name="subcategories" ng-model="data.subcategories">
-            
+                  <input type="text" readonly class="form-control" ng-model="data.subcategories" placeholder="暂无分类">
+                  <!-- <select class="form-control" name="subcategories" ng-model="data.subcategories">
+                    <option selected>暂无分类</option>
                     <option>谷类</option>
                     <option>杂豆</option>
                     <option>薯类</option>
@@ -93,7 +105,7 @@
                     <option>坚果类</option> 
                     <option>储能量食物</option> 
                     <option>其他</option>  
-                  </select>
+                  </select> -->
                 </div>
               </div>
               <div class="form-group">
@@ -101,7 +113,7 @@
                   <label for="standardWeight" class="control-label">标准重量（g）：</label>
                 </div>
                 <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="standardWeight" name="standardWeight" ng-model="data.dietNutrition.standardWeight" placeholder="标准重量">
+                  <input type="text" readonly class="form-control vipprices" id="standardWeight" name="standardWeight" ng-model="data.dietNutrition.standardWeight" placeholder="暂无描述">
                 </div>
               </div>
               <div class="form-group">
@@ -109,7 +121,7 @@
                   <label for="moisture" class="control-label">水分（g）：</label>
                 </div>
                 <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="moisture" name="moisture" ng-model="data.dietNutrition.moisture" placeholder="水分">
+                  <input type="text" readonly class="form-control vipprices" id="moisture" name="moisture" ng-model="data.dietNutrition.moisture" placeholder="暂无描述">
                 </div>
               </div>
               <div class="form-group">
@@ -117,7 +129,7 @@
                   <label for="energy" class="control-label">能量（kcal）：</label>
                 </div>
                 <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="energy" name="energy" ng-model="data.dietNutrition.energy" placeholder="能量">
+                  <input type="text" readonly class="form-control vipprices" id="energy" name="energy" ng-model="data.dietNutrition.energy" placeholder="暂无描述">
                 </div>
               </div>
               <div class="form-group">
@@ -125,7 +137,7 @@
                   <label for="txtUserNativePlace" class="control-label">蛋白质（g）：</label>
                 </div>
                 <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="protein" name="protein" ng-model="data.dietNutrition.protein" placeholder="蛋白质">
+                  <input type="text" readonly class="form-control vipprices" id="protein" name="protein" ng-model="data.dietNutrition.protein" placeholder="暂无描述">
                 </div>
               </div>
               <div class="form-group">
@@ -133,7 +145,7 @@
                   <label for="txtUserJob" class="control-label">脂肪（g）：</label>
                 </div>
                 <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="fat" name="fat" ng-model="data.dietNutrition.fat" placeholder="脂肪">
+                  <input type="text" readonly class="form-control vipprices" id="fat" name="fat" ng-model="data.dietNutrition.fat" placeholder="暂无描述">
                 </div>
               </div>
               <div class="form-group">
@@ -141,7 +153,7 @@
                   <label for="carbohydrate" class="control-label">碳水化合物（g）：</label>
                 </div>
                 <div class="col-sm-6 col-md-7">
-                  <input type="text" class="form-control vipprices" id="carbohydrate" name="carbohydrate" ng-model="data.dietNutrition.carbohydrate" placeholder="碳水化合物">
+                  <input type="text" readonly class="form-control vipprices" id="carbohydrate" name="carbohydrate" ng-model="data.dietNutrition.carbohydrate" placeholder="暂无描述">
                 </div>
               </div>
               <div class="form-group">
@@ -149,7 +161,7 @@
                   <label for="description" class="control-label">食物描述：</label>
                 </div>
                 <div class="col-sm-6 col-md-7">
-                  <textarea class="form-control" id="description" name="description" ng-model="data.description" rows="5" placeholder="请输入食物描述">{{data.description}}</textarea>
+                  <textarea class="form-control" readonly id="description" name="description" ng-model="data.description" rows="5" placeholder="暂无描述">{{data.description}}</textarea>
                 </div>
               </div>
 
@@ -158,7 +170,7 @@
                   <label for="instruction" class="control-label">食物说明：</label>
                 </div>
                 <div class="col-sm-6 col-md-7">
-                  <textarea class="form-control" name="instruction" id="instruction" rows="5" ng-model="data.instruction" placeholder="食物说明"></textarea>
+                  <textarea class="form-control" readonly name="instruction" id="instruction" rows="5" ng-model="data.instruction" placeholder="暂无描述"></textarea>
                 </div>
               </div>
 
@@ -167,16 +179,6 @@
             <div class="  col-md-5 col-sm-6 form-horizontal">
 
             </div>
-            <!--提交按钮-->
-            <!-- <div class="col-md-12 col-sm-12">
-              <hr />
-              <div class="col-sm-3 col-md-2 col-md-offset-4 col-sm-offset-3">
-                <input type="submit" name="save" value="保存" class="btn btn-primary btn-block" ng-click="saveInfo()" />
-              </div>
-              <div class="col-sm-3 col-md-2">
-                <input type="button" name="cencel" ng-click="cancel()" value="取消" class="btn btn-default btn-block" />
-              </div>
-            </div> -->
           </form>
         </div>
       </div>

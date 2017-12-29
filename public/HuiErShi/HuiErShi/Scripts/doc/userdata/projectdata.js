@@ -110,7 +110,8 @@
  // 　　　　◆　　◆　　◆◆　　◆　　◆　　◆　　◆　　◆　　◆　　　◆　　　
  // 　　　　◆　　　◆◆◆　　　　◆◆　　◆◆◆◆◆　◆◆◆　◆◆　◆◆◆　　
  // 　◆　　◆　　　　　◆◆　　　　　　　　　　　　　　　　　　　　　　　　　
- // 　◆◆◆　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+ // 　◆◆◆　　　
+ 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
  $(function() {
    // $(".start_end_time").datetimepicker();
    tool.changeSelect($("#tag"), false);
@@ -170,13 +171,16 @@
  // 　◆◆◆◆　　　◆◆◆　◆◆◆　　◆◆◆◆　
  // 　◆◆◆　　　　◆◆◆　◆◆◆　　◆◆◆◆　
  // 　◆◆◆　　　　◆◆◆◆◆◆◆　　　◆◆◆　
+
+
+
  var params = ""; //全局变量
  var basicUrl = "http://healthshare.com.cn:80/admin/api/"; //统一接口地址
  //  
  //  var params = "&viewId=&tag=&from=&"; //请求参数变量
  var app = angular.module('myApp', []);
  var projectObj = new UrlSearch();
-
+ //  alert(projectObj.userid)
  app.controller('customersCtrl', function($scope, $http) {
    $scope.showTable = false;
    var url = BasicUrl + "tag";
@@ -223,7 +227,6 @@
          if (data.errorMessage) {
            tool.alert("提示", data.errorMessage);
          }
-
        });
        //视图标签赋值
      } else {
@@ -248,7 +251,12 @@
    });
 
    //分页方法
-   //  pageing(0, params);
+   // pageing(0, params);
+
+   if (projectObj.userid) {
+     params += "userId=" + projectObj.userid + "&";
+     pageing(0, params);
+   }
    $scope.compare = function() {
      $scope.begin = new Date(); //获取当前月份
      $scope.end = new Date();
@@ -273,6 +281,7 @@
            type: 'line',
            data: [],
            markPoint: {
+             //  
              data: [{
                type: 'max',
                name: '最大值'

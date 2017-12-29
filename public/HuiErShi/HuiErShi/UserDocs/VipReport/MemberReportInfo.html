@@ -114,7 +114,7 @@
                   </td>
                   <td>{{ x.spell }}</td>
                   <td>
-                    <a href="javascript:;" ng-click="deleteFoodArr(x.id)">删除</a></td>
+                    <a href="javascript:;" ng-click="deleteFoodArr(x.id,expertData.foodConsultId)">删除</a></td>
                 </tr>
                 <tr ng-show="foodChufangArr.length<=0">
                   <td colspan="100" class="text-center ">暂无结果</td>
@@ -126,7 +126,7 @@
               <a id="pickfiles1" class="button-file">
                 <button type="button" class="btn btn-primary">上传PDF附件</button>
               </a> <input type="text" name="foodiconUrl" style="opacity:0;width:0;height:0;" ng-value="expertData.foodAttach">
-              <a href="{{expertData.foodAttach}}" id="foodLink" download="fujian.pdf" class="pdf btn btn-link ">下载附件</a>
+              <a href="{{expertData.foodAttach}}" ng-disabled="!expertData.foodAttach" id="foodLink" download="fujian.pdf" class="pdf btn btn-link ">下载附件</a>
             </div>
           </div>
           <div class="col-md-10 col-md-offset-2">

@@ -67,6 +67,26 @@
  };
  // 【05】使用刚指定的配置项和数据显示图表。  
  myChart.setOption(option);
+ var urlObj = new UrlSearch();
+ /**
+  * 分隔获取各个参数
+  * 根据URL地址获取其参数
+  */
+ function UrlSearch() {
+   var name, value;
+   var str = location.href; //取得整个地址栏
+   var num = str.indexOf("?");
+   str = str.substr(num + 1);
+   var arr = str.split("&"); //各个参数放到数组里
+   for (var i = 0; i < arr.length; i++) {
+     num = arr[i].indexOf("=");
+     if (num > 0) {
+       name = arr[i].substring(0, num);
+       value = arr[i].substr(num + 1);
+       this[name] = value;
+     }
+   }
+ }
  $(function() {
    //日期框初始化
    $(".start_end_time").datetimepicker({
@@ -198,6 +218,11 @@
        }
      });
 
+   }
+
+   if (urlObj.userid) {
+     params += "userId=" + urlObj.userid + "&";
+     pageing(0, params);
    }
 
    $scope.search = function() {

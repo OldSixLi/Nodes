@@ -551,12 +551,24 @@
                $scope.itemList = data.items;
                for (var index = 0; index < data.items.length; index++) {
                  var element = data.items[index];
+                 var val = "";
+                 if (element.subItemName.split('，').length > 0) {
+                   var len = element.subItemName.split('，').length;
+                   var lenArr = [];
+                   for (let index = 0; index < len; index++) {
+                     lenArr.push("0");
+                   }
+                   val = lenArr.join(',');
+                 } else {
+                   val = "0";
+                 }
                  //闭包传入index
+                 //此处其实应该使用promise
                  (function(i) {
                    var dataInfo = {
                      id: checkObj.id,
                      itemId: data.items[i].itemId,
-                     val: "0"
+                     val: val
                    }
                    setTimeout(function() {
                      islast = (i == data.items.length - 1)

@@ -175,11 +175,11 @@
                 </p>
                 <p>
                   <label class="control-label">健康数据：</label>
-                  <a href="../UserData/ProjectData.html">{{vipInfo.healthData?vipInfo.healthData:0}}</a>项
+                  <a href="{{'../UserData/ProjectData.html?userid='+userid}}">{{vipInfo.healthData?vipInfo.healthData:0}}</a>项
                 </p>
                 <p>
                   <label class="control-label">用药记录：</label>
-                  <a href="../UserData/UseDrugRecaod.html">{{vipInfo.medicineRecord?vipInfo.medicineRecord:0}}</a>条
+                  <a href="{{'../UserData/UseDrugRecaod.html?userid='+userid}}">{{vipInfo.medicineRecord?vipInfo.medicineRecord:0}}</a>条
                 </p>
               </div>
               <div class="col-md-3">
@@ -226,7 +226,7 @@
                 </p>
                 <p>
                   <label class="control-label">运动记录：</label>
-                  <a href="../UserData/SportsRecord.html"><span>{{vipInfo.sportRecord?vipInfo.sportRecord:0}}</span></a>条
+                  <a href="{{'../UserData/SportsRecord.html?userid='+userid}}"><span>{{vipInfo.sportRecord?vipInfo.sportRecord:0}}</span></a>条
                 </p>
                 <p>
                   <label class="control-label">需求记录：</label>
