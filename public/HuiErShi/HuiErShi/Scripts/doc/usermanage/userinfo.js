@@ -92,12 +92,11 @@ app.controller('customersCtrl', function($scope, $http) {
         $scope.data = data;
         $scope.adviserId = data.adviser.id;
       } else {
-
         data.errorMessage && tool.alert("提示", data.errorMessage);
       }
     }).error(function(data, header, config, status) {
-      data.errorMessage
-        //处理响应失败
+      // data.errorMessage
+      //处理响应失败
       tool.alert("提示", "获取数据出错,请重试或联系网站管理员。");
       window.location.href = "MemberList.html";
     });

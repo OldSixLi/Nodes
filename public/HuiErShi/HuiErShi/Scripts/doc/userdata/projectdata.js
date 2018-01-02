@@ -145,7 +145,7 @@
    }
 
    function formatRepoSelection(repo) {
-     return repo.realName;
+     return repo.realName || repo.text;
    }
 
    //设置日期格式
@@ -254,6 +254,18 @@
    // pageing(0, params);
 
    if (projectObj.userid) {
+     $http.get(BasicUrl + "vip/" + projectObj.userid).success(function(data) {
+       if (data != null && data != "" && data != "null" && data.id) {
+         var data = {
+           id: projectObj.userid,
+           realName: data.realName
+         };
+         var newOption = new Option(data.realName, data.id, true, true);
+         $('#userId').append(newOption).trigger('change');
+       }
+     });
+
+
      params += "userId=" + projectObj.userid + "&";
      pageing(0, params);
    }

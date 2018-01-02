@@ -95,8 +95,8 @@
    });
    // 下拉框AJAX获取数据
    $("#userSlt").select2({
-     placeholder: '请选择',
-     allowClear: true,
+     //  placeholder: '请选择',
+     //  allowClear: true,
      ajax: {
        // url: BasicUrl + "vip/name",
        url: function(params) {
@@ -123,11 +123,15 @@
  });
 
  function formatRepo(repo) {
-   return repo.realName;
+   console.log("formatRepo");
+   console.log("当前数据:" + repo.realName);
+   return repo.realName || repo.text;
  }
 
  function formatRepoSelection(repo) {
-   return repo.realName;
+   console.log("formatRepoSelection");
+   console.log("当前数据:" + repo.realName);
+   return repo.realName || repo.text;
  }
 
 
@@ -166,65 +170,78 @@
    $scope.searchdate = '';
    // 分页方法
    var pageing = function(pageindex, params) {　
-     var url = BasicUrl + "sport?" + params + "page=" + pageindex + "&pageNum=10";　
-     $http.get(url).success(function(data) {
-       if (data != null && data != "" && data != "null") {
-         $scope.dataLengths = data.content.length > 0;　
-         if (data.content != null && data.content.length > 0) {
-           $scope.data = data;
-           $scope.totalPage = data.totalPages;
-           $scope.totalRecord = data.totalElements;
-           var arr = [],
-             timeArr = [];
-           for (var index = 0; index < data.content.length; index++) {
-             arr.push(data.content[index].heartRate);
-             timeArr.push(getLocalTime(data.content[index].createAt));
-             console.log(getLocalTime(data.content[index].createAt));
+       var url = BasicUrl + "sport?" + params + "page=" + pageindex + "&pageNum=10";　
+       $http.get(url).success(function(data) {
+         if (data != null && data != "" && data != "null") {
+           $scope.dataLengths = data.content.length > 0;　
+           if (data.content != null && data.content.length > 0) {
+             $scope.data = data;
+             $scope.totalPage = data.totalPages;
+             $scope.totalRecord = data.totalElements;
+             var arr = [],
+               timeArr = [];
+             for (var index = 0; index < data.content.length; index++) {
+               arr.push(data.content[index].heartRate);
+               timeArr.push(getLocalTime(data.content[index].createAt));
+               console.log(getLocalTime(data.content[index].createAt));
+             }
+             var currentTime = getLocalTime(Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()))).substr(0, 9);
+             option.title.subtext = currentTime;
+             option.xAxis[0].data = timeArr;
+             option.series[0].data = arr;　
+             myChart.setOption(option);
+             //调用生成分页方法
+             initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
+               pageing($("#currentPage").val() - 1, params);
+             });
+           } else {
+             $scope.dataLengths = false;
            }
-           var currentTime = getLocalTime(Date.parse(new Date($("#txtEndTime").val())).toString() == "NaN" ? Date.parse(new Date()) : Date.parse(new Date($("#txtEndTime").val()))).substr(0, 9);
-           option.title.subtext = currentTime;
-           option.xAxis[0].data = timeArr;
-           option.series[0].data = arr;　
-           myChart.setOption(option);
-           //调用生成分页方法
-           initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
-             pageing($("#currentPage").val() - 1, params);
-           });
-         } else {
-           $scope.dataLengths = false;
-           //  tool.alert("提示", "当前条件下未获取到数据");
          }
-       }
-     }).error(function(data) {
-       $scope.dataLengths = false;
-     });
+       }).error(function(data) {
+         $scope.dataLengths = false;
+       });
 
-     $http.get(BasicUrl + 'data?itemId=JXXL&userId=' + $scope.searchuserid + '&minCreatedAt=' + new Date($scope.searchdate).setHours(0) + '&maxCreatedAt=' + (new Date($scope.searchdate).setHours(0) + 86399000) + '&page=0&pageNum=10').success(function(data) {
-       if (data != null && data != "" && data != "null") {
-         if (data.content != null && data.content.length > 0) {
-           //静息心率
-           $scope.staticVal = data.content[0].val;
-         } else {
-           $scope.staticVal = 0;
+       $http.get(BasicUrl + 'data?itemId=JXXL&userId=' + $scope.searchuserid + '&minCreatedAt=' + new Date($scope.searchdate).setHours(0) + '&maxCreatedAt=' + (new Date($scope.searchdate).setHours(0) + 86399000) + '&page=0&pageNum=10').success(function(data) {
+         if (data != null && data != "" && data != "null") {
+           if (data.content != null && data.content.length > 0) {
+             //静息心率
+             $scope.staticVal = data.content[0].val;
+           } else {
+             $scope.staticVal = 0;
+           }
          }
-       }
-     }).error(function(data) {
-       $scope.dataLengths = false;
-     });
+       }).error(function(data) {
+         $scope.dataLengths = false;
+       });
 
-     $http.get(BasicUrl + "diary?" + params).success(function(data) {
-       if (data != null && data != "" && data != "null") {
-         $scope.remark = data;
-       }
-     });
+       $http.get(BasicUrl + "diary?" + params).success(function(data) {
+         if (data != null && data != "" && data != "null") {
+           $scope.remark = data;
+         }
+       });
 
-   }
+     }
+     //模板样本
 
+   $scope.userid = "";
    if (urlObj.userid) {
+     $http.get(BasicUrl + "vip/" + urlObj.userid).success(function(data) {
+       if (data != null && data != "" && data != "null" && data.id) {
+         var data = {
+           id: urlObj.userid,
+           realName: data.realName
+         };
+         var newOption = new Option(data.realName, data.id, true, true);
+         $('#userSlt').append(newOption).trigger('change');
+       }
+     });
+
      params += "userId=" + urlObj.userid + "&";
-     // getToday()
      $("#txtEndTime").val(getToday());
      var time = Date.parse(getToday());
+     $scope.searchuserid = urlObj.userid;
+     $scope.searchdate = time;
      params += "minCreatedAt=" + time + "&";
      pageing(0, params);
    }

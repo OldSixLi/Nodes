@@ -169,7 +169,7 @@
          UserID = repo.id;
        }
        UserName = repo.realName;
-       return repo.realName;
+       return repo.realName || repo.text;
      }
      var $slt2 = $("#username").select2({
        ajax: {
@@ -202,9 +202,22 @@
      $("#txtStartTime").val(getToday());
      //  $("#username").val(obj.USERID).trigger('change');
      //  select2("data", { "id": "2" });+
-     var option = ("张三", 19, true, true)
-     $slt2.append(option);
-     $slt2.trigger('change');
+     //  var option = ("张三", 19, true, true)
+     //  $slt2.append(option);
+     //  $slt2.val(19)
+     //  $slt2.trigger('change');
+
+
+     $http.get(BasicUrl + "vip/" + obj.USERID).success(function(data) {
+       if (data != null && data != "" && data != "null" && data.id) {
+         var data = {
+           id: obj.USERID,
+           realName: data.realName
+         };
+         var newOption = new Option(data.realName, data.id, true, true);
+         $('#username').append(newOption).trigger('change');
+       }
+     });
      pageing(0, params);
    }
 

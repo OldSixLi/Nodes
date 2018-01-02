@@ -52,7 +52,7 @@ $(function() {
   }
 
   function formatRepoSelection(repo) {
-    return repo.realName;
+    return repo.realName || repo.text;
   }
 });
 var params = ""; //全局变量
@@ -91,6 +91,17 @@ app.controller('customersCtrl', function($scope, $http) {
 
   //分页方法
   if (urlObj.userid) {
+
+    $http.get(BasicUrl + "vip/" + urlObj.userid).success(function(data) {
+      if (data != null && data != "" && data != "null" && data.id) {
+        var data = {
+          id: urlObj.userid,
+          realName: data.realName
+        };
+        var newOption = new Option(data.realName, data.id, true, true);
+        $('#userId').append(newOption).trigger('change');
+      }
+    });
     params = "userId=" + urlObj.userid + "&";
     pageing(0, params);
   }
