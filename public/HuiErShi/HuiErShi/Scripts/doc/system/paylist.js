@@ -154,7 +154,7 @@
      if (data.totalFee == "") {
        __error.push("请输入金额！");
      }
-     if (data.totalFee && !/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(saveInfo.totalFee)) {
+     if (data.totalFee && !/(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/.test(data.totalFee)) {
        __error.push("请输入正确的金额！");
      }
      if (__error.length > 0) {
