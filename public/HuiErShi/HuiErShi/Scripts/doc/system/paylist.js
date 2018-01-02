@@ -146,6 +146,7 @@
 
    //添加支付
    $scope.save = function() {
+     var __error = [];
      var data = {
        userId: $("#userId").val(),
        id: $("#modalCardsList").val(),
