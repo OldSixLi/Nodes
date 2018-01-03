@@ -242,7 +242,7 @@
      var time = Date.parse(getToday());
      $scope.searchuserid = urlObj.userid;
      $scope.searchdate = time;
-     params += "minCreatedAt=" + time + "&";
+     params += "minCreatedAt=" + time + '&maxCreatedAt=' + (new Date(time).setHours(0) + 86399000) + "&";
      pageing(0, params);
    }
 
@@ -256,13 +256,13 @@
      }
      $scope.searchuserid = userid;
      $scope.searchdate = time;
-
+     console.log("riqi:" + $scope.searchdate);
      params = ""
      if (userid) {
        params += "userId=" + userid + "&";
      }
      if (time != 0) {
-       params += "minCreatedAt=" + time + "&";
+       params += "minCreatedAt=" + time + '&maxCreatedAt=' + (new Date(time).setHours(0) + 86399000) + "&";
      }
      pageing(0, params);
 
