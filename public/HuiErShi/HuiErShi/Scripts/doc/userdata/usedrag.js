@@ -69,8 +69,9 @@ app.controller('customersCtrl', function($scope, $http) {
     $http.get(url).success(function(data) {
       if (data != null && data != "" && data != "null") {
         //判断当前是否存在记录
-        $scope.dataLengths = data.content.length > 0;
+        
         if (data.content != null && data.content.length > 0) {
+          $scope.dataLengths =data.content.length > 0;
           //赋值操作
           // $scope.title = 'FP_HM'; //排序字段
           $scope.desc = 0; //排序方式（默认升序）
@@ -82,7 +83,12 @@ app.controller('customersCtrl', function($scope, $http) {
           initPageDiv($("#alreadyPage"), pageindex + 1, data.totalPages, 5, $("#currentPage"), function() {
             pageing($("#currentPage").val() - 1, params);
           });
-        } else {
+        } else if(data.errorMessage&&urlObj.userid){
+          $scope.dataLengths =false;
+          tool.alert("提示", data.errorMessage);
+          window.history.back(-1);
+        }else{
+          $scope.dataLengths =false;
           tool.alert("提示", "未获取到数据");
         }
       }
