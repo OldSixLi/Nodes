@@ -215,7 +215,7 @@
          $scope.dataLengths = false;
        });
 
-       $http.get(BasicUrl + "diary?" + params).success(function(data) {
+       $http.get(BasicUrl + "diary?" + params+"date="+$("#txtEndTime").val()).success(function(data) {
          if (data != null && data != "" && data != "null") {
            $scope.remark = data;
          }
@@ -258,12 +258,14 @@
      $scope.searchdate = time;
      console.log("riqi:" + $scope.searchdate);
      params = ""
+
      if (userid) {
        params += "userId=" + userid + "&";
      }
      if (time != 0) {
        params += "minCreatedAt=" + time + '&maxCreatedAt=' + (new Date(time).setHours(0) + 86399000) + "&";
      }
+
      pageing(0, params);
 
    }

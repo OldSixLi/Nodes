@@ -3,6 +3,38 @@
      timepicker: false,
      format: 'Y-m-d',
    });　
+
+   function formatRepo(repo) {
+    return repo.realName;
+  }
+
+  function formatRepoSelection(repo) {
+    return repo.realName || repo.text;
+  }
+  var $slt2 = $("#username").select2({
+    ajax: {
+      url: function(params) {
+        return BasicUrl + "vip/name/" + params.term;
+      },
+      dataType: 'json',
+      delay: 250,
+      placeholder: { id: "2", text: "text2" },
+      processResults: function(data, page) {
+        return {
+          results: data
+        };
+      },
+      cache: false
+    },
+    escapeMarkup: function(markup) {
+      return markup;
+    },
+    minimumInputLength: 1,
+    minimumResultsForSearch: 1,
+    width: "120px",
+    templateResult: formatRepo,
+    templateSelection: formatRepoSelection
+  });
  });
 
 
@@ -110,104 +142,30 @@
    var UserID = "";
    var UserName = "";
    var obj = new UrlSearch();
-   if (obj.userId && obj.date && obj.username) {
+   if (obj.userId && obj.date) {
+    UserID=obj.userId;
      params = "userId=" + obj.userId + "&date=" + obj.date;
-     //设置数据
-     UserName = obj.username;
-     UserID = obj.userId;
-
-     function formatRepo(repo) {
-       return repo.realName;
-     }
-     var $slt2 = $("#username").select2({
-       ajax: {
-         url: function(params) {
-           return BasicUrl + "vip/name/" + params.term;
-         },
-         dataType: 'json',
-         delay: 250,
-         placeholder: { id: "2", text: "text2" },
-         processResults: function(data, page) {
-           return {
-             results: data
-           };
-         },
-         cache: false
-       },
-       escapeMarkup: function(markup) {
-         return markup;
-       },
-       minimumInputLength: 1,
-       minimumResultsForSearch: 1,
-       width: "120px",
-       templateResult: formatRepo,
-       templateSelection: function(repo) {
-         index++;
-         if (index == 2) {
-           UserName = decodeURI(obj.username);
-           return decodeURI(obj.username);
-         } else {
-           if (repo.id && repo.id < 10000) {
-             UserID = repo.id;
-           }
-           // console.log(repo.id)
-           UserName = repo.realName;
-           return repo.realName;
-         }
-       }
-     });
      $("#txtStartTime").val(obj.date);　
+
+     $http.get(BasicUrl + "vip/" + obj.userId).success(function(data) {
+      if (data != null && data != "" && data != "null" && data.id) {
+        var data = {
+          id: obj.userId,
+          realName: data.realName
+        };
+        var newOption = new Option(data.realName, data.id, true, true);
+        $('#username').append(newOption).trigger('change');
+      }
+    });
    } else {
 
-     function formatRepo(repo) {
-       return repo.realName;
-     }
-
-     function formatRepoSelection(repo) {
-
-       if (repo.id && repo.id < 10000) {
-         UserID = repo.id;
-       }
-       UserName = repo.realName;
-       return repo.realName || repo.text;
-     }
-     var $slt2 = $("#username").select2({
-       ajax: {
-         url: function(params) {
-           return BasicUrl + "vip/name/" + params.term;
-         },
-         dataType: 'json',
-         delay: 250,
-         placeholder: { id: "2", text: "text2" },
-         processResults: function(data, page) {
-           return {
-             results: data
-           };
-         },
-         cache: false
-       },
-       escapeMarkup: function(markup) {
-         return markup;
-       },
-       minimumInputLength: 1,
-       minimumResultsForSearch: 1,
-       width: "120px",
-       templateResult: formatRepo,
-       templateSelection: formatRepoSelection
-     });
+    
    }
    //分页方法
    if (obj.USERID) {
+    UserID=obj.USERID;
      params = "userId=" + obj.USERID + "&date=" + getToday();
-     $("#txtStartTime").val(getToday());
-     //  $("#username").val(obj.USERID).trigger('change');
-     //  select2("data", { "id": "2" });+
-     //  var option = ("张三", 19, true, true)
-     //  $slt2.append(option);
-     //  $slt2.val(19)
-     //  $slt2.trigger('change');
-
-
+     $("#txtStartTime").val(getToday()); 
      $http.get(BasicUrl + "vip/" + obj.USERID).success(function(data) {
        if (data != null && data != "" && data != "null" && data.id) {
          var data = {
@@ -224,7 +182,7 @@
    //查询按钮
    $scope.search = function() {
      //用户名称
-     var username = UserID;
+     var username = $("#username").val();
      //会员类型
      var time = $("#txtStartTime").val();
      //校验只有一个搜索条件
