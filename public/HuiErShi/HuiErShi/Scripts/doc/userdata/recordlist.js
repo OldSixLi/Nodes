@@ -184,7 +184,7 @@
    }
 
    function formatRepoSelection(repo) {
-     return repo.realName;
+     return repo.realName || repo.text;;
    }
  });
 
@@ -294,6 +294,17 @@
        params = "itemId=" + obj.itemId + "&";
      }
      if (obj.userId) {
+
+       $http.get(BasicUrl + "vip/" + obj.userId).success(function(data) {
+         if (data != null && data != "" && data != "null" && data.id) {
+           var data = {
+             id: obj.userId,
+             realName: data.realName
+           };
+           var newOption = new Option(data.realName, data.id, true, true);
+           $('#userId').append(newOption).trigger('change');
+         }
+       });
        params += "userId=" + obj.userId + "&";
      }
 

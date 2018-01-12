@@ -5,36 +5,34 @@
    });　
 
    function formatRepo(repo) {
-    return repo.realName;
-  }
+     return repo.realName;
+   }
 
-  function formatRepoSelection(repo) {
-    return repo.realName || repo.text;
-  }
-  var $slt2 = $("#username").select2({
-    ajax: {
-      url: function(params) {
-        return BasicUrl + "vip/name/" + params.term;
-      },
-      dataType: 'json',
-      delay: 250,
-      placeholder: { id: "2", text: "text2" },
-      processResults: function(data, page) {
-        return {
-          results: data
-        };
-      },
-      cache: false
-    },
-    escapeMarkup: function(markup) {
-      return markup;
-    },
-    minimumInputLength: 1,
-    minimumResultsForSearch: 1,
-    width: "120px",
-    templateResult: formatRepo,
-    templateSelection: formatRepoSelection
-  });
+   function formatRepoSelection(repo) {
+     return repo.realName || repo.text;
+   }
+   var $slt2 = $("#username").select2({
+     placeholder: '请选择',
+     allowClear: true,
+     ajax: {
+       url: function(params) {
+         return BasicUrl + "vip/name/" + params.term;
+       },
+       dataType: 'json',
+       delay: 250,
+       processResults: function(data, page) {
+         return {
+           results: data
+         };
+       },
+       cache: false
+     },
+     minimumInputLength: 1,
+     minimumResultsForSearch: 1,
+     width: "120px",
+     templateResult: formatRepo,
+     templateSelection: formatRepoSelection,
+   });
  });
 
 
@@ -143,29 +141,29 @@
    var UserName = "";
    var obj = new UrlSearch();
    if (obj.userId && obj.date) {
-    UserID=obj.userId;
+     UserID = obj.userId;
      params = "userId=" + obj.userId + "&date=" + obj.date;
      $("#txtStartTime").val(obj.date);　
 
      $http.get(BasicUrl + "vip/" + obj.userId).success(function(data) {
-      if (data != null && data != "" && data != "null" && data.id) {
-        var data = {
-          id: obj.userId,
-          realName: data.realName
-        };
-        var newOption = new Option(data.realName, data.id, true, true);
-        $('#username').append(newOption).trigger('change');
-      }
-    });
+       if (data != null && data != "" && data != "null" && data.id) {
+         var data = {
+           id: obj.userId,
+           realName: data.realName
+         };
+         var newOption = new Option(data.realName, data.id, true, true);
+         $('#username').append(newOption).trigger('change');
+       }
+     });
    } else {
 
-    
+
    }
    //分页方法
    if (obj.USERID) {
-    UserID=obj.USERID;
+     UserID = obj.USERID;
      params = "userId=" + obj.USERID + "&date=" + getToday();
-     $("#txtStartTime").val(getToday()); 
+     $("#txtStartTime").val(getToday());
      $http.get(BasicUrl + "vip/" + obj.USERID).success(function(data) {
        if (data != null && data != "" && data != "null" && data.id) {
          var data = {

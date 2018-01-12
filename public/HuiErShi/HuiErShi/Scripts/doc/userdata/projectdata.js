@@ -265,7 +265,7 @@
        }
      });
 
-
+     $scope.userId = projectObj.userid;
      params += "userId=" + projectObj.userid + "&";
      pageing(0, params);
    }

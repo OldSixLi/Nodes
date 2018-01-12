@@ -1,148 +1,148 @@
 ﻿<!DOCTYPE html>
 <html>
 
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>饮食记录</title>
-    <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
-    <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
-    <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
-    <!-- 个人维护样式库 -->
-    <link href="../../Styles/common.css" rel="stylesheet">
-  </head>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>饮食记录</title>
+  <link href="../../Styles/bootstrap-3.3.4.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/jquery.datetimepicker.css" rel="stylesheet" type="text/css">
+  <link href="../../Styles/select2.min.css" rel="stylesheet" type="text/css">
+  <!-- 个人维护样式库 -->
+  <link href="../../Styles/common.css" rel="stylesheet">
+</head>
 
-  <body ng-app="myApp">
-    <!--检索项-->
-    <div ng-controller="customersCtrl" class="container-fluid myload">
-      <!-- 面包屑导航 -->
-      <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
-        <li><a href="javascript:void(0)">用户数据</a></li>
-        <li class="active">饮食记录</li>
-      </ol>
-      <div class="text-right col-xs-12" id="search_block">
-        <form class="form-inline" role="form">
-          <div class="form-group text-left">
-            <label class="control-label">会员姓名：</label>
-            <select class="form-control" name="sltType" id="username" style="width:150px;"> 
-             <option value="3620194" selected="selected">select2/select2</option>
+<body ng-app="myApp">
+  <!--检索项-->
+  <div ng-controller="customersCtrl" class="container-fluid myload">
+    <!-- 面包屑导航 -->
+    <ol class="breadcrumb col-xs-12" style="border-radius:0;background-color:white;">
+      <li><a href="javascript:void(0)">用户数据</a></li>
+      <li class="active">饮食记录</li>
+    </ol>
+    <div class="text-right col-xs-12" id="search_block">
+      <form class="form-inline" role="form">
+        <div class="form-group text-left">
+          <label class="control-label">会员姓名：</label>
+          <select class="form-control" name="sltType" id="username" style="width:150px;"> 
+             <!-- <option value="3620194" selected="selected">select2/select2</option> -->
                      </select>
-          </div>
-          <div class="form-group text-left">
-            <label class="lbl_search">&nbsp;&nbsp;&nbsp;选择日期：</label>
-            <span class="glyphicon glyphicon-chevron-left cu-pointer" title="前一天" onclick="prevDay()"></span>
+        </div>
+        <div class="form-group text-left">
+          <label class="lbl_search">&nbsp;&nbsp;&nbsp;选择日期：</label>
+          <span class="glyphicon glyphicon-chevron-left cu-pointer" title="前一天" onclick="prevDay()"></span>
 
-            <div class="input-group timeblock">
-              <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
-              <div class="input-group-btn">
-                <button type="button" class="btn btn-default" id="btnStarttime">
+          <div class="input-group timeblock">
+            <input id="txtStartTime" name="minExpiredAt" class="start_end_time form-control" placeholder="开始时间">
+            <div class="input-group-btn">
+              <button type="button" class="btn btn-default" id="btnStarttime">
                           <span class="glyphicon glyphicon-calendar"></span></button>
-              </div>
             </div>
-            <span class="glyphicon glyphicon-chevron-right cu-pointer" title="后一天" onclick="nextDay()"></span>
           </div>
-          <!-- 搜索按钮 -->
-          <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
-          <a class="btn btn-primary " id="btnSearch" href="" ng-click="redirect()"><i class=" glyphicon glyphicon-plus"></i>&nbsp;查看更多</a>
-        </form>
-      </div>
-      <!-- 数据显示 -->
-      <div class="ng-scope tab-content container-fluid">
-        <div class=" fixed-table-container" style="margin-bottom: 10px;">
-          <table class="table table-hover  ">
-            <!-- 表头 -->
-            <thead>
-              <tr>
-                <th class="order" ng-click="title='FP_HM';desc=!desc">
-                  餐别
-                  <span></span>
-                </th>
-                <th class="order" ng-click="title='FP_HM';desc=!desc">
-                  食物类别
-                  <span></span>
-                </th>
-                <th class="order" ng-click="title='FP_HM';desc=!desc">
-                  食物二级类型<span></span>
-                </th>
-                <th>
-                  食物
-                </th>
-                <th>
-                  重量（g）
-                </th>
-              </tr>
-            </thead>
-            <tbody id="databody">
-              <tr ng-show="foodRecordDataLengths" ng-repeat="x in foodRecordData ">
-                <td ng-switch='x.type'>
-                  <span ng-switch-when="1">早餐</span>
-                  <span ng-switch-when="2">午餐</span>
-                  <span ng-switch-when="3">晚餐</span>
-                  <span ng-switch-when="4">零食</span>
-                </td>
-                <td>{{ x.dietEntity.categories }}</td>
-                <td>{{ x.dietEntity.subcategories }}</td>
-                <td>{{ x.dietEntity.name }}</td>
-                <td>{{ x.weight }}</td>
-              </tr>
-              <tr ng-show="!foodRecordDataLengths">
-                <td colspan="100" class="text-center ">暂无结果</td>
-              </tr>
-            </tbody>
-          </table>
+          <span class="glyphicon glyphicon-chevron-right cu-pointer" title="后一天" onclick="nextDay()"></span>
         </div>
-        <p>备注：{{remark.dietComment?remark.dietComment:'无'}}</p>
-      </div>
-
-      <!-- 当前页隐藏域 -->
-      <input id="currentPage" name="currentPage" value="1" type="hidden">
-
-      <div class="container-fluid row">
-        <div class="col-xs-12">
-          <h4><b>每餐能量营养分析</b></h4>
-          <table class="table table-bordered table-condensed">
+        <!-- 搜索按钮 -->
+        <a ng-click="search()" class="btn btn-primary " id="btnSearch"><i class=" glyphicon glyphicon-search"></i>&nbsp;搜索</a>&nbsp;&nbsp;
+        <a class="btn btn-primary " id="btnSearch" href="" ng-click="redirect()"><i class=" glyphicon glyphicon-plus"></i>&nbsp;查看更多</a>
+      </form>
+    </div>
+    <!-- 数据显示 -->
+    <div class="ng-scope tab-content container-fluid">
+      <div class=" fixed-table-container" style="margin-bottom: 10px;">
+        <table class="table table-hover  ">
+          <!-- 表头 -->
+          <thead>
             <tr>
-              <th></th>
-              <th>总能量</th>
-              <th>占总能量比例</th>
-              <th>碳水化合物(g)</th>
-              <th>能量比例</th>
-              <th>蛋白质(g)</th>
-              <th>能量比例</th>
-              <th>脂肪(g)</th>
-              <th>能量比例</th>
+              <th class="order" ng-click="title='FP_HM';desc=!desc">
+                餐别
+                <span></span>
+              </th>
+              <th class="order" ng-click="title='FP_HM';desc=!desc">
+                食物类别
+                <span></span>
+              </th>
+              <th class="order" ng-click="title='FP_HM';desc=!desc">
+                食物二级类型<span></span>
+              </th>
+              <th>
+                食物
+              </th>
+              <th>
+                重量（g）
+              </th>
             </tr>
-            <tbody>
-              <tr ng-show="dataLengths" ng-repeat="x in data ">
-                <td> {{ x["用餐类型"]}}</td>
-                <td> {{x.totalCal=(x["碳水化合物"]*4+x["脂肪"]*9+x["蛋白质"]*4).toFixed(1)}}</td>
-                <td>{{ ((x.totalCal/totalCalAll)*100).toFixed(1)+'%'}}</td>
-                <td> {{x["碳水化合物"].toFixed(1)}}</td>
-                <td>{{ ((x["碳水化合物"]*4/x.totalCal)*100).toFixed(1)+'%'}}</td>
-                <td> {{x["蛋白质"].toFixed(1)}}</td>
-                <td>{{( (x["蛋白质"]*4/x.totalCal)*100).toFixed(1)+'%'}}</td>
-                <td> {{x["脂肪"].toFixed(1)}}</td>
-                <td>{{((x["脂肪"]*9/x.totalCal)*100).toFixed(1)+'%'}}</td>
-              </tr>
-              <tr ng-show="!dataLengths">
-                <td colspan="100" class="text-center ">暂无结果</td>
-              </tr>
-            </tbody>
-          </table>
-          <p><b>1g碳水化合物产生4kcal热量，1g脂肪产生9kcal热量，1g蛋白质产生4kcal热量</b></p>
+          </thead>
+          <tbody id="databody">
+            <tr ng-show="foodRecordDataLengths" ng-repeat="x in foodRecordData ">
+              <td ng-switch='x.type'>
+                <span ng-switch-when="1">早餐</span>
+                <span ng-switch-when="2">午餐</span>
+                <span ng-switch-when="3">晚餐</span>
+                <span ng-switch-when="4">零食</span>
+              </td>
+              <td>{{ x.dietEntity.categories }}</td>
+              <td>{{ x.dietEntity.subcategories }}</td>
+              <td>{{ x.dietEntity.name }}</td>
+              <td>{{ x.weight }}</td>
+            </tr>
+            <tr ng-show="!foodRecordDataLengths">
+              <td colspan="100" class="text-center ">暂无结果</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>备注：{{remark.dietComment?remark.dietComment:'无'}}</p>
+    </div>
 
-        </div>
+    <!-- 当前页隐藏域 -->
+    <input id="currentPage" name="currentPage" value="1" type="hidden">
+
+    <div class="container-fluid row">
+      <div class="col-xs-12">
+        <h4><b>每餐能量营养分析</b></h4>
+        <table class="table table-bordered table-condensed">
+          <tr>
+            <th></th>
+            <th>总能量</th>
+            <th>占总能量比例</th>
+            <th>碳水化合物(g)</th>
+            <th>能量比例</th>
+            <th>蛋白质(g)</th>
+            <th>能量比例</th>
+            <th>脂肪(g)</th>
+            <th>能量比例</th>
+          </tr>
+          <tbody>
+            <tr ng-show="dataLengths" ng-repeat="x in data ">
+              <td> {{ x["用餐类型"]}}</td>
+              <td> {{x.totalCal=(x["碳水化合物"]*4+x["脂肪"]*9+x["蛋白质"]*4).toFixed(1)}}</td>
+              <td>{{ ((x.totalCal/totalCalAll)*100).toFixed(1)+'%'}}</td>
+              <td> {{x["碳水化合物"].toFixed(1)}}</td>
+              <td>{{ ((x["碳水化合物"]*4/x.totalCal)*100).toFixed(1)+'%'}}</td>
+              <td> {{x["蛋白质"].toFixed(1)}}</td>
+              <td>{{( (x["蛋白质"]*4/x.totalCal)*100).toFixed(1)+'%'}}</td>
+              <td> {{x["脂肪"].toFixed(1)}}</td>
+              <td>{{((x["脂肪"]*9/x.totalCal)*100).toFixed(1)+'%'}}</td>
+            </tr>
+            <tr ng-show="!dataLengths">
+              <td colspan="100" class="text-center ">暂无结果</td>
+            </tr>
+          </tbody>
+        </table>
+        <p><b>1g碳水化合物产生4kcal热量，1g脂肪产生9kcal热量，1g蛋白质产生4kcal热量</b></p>
+
       </div>
     </div>
-    <!--脚本-->
-    <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
-    <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/angular.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
-    <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
-    <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
-    <script type="text/javascript" src="../../Scripts/doc/userdata/foodrecord.js"></script>
-    <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
-  </body>
+  </div>
+  <!--脚本-->
+  <script type="text/javascript" src="../../Scripts/jquery-1.10.1.js"></script>
+  <script type="text/javascript" src="../../Scripts/jquery.datetimepicker.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/angular.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap.js"></script>
+  <script type="text/javascript" src="../../Scripts/select2.full.min.js"></script>
+  <script type="text/javascript" src="../../Scripts/bootstrap-paginator.js"></script>
+  <script type="text/javascript" src="../../Scripts/CommonScript.js"></script>
+  <script type="text/javascript" src="../../Scripts/doc/userdata/foodrecord.js"></script>
+  <script type="text/javascript" src="../../Scripts/httpconfig/config.js"></script>
+</body>
 
 </html>
