@@ -72,12 +72,14 @@
             </tr>
           </thead>
           <tbody id="databody">
-            <tr ng-show="foodRecordDataLengths" ng-repeat="x in foodRecordData ">
-              <td ng-switch='x.type'>
-                <span ng-switch-when="1">早餐</span>
+            <tr ng-show="foodRecordDataLengths" ng-repeat="x in foodRecordData |orderBy:type">
+              <td>
+                <!-- <span ng-switch-when="1">早餐</span>
                 <span ng-switch-when="2">午餐</span>
                 <span ng-switch-when="3">晚餐</span>
-                <span ng-switch-when="4">零食</span>
+                <span ng-switch-when="4">零食</span> -->
+
+                <span>{{x.type | foodType}}</span>
               </td>
               <td>{{ x.dietEntity.categories }}</td>
               <td>{{ x.dietEntity.subcategories }}</td>

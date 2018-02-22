@@ -68,6 +68,7 @@
  var params = ""; //全局变量
  var app = angular.module('myApp', []);
  app.controller('customersCtrl', function($scope, $http) {
+
    //分页方法声明
    var pageing = function(pageindex, params) {
      //请求地址
@@ -135,6 +136,7 @@
      });
      //  diary?userId=1&date=2017-03-01
    }
+   $scope.type = 'type';
 
    var index = 0;
    var UserID = "";
@@ -222,6 +224,34 @@
    $scope.$watch("viewContentLoaded", function() {
      angular.element(".myload").removeClass("myload");
    });
+ });
+
+
+ app.filter('foodType', function() { //可以注入依赖
+
+   return function(key) {
+     switch (key) {
+       case 1:
+         return "早餐";
+         break;
+
+       case 2:
+         return "午餐";
+         break;
+
+       case 3:
+         return "晚餐";
+         break;
+
+       case 4:
+         return "零食";
+         break;
+
+       default:
+         return "类别";
+         break;
+     }
+   }
  });
 
 

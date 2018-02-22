@@ -14,7 +14,7 @@ uploader = Qiniu.uploader({
     var token = "";
     $.ajax({
       type: "get",
-      url: BasicUrl+"qnToken",
+      url: BasicUrl + "qnToken",
       async: false,
       dataType: "json",
       success: function(data) {

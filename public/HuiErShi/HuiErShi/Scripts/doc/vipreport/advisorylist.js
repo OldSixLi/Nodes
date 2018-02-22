@@ -145,6 +145,15 @@
  var app = angular.module("myApp", ['ngSanitize']);
 
  app.controller('customersCtrl', function($scope, $http) {
+
+
+   $http.get(BasicUrl + "admin/advisers").success(function(data) {
+     if (data != null && data != "" && data != "null") {
+       $scope.options = data;
+       tool.changeSelect($("#expertList"), false);
+     }
+   });
+
    document.getElementsByClassName('talk_end')[0].onclick = function() {
      $("#model").modal('hide')
    }
@@ -648,33 +657,37 @@
      //TODO 获取全部视图的数据
      // $(".start_end_time").datetimepicker();
      //专家列表  TODO
-     // $("#expertList").select2({
-     //   placeholder: '请选择',
-     //   allowClear: true,
-     //   ajax: {
-     //     url: function(params) {
-     //       return BasicUrl + "admin/experts/" + params.term;
-     //     },
-     //     dataType: 'json',
-     //     delay: 250,
-     //     processResults: function(data, page) {
-     //       return {
-     //         results: data
-     //       };
-     //     },
-     //     cache: false
-     //   },
-     //   // escapeMarkup: function(markup) {
-     //   //   return markup;
-     //   // },
-     //   minimumInputLength: 1,
-     //   minimumResultsForSearch: 1,
-     //   width: "220px",
-     //   templateResult: formatRepo,
-     //   templateSelection: formatRepoSelection,
-     // });
+     //  $("#expertList").select2({
+     //    placeholder: '请选择',
+     //    allowClear: true,
+     //    ajax: {
+     //      url: function(params) {
+     //        return BasicUrl + "admin/experts/" + params.term;
+     //      },
+     //      dataType: 'json',
+     //      delay: 250,
+     //      processResults: function(data, page) {
+     //        return {
+     //          results: data
+     //        };
+     //      },
+     //      cache: false
+     //    },
+     //    // escapeMarkup: function(markup) {
+     //    //   return markup;
+     //    // },
+     //    minimumInputLength: 1,
+     //    minimumResultsForSearch: 1,
+     //    width: "220px",
+     //    templateResult: formatRepo,
+     //    templateSelection: formatRepoSelection,
+     //  });
 
-     tool.changeSelect($("#expertList"), true);
+     //  tool.changeSelect($("#expertList"), true);
+
+
+
+
    });
 
    function formatRepo(repo) {
@@ -769,6 +782,7 @@
      }
      //分页方法
    pageing(0, params);
+   alert(2)
 
 
 

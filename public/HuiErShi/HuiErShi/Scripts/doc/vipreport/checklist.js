@@ -4,6 +4,7 @@
 
 
 
+
    // $("#txtKeyWord").select2({
    //   placeholder: '请选择',
    //   allowClear: true,
@@ -36,7 +37,8 @@
    // }
  });
 
-
+ var adminData = new getAdmin();
+ var roleType = adminData.role;
  tool.changeSelect($("#sltTag"), false);
 
  // keyWord=&adviserId=&minCreatedAt=&maxCreatedAt=
@@ -50,8 +52,17 @@
    $http.get(url).success(function(data) {
      if (data != null && data != "" && data != "null") {
        $scope.options = data;
-       tool.changeSelect($("#sltAdviser"), true);
+       //NOTE 此处涉及ag渲染未完成以及select2赋值问题,应寻找更严谨方法
+       tool.changeSelect($("#sltAdviser"), false);
+       if (roleType == "1") {
+         setTimeout(function() {
+           $("#sltAdviser").val(adminId()).trigger("change");
+           $("#sltAdviser").prop("disabled", true);
+         }, 10);
+       }
      }
+   }).then(function() {
+
    });
 
    var pageing = function(pageindex, params) {

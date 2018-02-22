@@ -32,7 +32,8 @@
         }
 
       });
-
+      var adminData = new getAdmin();
+      var roleType = adminData.role;
       var params = "advisorId=&userId=&minCreateAt=&maxCreateAt=&"; //全局变量 
       //表单校验
       (function() {
@@ -82,6 +83,14 @@
             if (data != null && data != "" && data != "null") {
               $scope.options = data;
               tool.changeSelect($("#advisorId"), true);
+              if (roleType == "1") {
+
+                setTimeout(function() {
+                  $("#advisorId").val(adminId()).trigger("change");
+                  $("#advisorId").prop("disabled", true);
+                }, 10);
+              }
+
             }
           });
           //获取当前专家下的会员
