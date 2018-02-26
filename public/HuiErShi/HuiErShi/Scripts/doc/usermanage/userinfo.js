@@ -55,7 +55,6 @@ function formatRepoSelection(repo) {
 }
 var app = angular.module('myApp', []);
 app.controller('customersCtrl', function($scope, $http) {
-
   /**
    * 获取会籍顾问
    * @returns

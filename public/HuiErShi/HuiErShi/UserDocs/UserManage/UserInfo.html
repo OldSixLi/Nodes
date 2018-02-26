@@ -113,6 +113,10 @@
             <div class="row">
               <div class="col-md-4 ">
                 <p>
+                  <label class="control-label">身高：</label>
+                  <span id="height">{{data.height?data.height+" cm":"未录入"}} </span>
+                </p>
+                <p>
                   <label class="control-label">家族史：</label>
                   <span id="familyMedicalHistory">{{data.familyMedicalHistory}}</span>
                 </p>
@@ -126,6 +130,10 @@
                 </p>
               </div>
               <div class="col-md-4">
+                <p>
+                  <label class="control-label">体重：</label>
+                  <span id="weight">{{data.weight?data.weight+" kg":"未录入"}}</span>
+                </p>
                 <p>
                   <label class="control-label">睡眠情况：</label>
                   <span id="sleepSituation">{{data.sleepSituation}}</span>
