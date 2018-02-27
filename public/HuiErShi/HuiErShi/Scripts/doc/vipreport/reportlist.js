@@ -41,7 +41,8 @@
  function formatRepoSelection(repo) {
    return repo.realName;
  }
-
+ var adminData = new getAdmin();
+ var roleType = adminData.role;
  var params = ""; //全局变量  请求的参数
  var app = angular.module('myApp', []);
  app.controller('customersCtrl', function($scope, $http) {
@@ -60,13 +61,25 @@
    $http.get(BasicUrl + "admin/advisers").success(function(data) {
      if (data != null && data != "" && data != "null") {
        $scope.options = data;
+       //  sltAdviser
+       tool.changeSelect($("#sltAdviser"), false);
+       if (roleType == "1") {
+         setTimeout(function() {
+           $("#sltAdviser").val(adminId()).trigger("change");
+           $("#sltAdviser").prop("disabled", true);
+         }, 10);
+       }
      }
    });
-   tool.changeSelect($("#sltAdviser"), false);
+   //  tool.changeSelect($("#sltAdviser"), false);
    //分页方法声明
    var pageing = function(pageindex, params) {
      //TODO  需要修改部分    
      var url = BasicUrl + "report?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+     if (roleType != "0") {
+       //添加专家 会籍顾问身份只看自己下面会员数据的功能
+       url += "&adviserId=" + adminId();
+     }
      $http.get(url).success(function(data) {
        if (data != null && data != "" && data != "null") {
          //判断当前是否存在记录

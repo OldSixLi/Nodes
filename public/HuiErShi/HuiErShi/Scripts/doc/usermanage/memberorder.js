@@ -27,13 +27,18 @@
      }
      tool.changeSelect($("#sltItem"), false);
    });
-
+   var adminData = new getAdmin();
+   var roleType = adminData.role;
    //分页方法声明
    var pageing = function(pageindex, params) {
 
      // /appointmentItems/All
      //请求地址 
      var url = BasicUrl + "appointment?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
+     if (roleType != "0") {
+       //添加专家 会籍顾问身份只看自己下面会员数据的功能
+       url += "&adviserId=" + adminId();
+     }
      $http.get(url).success(function(data) {
        if (data != null && data != "" && data != "null") {
          //判断当前是否存在记录

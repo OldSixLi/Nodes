@@ -84,7 +84,6 @@
               $scope.options = data;
               tool.changeSelect($("#advisorId"), true);
               if (roleType == "1") {
-
                 setTimeout(function() {
                   $("#advisorId").val(adminId()).trigger("change");
                   $("#advisorId").prop("disabled", true);

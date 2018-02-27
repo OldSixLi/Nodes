@@ -145,8 +145,6 @@
  var app = angular.module("myApp", ['ngSanitize']);
 
  app.controller('customersCtrl', function($scope, $http) {
-
-
    $http.get(BasicUrl + "admin/advisers").success(function(data) {
      if (data != null && data != "" && data != "null") {
        $scope.options = data;
@@ -643,16 +641,7 @@
      function(err) {}
    );
 
-
-
-
-
-
-
-
-
    $(function() {
-
      tool.changeSelect($("#sltViewList"), false);
      //TODO 获取全部视图的数据
      // $(".start_end_time").datetimepicker();
@@ -686,8 +675,6 @@
      //  tool.changeSelect($("#expertList"), true);
 
 
-
-
    });
 
    function formatRepo(repo) {
@@ -711,12 +698,9 @@
      'from': '2',
      'con': '3'
    }];
-   $http.get(url).success(function(data) {
-     if (data != null && data != "" && data != "null") {
-       $scope.options = data;
-     }
-   });
-   var url = BasicUrl + "admin/advisers";
+
+
+
    var meg = [];
    //分页方法声明
    var pageing = function(pageindex, params) {
@@ -726,8 +710,13 @@
        if (admindata.role == 2 || admindata.role == 3) {
          var id = login.identifier.match(/\d+/)[0];
        }
-
        var url = BasicUrl + "IMConsult?" + params + "page=" + pageindex + "&pageNum=10&expertId=" + id; //请求的参数和地址
+
+       $http.get(BasicUrl + "admin/advisers").success(function(data) {
+         if (data != null && data != "" && data != "null") {
+           $scope.options = data;
+         }
+       });
        $http.get(url).success(function(data) {
          if (data != null && data != "" && data != "null") {
            //判断当前是否存在记录
@@ -737,14 +726,6 @@
              $scope.data = data;
              //http://healthshare.com.cn:80/admin/api/api-docs/../IM/group/GROUP_REPORT42
              //                    var url=BasicUrl+'IM/group/GROUP_REPORT'
-
-
-
-
-
-
-
-
 
 
 
@@ -779,13 +760,11 @@
            $scope.dataLengths = false;
          }
        });
+
+
      }
      //分页方法
    pageing(0, params);
-   alert(2)
-
-
-
 
    $scope.sendMsg = function() {
      onSendMsg(groupId)
@@ -848,11 +827,6 @@
                }
              }
              $scope.$apply();
-
-
-
-
-
            },
            function(err) {
              //  alert('不能展开对话')
@@ -866,8 +840,6 @@
        }
      );
      meg = [];
-
-
    }
    $scope.selectPicClick = function(a) {
        selectPicClick(groupId);
