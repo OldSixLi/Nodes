@@ -66,7 +66,7 @@
    });
 
    var pageing = function(pageindex, params) {
-     if (currentRole == "1") {
+     if (currentRole != "0") {
        var url = BasicUrl + "inspection?" + params + 'adviserId=' + adminId() + "&page=" + pageindex + "&pageNum=10";
      } else {
        var url = BasicUrl + "inspection?" + params + "page=" + pageindex + "&pageNum=10";
