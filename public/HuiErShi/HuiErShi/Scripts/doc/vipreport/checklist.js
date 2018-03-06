@@ -54,6 +54,7 @@
        $scope.options = data;
        //NOTE 此处涉及ag渲染未完成以及select2赋值问题,应寻找更严谨方法
        tool.changeSelect($("#sltAdviser"), false);
+       //  alert(roleType)
        if (roleType == "1") {
          setTimeout(function() {
            $("#sltAdviser").val(adminId()).trigger("change");
