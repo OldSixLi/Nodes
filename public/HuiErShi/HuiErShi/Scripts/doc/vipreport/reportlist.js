@@ -76,10 +76,10 @@
    var pageing = function(pageindex, params) {
      //TODO  需要修改部分    
      var url = BasicUrl + "report?" + params + "page=" + pageindex + "&pageNum=10"; //请求的参数和地址
-     if (roleType != "0") {
-       //添加专家 会籍顾问身份只看自己下面会员数据的功能
-       url += "&adviserId=" + adminId();
-     }
+     //  if (roleType != "0") {
+     //    //添加专家 会籍顾问身份只看自己下面会员数据的功能
+     //    url += "&adviserId=" + adminId();
+     //  }
      $http.get(url).success(function(data) {
        if (data != null && data != "" && data != "null") {
          //判断当前是否存在记录
@@ -116,9 +116,9 @@
 
 
    //会籍顾问根据角标提示进入此页面
-   if (obj.adminId) {
-     params = "adviserId=" + obj.adminId + "&"
-   }
+   //  if (obj.adminId) {
+   //    params = "adviserId=" + obj.adminId + "&"
+   //  }
    //分页方法
    pageing(0, params);
 

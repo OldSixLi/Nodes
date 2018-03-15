@@ -807,7 +807,7 @@ app.controller('customersCtrl', function($scope, $http, $timeout) {
       });
   }
 
-  //删除运动专家处方
+  //删除医疗专家处方
   $scope.deleteSportArr = function(id, consultId) {
     var url = BasicUrl + "report/" + $scope.reportId + "/consult/" + $scope.expertData.sportId + "/prescription/" + id
     tool.confirm(

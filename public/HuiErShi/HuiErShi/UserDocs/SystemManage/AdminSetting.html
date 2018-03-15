@@ -83,7 +83,7 @@
                 <div class="col-sm-8" style="line-height:35px;">
                   <input type="radio" name="role" ng-model="model.role" value="0">管理员&nbsp;&nbsp;
                   <input type="radio" name="role" ng-model="model.role" value="1">会籍顾问&nbsp;&nbsp;
-                  <input type="radio" name="role" ng-model="model.role" value="2">运动专家&nbsp;&nbsp;
+                  <input type="radio" name="role" ng-model="model.role" value="2">医疗专家&nbsp;&nbsp;
                   <input type="radio" name="role" ng-model="model.role" value="3">饮食专家&nbsp;&nbsp;
                 </div>
               </div>
@@ -129,7 +129,7 @@
               <td>
                 <span ng-if="x.role=='0'">管理员</span>
                 <span ng-if="x.role=='1'">会籍顾问</span>
-                <span ng-if="x.role=='2'">运动专家</span>
+                <span ng-if="x.role=='2'">医疗专家</span>
                 <span ng-if="x.role=='3'">营养专家</span></td>
               <td>
                 <a href="#" title="修改操作" ng-click='getEditModel(x.id)'><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;&nbsp;

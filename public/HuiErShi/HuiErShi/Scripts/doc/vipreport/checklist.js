@@ -67,11 +67,11 @@
    });
 
    var pageing = function(pageindex, params) {
-     if (currentRole != "0") {
-       var url = BasicUrl + "inspection?" + params + 'adviserId=' + adminId() + "&page=" + pageindex + "&pageNum=10";
-     } else {
-       var url = BasicUrl + "inspection?" + params + "page=" + pageindex + "&pageNum=10";
-     }
+     //  if (currentRole != "0") {
+     //    var url = BasicUrl + "inspection?" + params + 'adviserId=' + adminId() + "&page=" + pageindex + "&pageNum=10";
+     //  } else {
+     var url = BasicUrl + "inspection?" + params + "page=" + pageindex + "&pageNum=10";
+     //  }
 
      //  var url = BasicUrl + "inspection?" + params + "page=" + pageindex + "&pageNum=10";
      $http.get(url).success(function(data) {
@@ -132,11 +132,11 @@
 
      if (adviserId) {
 
-       if (currentRole == "1") {
-         params += 'adviserId=' + adminId() + '&';
-       } else {
-         params += 'adviserId=' + adviserId + '&';
-       }
+       //  if (currentRole == "1") {
+       //    params += 'adviserId=' + adminId() + '&';
+       //  } else {
+       params += 'adviserId=' + adviserId + '&';
+       //  }
 
      }
      if (type) {

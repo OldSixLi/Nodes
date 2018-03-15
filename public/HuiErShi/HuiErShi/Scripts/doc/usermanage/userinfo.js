@@ -22,7 +22,7 @@ $(function() {
           return false;
         } else {
           if (obj[type] && type == "2") {
-            tool.alert("提示", "每人只能选择一位运动专家进行咨询！");
+            tool.alert("提示", "每人只能选择一位医疗专家进行咨询！");
             return false;
           } else if (obj[type] && type == "3") {
             tool.alert("提示", "每人只能选择一位饮食专家进行咨询！");
@@ -203,7 +203,7 @@ app.controller('customersCtrl', function($scope, $http) {
 
     var $users = $("#multiselect_to").find("option");
     if ($users.length != 2) {
-      tool.alert("提示", "请至少选择一位饮食专家和一位运动专家");
+      tool.alert("提示", "请至少选择一位饮食专家和一位医疗专家");
       return false;
     }
     var expert = {
@@ -211,7 +211,7 @@ app.controller('customersCtrl', function($scope, $http) {
       sport: null
     };
     $users.each(function() {
-      //获取饮食专家和运动专家
+      //获取饮食专家和医疗专家
       if ($(this).attr("data-type") == "3") {
         expert.food = $(this).val();
       }
